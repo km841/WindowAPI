@@ -59,7 +59,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 //
 //  함수: MyRegisterClass()
-//
+// 221018
+// 
 //  용도: 창 클래스를 등록합니다.
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
