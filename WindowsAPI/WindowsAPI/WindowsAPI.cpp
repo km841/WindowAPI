@@ -105,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
+   SetWindowPos(hWnd, nullptr, 0, 0, 1920, 1080, 0);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -126,6 +126,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+
+    case WM_CREATE:
+    {
+        
+    }
+    break;
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -147,7 +154,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            HBRUSH hClearBrush = CreateSolidBrush(RGB(255, 255, 255));
+            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
+
+            Rectangle(hdc, -1, -1, 1921, 1081);
+
+
+            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+            HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));
+            HPEN oldPen = (HPEN)SelectObject(hdc, hRedPen);
+            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hGreenBrush);
+
+            Rectangle(hdc, 100, 100, 300, 300);
+            Ellipse(hdc, 200, 200, 300, 300);
+
+            SelectObject(hdc, oldPen);
+            SelectObject(hdc, oldBrush);
+            DeleteObject(hRedPen);
+            DeleteObject(hGreenBrush);
             EndPaint(hWnd, &ps);
         }
         break;
