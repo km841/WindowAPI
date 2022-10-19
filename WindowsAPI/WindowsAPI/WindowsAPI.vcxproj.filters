@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
+    <Filter Include="main">
+      <UniqueIdentifier>{ebc6a0f0-9c56-4da9-b16c-c49a76b53b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{a2473b3f-c641-4ff2-a2f9-a63e0b0fdddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{ebc6a0f0-9c56-4da9-b16c-c49a76b53b27}</UniqueIdentifier>
+    <Filter Include="Client">
+      <UniqueIdentifier>{741bfb28-ee93-41c3-8683-ab4ab19cc694}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,23 +28,37 @@
     <ClInclude Include="WindowsAPI.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="yaApplication.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
-      <Filter>리소스 파일</Filter>
+      <Filter>main\리소스 파일</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
+      <Filter>main\리소스 파일</Filter>
     </Image>
     <Image Include="WindowsAPI.ico">
-      <Filter>리소스 파일</Filter>
+      <Filter>main\리소스 파일</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WindowsAPI.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="yaApplication.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEntity.cpp" />
   </ItemGroup>
 </Project>

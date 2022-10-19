@@ -1,8 +1,9 @@
 ﻿// WindowsAPI.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "framework.h"
+#include "Common.h"
 #include "WindowsAPI.h"
+#include "yaApplication.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,20 @@
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+
+struct Pos
+{
+    int x, y;
+
+    Pos& operator+= (const Pos& other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+};
+
+typedef Pos Size;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -43,13 +58,34 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+            {
+                break;
+            }
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+
+        else
+        {
+            // 게임 실행
+            ya::Application::GetInstance().Tick();
+        }
+       
+    }
+
+
+    if (WM_QUIT == msg.message)
+    {
+        // 메모리 해제
     }
 
     return (int) msg.wParam;
@@ -101,13 +137,24 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+   WindowData windowData;
+   windowData.width = 1920;
+   windowData.height = 1080;
+
+   windowData.hWnd = hWnd;
+   windowData.hdc = nullptr;
+
+
+
    if (!hWnd)
    {
       return FALSE;
    }
-   SetWindowPos(hWnd, nullptr, 0, 0, 1920, 1080, 0);
+   SetWindowPos(hWnd, nullptr, 0, 0, windowData.width, windowData.height, 0);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   ya::Application::GetInstance().Initialize(windowData);
 
    return TRUE;
 }
@@ -122,14 +169,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    
     switch (message)
     {
 
     case WM_CREATE:
     {
-        
+
+
+       // SetTimer(hWnd, 0, 100, nullptr);
     }
     break;
 
@@ -150,29 +201,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+
+    case WM_KEYDOWN:
+    {
+
+    }
+        break;
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 
-            HBRUSH hClearBrush = CreateSolidBrush(RGB(255, 255, 255));
-            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
 
-            Rectangle(hdc, -1, -1, 1921, 1081);
-
-
-            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-            HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));
-            HPEN oldPen = (HPEN)SelectObject(hdc, hRedPen);
-            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hGreenBrush);
-
-            Rectangle(hdc, 100, 100, 300, 300);
-            Ellipse(hdc, 200, 200, 300, 300);
-
-            SelectObject(hdc, oldPen);
-            SelectObject(hdc, oldBrush);
-            DeleteObject(hRedPen);
-            DeleteObject(hGreenBrush);
             EndPaint(hWnd, &ps);
         }
         break;
