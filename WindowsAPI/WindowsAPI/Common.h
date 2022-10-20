@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 
+#include "def.h"
 #include "Maths.h"
 
 //using Pos = POINT;

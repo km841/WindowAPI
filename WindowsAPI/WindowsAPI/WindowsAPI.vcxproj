@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="def.h" />
+    <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="yaApplication.h" />
     <ClInclude Include="Common.h" />
@@ -135,11 +137,20 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WindowsAPI.h" />
     <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaScene.h" />
+    <ClInclude Include="yaSceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaScene.cpp" />
+    <ClCompile Include="yaSceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc" />

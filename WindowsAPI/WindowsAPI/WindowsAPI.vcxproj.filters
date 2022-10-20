@@ -14,6 +14,24 @@
     <Filter Include="Client">
       <UniqueIdentifier>{741bfb28-ee93-41c3-8683-ab4ab19cc694}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager">
+      <UniqueIdentifier>{d7a96e5d-5c07-4626-a8de-12636a0fabf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{cf24b1de-e9f4-4b07-b574-fd73b49596d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{986e4c29-a3fa-4119-9561-6af1909be318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{33259fe7-1483-4b2e-9d7a-1f6ced53d3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\HighLevel Interface">
+      <UniqueIdentifier>{88dd9357-1c93-41cf-bbe8-25704d4f6937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Base">
+      <UniqueIdentifier>{9e1a1099-7380-4b21-a872-b206c9445c7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -31,13 +49,33 @@
     <ClInclude Include="yaApplication.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Engine</Filter>
+    <ClInclude Include="yaSceneManager.h">
+      <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Maths.h">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="Common.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="def.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEntity.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -59,6 +97,23 @@
     <ClCompile Include="yaApplication.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaSceneManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEntity.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

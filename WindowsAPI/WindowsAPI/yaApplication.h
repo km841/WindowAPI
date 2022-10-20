@@ -14,11 +14,14 @@ namespace ya
 			return mInstance;
 		}
 
-		Application();
-		~Application();
+		
 
 		void Initialize(WindowData data);
 		void Tick();
+
+	private:
+		Application();
+		~Application();
 
 
 	private:
