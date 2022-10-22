@@ -15,7 +15,7 @@ namespace ya
 		}
 
 		
-
+		const WindowData& GetWindowData() const { return mWindowData; };
 		void Initialize(WindowData data);
 		void Tick();
 

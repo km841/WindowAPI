@@ -1,5 +1,7 @@
 #include "yaLogoScene.h"
 #include "yaPlayer.h"
+#include "yaApplication.h"
+#include "MeteorManager.h"
 
 namespace ya
 {
@@ -14,6 +16,8 @@ namespace ya
 	void LogoScene::Initialize()
 	{
 		AddGameObject(new Player());
+		
+
 	}
 
 	void LogoScene::Tick()

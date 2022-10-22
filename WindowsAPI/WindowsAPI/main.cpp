@@ -143,7 +143,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    windowData.hWnd = hWnd;
    windowData.hdc = nullptr;
-
+   
+   std::srand(static_cast<UINT>(time(nullptr)));
 
 
    if (!hWnd)

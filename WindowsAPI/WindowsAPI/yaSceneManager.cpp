@@ -1,6 +1,7 @@
 #include "yaSceneManager.h"
 #include "yaLogoScene.h"
 
+
 namespace ya
 {
 	void SceneManager::Initialize()

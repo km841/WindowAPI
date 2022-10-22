@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="def.h" />
+    <ClInclude Include="Meteor.h" />
+    <ClInclude Include="MeteorManager.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="yaApplication.h" />
@@ -137,20 +139,28 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WindowsAPI.h" />
     <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="yaMissile.h" />
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaScene.h" />
     <ClInclude Include="yaSceneManager.h" />
+    <ClInclude Include="yaTime.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Meteor.cpp" />
+    <ClCompile Include="MeteorManager.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaApplication.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaMissile.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaScene.cpp" />
     <ClCompile Include="yaSceneManager.cpp" />
+    <ClCompile Include="yaTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc" />

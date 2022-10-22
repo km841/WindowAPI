@@ -1,4 +1,10 @@
 #include "yaPlayer.h"
+#include "yaTime.h"
+#include "yaInput.h"
+#include "yaMissile.h"
+#include "yaSceneManager.h"
+#include "yaApplication.h"
+#include "yaScene.h"
 
 namespace ya
 {
@@ -6,7 +12,8 @@ namespace ya
 	Player::Player()
 		: mSpeed(1.0f)
 	{
-		SetPos(Vector2{ 100.f, 100.f });
+		const auto& windowData = Application::GetInstance().GetWindowData();
+		SetPos(Vector2{ float(windowData.width / 2 - 50), float(windowData.height - 300) });
 		SetScale(Vector2{ 100.f, 100.f });
 	}
 
@@ -17,24 +24,41 @@ namespace ya
 	void Player::Tick()
 	{
 		Vector2 pos = GetPos();
-		if (GetAsyncKeyState('W') & 0x8000)
+		if (KEY_PRESSED(eKeyCode::W))
 		{
-			pos.y -= 0.01;
+			pos.y -= 300.f * Time::DeltaTime();
 		}
 
-		if (GetAsyncKeyState('S') & 0x8000)
+		if (KEY_PRESSED(eKeyCode::S))
 		{
-			pos.y += 0.01;
+			pos.y += 300.f * Time::DeltaTime();
 		}
 
-		if (GetAsyncKeyState('A') & 0x8000)
+		if (KEY_PRESSED(eKeyCode::A))
 		{
-			pos.x -= 0.01;
+			pos.x -= 300.f * Time::DeltaTime();
 		}
 
-		if (GetAsyncKeyState('D') & 0x8000)
+		if (KEY_PRESSED(eKeyCode::D))
 		{
-			pos.x += 0.01;
+			pos.x += 300.f * Time::DeltaTime();
+		}
+
+		if (KEY_DOWN(eKeyCode::SPACE))
+		{
+			Scene* scene = SceneManager::GetPlayScene();
+			Missile* missile = new Missile();
+			scene->AddGameObject(missile);
+
+			Vector2 playerPos = GetPos();
+			Vector2 playerScale = GetScale() / 2.f;
+
+			Vector2 missileScale = missile->GetScale();
+
+			missile->SetPos((playerPos + playerScale) - (missileScale / 2.f));
+
+			//운석 피하기 게임
+			//씬에 추가해주는 거 잊지 않기
 		}
 
 		SetPos(pos);

@@ -32,6 +32,9 @@
     <Filter Include="Engine\GameObject\Base">
       <UniqueIdentifier>{9e1a1099-7380-4b21-a872-b206c9445c7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Meteor">
+      <UniqueIdentifier>{bc71c0c3-8520-4542-840a-f66cf8dd7fa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -76,6 +79,21 @@
     <ClInclude Include="yaPlayer.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="yaTime.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaInput.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMissile.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Meteor.h">
+      <Filter>Engine\GameObject\Meteor</Filter>
+    </ClInclude>
+    <ClInclude Include="MeteorManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -114,6 +132,21 @@
     </ClCompile>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTime.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaInput.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMissile.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Meteor.cpp">
+      <Filter>Engine\GameObject\Meteor</Filter>
+    </ClCompile>
+    <ClCompile Include="MeteorManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
