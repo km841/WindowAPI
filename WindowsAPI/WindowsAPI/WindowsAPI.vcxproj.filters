@@ -35,6 +35,12 @@
     <Filter Include="Engine\GameObject\Meteor">
       <UniqueIdentifier>{bc71c0c3-8520-4542-840a-f66cf8dd7fa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{2750ae0c-e213-45fb-a67e-11bd5a347e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Base">
+      <UniqueIdentifier>{99cd0199-07a5-491f-b766-846920e6ae49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -94,6 +100,16 @@
     <ClInclude Include="yaApplication.h">
       <Filter>Engine\HighLevel Interface</Filter>
     </ClInclude>
+    <ClInclude Include="yaResource.h">
+      <Filter>Engine\Resource\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaImage.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="yaResources.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -149,5 +165,15 @@
       <Filter>Engine\HighLevel Interface</Filter>
     </ClCompile>
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="yaResource.cpp">
+      <Filter>Engine\Resource\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaImage.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yaResources.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
 </Project>

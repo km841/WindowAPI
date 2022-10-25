@@ -6,8 +6,8 @@ struct Vector2
 	float y;
 
 	Vector2(int x, int y)
-		: x(x)
-		, y(y)
+		: x((float)x)
+		, y((float)y)
 	{ }
 	Vector2(float x, float y)
 		: x(x)

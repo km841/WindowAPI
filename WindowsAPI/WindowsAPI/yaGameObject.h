@@ -21,13 +21,16 @@ namespace ya
 		void SetScale(Vector2 scale) { mScale = scale; }
 		Vector2 GetScale() const { return mScale; }
 
+	/*	void SetHdc(HDC hdc) { mHdc = hdc; }
+		HDC GetHdc() const  { return mHdc; }*/
+
 
 
 	private:
 		// 될수록 리소스 크기변경하지않고 그대로 쓰는게 가장 좋음
 		Vector2 mPos;
 		Vector2 mScale;
-
+		//HDC mHdc;
 
 	};
 }

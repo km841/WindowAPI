@@ -5,6 +5,8 @@
 #include "yaSceneManager.h"
 #include "yaApplication.h"
 #include "yaScene.h"
+#include "yaImage.h"
+#include "yaResources.h"
 
 namespace ya
 {
@@ -15,6 +17,11 @@ namespace ya
 		const auto& windowData = Application::GetInstance().GetWindowData();
 		SetPos(Vector2{ float(windowData.width / 2 - 50), float(windowData.height - 300) });
 		SetScale(Vector2{ 50.f, 50.f });
+
+		if (nullptr == mImage)
+		{
+			mImage = Resources<Image>::Load(L"Player", L"..\\Resources\\Image\\Player.bmp");
+		}
 	}
 
 	Player::~Player()
@@ -75,12 +82,21 @@ namespace ya
 		//숙제 : 얘를 이용해서 메테오 내려오는거 떨어지는애들을 펜색, 브러시색을 랜덤으로 바꾸기
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
-		Rectangle(hdc
-			, pos.x
-			, pos.y
-			, pos.x + scale.x
-			, pos.y + scale.y);
+		//Rectangle(hdc
+		//	, pos.x
+		//	, pos.y
+		//	, pos.x + scale.x
+		//	, pos.y + scale.y);
 
+	
+
+		BitBlt(hdc
+			, pos.x, pos.y
+			, mImage->GetWidth()
+			, mImage->GetHeight()
+			, mImage->GetDC()
+			, 0, 0
+			, SRCCOPY);
 	}
 
 }

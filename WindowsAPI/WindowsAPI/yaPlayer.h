@@ -3,6 +3,7 @@
 
 namespace ya
 {
+    class Image;
     class Player :
         public GameObject
     {
@@ -16,6 +17,7 @@ namespace ya
 
     private:
         float mSpeed;
+        Image* mImage;
 
     };
 }

@@ -3,7 +3,7 @@
 #include "yaTime.h"
 #include "yaInput.h"
 #include "Common.h"
-#include "MeteorManager.h"
+//#include "MeteorManager.h"
 
 
 
@@ -21,7 +21,7 @@ namespace ya
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initialize();
-		MeteorManager::GetInstance().Initialize();
+		//MeteorManager::GetInstance().Initialize();
 	}
 
 	void Application::Tick()
@@ -31,7 +31,7 @@ namespace ya
 
 		Rectangle(mWindowData.backBuffer, -1, -1, mWindowData.width + 1, mWindowData.height + 1);
 		SceneManager::Tick();
-		MeteorManager::GetInstance().Tick();
+		//MeteorManager::GetInstance().Tick();
 		
 		SceneManager::Render(mWindowData.backBuffer);
 		Time::Render(mWindowData.backBuffer);
@@ -49,6 +49,8 @@ namespace ya
 	{
 		SceneManager::Release();
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
+		ReleaseDC(mWindowData.hWnd, mWindowData.backBuffer);
+		
 		
 	}
 	void Application::InitializeWindow(WindowData data)
