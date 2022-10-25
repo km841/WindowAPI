@@ -10,11 +10,11 @@ namespace ya
 {
 
 	Player::Player()
-		: mSpeed(1.0f)
+		: mSpeed(1.f)
 	{
 		const auto& windowData = Application::GetInstance().GetWindowData();
 		SetPos(Vector2{ float(windowData.width / 2 - 50), float(windowData.height - 300) });
-		SetScale(Vector2{ 100.f, 100.f });
+		SetScale(Vector2{ 50.f, 50.f });
 	}
 
 	Player::~Player()
@@ -26,22 +26,22 @@ namespace ya
 		Vector2 pos = GetPos();
 		if (KEY_PRESSED(eKeyCode::W))
 		{
-			pos.y -= 300.f * Time::DeltaTime();
+			pos.y -= 1000.f * Time::DeltaTime();
 		}
 
 		if (KEY_PRESSED(eKeyCode::S))
 		{
-			pos.y += 300.f * Time::DeltaTime();
+			pos.y += 1000.f * Time::DeltaTime();
 		}
 
 		if (KEY_PRESSED(eKeyCode::A))
 		{
-			pos.x -= 300.f * Time::DeltaTime();
+			pos.x -= 1000.f * Time::DeltaTime();
 		}
 
 		if (KEY_PRESSED(eKeyCode::D))
 		{
-			pos.x += 300.f * Time::DeltaTime();
+			pos.x += 1000.f * Time::DeltaTime();
 		}
 
 		if (KEY_DOWN(eKeyCode::SPACE))
@@ -66,6 +66,13 @@ namespace ya
 
 	void Player::Render(HDC hdc)
 	{
+		HBRUSH blueBrush = CreateSolidBrush(RGB(153, 204, 255));
+		Brush brush(hdc, blueBrush);
+
+		HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+		Pen pen(hdc, redPen);
+
+		//숙제 : 얘를 이용해서 메테오 내려오는거 떨어지는애들을 펜색, 브러시색을 랜덤으로 바꾸기
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 		Rectangle(hdc

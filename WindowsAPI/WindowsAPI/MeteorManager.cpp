@@ -14,7 +14,7 @@ namespace ya
 		for (UINT i = 0; i < METEOR_MAX_COUNT; i++)
 		{
 			Meteor* meteor = new Meteor;
-			meteor->SetPos({ float(100 + (rand() % (windowData.width - 100))), 50.f});
+			meteor->SetPos({ float(50 + (rand() % (windowData.width - 100))), 50.f});
 			meteor->SetSpeed(100 + rand() % 500);
 
 			scene->AddGameObject(meteor);

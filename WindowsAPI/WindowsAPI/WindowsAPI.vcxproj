@@ -148,6 +148,7 @@
     <ClInclude Include="yaTime.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="MeteorManager.cpp" />
     <ClCompile Include="yaGameObject.cpp" />

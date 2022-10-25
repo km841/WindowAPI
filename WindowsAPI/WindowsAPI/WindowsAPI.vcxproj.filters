@@ -49,9 +49,6 @@
     <ClInclude Include="WindowsAPI.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="yaApplication.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="yaSceneManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
@@ -94,6 +91,9 @@
     <ClInclude Include="MeteorManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="yaApplication.h">
+      <Filter>Engine\HighLevel Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -111,9 +111,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="yaApplication.cpp">
-      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="yaSceneManager.cpp">
       <Filter>Engine\Manager</Filter>
@@ -148,5 +145,9 @@
     <ClCompile Include="MeteorManager.cpp">
       <Filter>Engine\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="yaApplication.cpp">
+      <Filter>Engine\HighLevel Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp" />
   </ItemGroup>
 </Project>
