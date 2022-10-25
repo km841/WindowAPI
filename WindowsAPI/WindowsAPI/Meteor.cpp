@@ -28,15 +28,16 @@ namespace ya
 		Vector2 scale = GetScale();
 
 		HBRUSH hBrush = CreateSolidBrush(RGB(rand() % 256, rand() % 256, rand() % 256));
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+		HPEN hPen = CreatePen(PS_SOLID, 2, RGB(rand() % 256, rand() % 256, rand() % 256));
+
+		Pen pen(hdc, hPen);
+		Brush brush(hdc, hBrush);
+
 		Ellipse(hdc
 			, pos.x
 			, pos.y
 			, pos.x + scale.x
 			, pos.y + scale.y);
-
-		SelectObject(hdc, oldBrush);
-		DeleteObject(hBrush);
 	}
 
 }
