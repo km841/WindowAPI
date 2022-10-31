@@ -45,6 +45,9 @@ void PlayScene::Enter()
 	// 이벤트등록
 	EventRegisteror::GetInstance().CreateObject(new Player, OBJECT_TYPE::PLAYER);
 	EventRegisteror::GetInstance().CreateObject(new Monster, OBJECT_TYPE::MONSTER);
+	Monster* monster = new Monster;
+	monster->SetPos(Vec2(500, 500));
+	EventRegisteror::GetInstance().CreateObject(monster, OBJECT_TYPE::MONSTER);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::MONSTER);
 }
 

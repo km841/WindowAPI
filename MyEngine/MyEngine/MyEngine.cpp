@@ -54,6 +54,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             APP_INSTANCE.Tick();
         }
     }
+
     APP_INSTANCE.Destroy();
     return (int) msg.wParam;
 }

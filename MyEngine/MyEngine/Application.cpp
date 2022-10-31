@@ -19,9 +19,7 @@ void Application::Initialize(const WindowData& _winData)
 	// 각종 매니저 초기화
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
-	//ResourceMgr::GetInstance().Initialize();
 	SceneMgr::GetInstance().Initialize();
-	
 }
 
 void Application::WindowInit(const WindowData& _winData)
@@ -43,26 +41,23 @@ void Application::WindowInit(const WindowData& _winData)
 
 void Application::Tick()
 {
+	// Buffer Initialize
 	Rectangle(BACK_BUF_DC, 0, 0, GetWidth(), GetHeight());
 
-	//Pen pen(BACK_BUF_DC, PEN_TYPE::BLUE);
-	//Brush brush(BACK_BUF_DC, BRUSH_TYPE::GRAY);
-	//Rectangle(BACK_BUF_DC, 100, 100, 300, 300);
-	
+	// Manager Update
 	KeyMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
-	SceneMgr::GetInstance().Render();
 	CollisionMgr::GetInstance().Update();
+
+	// Manager Render
+	SceneMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
 
+	// Double Buffering
+	BitBlt(MAIN_DC, 0, 0, GetWidth(), GetHeight(), BACK_BUF_DC, 0, 0, SRCCOPY);
 	
-
-
-
-	//Double Buffering
-	BitBlt(MAIN_DC, 0, 0, GetWidth(), GetHeight(), GetBackBufDC(), 0, 0, SRCCOPY);
-	
+	// Event Processing
 	EventMgr::GetInstance().Update();
 }
 

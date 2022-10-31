@@ -11,7 +11,7 @@ void EventMgr::Initialize()
 
 void EventMgr::Update()
 {
-	for (int i = 0; i < mEvents.size(); ++i)
+	for (UINT i = 0; i < mEvents.size(); ++i)
 	{
 		Execute(mEvents[i]);
 	}
@@ -47,12 +47,12 @@ void EventMgr::Execute(Event _event)
 
 void EventMgr::CollisionClear(GameObject* _obj)
 {
-	std::set<Relation> relSet = _obj->GetRelations();
+	std::set<Relation>& relSet = _obj->GetRelations();
 	for (auto& rel : relSet)
 	{
 		//상대의 관계도를 가져옴
 		GameObject* other = rel.mOther;
-		std::set<Relation> otherRelSet = other->GetRelations();
+		std::set<Relation>& otherRelSet = other->GetRelations();
 		std::set<Relation>::iterator otherIter = otherRelSet.begin();
 
 		//상대의 관계도를 돌며 내가 있다면 충돌을 해제하고 나를 삭제

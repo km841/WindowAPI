@@ -44,7 +44,7 @@ public:
 	inline OBJECT_TYPE GetType() const { return mType; }
 	inline void SetType(OBJECT_TYPE _type) { mType = _type; }
 
-	inline const std::set<Relation>& GetRelations() const { return mRelations; }
+	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }
 	void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
 	
