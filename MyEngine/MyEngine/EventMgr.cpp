@@ -35,7 +35,7 @@ void EventMgr::Execute(Event _event)
 		// 나와 연결된 충돌 제거
 		CollisionClear(obj);
 		// 오브젝트 제거
-		assert(DeleteObject(obj, obj->GetType()) != false);
+		DeleteObject(obj, obj->GetType());
 	}
 		break;
 
