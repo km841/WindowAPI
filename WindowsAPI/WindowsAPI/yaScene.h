@@ -14,15 +14,20 @@ namespace ya
 		virtual void Initialize();
 		virtual void Tick();
 		virtual void Render(HDC hdc);
-		
-		void AddGameObject(GameObject* object);
-		//void Destroy();
 
+		virtual void Enter();
+		virtual void Exit();
+		
+		void AddGameObject(GameObject* object, eColliderLayer type);
+		//void Destroy();
+		std::vector<GameObject*>& GetGameObjects(eColliderLayer type) { return mObjects[(UINT)type]; }
 
 	private:
-		std::vector<GameObject*> mObjects;
+		std::vector<std::vector<GameObject*>> mObjects;
 
 	};
+
+	
 }
 
 

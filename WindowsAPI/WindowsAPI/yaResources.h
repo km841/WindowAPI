@@ -5,13 +5,13 @@
 namespace ya
 {
 	
-	template<typename T>
 	class Resources
 	{
 		typedef std::map<std::wstring, Resource*>::iterator ResourceIter;
 
 	public:
 
+		template<typename T>
 		static T* Find(const std::wstring& key)
 		{
 			ResourceIter iter = mResources.find(key);
@@ -24,9 +24,10 @@ namespace ya
 			return nullptr;
 		}
 
+		template<typename T>
 		static T* Load(const std::wstring& key, const std::wstring& path)
 		{
-			T* resource = Find(path);
+			T* resource = Find<T>(path);
 			if (nullptr != resource)
 			{
 				return resource;
@@ -47,6 +48,19 @@ namespace ya
 			return dynamic_cast<T*>(resource);
 		}
 
+		static void Release()
+		{
+			ResourceIter iter = mResources.begin();
+			for (; iter != mResources.end(); ++iter)
+			{
+				if (iter->second == nullptr)
+					continue;
+
+				delete iter->second;
+				iter->second = nullptr;
+			}
+		}
+
 
 	private:
 		static std::map<std::wstring, Resource*> mResources;
@@ -54,8 +68,7 @@ namespace ya
 
 	};
 
-	template<typename T>
-	std::map<std::wstring, Resource*> Resources<T>::mResources;
+	
 }
 
 

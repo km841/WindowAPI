@@ -13,6 +13,8 @@ namespace ya
 		static void Render(HDC hdc);
 		static void Release();
 
+		static void ChangeScene(eSceneType type);
+
 		static Scene* GetPlayScene() { return mPlayScene; }
 
 	private:

@@ -21,7 +21,7 @@ namespace ya
 	{
 		Vector2 pos = GetPos();
 
-		pos.y -= 100.0f * Time::DeltaTime();
+		pos.y -= 600.0f * Time::DeltaTime();
 		SetPos(pos);
 	}
 

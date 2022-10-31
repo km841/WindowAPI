@@ -5,9 +5,12 @@
 #include <list>
 #include <map>
 #include <random>
+#include <bitset>
 
 #include "def.h"
 #include "Maths.h"
+
+#pragma comment(lib, "Msimg32.lib")
 
 //using Pos = POINT;
 

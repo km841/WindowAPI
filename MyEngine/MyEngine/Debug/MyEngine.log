@@ -1,0 +1,3 @@
+﻿  EventMgr.cpp
+C:\WindowsAPI\MyEngine\MyEngine\EventMgr.cpp(14,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\Debug\MyEngine.exe

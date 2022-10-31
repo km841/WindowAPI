@@ -29,13 +29,13 @@ namespace ya
 
 	void Time::Render(HDC hdc)
 	{
-		wchar_t szFloat[50] = {};
-		float fps = 1.0f / mDeltaTime;
+		//wchar_t szFloat[50] = {};
+		//float fps = 1.0f / mDeltaTime;
 
-		swprintf_s(szFloat, 50, L"FPS : %f", fps);
-		int strLen = wcsnlen_s(szFloat, 50);
+		//swprintf_s(szFloat, 50, L"FPS : %f", fps);
+		//int strLen = wcsnlen_s(szFloat, 50);
 
-		TextOut(hdc, 10, 10, szFloat, strLen);
+		//TextOut(hdc, 10, 10, szFloat, strLen);
 	}
 
 }

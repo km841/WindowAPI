@@ -3,6 +3,8 @@
 #include "yaTime.h"
 #include "yaInput.h"
 #include "Common.h"
+#include "yaResources.h"
+#include "yaCollisionManager.h"
 //#include "MeteorManager.h"
 
 
@@ -28,9 +30,14 @@ namespace ya
 	{
 		Time::Tick();
 		Input::Tick();
+		SceneManager::Tick();
+
+		CollisionManager::Tick();
+		HBRUSH gray = (HBRUSH)GetStockObject(GRAY_BRUSH);
+		Brush brush(mWindowData.backBuffer, gray);
 
 		Rectangle(mWindowData.backBuffer, -1, -1, mWindowData.width + 1, mWindowData.height + 1);
-		SceneManager::Tick();
+		
 		//MeteorManager::GetInstance().Tick();
 		
 		SceneManager::Render(mWindowData.backBuffer);
@@ -48,8 +55,20 @@ namespace ya
 	Application::~Application()
 	{
 		SceneManager::Release();
+		Resources::Release();
+
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hWnd, mWindowData.backBuffer);
+
+		for (int i = 0; i < (UINT)ePenColor::End; ++i)
+		{
+			DeleteObject(mPens[i]);
+		}
+
+		for (int i = 0; i < (UINT)eBrushColor::End; ++i)
+		{
+			DeleteObject(mBrushes[i]);
+		}
 		
 		
 	}
@@ -79,6 +98,16 @@ namespace ya
 		HBITMAP defaultBitmap = (HBITMAP)SelectObject(mWindowData.backBuffer, mWindowData.backTexture);
 
 		DeleteObject(defaultBitmap);
+
+		// 메모리 해제 해주어야 함
+		mPens[(UINT)ePenColor::Red] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+		mPens[(UINT)ePenColor::Green] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+		mPens[(UINT)ePenColor::Blue] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+
+		mBrushes[(UINT)eBrushColor::Transparent] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+		mBrushes[(UINT)eBrushColor::Black] = (HBRUSH)GetStockObject(BLACK_BRUSH);
+		mBrushes[(UINT)eBrushColor::Gray] = CreateSolidBrush(RGB(71, 71, 71));
+		mBrushes[(UINT)eBrushColor::White] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	}
 }
 

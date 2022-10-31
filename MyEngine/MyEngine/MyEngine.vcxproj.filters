@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{ae2229db-771f-40aa-b91a-dbe66c5a8b7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{ae3806a2-98f2-4a4e-b3a7-0140863c2bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager">
+      <UniqueIdentifier>{a527573b-5452-4a5a-bf29-27f9cdeb0a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Lib">
+      <UniqueIdentifier>{86b7ebaa-ed01-4b54-96f0-83fbd410e5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{9fd6952c-07c9-4262-9a29-149e49f56b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\Base">
+      <UniqueIdentifier>{1a3e241d-4015-4286-a2c7-b3b49ac5b804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\Base">
+      <UniqueIdentifier>{dbb7f664-8bd8-40de-8922-4057521c6e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{b73a02a7-24fd-417d-ac66-38b74e35148d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{108eca2e-333f-4487-92fe-0564394dae7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{d1db6f89-086e-4ae5-b160-08f0e1264c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\ResourceMgr">
+      <UniqueIdentifier>{e83a7f2b-9ffc-4761-bef0-c832cf28b923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Player">
+      <UniqueIdentifier>{0ca19bcb-c613-49e4-8edd-ac87b193a9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Base">
+      <UniqueIdentifier>{e8911415-7926-44b1-a055-81f0f66c2879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\TimeMgr">
+      <UniqueIdentifier>{90d78f55-4e08-4bdd-b521-98dd2c3615ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\KeyMgr">
+      <UniqueIdentifier>{35e54dbb-0ee9-4e22-af11-0e016c3cda02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Base">
+      <UniqueIdentifier>{15b28218-c337-42df-9051-427f77c0aa07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{2eaa4382-ec72-465e-b058-33580b58142f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\EventMgr">
+      <UniqueIdentifier>{fa4bf99e-f543-405c-a6e2-64e184ef6099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\SceneMgr">
+      <UniqueIdentifier>{f54beaa1-a847-4483-9415-176303b93090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Base">
+      <UniqueIdentifier>{034a01ca-3b00-4731-b14a-c7269f1516bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{852ef551-690a-4fd1-ba34-129124183f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animator">
+      <UniqueIdentifier>{60b7a7fb-bab6-4df2-bccf-9018db146aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animator\Animation">
+      <UniqueIdentifier>{6ce1e4b8-b801-4fcf-a419-3af0cbb95906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\EventReg">
+      <UniqueIdentifier>{98314b35-b5d5-44b9-8d63-f9927f36acea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Texture">
+      <UniqueIdentifier>{70df5e3f-e6df-420f-8b05-7db0bf6a896f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster">
+      <UniqueIdentifier>{fe716b96-1ee2-4b12-9c3f-d5b53d2e00bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\CollisionMgr">
+      <UniqueIdentifier>{041680e5-db7e-4743-97be-d84c19d41c6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="pch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilLib.h">
+      <Filter>Common\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathLib.h">
+      <Filter>Common\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Engine\Manager\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>Engine\Manager\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="MyEngine.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMgr.h">
+      <Filter>Engine\Manager\ResourceMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeMgr.h">
+      <Filter>Engine\Manager\TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>Engine\Manager\KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>Engine\Resource\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMgr.h">
+      <Filter>Engine\Manager\EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine\Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Component\Animator\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="EventRegisteror.h">
+      <Filter>Common\EventReg</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumDefine.h">
+      <Filter>Common\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionMgr.h">
+      <Filter>Engine\Manager\CollisionMgr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyEngine.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="MyEngine.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilLib.cpp">
+      <Filter>Common\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Engine\Manager\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>Engine\Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MyEngine.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMgr.cpp">
+      <Filter>Engine\Manager\ResourceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeMgr.cpp">
+      <Filter>Engine\Manager\TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>Engine\Manager\KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Res.cpp">
+      <Filter>Engine\Resource\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMgr.cpp">
+      <Filter>Engine\Manager\EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Engine\Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Component\Animator\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="EventRegisteror.cpp">
+      <Filter>Common\EventReg</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionMgr.cpp">
+      <Filter>Engine\Manager\CollisionMgr</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

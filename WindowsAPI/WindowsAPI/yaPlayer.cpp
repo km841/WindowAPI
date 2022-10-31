@@ -7,6 +7,8 @@
 #include "yaScene.h"
 #include "yaImage.h"
 #include "yaResources.h"
+#include "yaAnimator.h"
+#include "yaCollider.h"
 
 namespace ya
 {
@@ -20,8 +22,12 @@ namespace ya
 
 		if (nullptr == mImage)
 		{
-			mImage = Resources<Image>::Load(L"Player", L"..\\Resources\\Image\\Player.bmp");
+			mImage = Resources::Load<Image>(L"Player", L"..\\Resources\\Image\\Player.bmp");
 		}
+
+		AddComponent(new Animator());
+		AddComponent(new Collider());
+
 	}
 
 	Player::~Player()
@@ -30,6 +36,7 @@ namespace ya
 
 	void Player::Tick()
 	{
+		GameObject::Tick();
 		Vector2 pos = GetPos();
 		if (KEY_PRESSED(eKeyCode::W))
 		{
@@ -55,7 +62,7 @@ namespace ya
 		{
 			Scene* scene = SceneManager::GetPlayScene();
 			Missile* missile = new Missile();
-			scene->AddGameObject(missile);
+			scene->AddGameObject(missile, eColliderLayer::Player_Projecttile);
 
 			Vector2 playerPos = GetPos();
 			Vector2 playerScale = GetScale() / 2.f;
@@ -82,21 +89,31 @@ namespace ya
 		//숙제 : 얘를 이용해서 메테오 내려오는거 떨어지는애들을 펜색, 브러시색을 랜덤으로 바꾸기
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
-		//Rectangle(hdc
-		//	, pos.x
-		//	, pos.y
-		//	, pos.x + scale.x
-		//	, pos.y + scale.y);
 
-	
+		//BitBlt(hdc
+		//	, pos.x, pos.y
+		//	, mImage->GetWidth()
+		//	, mImage->GetHeight()
+		//	, mImage->GetDC()
+		//	, 0, 0
+		//	, SRCCOPY);
+		Vector2 finalPos;
+		finalPos.x = (pos.x - mImage->GetWidth() / 2.f);
+		finalPos.y = (pos.y - mImage->GetHeight() / 2.f);
 
-		BitBlt(hdc
-			, pos.x, pos.y
+
+		TransparentBlt(hdc
+			, finalPos.x
+			, finalPos.y
 			, mImage->GetWidth()
 			, mImage->GetHeight()
 			, mImage->GetDC()
 			, 0, 0
-			, SRCCOPY);
+			, mImage->GetWidth()
+			, mImage->GetHeight()
+			, RGB(255, 255, 255));
+
+		GameObject::Render(hdc);
 	}
 
 }

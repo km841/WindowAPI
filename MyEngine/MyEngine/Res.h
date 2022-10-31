@@ -1,0 +1,24 @@
+#pragma once
+
+class Res
+{
+public:
+	Res()
+		:mKey{}
+	{ }
+	Res(const std::wstring& _key)
+		:mKey{}
+	{ }
+	virtual ~Res() {}
+
+public:
+	virtual bool Load(const std::wstring& _path) = 0;
+
+	inline const std::wstring& GetKey() const { return mKey; };
+	inline void SetKey(const std::wstring& _key) { mKey = _key; }
+
+private:
+	std::wstring mKey;
+
+};
+

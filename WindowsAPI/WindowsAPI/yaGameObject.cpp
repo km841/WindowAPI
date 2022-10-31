@@ -14,8 +14,14 @@ namespace ya
 
 	GameObject::~GameObject()
 	{
+		for (Component* component : mComponents)
+		{
+			if (nullptr == component)
+				continue;
 
-
+			delete component;
+			component = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
@@ -26,13 +32,24 @@ namespace ya
 
 	void GameObject::Tick()
 	{
+		for (Component* component : mComponents)
+		{
+			if (nullptr == component)
+				continue;
 
+			component->Tick();
+		}
 
 	}
 
 	void GameObject::Render(HDC hdc)
 	{
-
+		for (Component* component : mComponents)
+		{
+			if (nullptr == component)
+				continue;
+			component->Render(hdc);
+		}
 
 	}
 
