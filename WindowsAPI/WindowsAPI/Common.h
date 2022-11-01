@@ -6,6 +6,7 @@
 #include <map>
 #include <random>
 #include <bitset>
+#include <set>
 
 #include "def.h"
 #include "Maths.h"
@@ -37,6 +38,14 @@ struct WindowData
 
 struct Pen
 {
+	Pen(HDC hdc)
+		: mHdc(hdc)
+		, mOldPen(NULL)
+		, mPen(NULL)
+	{
+
+	}
+
 	Pen(HDC hdc, HPEN pen)
 		: mHdc(hdc)
 		, mOldPen(NULL)
@@ -50,6 +59,12 @@ struct Pen
 		SelectObject(mHdc, mOldPen);
 		DeleteObject(mPen);
 	};
+
+	void SetPen(HPEN pen)
+	{
+		mOldPen = (HPEN)SelectObject(mHdc, pen);
+	}
+
 
 
 private:

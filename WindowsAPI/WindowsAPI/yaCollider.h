@@ -22,11 +22,17 @@ namespace ya
 		virtual void Tick() override;
 		virtual void Render(HDC hdc);
 
+		virtual void OnCollisionEnter(Collider* _other);
+		virtual void OnCollisionStay(Collider* _other);
+		virtual void OnCollisionExit(Collider* _other);
+
 
 	private:
 		Vector2 mOffset;
 		Vector2 mPos;
 		Vector2 mScale;
+
+		UINT mCollisionCount;
 
 	};
 }

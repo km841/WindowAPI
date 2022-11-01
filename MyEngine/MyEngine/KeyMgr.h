@@ -60,8 +60,6 @@ class KeyMgr :
     public Singleton< KeyMgr >
 {
 public:
-    //KeyMgr();
-    //~KeyMgr();
     void Initialize();
     void Update();
 

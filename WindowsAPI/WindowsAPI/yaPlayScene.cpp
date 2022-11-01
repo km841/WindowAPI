@@ -16,7 +16,10 @@ ya::PlayScene::~PlayScene()
 void ya::PlayScene::Initialize()
 {
 	AddGameObject(new Player(), eColliderLayer::Player);
-	AddGameObject(new Monster(), eColliderLayer::Monster);
+
+	Monster* monster = new Monster;
+	monster->SetPos(Vector2(300, 300));
+	AddGameObject(monster, eColliderLayer::Monster);
 
 	CollisionManager::SetLayer(eColliderLayer::Player, eColliderLayer::Monster, true);
 }

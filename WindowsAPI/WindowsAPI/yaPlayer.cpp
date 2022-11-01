@@ -27,6 +27,7 @@ namespace ya
 
 		AddComponent(new Animator());
 		AddComponent(new Collider());
+		GetComponent<Collider>()->SetPos(GetPos());
 
 	}
 
@@ -36,7 +37,7 @@ namespace ya
 
 	void Player::Tick()
 	{
-		GameObject::Tick();
+		
 		Vector2 pos = GetPos();
 		if (KEY_PRESSED(eKeyCode::W))
 		{
@@ -76,6 +77,7 @@ namespace ya
 		}
 
 		SetPos(pos);
+		GameObject::Tick();
 	}
 
 	void Player::Render(HDC hdc)
@@ -114,6 +116,18 @@ namespace ya
 			, RGB(255, 255, 255));
 
 		GameObject::Render(hdc);
+	}
+
+	void Player::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionExit(Collider* other)
+	{
 	}
 
 }

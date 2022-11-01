@@ -27,7 +27,7 @@ public:
 
 private:
     std::bitset<(UINT)OBJECT_TYPE::END> mBits[(UINT)OBJECT_TYPE::END];
-    std::map<ULONGLONG, bool> mColMap;
+    std::map<ULONGLONG, bool>           mColMap;
 
 
 };

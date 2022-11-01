@@ -35,7 +35,6 @@ void Collider::Render()
 
 	HPEN oldPen = (HPEN)SelectObject(BACK_BUF_DC, pen);
 
-
 	Brush brush(BACK_BUF_DC, BRUSH_TYPE::HOLLOW);
 
 	Rectangle(BACK_BUF_DC

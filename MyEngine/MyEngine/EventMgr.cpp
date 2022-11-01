@@ -64,7 +64,9 @@ void EventMgr::CollisionClear(GameObject* _obj)
 				otherIter = otherRelSet.erase(otherIter);
 			}
 			else
+			{
 				otherIter++;
+			}
 		}
 	}
 }
@@ -75,8 +77,13 @@ bool EventMgr::DeleteObject(GameObject* _obj, OBJECT_TYPE _eType)
 	std::vector<GameObject*>& group = scene->mObjects[(UINT)_eType];
 	std::vector<GameObject*>::iterator iter = group.begin();
 
-	while (_obj != *iter && iter != group.end())
+	while (iter != group.end())
+	{
+		if (*iter == _obj)
+			break;
+		
 		iter++;
+	}
 
 	if (iter != group.end())
 	{

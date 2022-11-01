@@ -60,10 +60,10 @@ public:
 	virtual void OnCollisionExit(Collider* _other) {};
 
 private:
-	Vec2 mPos;
-	Vec2 mScale;
-	Components mComponents;
-	OBJECT_TYPE mType;
+	Vec2				mPos;
+	Vec2				mScale;
+	Components			mComponents;
+	OBJECT_TYPE			mType;
 
-	std::set<Relation> mRelations;
+	std::set<Relation>  mRelations;
 };

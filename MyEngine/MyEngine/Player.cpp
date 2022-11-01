@@ -12,11 +12,17 @@ Player::Player()
 	SetPos(Vec2{ 100.f, 700.f });
 	SetScale(Vec2{ 3.f, 3.f });
 	SetType(OBJECT_TYPE::PLAYER);
-	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"Player_Image", L"Texture\\Player.bmp");
+	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"Player_IDLE", L"Texture\\idle.bmp");
 	assert(nullptr != mTexture);
 	
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
+
+	CreateComponent(new Animator);
+	GetAnimator()->SetOwner(this);
+
+	GetAnimator()->CreateAnimation(L"WALK", mTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
+	GetAnimator()->SelectAnimation(L"WALK");
 }
 
 Player::~Player()
@@ -59,17 +65,17 @@ void Player::Render()
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
 
-	TransparentBlt(BACK_BUF_DC
-		, (int)(vPos.x - (mTexture->GetWidth() * vScale.x) / 2.f)
-		, (int)(vPos.y - (mTexture->GetHeight() * vScale.y) / 2.f)
-		, (int)(mTexture->GetWidth() * vScale.x)
-		, (int)(mTexture->GetHeight() * vScale.y)
-		, mTexture->GetDC()
-		, 0, 0
-		, mTexture->GetWidth()
-		, mTexture->GetHeight()
-		, RGB(255, 0, 255)
-	);
+	//TransparentBlt(BACK_BUF_DC
+	//	, (int)(vPos.x - (mTexture->GetWidth() * vScale.x) / 2.f)
+	//	, (int)(vPos.y - (mTexture->GetHeight() * vScale.y) / 2.f)
+	//	, (int)(mTexture->GetWidth() * vScale.x)
+	//	, (int)(mTexture->GetHeight() * vScale.y)
+	//	, mTexture->GetDC()
+	//	, 0, 0
+	//	, mTexture->GetWidth()
+	//	, mTexture->GetHeight()
+	//	, RGB(255, 0, 255)
+	//);
 
 	GameObject::Render();
 }

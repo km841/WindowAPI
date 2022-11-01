@@ -1,5 +1,6 @@
 #include "yaMissile.h"
 #include "yaTime.h"
+#include "yaCollider.h"
 
 namespace ya
 {
@@ -10,6 +11,8 @@ namespace ya
 	{
 		SetPos({ 100.f, 100.f });
 		SetScale({ 50.f, 50.f });
+
+		AddComponent(new Collider());
 	}
 
 	Missile::~Missile()
@@ -19,10 +22,13 @@ namespace ya
 
 	void Missile::Tick()
 	{
+		
 		Vector2 pos = GetPos();
 
 		pos.y -= 600.0f * Time::DeltaTime();
 		SetPos(pos);
+
+		GameObject::Tick();
 	}
 
 	void Missile::Render(HDC hdc)
@@ -34,6 +40,8 @@ namespace ya
 			, pos.y
 			, pos.x + scale.x
 			, pos.y + scale.y);
+
+		GameObject::Render(hdc);
 	}
 
 }

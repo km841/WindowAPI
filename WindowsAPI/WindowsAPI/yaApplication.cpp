@@ -31,8 +31,8 @@ namespace ya
 		Time::Tick();
 		Input::Tick();
 		SceneManager::Tick();
-
 		CollisionManager::Tick();
+		
 		HBRUSH gray = (HBRUSH)GetStockObject(GRAY_BRUSH);
 		Brush brush(mWindowData.backBuffer, gray);
 

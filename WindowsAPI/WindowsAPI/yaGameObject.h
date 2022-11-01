@@ -5,6 +5,7 @@
 
 namespace ya
 {
+	class Collider;
 	class GameObject : public Entity
 	{
 	public:
@@ -14,6 +15,10 @@ namespace ya
 		virtual void Initialize();
 		virtual void Tick();
 		virtual void Render(HDC hdc);
+
+		virtual void OnCollisionEnter(Collider* other);
+		virtual void OnCollisionStay(Collider* other);
+		virtual void OnCollisionExit(Collider* other);
 
 		// 캐릭터의 pos는 발밑 중앙을 기준으로 삼음
 		void SetPos(Vector2 pos) { mPos = pos; }

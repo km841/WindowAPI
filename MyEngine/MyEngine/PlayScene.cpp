@@ -26,8 +26,6 @@ void PlayScene::Update()
 
 void PlayScene::Render()
 {
-	
-
 	TransparentBlt(BACK_BUF_DC, 0, 0
 		, WINDOW_WIDTH_SIZE
 		, WINDOW_HEIGHT_SIZE

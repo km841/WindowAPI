@@ -7,8 +7,7 @@
 namespace ya
 {
 	WORD CollisionManager::mMatrix[_COLLIDER_LAYER] = {};
-	std::bitset<_COLLIDER_LAYER> CollisionManager::mMatrix2 = {};
-
+	std::map<UINT64, bool> CollisionManager::mCollisionInformation{};
 
 
 
@@ -69,26 +68,22 @@ namespace ya
 
 		for (auto leftObject : lefts)
 		{
-			if (leftObject->GetComponent<Collider>() == nullptr)
+			Collider* leftCollider = leftObject->GetComponent<Collider>();
+			if (leftCollider == nullptr)
 				continue;
 
 			for (auto rightObject : rights)
 			{
-				if (rightObject->GetComponent<Collider>() == nullptr)
+				Collider* rightCollider = rightObject->GetComponent<Collider>();
+				if (rightCollider == nullptr)
 					continue;
 
 				if (leftObject == rightObject)
 					continue;
 
-				if (Intersect(leftObject->GetComponent<Collider>(), rightObject->GetComponent<Collider>()))
-				{
-					int a = 0;
-				}
+				ColliderCollision(leftCollider, rightCollider);
 
-				else
-				{
-					int a = 0;
-				}
+
 			}
 		}
 	}
@@ -108,6 +103,52 @@ namespace ya
 		}
 
 		return false;
+	}
+
+	void CollisionManager::ColliderCollision(Collider* left, Collider* right)
+	{
+		ColliderID id = {};
+		id.left = left->GetID();
+		id.right = right->GetID();
+
+		std::map<UINT64, bool>::iterator iter = mCollisionInformation.find(id.ID);
+
+		if (iter == mCollisionInformation.end())
+		{
+			mCollisionInformation.insert(std::make_pair(id.ID, false));
+			iter = mCollisionInformation.find(id.ID);
+
+		}
+
+		if (Intersect(left, right))
+		{
+			if (iter->second == false)
+			{
+				//첫 충돌
+				//OnCollisionEnter
+				left->OnCollisionEnter(right);
+				right->OnCollisionEnter(left);
+				iter->second = true;
+			}
+			
+			else
+			{
+				//충돌 중이다
+				left->OnCollisionStay(right);
+				right->OnCollisionStay(left);
+			}
+			
+		}
+
+		else
+		{
+			if (iter->second)
+			{
+				left->OnCollisionExit(right);
+				right->OnCollisionExit(left);
+				iter->second = false;
+			}
+		}
 	}
 
 }

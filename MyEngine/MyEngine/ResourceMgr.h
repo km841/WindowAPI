@@ -11,9 +11,6 @@ public:
 	~ResourceMgr();
 
 public:
-	void Initialize();
-
-public:
 
 	template<typename T>
 	T* Load(const std::wstring& _key, const std::wstring& _path)
@@ -34,7 +31,7 @@ public:
 
 
 private:
-	ResourceMap mResMap;
+	ResourceMap			mResMap;
 	static std::wstring mDefaultPath;
 };
 

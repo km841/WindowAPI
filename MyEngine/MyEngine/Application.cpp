@@ -16,7 +16,7 @@ void Application::Initialize(const WindowData& _winData)
 {
 	WindowInit(_winData);
 	
-	// 각종 매니저 초기화
+	// Manager Initialize
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
 	SceneMgr::GetInstance().Initialize();

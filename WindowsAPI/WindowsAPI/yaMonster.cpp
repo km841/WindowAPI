@@ -28,6 +28,8 @@ namespace ya
 		AddComponent(new Animator());
 		AddComponent(new Collider());
 
+		GetComponent<Collider>()->SetPos(GetPos());
+
 	}
 
 	Monster::~Monster()
@@ -79,6 +81,18 @@ namespace ya
 			, RGB(255, 255, 255));
 
 		GameObject::Render(hdc);
+	}
+
+	void Monster::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Monster::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Monster::OnCollisionExit(Collider* other)
+	{
 	}
 
 }

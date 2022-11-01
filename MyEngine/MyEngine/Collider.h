@@ -22,8 +22,8 @@ public:
 
 private:
     static UINT gID;
-    UINT mID;
-    UINT mColCnt;
+    UINT        mID;
+    UINT        mColCnt;
 
 };
 

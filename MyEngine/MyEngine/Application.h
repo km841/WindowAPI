@@ -22,7 +22,7 @@ public:
 
 private:
 	WindowData mWinData;
-	WindowGDI mWinGDI;
+	WindowGDI  mWinGDI;
 
 };
 
