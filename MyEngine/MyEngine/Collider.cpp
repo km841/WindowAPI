@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Collider.h"
 #include "GameObject.h"
+#include "CameraMgr.h"
 
 UINT Collider::gID = 0;
 
@@ -27,6 +28,8 @@ void Collider::Render()
 {
 	Vec2 size = GetSize();
 	Vec2 pos = GetPos();
+	// Convert Render Pos
+	pos = RENDER_POS(pos);
 	HPEN pen = 0;
 	if (mColCnt > 0)
 		pen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));

@@ -11,6 +11,7 @@
 #include "TimeMgr.h"
 #include "EventMgr.h"
 #include "CollisionMgr.h"
+#include "CameraMgr.h"
 
 void Application::Initialize(const WindowData& _winData)
 {
@@ -20,6 +21,7 @@ void Application::Initialize(const WindowData& _winData)
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
 	SceneMgr::GetInstance().Initialize();
+	CameraMgr::GetInstance().Initialize();
 }
 
 void Application::WindowInit(const WindowData& _winData)
@@ -48,6 +50,8 @@ void Application::Tick()
 	KeyMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
+	CameraMgr::GetInstance().Update();
+
 	CollisionMgr::GetInstance().Update();
 
 	// Manager Render

@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "EventRegisteror.h"
+#include "CameraMgr.h"
 
 Monster::Monster()
 {
@@ -39,6 +40,9 @@ void Monster::Render()
 {
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
+
+	// Convert Render Pos
+	vPos = RENDER_POS(vPos);
 
 	TransparentBlt(BACK_BUF_DC
 		, (int)(vPos.x - (mTexture->GetWidth() * vScale.x) / 2.f)

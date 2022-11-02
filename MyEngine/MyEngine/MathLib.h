@@ -85,6 +85,16 @@ public:
 		return ret;
 	}
 
+	Vec2 operator/ (float _f)
+	{
+		assert(_f != 0);
+		Vec2 ret = { x, y };
+		ret.x /= _f;
+		ret.y /= _f;
+
+		return ret;
+	}
+
 	void Norm()
 	{
 		float length = sqrt( (x * x) + (y * y) );

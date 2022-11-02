@@ -86,6 +86,9 @@
     <Filter Include="Engine\Manager\CollisionMgr">
       <UniqueIdentifier>{041680e5-db7e-4743-97be-d84c19d41c6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\CameraMgr">
+      <UniqueIdentifier>{5d0662e9-00c9-42e8-b231-1de237fc3d30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="CollisionMgr.h">
       <Filter>Engine\Manager\CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMgr.h">
+      <Filter>Engine\Manager\CameraMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="CollisionMgr.cpp">
       <Filter>Engine\Manager\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMgr.cpp">
+      <Filter>Engine\Manager\CameraMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

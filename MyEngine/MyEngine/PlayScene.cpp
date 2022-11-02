@@ -7,6 +7,7 @@
 #include "ResourceMgr.h"
 #include "Texture.h"
 #include "CollisionMgr.h"
+#include "CameraMgr.h"
 
 void PlayScene::Initialize()
 {
@@ -40,12 +41,21 @@ void PlayScene::Render()
 
 void PlayScene::Enter()
 {
-	// 이벤트등록
-	EventRegisteror::GetInstance().CreateObject(new Player, OBJECT_TYPE::PLAYER);
+	// 플레이어 등록
+	Player* player = new Player;
+	CameraMgr::GetInstance().SetTrackingObject(player);
+	EventRegisteror::GetInstance().CreateObject(player, OBJECT_TYPE::PLAYER);
+
+	// 몬스터 1 등록
 	EventRegisteror::GetInstance().CreateObject(new Monster, OBJECT_TYPE::MONSTER);
+
+
+	// 몬스터 2 등록
 	Monster* monster = new Monster;
 	monster->SetPos(Vec2(500, 500));
 	EventRegisteror::GetInstance().CreateObject(monster, OBJECT_TYPE::MONSTER);
+
+	// 충돌 체크
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::MONSTER);
 }
 

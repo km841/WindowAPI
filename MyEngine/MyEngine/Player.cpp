@@ -6,6 +6,7 @@
 #include "TimeMgr.h"
 #include "Collider.h"
 #include "Animator.h"
+#include "CameraMgr.h"
 
 Player::Player()
 {
@@ -38,6 +39,7 @@ void Player::Initialize()
 void Player::Update()
 {
 	Vec2 pos = GetPos();
+
 	if (IS_PRESSED(KEY::UP))
 	{
 		pos.y -= 600 * DT;
@@ -62,20 +64,6 @@ void Player::Update()
 
 void Player::Render()
 {
-	Vec2 vPos = GetPos();
-	Vec2 vScale = GetScale();
-
-	//TransparentBlt(BACK_BUF_DC
-	//	, (int)(vPos.x - (mTexture->GetWidth() * vScale.x) / 2.f)
-	//	, (int)(vPos.y - (mTexture->GetHeight() * vScale.y) / 2.f)
-	//	, (int)(mTexture->GetWidth() * vScale.x)
-	//	, (int)(mTexture->GetHeight() * vScale.y)
-	//	, mTexture->GetDC()
-	//	, 0, 0
-	//	, mTexture->GetWidth()
-	//	, mTexture->GetHeight()
-	//	, RGB(255, 0, 255)
-	//);
 
 	GameObject::Render();
 }

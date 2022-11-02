@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Texture.h"
 #include "TimeMgr.h"
+#include "CameraMgr.h"
 
 Animation::Animation()
 {
@@ -39,6 +40,9 @@ void Animation::Render()
 	GameObject* ownerObject = mOwner->GetOwner();
 	Vec2		pos = ownerObject->GetPos();
 	Vec2		scale = ownerObject->GetScale();
+
+	// Convert RenderPos
+	pos = RENDER_POS(pos);
 
 	TransparentBlt(
 		BACK_BUF_DC

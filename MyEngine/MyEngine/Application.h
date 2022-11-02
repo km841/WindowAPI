@@ -18,6 +18,7 @@ public:
 	inline HDC GetBackBufDC() const { return mWinData.hBackBufDC; }
 	inline UINT GetWidth() const { return mWinData.iWidth; }
 	inline UINT GetHeight() const { return mWinData.iHeight; }
+	inline Vec2 GetResolution() const { return Vec2((float)(mWinData.iWidth), (float)(mWinData.iHeight)); }
 	inline HWND GetHwnd() const { return mWinData.hWnd; }
 
 private:
