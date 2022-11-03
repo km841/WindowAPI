@@ -6,7 +6,7 @@
 
 BackgroundUI::BackgroundUI()
 	:UI(false)
-	,mSpeed(100.f)
+	,mSpeed(0.f)
 {
 }
 
