@@ -51,7 +51,6 @@ void Application::Tick()
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
-
 	CollisionMgr::GetInstance().Update();
 
 	// Manager Render

@@ -32,11 +32,14 @@ public:
 	virtual void Initialize() = 0;
 	virtual void Update();
 	virtual void Render();
-	virtual void Destroy() = 0;
+	virtual void Destroy();
 
 public:
 	inline const Vec2& GetPos() const { return mPos; }
 	inline void SetPos(const Vec2& _pos) { mPos = _pos; }
+
+	inline const Vec2& GetSize() const { return mSize; }
+	inline void SetSize(const Vec2& _size) { mSize = _size; }
 
 	inline const Vec2& GetScale() const { return mScale; }
 	inline void SetScale(const Vec2& _scale) { mScale = _scale; }
@@ -61,6 +64,7 @@ public:
 
 private:
 	Vec2				mPos;
+	Vec2				mSize;
 	Vec2				mScale;
 	Components			mComponents;
 	OBJECT_TYPE			mType;

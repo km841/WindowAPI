@@ -32,6 +32,9 @@ enum class KEY
     LEFT,
     RIGHT,
 
+    LBUTTON,
+    RBUTTON,
+
     END
 };
 
@@ -53,6 +56,9 @@ static UINT KEY_CODE[(UINT)KEY::END]
     VK_DOWN,
     VK_LEFT,
     VK_RIGHT,
+
+    VK_LBUTTON,
+    VK_RBUTTON,
 };
 
 
@@ -66,9 +72,10 @@ public:
 
 public:
     inline KEY_STATE GetKeyState(KEY _ekey) const;
-
+    inline Vec2      GetMousePos() const { return mMousePos; }
 
 private:
     KEY_STATE mKeyStates[(UINT)KEY::END];
+    Vec2      mMousePos;
 };
 

@@ -38,17 +38,17 @@ void Monster::Update()
 
 void Monster::Render()
 {
-	Vec2 vPos = GetPos();
-	Vec2 vScale = GetScale();
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
 
 	// Convert Render Pos
-	vPos = RENDER_POS(vPos);
+	pos = RENDER_POS(pos);
 
 	TransparentBlt(BACK_BUF_DC
-		, (int)(vPos.x - (mTexture->GetWidth() * vScale.x) / 2.f)
-		, (int)(vPos.y - (mTexture->GetHeight() * vScale.y) / 2.f)
-		, (int)(mTexture->GetWidth() * vScale.x)
-		, (int)(mTexture->GetHeight() * vScale.y)
+		, (int)(pos.x - (mTexture->GetWidth() * scale.x) / 2.f)
+		, (int)(pos.y - (mTexture->GetHeight() * scale.y) / 2.f)
+		, (int)(mTexture->GetWidth() * scale.x)
+		, (int)(mTexture->GetHeight() * scale.y)
 		, mTexture->GetDC()
 		, 0, 0
 		, mTexture->GetWidth()

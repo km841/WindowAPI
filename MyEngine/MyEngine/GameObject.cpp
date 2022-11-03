@@ -43,6 +43,10 @@ void GameObject::Render()
 		GetAnimator()->Render();
 }
 
+void GameObject::Destroy()
+{
+}
+
 void GameObject::CreateComponent(Collider* _collider)
 {
 	assert(nullptr != _collider);

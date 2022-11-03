@@ -30,8 +30,9 @@
 #define BACK_BUF_DC APP_INSTANCE.GetBackBufDC()
 
 #define DT TimeMgr::GetInstance().GetDT()
-#define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS);
-#define WORLD_POS(POS) CameraMgr::GetInstance().GetWorldPos(POS);
+#define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS)
+#define WORLD_POS(POS) CameraMgr::GetInstance().GetWorldPos(POS)
+#define MOUSE_POS KeyMgr::GetInstance().GetMousePos()
 
 /*KEY CHECK MACRO*/
 #define IS_JUST_PRESSED(THIS_KEY) KeyMgr::GetInstance().GetKeyState(THIS_KEY) == KEY_STATE::JUST_PRESSED

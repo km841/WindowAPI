@@ -89,6 +89,12 @@
     <Filter Include="Engine\Manager\CameraMgr">
       <UniqueIdentifier>{5d0662e9-00c9-42e8-b231-1de237fc3d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UI">
+      <UniqueIdentifier>{c58ccb67-294d-4fd1-a389-e35e29e4723e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\BackgroundUI">
+      <UniqueIdentifier>{18ae77b9-311c-40d2-883f-8e0681693827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -172,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="CameraMgr.h">
       <Filter>Engine\Manager\CameraMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Engine\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundUI.h">
+      <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="CameraMgr.cpp">
       <Filter>Engine\Manager\CameraMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Engine\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundUI.cpp">
+      <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

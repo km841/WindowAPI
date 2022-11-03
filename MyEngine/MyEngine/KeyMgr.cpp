@@ -56,6 +56,11 @@ void KeyMgr::Update()
 		}
 
 	}
+
+	POINT point = {};
+	GetCursorPos(&point);
+	ScreenToClient(APP_INSTANCE.GetHwnd(), &point);
+	mMousePos = Vec2((float)(point.x), (float)(point.y));
 }
 
 KEY_STATE KeyMgr::GetKeyState(KEY _ekey) const

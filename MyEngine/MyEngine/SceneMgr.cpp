@@ -28,6 +28,7 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::PLAY] = new PlayScene;
 
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];
+	mCurScene->Enter();
 
 	for (int i = 0; i < (UINT)SCENE_TYPE::END; ++i)
 	{
