@@ -72,10 +72,10 @@ public:
 
 public:
     inline KEY_STATE GetKeyState(KEY _ekey) const;
-    inline Vec2      GetMousePos() const { return mMousePos; }
+    
 
 private:
     KEY_STATE mKeyStates[(UINT)KEY::END];
-    Vec2      mMousePos;
+
 };
 

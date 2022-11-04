@@ -6,6 +6,8 @@
 #include "EventRegisteror.h"
 #include "KeyMgr.h"
 #include "BackgroundUI.h"
+#include "MouseMgr.h"
+#include "ButtonUI.h"
 
 void TitleScene::Initialize()
 {
@@ -38,36 +40,62 @@ void TitleScene::Enter()
 	Texture* frontCloud = ResourceMgr::GetInstance().Load<Texture>(L"frontCloud", L"Texture\\FrontCloud.bmp");
 	Texture* backCloud = ResourceMgr::GetInstance().Load<Texture>(L"backCloud", L"Texture\\BackCloud.bmp");
 	Texture* mainLogo = ResourceMgr::GetInstance().Load<Texture>(L"mainLogo", L"Texture\\Logo.bmp");
+	Texture* startButton = ResourceMgr::GetInstance().Load<Texture>(L"enterButton", L"Texture\\Enter.bmp");
+	Texture* exitButton = ResourceMgr::GetInstance().Load<Texture>(L"exitButton", L"Texture\\Exit.bmp");
 
 	BackgroundUI* fUI = new BackgroundUI;
 	fUI->SetTexture(frontCloud);
 	fUI->SetSpeed(100.f);
-	fUI->SetSize(Vec2((float)(frontCloud->GetWidth()), (float)(frontCloud->GetHeight())));
+	fUI->SetSize(frontCloud->GetSize());
 	fUI->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
 
 	BackgroundUI* bUI = new BackgroundUI;
 	bUI->SetTexture(backCloud);
 	bUI->SetSpeed(30.f);
-	bUI->SetSize(Vec2((float)(backCloud->GetWidth()), (float)(backCloud->GetHeight())));
+	bUI->SetSize(backCloud->GetSize());
 	bUI->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
 
 	BackgroundUI* logoUI = new BackgroundUI;
 	logoUI->SetTexture(mainLogo);
 	logoUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
-	logoUI->SetSize(Vec2((float)(mainLogo->GetWidth()), (float)(mainLogo->GetHeight())));
+	logoUI->SetSize(mainLogo->GetSize());
 	logoUI->SetPos(
-		Vec2(WINDOW_WIDTH_SIZE / 2 - (logoUI->GetSize().x / 2)
-		, WINDOW_HEIGHT_SIZE / 4 - (logoUI->GetSize().y / 2)));
+		Vec2(WINDOW_WIDTH_SIZE / 2.f - (logoUI->GetSize().x / 2.f)
+		, WINDOW_HEIGHT_SIZE / 3.5f - (logoUI->GetSize().y / 2.f)));
 
-	
+	ButtonUI* startBtnUI = new ButtonUI;
+	startBtnUI->SetTexture(startButton);
+	startBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	startBtnUI->SetSize(startButton->GetSize());
+	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.6f));
+
+	startBtnUI->TextureProcessing(
+		Vec2(0.f, 0.f),
+		Vec2(startButton->GetWidth() / 2.f, 0.f),
+		Vec2(startButton->GetWidth() / 2.f, (float)startButton->GetHeight()));
+
+	ButtonUI* exitBtnUI = new ButtonUI;
+	exitBtnUI->SetTexture(exitButton);
+	exitBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	exitBtnUI->SetSize(exitButton->GetSize());
+	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.4f));
+
+	exitBtnUI->TextureProcessing(
+		Vec2(0.f, 0.f),
+		Vec2(exitButton->GetWidth() / 2.f, 0.f),
+		Vec2(exitButton->GetWidth() / 2.f, (float)exitButton->GetHeight()));
 
 	EventRegisteror::GetInstance().CreateObject(fUI, fUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(bUI, bUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(logoUI, logoUI->GetType());
-	
+	EventRegisteror::GetInstance().CreateObject(startBtnUI, startBtnUI->GetType());
+	EventRegisteror::GetInstance().CreateObject(exitBtnUI, exitBtnUI->GetType());
 }
 
 void TitleScene::Exit()
 {
+	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_FIRST);
+	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_MIDDLE);
+	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_LAST);
 	DeleteObjGroup(OBJECT_TYPE::UI);
 }

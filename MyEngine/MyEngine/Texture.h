@@ -13,11 +13,13 @@ public:
     inline HBITMAP GetBitmap() const { return mBit; }
     inline UINT GetWidth() const { return mWidth; }
     inline UINT GetHeight() const { return mHeight; }
+    inline Vec2 GetSize() const { return mSize; }
     inline HDC GetDC() const { return mDC; }
 
 private:
     HDC          mDC;
     HBITMAP      mBit;
+    Vec2         mSize;
     UINT         mWidth;
     UINT         mHeight;
 

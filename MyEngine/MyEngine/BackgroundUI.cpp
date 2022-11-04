@@ -5,13 +5,21 @@
 #include "EventRegisteror.h"
 
 BackgroundUI::BackgroundUI()
-	:UI(false)
-	,mSpeed(0.f)
+	: UI(false)
+	, mSpeed(0.f)
 {
 }
 
 BackgroundUI::~BackgroundUI()
 {
+}
+
+BackgroundUI::BackgroundUI(const BackgroundUI& _other)
+	: UI(_other)
+	, mChild(nullptr)
+	, mSpeed(_other.mSpeed)
+{
+	SetTexture(_other.GetTexture());
 }
 
 void BackgroundUI::Initialize()
@@ -20,7 +28,8 @@ void BackgroundUI::Initialize()
 
 void BackgroundUI::Update()
 {
-	if (nullptr == mTexture)
+
+	if (nullptr == GetTexture())
 		return;
 
 	Vec2 pos = GetPos();
@@ -28,14 +37,9 @@ void BackgroundUI::Update()
 
 	if (!mChild && pos.x <= -WINDOW_WIDTH_SIZE)
 	{
-		mChild = new BackgroundUI;
-		mChild->SetTexture(mTexture);
-		mChild->SetSize(GetSize());
-		mChild->SetSpeed(mSpeed);
+		mChild = Clone();
 		mChild->SetPos(Vec2(WINDOW_WIDTH_SIZE - (mSpeed * DT), 0.f));
-		mChild->SetType(GetType());
-
-		EventRegisteror::GetInstance().CreateObject(mChild, GetType());
+		EventRegisteror::GetInstance().CreateObject(mChild, mChild->GetType());
 	}
 
 	if (pos.x <= -(WINDOW_WIDTH_SIZE * 2))
@@ -48,44 +52,27 @@ void BackgroundUI::Update()
 
 void BackgroundUI::Render()
 {
-	if (nullptr == mTexture)
+	if (nullptr == GetTexture())
 		return;
 
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
 
-	TpBltRapper(
-		Vec2(pos.x, pos.y),
-		Vec2(size.x, size.y),
-		Vec2(0, 0),
-		Vec2(size.x, size.y)
+	TransparentBlt(
+		BACK_BUF_DC,
+		(int)pos.x,
+		(int)pos.y,
+		(int)size.x,
+		(int)size.y,
+		GetTexture()->GetDC(),
+		0,
+		0,
+		(int)size.x,
+		(int)size.y,
+		RGB(255, 0, 255)
 	);
-
-
 }
 
 void BackgroundUI::Destroy()
 {
-}
-
-void BackgroundUI::SetTexture(Texture* _tex)
-{
-	mTexture = _tex;
-}
-
-void BackgroundUI::TpBltRapper(Vec2 _dstLT, Vec2 _dstSize, Vec2 _srcLT, Vec2 _srcSize)
-{
-	TransparentBlt(
-		BACK_BUF_DC,
-		(int)_dstLT.x,
-		(int)_dstLT.y,
-		(int)_dstSize.x,
-		(int)_dstSize.y,
-		mTexture->GetDC(),
-		(int)_srcLT.x,
-		(int)_srcLT.y,
-		(int)_srcSize.x,
-		(int)_srcSize.y,
-		RGB(255, 0, 255)
-	);
 }

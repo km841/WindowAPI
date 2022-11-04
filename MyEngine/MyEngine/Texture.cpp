@@ -36,6 +36,7 @@ bool Texture::Load(const std::wstring& _path)
 
 	mWidth = bitmap.bmWidth;
 	mHeight = bitmap.bmHeight;
+	mSize = Vec2((float)mWidth, (float)mHeight);
 	mDC = CreateCompatibleDC(BACK_BUF_DC);
 	
 	HBITMAP prevBit = (HBITMAP)SelectObject(mDC, mBit);

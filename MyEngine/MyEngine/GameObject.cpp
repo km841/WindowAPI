@@ -25,6 +25,26 @@ GameObject::~GameObject()
 	}
 }
 
+GameObject::GameObject(const GameObject& _other)
+	: mPos(_other.mPos)
+	, mSize(_other.mSize)
+	, mScale(_other.mScale)
+	, mComponents{}
+	, mType(_other.mType)
+{
+}
+
+GameObject& GameObject::operator=(const GameObject& _other)
+{
+	mPos = _other.mPos;
+	mSize = _other.mSize;
+	mScale = _other.mScale;
+	mComponents = {};
+	mType = _other.mType;
+
+	return *this;
+}
+
 void GameObject::Update()
 {
 	if (nullptr != GetCollider())

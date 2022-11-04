@@ -8,6 +8,13 @@ public:
 	BackgroundUI();
 	~BackgroundUI();
 
+	BackgroundUI(const BackgroundUI& _other);
+
+	BackgroundUI* Clone() {
+		BackgroundUI* clone = new BackgroundUI(*this);
+		return clone;
+	}
+
 public:
 	virtual void Initialize();
 	virtual void Update();
@@ -15,17 +22,12 @@ public:
 	virtual void Destroy();
 
 public:
-	void SetTexture(Texture* _tex);
-	void TpBltRapper(Vec2 _dstLT, Vec2 _dstSize, Vec2 _srcLT, Vec2 _srcSize);
-
 	inline void SetSpeed(float _speed) { mSpeed = _speed; }
 	inline float GetSpeed() const { return mSpeed; }
 	
 
 private:
-    Texture* mTexture;
 	BackgroundUI* mChild;
-	
 	float mSpeed;
 };
 

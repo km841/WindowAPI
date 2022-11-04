@@ -18,14 +18,12 @@ void CollisionMgr::Update()
 		{
 			if (mBits[y][x] == true)
 			{
-
 				Scene* scene = SceneMgr::GetInstance().GetCurScene();
 
 				std::vector<GameObject*> rowGroup = scene->GetObjectGroup((OBJECT_TYPE)y);
 				std::vector<GameObject*> colGroup = scene->GetObjectGroup((OBJECT_TYPE)x);
 
 				CheckGroup(rowGroup, colGroup);
-
 			}
 		}
 	}

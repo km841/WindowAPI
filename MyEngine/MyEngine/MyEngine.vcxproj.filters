@@ -95,6 +95,12 @@
     <Filter Include="Engine\GameObject\UI\BackgroundUI">
       <UniqueIdentifier>{18ae77b9-311c-40d2-883f-8e0681693827}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\MouseMgr">
+      <UniqueIdentifier>{56a05229-3efe-4d80-972d-583ca2eba682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ButtonUI">
+      <UniqueIdentifier>{cda428b9-d93a-449b-8b36-a757ff2249ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -184,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="BackgroundUI.h">
       <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMgr.h">
+      <Filter>Engine\Manager\MouseMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonUI.h">
+      <Filter>Engine\GameObject\UI\ButtonUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="BackgroundUI.cpp">
       <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseMgr.cpp">
+      <Filter>Engine\Manager\MouseMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonUI.cpp">
+      <Filter>Engine\GameObject\UI\ButtonUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -28,6 +28,11 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
+	GameObject(const GameObject& _other);
+	
+public:
+	GameObject& operator= (const GameObject& _other);
+
 public:
 	virtual void Initialize() = 0;
 	virtual void Update();

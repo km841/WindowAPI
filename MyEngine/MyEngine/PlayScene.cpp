@@ -50,17 +50,10 @@ void PlayScene::Enter()
 	// 몬스터 1 등록
 	EventRegisteror::GetInstance().CreateObject(new Monster, OBJECT_TYPE::MONSTER);
 
-
 	// 몬스터 2 등록
 	Monster* monster = new Monster;
 	monster->SetPos(Vec2(500, 500));
 	EventRegisteror::GetInstance().CreateObject(monster, OBJECT_TYPE::MONSTER);
-
-	// UI 등록
-	UI* ui = new UI(false);
-	ui->SetPos(Vec2(300, 300));
-	ui->SetSize(Vec2(100, 100));
-	EventRegisteror::GetInstance().CreateObject(ui, OBJECT_TYPE::UI);
 
 	// 충돌 체크
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::MONSTER);

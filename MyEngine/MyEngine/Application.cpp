@@ -8,6 +8,7 @@
 
 #include "ResourceMgr.h"
 #include "KeyMgr.h"
+#include "MouseMgr.h"
 #include "TimeMgr.h"
 #include "EventMgr.h"
 #include "CollisionMgr.h"
@@ -48,6 +49,7 @@ void Application::Tick()
 
 	// Manager Update
 	KeyMgr::GetInstance().Update();
+	MouseMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
