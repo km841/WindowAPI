@@ -1,6 +1,7 @@
 #pragma once
 
 class Res;
+class Texture;
 class ResourceMgr 
 	: public Singleton< ResourceMgr >
 {	
@@ -25,9 +26,11 @@ public:
 		res->SetKey(_key);
 		res->Load(mDefaultPath + _path);
 		mResMap.insert(std::make_pair(_key, res));
-		
+
 		return res;
 	}
+
+	Texture* CreateTexture(const std::wstring _key, Vec2 _size);
 
 
 private:

@@ -10,6 +10,7 @@ public:
 
     virtual bool Load(const std::wstring& _path);
 
+public:
     inline HBITMAP GetBitmap() const { return mBit; }
     inline UINT GetWidth() const { return mWidth; }
     inline UINT GetHeight() const { return mHeight; }
@@ -23,5 +24,6 @@ private:
     UINT         mWidth;
     UINT         mHeight;
 
+    friend class ResourceMgr;
 };
 

@@ -28,7 +28,6 @@ void BackgroundUI::Initialize()
 
 void BackgroundUI::Update()
 {
-
 	if (nullptr == GetTexture())
 		return;
 

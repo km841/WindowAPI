@@ -42,6 +42,7 @@ void PlayScene::Render()
 
 void PlayScene::Enter()
 {
+	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 2.0f);
 	// 플레이어 등록
 	Player* player = new Player;
 	CameraMgr::GetInstance().SetTrackingObject(player);

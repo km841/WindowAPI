@@ -29,6 +29,11 @@ void ButtonUI::Update()
 		&& pos.y + (size.y / 2.f) >= mousePos.y)
 	{
 		mOnMouse = true;
+
+		if (mEvent && IS_LBUTTON_CLICKED)
+		{
+			CallEvent();
+		}
 	}
 	else
 	{

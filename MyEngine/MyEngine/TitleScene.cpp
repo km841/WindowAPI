@@ -8,6 +8,7 @@
 #include "BackgroundUI.h"
 #include "MouseMgr.h"
 #include "ButtonUI.h"
+#include "CameraMgr.h"
 
 void TitleScene::Initialize()
 {
@@ -16,10 +17,6 @@ void TitleScene::Initialize()
 
 void TitleScene::Update()
 {
-	if (IS_JUST_PRESSED(KEY::ENTER))
-	{
-		EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::PLAY);
-	}
 	Scene::Update();
 }
 
@@ -37,6 +34,8 @@ void TitleScene::Render()
 
 void TitleScene::Enter()
 {
+	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
+
 	Texture* frontCloud = ResourceMgr::GetInstance().Load<Texture>(L"frontCloud", L"Texture\\FrontCloud.bmp");
 	Texture* backCloud = ResourceMgr::GetInstance().Load<Texture>(L"backCloud", L"Texture\\BackCloud.bmp");
 	Texture* mainLogo = ResourceMgr::GetInstance().Load<Texture>(L"mainLogo", L"Texture\\Logo.bmp");
@@ -68,6 +67,7 @@ void TitleScene::Enter()
 	startBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	startBtnUI->SetSize(startButton->GetSize());
 	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.6f));
+	startBtnUI->SetEvent([]() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::PLAY); });
 
 	startBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),
@@ -79,6 +79,7 @@ void TitleScene::Enter()
 	exitBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	exitBtnUI->SetSize(exitButton->GetSize());
 	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.4f));
+	exitBtnUI->SetEvent([]() {PostMessage(APP_INSTANCE.GetHwnd(), WM_QUIT, 0, 0); });
 
 	exitBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),

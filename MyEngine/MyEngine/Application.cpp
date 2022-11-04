@@ -21,8 +21,9 @@ void Application::Initialize(const WindowData& _winData)
 	// Manager Initialize
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
-	SceneMgr::GetInstance().Initialize();
 	CameraMgr::GetInstance().Initialize();
+	SceneMgr::GetInstance().Initialize();
+	
 }
 
 void Application::WindowInit(const WindowData& _winData)
@@ -58,6 +59,7 @@ void Application::Tick()
 	// Manager Render
 	SceneMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
+	CameraMgr::GetInstance().Render();
 
 	// Double Buffering
 	BitBlt(MAIN_DC, 0, 0, GetWidth(), GetHeight(), BACK_BUF_DC, 0, 0, SRCCOPY);
