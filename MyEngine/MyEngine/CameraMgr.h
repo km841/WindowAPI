@@ -25,26 +25,23 @@ public:
     inline Vec2 GetRenderPos(Vec2 _objPos) { return _objPos - mDistance; }
     inline Vec2 GetWorldPos(Vec2 _renderPos) { return _renderPos + mDistance; }
 
-    
-
 public:
     void WorldToScreenCalc();
     void SetEffect(CAMERA_EFFECT _effect, float _endTime);
 
+private:
+    Vec2            mLookPos;
+    Vec2            mDistance;   
+    float           mAccTime;
+    GameObject*     mObject;
 
 private:
-    Vec2 mLookPos;
-    Vec2 mDistance;   
-    float mAccTime;
-    GameObject* mObject;
+    BLENDFUNCTION   mBlendFunc;
+    float           mAlphaValue;
+    Texture*        mCutton;
+    CAMERA_EFFECT   mEffect;
 
-private:
-    BLENDFUNCTION mBlendFunc;
-    float mAlphaValue;
-    Texture* mCutton;
-    CAMERA_EFFECT mEffect;
-
-    float mAlphaTime;
-    float mEndTime;
+    float           mAlphaTime;
+    float           mEndTime;
 };
 

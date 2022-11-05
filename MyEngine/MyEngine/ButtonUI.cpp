@@ -14,7 +14,6 @@ ButtonUI::~ButtonUI()
 
 void ButtonUI::Initialize()
 {
-
 }
 
 void ButtonUI::Update()

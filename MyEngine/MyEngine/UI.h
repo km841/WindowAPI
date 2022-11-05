@@ -24,7 +24,7 @@ public:
 
 private:
 	std::vector<UI*> mChildUI;
-	Texture* mTexture;
-	bool mCamMode;
+	Texture*		 mTexture;
+	bool			 mCamMode;
 };
 

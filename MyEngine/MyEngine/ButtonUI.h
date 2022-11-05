@@ -30,15 +30,15 @@ public:
 	virtual void Destroy();
 
 public:
-	void TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
+	void		TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
 	inline void SetEvent(std::function<void()> _func) { mEvent = _func; };
 	inline void CallEvent() const { mEvent(); }
 
 
 private:
-	bool mOnMouse;
+	bool				  mOnMouse;
 	std::function<void()> mEvent;
-	TextureInfo mStates[(UINT)ButtonState::END];
+	TextureInfo			  mStates[(UINT)ButtonState::END];
 
 };
 

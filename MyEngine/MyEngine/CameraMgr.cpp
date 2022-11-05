@@ -11,7 +11,7 @@ void CameraMgr::Initialize()
 	Vec2 resolution = APP_INSTANCE.GetResolution();
 	mLookPos = resolution / 2.f;
 
-	mCutton = ResourceMgr::GetInstance().CreateTexture(L"CameraEffect", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
+	mCutton = ResourceMgr::GetInstance().CreateTexture(L"Cutton", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
 
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
