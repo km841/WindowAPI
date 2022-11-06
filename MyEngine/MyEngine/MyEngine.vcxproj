@@ -148,6 +148,7 @@
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="EventRegisteror.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IconUI.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="Texture.h" />
@@ -163,8 +164,11 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="ToolScene.h" />
+    <ClInclude Include="ToolUI.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UtilLib.h" />
   </ItemGroup>
@@ -181,6 +185,7 @@
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="EventRegisteror.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -203,8 +208,11 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="ToolScene.cpp" />
+    <ClCompile Include="ToolUI.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UtilLib.cpp" />
   </ItemGroup>

@@ -23,7 +23,8 @@ void Animator::Render()
 		mCurAnim->Render();
 }
 
-void Animator::CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
+void Animator::CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop
+							       , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
 {
 	Animation* anim = FindAnimation(_animName);
 	if (nullptr != anim)

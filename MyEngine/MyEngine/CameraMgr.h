@@ -22,11 +22,13 @@ public:
     inline void SetLookPos(Vec2 _pos) { mLookPos = _pos; }
     inline void SetTrackingObject(GameObject* _obj) { mObject = _obj; }
 
-    inline Vec2 GetRenderPos(Vec2 _objPos) { return _objPos - mDistance; }
-    inline Vec2 GetWorldPos(Vec2 _renderPos) { return _renderPos + mDistance; }
+    inline Vec2 GetRenderPos(Vec2 _objPos) const { return _objPos - mDistance; }
+    inline Vec2 GetWorldPos(Vec2 _renderPos) const { return _renderPos + mDistance; }
+    Vec2 GetTileCoord(Vec2 _tilePos) const;
 
 public:
     void WorldToScreenCalc();
+    
     void SetEffect(CAMERA_EFFECT _effect, float _endTime);
 
 private:

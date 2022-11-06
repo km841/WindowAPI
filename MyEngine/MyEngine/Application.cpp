@@ -38,7 +38,7 @@ void Application::WindowInit(const WindowData& _winData)
 	RECT rect = { 0, 0, static_cast<LONG>(mWinData.iWidth), static_cast<LONG>(mWinData.iHeight) };
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
-	SetWindowPos(mWinData.hWnd, NULL, 0, 0, mWinData.iWidth, mWinData.iHeight, NULL);
+	SetWindowPos(mWinData.hWnd, NULL, 0, 0, rect.right, rect.bottom, NULL);
 	mWinData.iWidth = rect.right;
 	mWinData.iHeight = rect.bottom;
 }

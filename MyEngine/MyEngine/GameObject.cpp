@@ -4,7 +4,6 @@
 #include "Animator.h"
 
 GameObject::GameObject()
-	
 {
 }
 

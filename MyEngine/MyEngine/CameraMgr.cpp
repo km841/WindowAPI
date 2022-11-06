@@ -86,6 +86,25 @@ void CameraMgr::Render()
 	}
 }
 
+Vec2 CameraMgr::GetTileCoord(Vec2 _tilePos) const
+{
+	Vec2 calVec = {0, 0};
+	while (true)
+	{
+		if (calVec.x + TILE_SIZE >= _tilePos.x &&
+			calVec.y + TILE_SIZE >= _tilePos.y)
+			break;
+
+		if (calVec.x + TILE_SIZE < _tilePos.x)
+			calVec.x += TILE_SIZE;
+
+		if (calVec.y + TILE_SIZE < _tilePos.y)
+			calVec.y += TILE_SIZE;
+	}
+
+	return calVec;
+}
+
 void CameraMgr::WorldToScreenCalc()
 {
 	mAccTime += DT;

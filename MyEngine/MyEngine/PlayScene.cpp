@@ -12,16 +12,14 @@
 
 void PlayScene::Initialize()
 {
-	mBgTexture = ResourceMgr::GetInstance().Load<Texture>(L"PlayBackground", L"Texture\\Play.bmp");
-	assert(mBgTexture != nullptr);
+	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PlayBackground", L"Texture\\Play.bmp");
+	assert(mDefaultTexture != nullptr);
 }
 
 void PlayScene::Update()
 {
-	if (IS_JUST_PRESSED(KEY::ENTER))
-	{
-		
-	}
+
+
 
 	Scene::Update();
 }
@@ -31,10 +29,10 @@ void PlayScene::Render()
 	TransparentBlt(BACK_BUF_DC, 0, 0
 		, WINDOW_WIDTH_SIZE
 		, WINDOW_HEIGHT_SIZE
-		, mBgTexture->GetDC()
+		, mDefaultTexture->GetDC()
 		, 0, 0
-		, mBgTexture->GetWidth()
-		, mBgTexture->GetHeight()
+		, mDefaultTexture->GetWidth()
+		, mDefaultTexture->GetHeight()
 		, RGB(255, 0, 255));
 
 	Scene::Render();

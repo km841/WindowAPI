@@ -101,6 +101,24 @@
     <Filter Include="Engine\GameObject\UI\ButtonUI">
       <UniqueIdentifier>{cda428b9-d93a-449b-8b36-a757ff2249ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\ToolScene">
+      <UniqueIdentifier>{129b519f-5785-4b32-acd3-b0f7dd63a68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\PlayScene">
+      <UniqueIdentifier>{e528c7ea-5de1-4f1f-811f-954cca3fa2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\TitleScene">
+      <UniqueIdentifier>{2c2b3fea-15ea-4da7-8a99-b59cc4dbdca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Tile">
+      <UniqueIdentifier>{67f32aaf-c140-4ede-bcf5-00fddb5095bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ToolUI">
+      <UniqueIdentifier>{0a938206-63d9-454a-97f5-cf4da0c75f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\IconUI">
+      <UniqueIdentifier>{161984c0-e603-4200-a4be-69c69f7de4ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -112,12 +130,6 @@
     </ClInclude>
     <ClInclude Include="MathLib.h">
       <Filter>Common\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Engine\Scene\Base</Filter>
@@ -197,6 +209,24 @@
     <ClInclude Include="ButtonUI.h">
       <Filter>Engine\GameObject\UI\ButtonUI</Filter>
     </ClInclude>
+    <ClInclude Include="ToolScene.h">
+      <Filter>Engine\Scene\ToolScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Engine\Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Engine\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Engine\GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolUI.h">
+      <Filter>Engine\GameObject\UI\ToolUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IconUI.h">
+      <Filter>Engine\GameObject\UI\IconUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc">
@@ -217,12 +247,6 @@
     </ClCompile>
     <ClCompile Include="UtilLib.cpp">
       <Filter>Common\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\Scene\Base</Filter>
@@ -298,6 +322,24 @@
     </ClCompile>
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Engine\GameObject\UI\ButtonUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolScene.cpp">
+      <Filter>Engine\Scene\ToolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Engine\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolUI.cpp">
+      <Filter>Engine\GameObject\UI\ToolUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IconUI.cpp">
+      <Filter>Engine\GameObject\UI\IconUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

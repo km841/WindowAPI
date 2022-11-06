@@ -43,10 +43,12 @@ void TitleScene::Enter()
 	Texture* backCloud = ResourceMgr::GetInstance().Load<Texture>(L"backCloud", L"Texture\\BackCloud.bmp");
 	Texture* mainLogo = ResourceMgr::GetInstance().Load<Texture>(L"mainLogo", L"Texture\\Logo.bmp");
 	Texture* startButton = ResourceMgr::GetInstance().Load<Texture>(L"enterButton", L"Texture\\Enter.bmp");
+	Texture* toolButton = ResourceMgr::GetInstance().Load<Texture>(L"toolButton", L"Texture\\ToolMake.bmp");
 	Texture* exitButton = ResourceMgr::GetInstance().Load<Texture>(L"exitButton", L"Texture\\Exit.bmp");
 
 	// Button Function
 	std::function<void()> startBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::PLAY); };
+	std::function<void()> toolBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TOOL); };
 	std::function<void()> exitBtnCallback = []() {PostMessage(APP_INSTANCE.GetHwnd(), WM_QUIT, 0, 0); };
 
 	// FrondCloud Setting
@@ -84,12 +86,24 @@ void TitleScene::Enter()
 		Vec2(startButton->GetWidth() / 2.f, 0.f),
 		Vec2(startButton->GetWidth() / 2.f, (float)startButton->GetHeight()));
 
+	// Tool Button Setting
+	ButtonUI* toolBtnUI = new ButtonUI;
+	toolBtnUI->SetTexture(toolButton);
+	toolBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	toolBtnUI->SetSize(toolButton->GetSize());
+	toolBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.41f));
+	toolBtnUI->SetEvent(toolBtnCallback);
+	toolBtnUI->TextureProcessing(
+		Vec2(0.f, 0.f),
+		Vec2(toolButton->GetWidth() / 2.f, 0.f),
+		Vec2(toolButton->GetWidth() / 2.f, (float)toolButton->GetHeight()));
+
 	// Exit Button Setting
 	ButtonUI* exitBtnUI = new ButtonUI;
 	exitBtnUI->SetTexture(exitButton);
 	exitBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	exitBtnUI->SetSize(exitButton->GetSize());
-	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.4f));
+	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.25f));
 	exitBtnUI->SetEvent(exitBtnCallback);
 	exitBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),
@@ -101,6 +115,7 @@ void TitleScene::Enter()
 	EventRegisteror::GetInstance().CreateObject(bUI, bUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(logoUI, logoUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(startBtnUI, startBtnUI->GetType());
+	EventRegisteror::GetInstance().CreateObject(toolBtnUI, toolBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(exitBtnUI, exitBtnUI->GetType());
 }
 

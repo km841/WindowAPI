@@ -88,3 +88,5 @@ void ButtonUI::TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size)
 	mStates[(UINT)ButtonState::MOUSE_ON] = { _leftTop, _offset, _size };
 	mStates[(UINT)ButtonState::NONE] = { Vec2{_leftTop.x + _offset.x, _leftTop.y}, _offset, _size };
 }
+
+

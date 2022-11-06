@@ -23,13 +23,11 @@ public:
 	void AddGameObject(GameObject* _obj, OBJECT_TYPE _eType);
 	void DeleteObjGroup(OBJECT_TYPE _eType);
 
-
-
 private:
 	std::vector<GameObject*> mObjects[(UINT)OBJECT_TYPE::END];
 
 protected:
-	Texture* mBgTexture;
+	Texture* mDefaultTexture;
 
 };
 

@@ -31,6 +31,7 @@ public:
 
 public:
 	void		TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
+
 	inline void SetEvent(std::function<void()> _func) { mEvent = _func; };
 	inline void CallEvent() const { mEvent(); }
 
