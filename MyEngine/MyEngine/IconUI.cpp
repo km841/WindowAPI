@@ -5,7 +5,6 @@
 #include "MouseMgr.h"
 
 IconUI* IconUI::selectedUI = nullptr;
-
 IconUI::IconUI()
 	: UI(false)
 {

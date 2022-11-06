@@ -27,7 +27,7 @@ void ToolScene::Update()
 	if (nullptr != selectedUI)
 	{
 		Vec2 mousePos = WORLD_POS(MOUSE_POS);
-		if (mousePos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 2) && IS_LBUTTON_CLICKED)
+		if (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 2) && IS_LBUTTON_CLICKED)
 		{
 			Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
@@ -122,7 +122,6 @@ void ToolScene::Enter()
 	}
 	
 	EventRegisteror::GetInstance().CreateObject(toolUI, OBJECT_TYPE::UI);
-
 }
 
 void ToolScene::Exit()
