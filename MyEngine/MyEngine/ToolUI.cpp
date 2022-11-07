@@ -22,14 +22,11 @@ void ToolUI::Update()
 	if (GetTexture())
 	{
 		if (IS_JUST_PRESSED(KEY::PAGE_UP) && mCurPage > 0)
-		{
 			mCurPage--;
-		}
+		
 
 		if (IS_JUST_PRESSED(KEY::PAGE_DOWN))
-		{
 			mCurPage++;
-		}
 	}
 
 	UI::Update();
@@ -50,7 +47,7 @@ void ToolUI::Render()
 	UI::Render();
 }
 
-void ToolUI::Destroy()
+void ToolUI::Destroy() 
 {
 }
 

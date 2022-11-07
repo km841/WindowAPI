@@ -1,6 +1,20 @@
 #include "pch.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "Tile.h"
+
+Scene::Scene()
+	: mOFN{}
+	, mFileName{}
+	, mDefaultTexture(nullptr)
+{
+	mOFN.lStructSize = sizeof(OPENFILENAME);
+	mOFN.hwndOwner = APP_INSTANCE.GetHwnd();
+	mOFN.lpstrFile = mFileName;
+	mOFN.lpstrFilter = L"Map File\0*.map\0";
+	mOFN.lpstrInitialDir = L"..\\Resource\\Map\\";
+	mOFN.nMaxFile = sizeof(mFileName);
+}
 
 Scene::~Scene()
 {
@@ -54,4 +68,13 @@ void Scene::DeleteObjGroup(OBJECT_TYPE _eType)
 	}
 
 	mObjects[(UINT)_eType].clear();
+}
+
+void Scene::TileInitialize(int _size)
+{
+	std::vector<GameObject*>& tiles =  mObjects[(UINT)OBJECT_TYPE::TILE];
+	for (int i = 0; i < _size; ++i)
+	{
+		tiles.push_back(new Tile);
+	}
 }

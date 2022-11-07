@@ -17,7 +17,7 @@ public:
 	inline void SetLTPos(Vec2 _ltPos) { mTileLT = _ltPos; }
 	inline Vec2 GetLTPos() const { return mTileLT; }
 
-	void Save(FILE* _fp);
+	void Save(FILE* _fp) const;
 	void Load(FILE* _fp);
 
 private:

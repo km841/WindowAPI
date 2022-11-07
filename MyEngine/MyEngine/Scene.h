@@ -4,7 +4,7 @@ class Texture;
 class Scene
 {
 public:
-	Scene() {};
+	Scene();
 	~Scene();
 
 	friend class EventMgr;
@@ -23,11 +23,18 @@ public:
 	void AddGameObject(GameObject* _obj, OBJECT_TYPE _eType);
 	void DeleteObjGroup(OBJECT_TYPE _eType);
 
+public:
+	inline std::wstring GetFileName() const { return mFileName; }
+	void TileInitialize(int _size);
+
 private:
 	std::vector<GameObject*> mObjects[(UINT)OBJECT_TYPE::END];
 
 protected:
 	Texture* mDefaultTexture;
+
+	OPENFILENAME mOFN;
+	wchar_t mFileName[FILENAME_MAX_SIZE];
 
 };
 

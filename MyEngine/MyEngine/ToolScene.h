@@ -17,6 +17,10 @@ public:
 public:
 	void RemoveTile(Vec2 _pos);
 
+public:
+	void Save();
+	void Load();
+
 private:
 	BLENDFUNCTION   mBlendFunc;
 

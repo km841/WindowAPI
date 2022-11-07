@@ -32,13 +32,13 @@ void Tile::Render()
 
 	TransparentBlt(
 		BACK_BUF_DC,
-		(int)(pos.x),
-		(int)(pos.y),
+		(int)pos.x,
+		(int)pos.y,
 		TILE_SIZE,
 		TILE_SIZE,
 		mTex->GetDC(),
-		(int)(mTileLT.x),
-		(int)(mTileLT.y),
+		(int)mTileLT.x,
+		(int)mTileLT.y,
 		TILE_SIZE,
 		TILE_SIZE,
 		RGB(255, 0, 255)
@@ -49,10 +49,24 @@ void Tile::Destroy()
 {
 }
 
-void Tile::Save(FILE* _fp)
+void Tile::Save(FILE* _fp) const
 {
+	Vec2 pos = GetPos();
+	Vec2 ltPos = GetLTPos();
+	
+	fwrite(&pos, sizeof(Vec2), 1, _fp);
+	fwrite(&ltPos, sizeof(Vec2), 1, _fp);
 }
 
 void Tile::Load(FILE* _fp)
 {
+	Vec2 pos;
+	Vec2 ltPos;
+
+	fread(&pos, sizeof(Vec2), 1, _fp);
+	fread(&ltPos, sizeof(Vec2), 1, _fp);
+
+	SetPos(pos);
+	SetLTPos(ltPos);
 }
+

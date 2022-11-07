@@ -9,6 +9,7 @@
 #include "MouseMgr.h"
 #include "Tile.h"
 #include "CheckButtonUI.h"
+#include "KeyMgr.h"
 
 void ToolScene::Initialize()
 {
@@ -30,7 +31,7 @@ void ToolScene::Update()
 
 	if (nullptr != selectedUI)
 	{
-		if (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 2) && IS_LBUTTON_CLICKED)
+		if (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3) && IS_LBUTTON_CLICKED)
 		{
 			const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 			bool existFlag = false;
@@ -40,7 +41,7 @@ void ToolScene::Update()
 					existFlag = true;
 			}
 
-			if (!existFlag)
+			if (false == existFlag)
 			{
 				Tile* tile = new Tile;
 				tile->SetPos(tilePos);
@@ -53,9 +54,17 @@ void ToolScene::Update()
 	else
 	{
 		if (IS_RBUTTON_CLICKED)
-		{
 			RemoveTile(tilePos);
-		}
+	}
+
+	if (IS_PRESSED(KEY::LCTRL) && IS_JUST_PRESSED(KEY::S))
+	{
+		Save();
+	}
+
+	if (IS_PRESSED(KEY::LCTRL) && IS_JUST_PRESSED(KEY::O))
+	{
+		Load();
 	}
 
 
@@ -65,9 +74,28 @@ void ToolScene::Update()
 void ToolScene::Render()
 {
 
+	// 가로줄
+	for (int i = 0; i < ASSISTANT_LINE_Y; i += TILE_SIZE)
+	{
+		Vec2 renderPos(0, i);
+		renderPos = RENDER_POS(renderPos);
+		MoveToEx(BACK_BUF_DC, (int)renderPos.x, (int)renderPos.y, nullptr);
+		LineTo(BACK_BUF_DC, (int)(renderPos.x + ASSISTANT_LINE_X), (int)renderPos.y);
+	}
+
+	// 세로줄
+	for (int i = 0; i < ASSISTANT_LINE_X; i += TILE_SIZE)
+	{
+		Vec2 renderPos(i, 0);
+		renderPos = RENDER_POS(renderPos);
+		MoveToEx(BACK_BUF_DC, (int)renderPos.x, (int)renderPos.y, nullptr);
+		LineTo(BACK_BUF_DC, (int)renderPos.x, (int)(renderPos.y + ASSISTANT_LINE_Y));
+	}
+	
+
 	Scene::Render();
 
-
+	// 블럭이 클릭되었을 때의 이벤트
 	IconUI* selectedUI = IconUI::GetSelectedUI();
 	if (nullptr != selectedUI)
 	{
@@ -154,6 +182,57 @@ void ToolScene::RemoveTile(Vec2 _pos)
 			EventRegisteror::GetInstance().DeleteObject(tileGroup[i]);
 			break;
 		}
+	}
+}
+
+void ToolScene::Save()
+{
+	if (GetSaveFileName(&mOFN))
+	{
+		std::wstring fileName = GetFileName();
+		fileName += L".map";
+
+		FILE* fp = nullptr;
+		_wfopen_s(&fp, fileName.c_str(), L"w");
+
+		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+		size_t tileSize = tileGroup.size();
+		fwrite(&tileSize, sizeof(int), 1, fp);
+
+		
+		for (const auto& tile : tileGroup)
+		{
+			dynamic_cast<Tile*>(tile)->Save(fp);
+		}
+
+		fclose(fp);
+	}
+}
+
+void ToolScene::Load()
+{
+	if (GetOpenFileName(&mOFN))
+	{
+		std::wstring fileName = GetFileName();
+		
+
+		FILE* fp = nullptr;
+		_wfopen_s(&fp, fileName.c_str(), L"r");
+
+		
+		DeleteObjGroup(OBJECT_TYPE::TILE);
+
+		int tileSize = 0;
+		fread(&tileSize, sizeof(int), 1, fp);
+		TileInitialize(tileSize);
+
+		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+		for (const auto& tile : tileGroup)
+		{
+			dynamic_cast<Tile*>(tile)->Load(fp);
+		}
+
+		fclose(fp);
 	}
 }
 
