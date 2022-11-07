@@ -7,6 +7,7 @@
 Tile::Tile()
 {
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
+	SetType(OBJECT_TYPE::TILE);
 }
 
 Tile::~Tile()
@@ -24,7 +25,9 @@ void Tile::Update()
 
 void Tile::Render()
 {
-	static Texture* mTex = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
+	static Texture* mTex = 
+		ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
+
 	Vec2 pos = RENDER_POS(GetPos());
 
 	TransparentBlt(

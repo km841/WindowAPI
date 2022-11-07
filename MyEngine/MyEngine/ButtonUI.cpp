@@ -30,14 +30,10 @@ void ButtonUI::Update()
 		mOnMouse = true;
 
 		if (mEvent && IS_LBUTTON_CLICKED)
-		{
 			CallEvent();
-		}
 	}
 	else
-	{
 		mOnMouse = false;
-	}
 }
 
 void ButtonUI::Render()

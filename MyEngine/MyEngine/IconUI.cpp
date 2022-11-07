@@ -3,6 +3,8 @@
 #include "Texture.h"
 #include "CameraMgr.h"
 #include "MouseMgr.h"
+#include "CheckButtonUI.h"
+#include "ToolUI.h"
 
 IconUI* IconUI::selectedUI = nullptr;
 IconUI::IconUI()
@@ -20,11 +22,19 @@ void IconUI::Initialize()
 
 void IconUI::Update()
 {
-	UI* parentUI = GetParentUI();
+	ToolUI* parentUI = (ToolUI*)GetParentUI();
 	Vec2 mousePos = MOUSE_POS;
 
 	Vec2 parentPos = parentUI->GetPos();
 	Vec2 pos = parentPos + GetPos();
+
+	pos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
+
+	if (IS_RBUTTON_CLICKED)
+		selectedUI = nullptr;
+
+	if (pos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 4))
+		return;
 
 	if (pos.x <= mousePos.x && pos.x + TILE_SIZE >= mousePos.x &&
 		pos.y <= mousePos.y && pos.y + TILE_SIZE >= mousePos.y)
@@ -33,14 +43,14 @@ void IconUI::Update()
 			selectedUI = this;
 	}
 
-	if (IS_RBUTTON_CLICKED)
-		selectedUI = nullptr;
+
 	
 }
 
 void IconUI::Render()
 {	
-	UI* parentUI = GetParentUI();
+	ToolUI* parentUI = (ToolUI*)GetParentUI();
+
 	if (nullptr != parentUI)
 	{
 		Texture* texture = parentUI->GetTexture();
@@ -49,6 +59,9 @@ void IconUI::Render()
 		{
 			Vec2 pos = parentUI->GetPos();
 			pos += GetPos();
+			pos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
+			if (pos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 4))
+				return;
 
 			TransparentBlt(
 				BACK_BUF_DC,
@@ -70,13 +83,14 @@ void IconUI::Render()
 				Pen pen(BACK_BUF_DC, PEN_TYPE::RED);
 
 				Rectangle(BACK_BUF_DC,
-					(int)pos.x, (int)pos.y, (int)(pos.x + TILE_SIZE), (int)(pos.y + TILE_SIZE));
+					(int)pos.x,
+					(int)pos.y,
+					(int)(pos.x + TILE_SIZE),
+					(int)(pos.y + TILE_SIZE));
 			}
 					
 		}
 	}
-
-
 }
 
 void IconUI::Destroy()

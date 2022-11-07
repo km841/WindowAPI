@@ -41,16 +41,16 @@ public:
 
 public:
 	inline const Vec2& GetPos() const { return mPos; }
-	inline void SetPos(const Vec2& _pos) { mPos = _pos; }
+	inline void		   SetPos(const Vec2& _pos) { mPos = _pos; }
 
 	inline const Vec2& GetSize() const { return mSize; }
-	inline void SetSize(const Vec2& _size) { mSize = _size; }
+	inline void		   SetSize(const Vec2& _size) { mSize = _size; }
 
 	inline const Vec2& GetScale() const { return mScale; }
-	inline void SetScale(const Vec2& _scale) { mScale = _scale; }
+	inline void		   SetScale(const Vec2& _scale) { mScale = _scale; }
 
 	inline OBJECT_TYPE GetType() const { return mType; }
-	inline void SetType(OBJECT_TYPE _type) { mType = _type; }
+	inline void		   SetType(OBJECT_TYPE _type) { mType = _type; }
 
 	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }

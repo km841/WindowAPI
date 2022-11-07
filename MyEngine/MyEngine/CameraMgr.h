@@ -25,10 +25,10 @@ public:
     inline Vec2 GetRenderPos(Vec2 _objPos) const { return _objPos - mDistance; }
     inline Vec2 GetWorldPos(Vec2 _renderPos) const { return _renderPos + mDistance; }
     Vec2 GetTileCoord(Vec2 _tilePos) const;
+    Vec2 GetIconUIPos(Vec2 _uiPos, int _index) const;
 
 public:
     void WorldToScreenCalc();
-    
     void SetEffect(CAMERA_EFFECT _effect, float _endTime);
 
 private:

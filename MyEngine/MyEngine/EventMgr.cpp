@@ -65,7 +65,7 @@ void EventMgr::CollisionClear(GameObject* _obj)
 			}
 			else
 			{
-				otherIter++;
+				++otherIter;
 			}
 		}
 	}

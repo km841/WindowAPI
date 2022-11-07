@@ -8,6 +8,7 @@
 #include "IconUI.h"
 #include "MouseMgr.h"
 #include "Tile.h"
+#include "CheckButtonUI.h"
 
 void ToolScene::Initialize()
 {
@@ -24,13 +25,13 @@ void ToolScene::Initialize()
 void ToolScene::Update()
 {
 	IconUI* selectedUI = IconUI::GetSelectedUI();
+	Vec2 mousePos = WORLD_POS(MOUSE_POS);
+	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
+
 	if (nullptr != selectedUI)
 	{
-		Vec2 mousePos = WORLD_POS(MOUSE_POS);
 		if (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 2) && IS_LBUTTON_CLICKED)
 		{
-			Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
-
 			const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 			bool existFlag = false;
 			for (int i = 0; i < tileGroup.size(); ++i)
@@ -46,8 +47,17 @@ void ToolScene::Update()
 				tile->SetLTPos(selectedUI->GetLTPos());
 				EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
 			}
+
 		}
 	}
+	else
+	{
+		if (IS_RBUTTON_CLICKED)
+		{
+			RemoveTile(tilePos);
+		}
+	}
+
 
 	Scene::Update();
 }
@@ -56,6 +66,7 @@ void ToolScene::Render()
 {
 
 	Scene::Render();
+
 
 	IconUI* selectedUI = IconUI::GetSelectedUI();
 	if (nullptr != selectedUI)
@@ -91,17 +102,20 @@ void ToolScene::Enter()
 
 	ToolUI* toolUI = new ToolUI;
 	toolUI->SetTexture(mDefaultTexture);
-	toolUI->SetPos(Vec2(0, WINDOW_HEIGHT_SIZE - (TILE_SIZE * 2) - HEIGHT_CORRECT));
+	toolUI->SetPos(Vec2(0, WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3) - HEIGHT_CORRECT));
 
+	// 맵 이미지 내의 인덱스
 	int colMax = WINDOW_WIDTH_SIZE / TILE_SIZE;
 	int rowMax = WINDOW_HEIGHT_SIZE / TILE_SIZE;
 
+	// 실제로 화면에 그려질 인덱스
 	int col = 0;
 	int row = 0;
 
+	// 툴 UI 작업
 	for (int y = 0; y < texSize.y / TILE_SIZE; ++y)
 	{
-		for (int x = 0; x < texSize.x / TILE_SIZE; ++x)
+		for (int x = 0; x < (texSize.x / TILE_SIZE - 1); ++x)
 		{
 			IconUI* child = new IconUI;
 			child->SetLTPos(Vec2(x * TILE_SIZE, y * TILE_SIZE));
@@ -110,7 +124,7 @@ void ToolScene::Enter()
 
 			toolUI->AddChild(child);
 
-			if (col < colMax)
+			if (col < colMax - 1)
 				col++;
 
 			else
@@ -120,7 +134,7 @@ void ToolScene::Enter()
 			}
 		}
 	}
-	
+
 	EventRegisteror::GetInstance().CreateObject(toolUI, OBJECT_TYPE::UI);
 }
 
@@ -129,3 +143,20 @@ void ToolScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::UI);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 }
+
+void ToolScene::RemoveTile(Vec2 _pos)
+{
+	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+	for (int i = 0; i < tileGroup.size(); ++i)
+	{
+		if (tileGroup[i]->GetPos() == _pos)
+		{
+			EventRegisteror::GetInstance().DeleteObject(tileGroup[i]);
+			break;
+		}
+	}
+}
+
+
+
+

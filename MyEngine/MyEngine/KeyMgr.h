@@ -32,6 +32,9 @@ enum class KEY
     LEFT,
     RIGHT,
 
+    PAGE_UP,
+    PAGE_DOWN,
+
     LBUTTON,
     RBUTTON,
 
@@ -56,6 +59,9 @@ static UINT KEY_CODE[(UINT)KEY::END]
     VK_DOWN,
     VK_LEFT,
     VK_RIGHT,
+
+    VK_PRIOR,
+    VK_NEXT,
 
     VK_LBUTTON,
     VK_RBUTTON,

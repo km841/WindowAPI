@@ -16,10 +16,13 @@ public:
 	virtual void Destroy();
 
 public:
-
+	inline void SetPage(int _page) { mCurPage = _page; }
+	inline int  GetPage() const { return mCurPage; }
 
 private:
+	int mCurPage;
 	
+	// 카메라같은 개념을 도입해서 페이지에 따라 pos가 달라지게끔 함
 
 
 };

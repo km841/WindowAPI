@@ -11,6 +11,7 @@ struct TextureInfo
 enum class ButtonState
 {
 	MOUSE_ON,
+	CHECKED,
 	NONE,
 	END,
 };
@@ -30,13 +31,13 @@ public:
 	virtual void Destroy();
 
 public:
-	void		TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
+	virtual void TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
 
-	inline void SetEvent(std::function<void()> _func) { mEvent = _func; };
-	inline void CallEvent() const { mEvent(); }
+	inline void  SetEvent(std::function<void()> _func) { mEvent = _func; };
+	inline void  CallEvent() const { mEvent(); }
 
 
-private:
+protected:
 	bool				  mOnMouse;
 	std::function<void()> mEvent;
 	TextureInfo			  mStates[(UINT)ButtonState::END];

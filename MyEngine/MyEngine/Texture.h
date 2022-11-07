@@ -12,8 +12,8 @@ public:
 
 public:
     inline HBITMAP GetBitmap() const { return mBit; }
-    inline UINT GetWidth() const { return mWidth; }
-    inline UINT GetHeight() const { return mHeight; }
+    inline int GetWidth() const { return mWidth; }
+    inline int GetHeight() const { return mHeight; }
     inline Vec2 GetSize() const { return mSize; }
     inline HDC GetDC() const { return mDC; }
 
@@ -21,8 +21,8 @@ private:
     HDC          mDC;
     HBITMAP      mBit;
     Vec2         mSize;
-    UINT         mWidth;
-    UINT         mHeight;
+    int         mWidth;
+    int         mHeight;
 
     friend class ResourceMgr;
 };

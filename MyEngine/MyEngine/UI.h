@@ -12,19 +12,20 @@ public:
 	UI(const UI& _other);
 
 public:
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Render();
-	virtual void Destroy();
+	virtual void	Initialize();
+	virtual void	Update();
+	virtual void	Render();
+	virtual void	Destroy();
 
 public:
-	inline void SetTexture(Texture* _tex) { mTexture = _tex; }
+	inline void		SetTexture(Texture* _tex) { mTexture = _tex; }
 	inline Texture* GetTexture() const { return mTexture; }
 
-	inline void SetParentUI(UI* _parent) { mParentUI = _parent;}
-	inline UI* GetParentUI() const { return mParentUI; }
+	inline void		SetParentUI(UI* _parent) { mParentUI = _parent;}
+	inline UI*		GetParentUI() { return mParentUI; }
 
-	inline void AddChild(UI* _child) { mChildUI.push_back(_child); }
+	inline void		AddChild(UI* _child) { mChildUI.push_back(_child); }
+	inline const std::vector<UI*>& GetChildUI() const { return mChildUI; }
 
 
 private:

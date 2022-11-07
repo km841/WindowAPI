@@ -119,6 +119,9 @@
     <Filter Include="Engine\GameObject\UI\IconUI">
       <UniqueIdentifier>{161984c0-e603-4200-a4be-69c69f7de4ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UI\CheckButtonUI">
+      <UniqueIdentifier>{95519026-1813-4270-a296-22dd5ccd74a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="IconUI.h">
       <Filter>Engine\GameObject\UI\IconUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckButtonUI.h">
+      <Filter>Engine\GameObject\UI\CheckButtonUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="IconUI.cpp">
       <Filter>Engine\GameObject\UI\IconUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckButtonUI.cpp">
+      <Filter>Engine\GameObject\UI\CheckButtonUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

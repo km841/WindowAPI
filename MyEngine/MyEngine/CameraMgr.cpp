@@ -105,6 +105,12 @@ Vec2 CameraMgr::GetTileCoord(Vec2 _tilePos) const
 	return calVec;
 }
 
+Vec2 CameraMgr::GetIconUIPos(Vec2 _uiPos, int _index) const
+{
+	int offset = _index * (TILE_SIZE * 3);
+	return Vec2(_uiPos.x, _uiPos.y - offset);
+}
+
 void CameraMgr::WorldToScreenCalc()
 {
 	mAccTime += DT;
