@@ -27,6 +27,9 @@ public:
 	inline std::wstring GetFileName() const { return mFileName; }
 	void TileInitialize(int _size);
 
+public:
+	void Load(const std::wstring& _path);
+
 private:
 	std::vector<GameObject*> mObjects[(UINT)OBJECT_TYPE::END];
 

@@ -39,17 +39,17 @@ void Animation::Render()
 
 	GameObject* ownerObject = mOwner->GetOwner();
 	Vec2		pos = ownerObject->GetPos();
-	Vec2		scale = ownerObject->GetScale();
+	Vec2		size = ownerObject->GetSize();
 
 	// Convert RenderPos
 	pos = RENDER_POS(pos);
 
 	TransparentBlt(
 		BACK_BUF_DC
-		, (int)(pos.x - (mAnim[mCurFrm].mSlice.x * scale.x) / 2.f)
-		, (int)(pos.y - (mAnim[mCurFrm].mSlice.y * scale.y) / 2.f)
-		, (int)(mAnim[mCurFrm].mSlice.x * scale.x)
-		, (int)(mAnim[mCurFrm].mSlice.y * scale.y)
+		, (int)(pos.x - size.x / 2.f)
+		, (int)(pos.y - size.y)
+		, (int)(size.x)
+		, (int)(size.y)
 		, mTex->GetDC()
 		, (int)(mAnim[mCurFrm].mLeftTop.x)
 		, (int)(mAnim[mCurFrm].mLeftTop.y)

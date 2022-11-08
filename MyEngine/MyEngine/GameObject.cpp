@@ -4,6 +4,7 @@
 #include "Animator.h"
 
 GameObject::GameObject()
+	:mScale(Vec2(1.f, 1.f))
 {
 }
 

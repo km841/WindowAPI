@@ -111,8 +111,8 @@ void ToolScene::Render()
 			mDefaultTexture->GetDC(),
 			(int)(ltPos.x),
 			(int)(ltPos.y),
-			TILE_SIZE,
-			TILE_SIZE,
+			IMAGE_TILE_SIZE,
+			IMAGE_TILE_SIZE,
 			mBlendFunc
 		);
 	}
@@ -126,6 +126,7 @@ void ToolScene::Enter()
 	// 툴에 사용할 모든 타일을 벡터에 넣음
 	// 넣고 나서 16열로 출력
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
+	CameraMgr::GetInstance().SetLookPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
 	Vec2 texSize = mDefaultTexture->GetSize();
 
 	ToolUI* toolUI = new ToolUI;
@@ -141,12 +142,12 @@ void ToolScene::Enter()
 	int row = 0;
 
 	// 툴 UI 작업
-	for (int y = 0; y < texSize.y / TILE_SIZE; ++y)
+	for (int y = 0; y < texSize.y / IMAGE_TILE_SIZE; ++y)
 	{
-		for (int x = 0; x < (texSize.x / TILE_SIZE - 1); ++x)
+		for (int x = 0; x < (texSize.x / IMAGE_TILE_SIZE - 1); ++x)
 		{
 			IconUI* child = new IconUI;
-			child->SetLTPos(Vec2(x * TILE_SIZE, y * TILE_SIZE));
+			child->SetLTPos(Vec2(x * IMAGE_TILE_SIZE, y * IMAGE_TILE_SIZE));
 			child->SetPos(Vec2(col * TILE_SIZE, row * TILE_SIZE));
 			child->SetParentUI(toolUI);
 

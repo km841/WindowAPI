@@ -78,3 +78,25 @@ void Scene::TileInitialize(int _size)
 		tiles.push_back(new Tile);
 	}
 }
+
+void Scene::Load(const std::wstring& _path)
+{
+	FILE* fp = nullptr;
+	_wfopen_s(&fp, _path.c_str(), L"r");
+
+
+	DeleteObjGroup(OBJECT_TYPE::TILE);
+
+	int tileSize = 0;
+	fread(&tileSize, sizeof(int), 1, fp);
+	TileInitialize(tileSize);
+
+	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+	for (const auto& tile : tileGroup)
+	{
+		dynamic_cast<Tile*>(tile)->Load(fp);
+	}
+
+	fclose(fp);
+}
+

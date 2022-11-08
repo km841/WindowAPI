@@ -72,8 +72,8 @@ void IconUI::Render()
 				texture->GetDC(),
 				(int)(mLT.x),
 				(int)(mLT.y),
-				TILE_SIZE,
-				TILE_SIZE,
+				IMAGE_TILE_SIZE,
+				IMAGE_TILE_SIZE,
 				RGB(255, 0, 255)
 			);
 

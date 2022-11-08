@@ -156,6 +156,7 @@
     <ClInclude Include="IconUI.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
+    <ClInclude Include="Structure.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MathLib.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="ToolScene.h" />
     <ClInclude Include="ToolUI.h" />
+    <ClInclude Include="TownScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UtilLib.h" />
   </ItemGroup>
@@ -194,6 +196,7 @@
     <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
+    <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MyEngine.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="ToolScene.cpp" />
     <ClCompile Include="ToolUI.cpp" />
+    <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UtilLib.cpp" />
   </ItemGroup>

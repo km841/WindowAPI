@@ -10,9 +10,8 @@
 
 Player::Player()
 {
-	SetPos(Vec2{ 100.f, 700.f });
-	SetScale(Vec2{ 3.f, 3.f });
 	SetType(OBJECT_TYPE::PLAYER);
+	SetSize(Vec2(96.f, 96.f));
 	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"Player_IDLE", L"Texture\\idle.bmp");
 	assert(nullptr != mTexture);
 	

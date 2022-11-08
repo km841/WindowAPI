@@ -9,6 +9,14 @@ Animator::Animator()
 
 Animator::~Animator()
 {
+	for (auto& anim : mAnimMap)
+	{
+		if (nullptr != anim.second)
+		{
+			delete anim.second;
+			anim.second = nullptr;
+		}
+	}
 }
 
 void Animator::Update()

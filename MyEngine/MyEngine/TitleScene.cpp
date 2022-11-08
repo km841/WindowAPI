@@ -47,7 +47,7 @@ void TitleScene::Enter()
 	Texture* exitButton = ResourceMgr::GetInstance().Load<Texture>(L"exitButton", L"Texture\\Exit.bmp");
 
 	// Button Function
-	std::function<void()> startBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::PLAY); };
+	std::function<void()> startBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TOWN); };
 	std::function<void()> toolBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TOOL); };
 	std::function<void()> exitBtnCallback = []() {PostMessage(APP_INSTANCE.GetHwnd(), WM_QUIT, 0, 0); };
 

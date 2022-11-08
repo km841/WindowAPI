@@ -49,7 +49,17 @@ void CameraMgr::Update()
 	}
 
 	if (nullptr != mObject)
-		mLookPos = mObject->GetPos();
+	{
+		if (mObject->GetType() == OBJECT_TYPE::PLAYER)
+		{
+			Vec2 pos = mObject->GetPos();
+			mLookPos = pos + Vec2(0.f, -160.f);
+		}
+		else
+		{
+			mLookPos = mObject->GetPos();
+		}
+	}
 
 	if (IS_PRESSED(KEY::W))
 	{
