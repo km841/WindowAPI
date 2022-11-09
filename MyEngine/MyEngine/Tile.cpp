@@ -28,12 +28,23 @@ void Tile::Render()
 	static Texture* mTex = 
 		ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
 
-	Vec2 pos = RENDER_POS(GetPos());
+	Vec2 pos = GetPos();
+	// 내 위치가 카메라에서 안보이면 렌더X
+	Vec2 resolution = APP_INSTANCE.GetResolution();
+	Vec2 ltPos = CameraMgr::GetInstance().GetLookPos() - (resolution / 2.f);
 
+	// 렌더링 최적화
+	if (pos.x < ltPos.x - TILE_SIZE || pos.x >= (ltPos.x + resolution.x) ||
+		pos.y < ltPos.y - TILE_SIZE || pos.y >= (ltPos.y + resolution.y))
+	{
+		return;
+	}
+	
+	Vec2 renderPos = RENDER_POS(pos);
 	TransparentBlt(
 		BACK_BUF_DC,
-		(int)pos.x,
-		(int)pos.y,
+		(int)renderPos.x,
+		(int)renderPos.y,
 		TILE_SIZE,
 		TILE_SIZE,
 		mTex->GetDC(),

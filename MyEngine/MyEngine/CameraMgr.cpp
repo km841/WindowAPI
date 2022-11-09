@@ -98,20 +98,9 @@ void CameraMgr::Render()
 
 Vec2 CameraMgr::GetTileCoord(Vec2 _tilePos) const
 {
-	Vec2 calVec = {0, 0};
-	while (true)
-	{
-		if (calVec.x + TILE_SIZE >= _tilePos.x &&
-			calVec.y + TILE_SIZE >= _tilePos.y)
-			break;
-
-		if (calVec.x + TILE_SIZE < _tilePos.x)
-			calVec.x += TILE_SIZE;
-
-		if (calVec.y + TILE_SIZE < _tilePos.y)
-			calVec.y += TILE_SIZE;
-	}
-
+	Vec2 calVec = {};
+	calVec.x = (float)(TILE_SIZE * (int)(_tilePos.x / TILE_SIZE));
+	calVec.y = (float)(TILE_SIZE * (int)(_tilePos.y / TILE_SIZE));
 	return calVec;
 }
 

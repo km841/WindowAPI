@@ -54,14 +54,14 @@ void TitleScene::Enter()
 	// FrondCloud Setting
 	BackgroundUI* fUI = new BackgroundUI;
 	fUI->SetTexture(frontCloud);
-	fUI->SetSpeed(100.f);
+	fUI->SetSpeed(70.f);
 	fUI->SetSize(frontCloud->GetSize());
 	fUI->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
 
 	// BackCloud Setting
 	BackgroundUI* bUI = new BackgroundUI;
 	bUI->SetTexture(backCloud);
-	bUI->SetSpeed(30.f);
+	bUI->SetSpeed(15.f);
 	bUI->SetSize(backCloud->GetSize());
 	bUI->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
 
@@ -79,7 +79,7 @@ void TitleScene::Enter()
 	startBtnUI->SetTexture(startButton);
 	startBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	startBtnUI->SetSize(startButton->GetSize());
-	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.6f));
+	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.49f));
 	startBtnUI->SetEvent(startBtnCallback);
 	startBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),
@@ -91,7 +91,7 @@ void TitleScene::Enter()
 	toolBtnUI->SetTexture(toolButton);
 	toolBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	toolBtnUI->SetSize(toolButton->GetSize());
-	toolBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.41f));
+	toolBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.30f));
 	toolBtnUI->SetEvent(toolBtnCallback);
 	toolBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),
@@ -103,7 +103,7 @@ void TitleScene::Enter()
 	exitBtnUI->SetTexture(exitButton);
 	exitBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	exitBtnUI->SetSize(exitButton->GetSize());
-	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.25f));
+	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.15f));
 	exitBtnUI->SetEvent(exitBtnCallback);
 	exitBtnUI->TextureProcessing(
 		Vec2(0.f, 0.f),

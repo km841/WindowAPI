@@ -20,6 +20,7 @@ public:
 
 public:
     inline void SetLookPos(Vec2 _pos) { mLookPos = _pos; }
+    inline Vec2 GetLookPos() const { return mLookPos; }
     inline void SetTrackingObject(GameObject* _obj) { mObject = _obj; }
 
     inline Vec2 GetRenderPos(Vec2 _objPos) const { return _objPos - mDistance; }
@@ -30,6 +31,7 @@ public:
 public:
     void WorldToScreenCalc();
     void SetEffect(CAMERA_EFFECT _effect, float _endTime);
+    
 
 private:
     Vec2            mLookPos;
