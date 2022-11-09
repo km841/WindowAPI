@@ -19,47 +19,12 @@ void CameraMgr::Initialize()
 	mBlendFunc.BlendOp = AC_SRC_OVER;
 	mBlendFunc.SourceConstantAlpha = 0;
 
-	mEndTime = 5.0f;
-	
-	mEffect = CAMERA_EFFECT::END;
+	mCurEffect = {};
+	mCurEffect.mEffect = CAMERA_EFFECT::END;
 }
 
 void CameraMgr::Update()
 {
-	if (mEffect != CAMERA_EFFECT::END)
-	{
-		if (mAlphaTime >= mEndTime)
-			mEffect = CAMERA_EFFECT::END;
-
-		mAlphaTime += DT;
-		float ratio = mAlphaTime / mEndTime;
-
-		switch (mEffect)
-		{
-		case CAMERA_EFFECT::FADE_IN:
-			mAlphaValue = 1.0f - ratio;
-			mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
-			break;
-
-		case CAMERA_EFFECT::FADE_OUT:
-			mAlphaValue = ratio;
-			mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
-			break;
-		}
-	}
-
-	if (nullptr != mObject)
-	{
-		if (mObject->GetType() == OBJECT_TYPE::PLAYER)
-		{
-			Vec2 pos = mObject->GetPos();
-			mLookPos = pos + Vec2(0.f, -160.f);
-		}
-		else
-		{
-			mLookPos = mObject->GetPos();
-		}
-	}
 
 	if (IS_PRESSED(KEY::W))
 	{
@@ -79,21 +44,69 @@ void CameraMgr::Update()
 	}
 
 	WorldToScreenCalc();
+
+	if (nullptr != mObject)
+	{
+		if (mObject->GetType() == OBJECT_TYPE::PLAYER)
+		{
+			Vec2 pos = mObject->GetPos();
+			mLookPos = pos + Vec2(0.f, -160.f);
+		}
+		else
+		{
+			mLookPos = mObject->GetPos();
+		}
+	}
+
+	if (mCamEffects.empty())
+		return;
+
+	CameraEffect& mCurEffect = mCamEffects.front();
+	
+	mCurEffect.mAlphaTime += DT;
+	float ratio = mCurEffect.mAlphaTime / mCurEffect.mEndTime;
+
+	switch (mCurEffect.mEffect)
+	{
+	case CAMERA_EFFECT::FADE_IN:
+		mAlphaValue = 1.0f - ratio;
+		mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
+		break;
+
+	case CAMERA_EFFECT::FADE_OUT:
+		mAlphaValue = ratio;
+		mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
+		break;
+	}
+	
+	if (mCurEffect.mAlphaTime >= mCurEffect.mEndTime)
+	{
+		mCamEffects.pop_front();
+		mAlphaValue = 0.0f;
+	}
+
+
+
+
+
+
+
 }
 
 void CameraMgr::Render()
 {
-	if (mEffect != CAMERA_EFFECT::END)
-	{
-		AlphaBlend(BACK_BUF_DC,
-			0, 0,
-			WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
-			mCutton->GetDC(),
-			0, 0,
-			mCutton->GetWidth(),
-			mCutton->GetHeight(),
-			mBlendFunc);
-	}
+	if (mCamEffects.empty())
+		return;
+
+	AlphaBlend(BACK_BUF_DC,
+		0, 0,
+		WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
+		mCutton->GetDC(),
+		0, 0,
+		mCutton->GetWidth(),
+		mCutton->GetHeight(),
+		mBlendFunc);
+	
 }
 
 Vec2 CameraMgr::GetTileCoord(Vec2 _tilePos) const
@@ -120,7 +133,21 @@ void CameraMgr::WorldToScreenCalc()
 
 void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime)
 {
-	mEffect = _effect;
-	mEndTime = _endTime;
-	mAlphaTime = 0.0f;
+	if (_endTime <= 0.0f)
+		return;
+
+	CameraEffect camEffect = {};
+	camEffect.mEffect = _effect;
+	camEffect.mEndTime = _endTime;
+	camEffect.mAlphaTime = 0.0f;
+
+	mCamEffects.push_back(camEffect);
+}
+
+void CameraMgr::RemoveEffect()
+{
+	if (!mCamEffects.empty())
+	{
+		mCamEffects.pop_front();
+	}
 }

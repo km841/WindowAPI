@@ -156,6 +156,7 @@
     <ClInclude Include="IconUI.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="KeyMgr.cpp" />

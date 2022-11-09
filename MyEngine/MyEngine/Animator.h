@@ -22,6 +22,8 @@ public:
     Animation* FindAnimation(const std::wstring& _animName);
     void SelectAnimation(const std::wstring& _animName);
 
+    inline Animation* GetCurAnimation() const { return mCurAnim; }
+
 private:
     std::map<std::wstring, Animation*> mAnimMap;
     Animation*                         mCurAnim;

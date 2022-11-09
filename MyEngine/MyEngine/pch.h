@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <bitset>
+#include <list>
 #include <map>
 #include <set>
 #include <functional>
@@ -47,6 +48,8 @@
 #define IS_LBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::LBTN_CLICKED
 #define IS_JUST_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::JUST_RBTN_CLICKED
 #define IS_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::RBTN_CLICKED
+
+#define EPSILON 0.00001
 
 /*WINDOW DEFAULT SIZE*/
 #define WINDOW_WIDTH_SIZE 1280 

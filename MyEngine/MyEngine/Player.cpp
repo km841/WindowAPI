@@ -7,35 +7,28 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "CameraMgr.h"
+#include "State.h"
+#include "MouseMgr.h"
+#include "Animation.h"
 
 Player::Player()
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
 
-	mTextureMap.insert(
-		std::make_pair(L"PLAYER_IDLE_LEFT", (ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_IDLE_LEFT", L"Texture\\idle_left.bmp"))));
+	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
 
-	mTextureMap.insert(
-		std::make_pair(L"PLAYER_IDLE_RIGHT", (ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_IDLE_RIGHT", L"Texture\\idle_right.bmp"))));
-
-	mTextureMap.insert(
-		std::make_pair(L"PLAYER_WALK_LEFT", (ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_WALK_LEFT", L"Texture\\walk_left.bmp"))));
-
-	mTextureMap.insert(
-		std::make_pair(L"PLAYER_WALK_RIGHT", (ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_WALK_RIGHT", L"Texture\\walk_right.bmp"))));
-	
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", GetTexture(L"PLAYER_IDLE_LEFT"), Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", GetTexture(L"PLAYER_IDLE_RIGHT"), Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->CreateAnimation(L"PLAYER_WALK_LEFT", GetTexture(L"PLAYER_WALK_LEFT"), Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 8);
-	GetAnimator()->CreateAnimation(L"PLAYER_WALK_RIGHT", GetTexture(L"PLAYER_WALK_RIGHT"), Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 8);
-
+	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
+	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 32.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
+	GetAnimator()->CreateAnimation(L"PLAYER_WALK_LEFT", mDefaultTexture, Vec2(0.f, 64.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 8);
+	GetAnimator()->CreateAnimation(L"PLAYER_WALK_RIGHT", mDefaultTexture, Vec2(0.f, 96.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 8);
+	
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 }
 
@@ -46,7 +39,7 @@ Player::~Player()
 
 void Player::Initialize()
 {
-	
+	mPrevPos = GetPos();
 }
 
 void Player::Update()
@@ -55,52 +48,87 @@ void Player::Update()
 
 	if (IS_PRESSED(KEY::UP))
 	{
-		pos.y -= 600 * DT;
+		pos.y -= 400 * DT;
 	}
 	if (IS_PRESSED(KEY::DOWN))
 	{
-		pos.y += 600 * DT;
+		pos.y += 400 * DT;
 	}
+
 	if (IS_PRESSED(KEY::LEFT))
 	{
-		pos.x -= 600 * DT;
+		pos.x -= 400.f * DT;
 	}
+
 	if (IS_PRESSED(KEY::RIGHT))
 	{
-		pos.x += 600 * DT;
+		pos.x += 400.f * DT;
 	}
 
-	if (IS_JUST_PRESSED(KEY::LEFT))
+	Vec2 mousePos = MOUSE_POS;
+	Vec2 renderPos = RENDER_POS(pos);
+
+	Animator* anim = GetAnimator();
+
+	if (mousePos.x > renderPos.x)
 	{
-		SelectTexture(L"PLAYER_WALK_LEFT");
-		GetAnimator()->SelectAnimation(L"PLAYER_WALK_LEFT");
+		mDir = PLAYER_DIR::RIGHT;
+		if (L"PLAYER_IDLE_RIGHT" != anim->GetCurAnimation()->GetName())
+			GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 	}
 
-	if (IS_JUST_PRESSED(KEY::RIGHT))
+	else
 	{
-		SelectTexture(L"PLAYER_WALK_RIGHT");
-		GetAnimator()->SelectAnimation(L"PLAYER_WALK_RIGHT");
+		mDir = PLAYER_DIR::LEFT;
+		if (L"PLAYER_IDLE_LEFT" != anim->GetCurAnimation()->GetName())
+			GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
 	}
 
-	if (IS_JUST_RELEASED(KEY::LEFT))
+	switch (mDir)
 	{
-		SelectTexture(L"PLAYER_IDLE_LEFT");
-		GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
-	}
-
-
-	if (IS_JUST_RELEASED(KEY::RIGHT))
+	case PLAYER_DIR::LEFT:
 	{
-		SelectTexture(L"PLAYER_IDLE_RIGHT");
-		GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+		if (abs(mPrevPos.x - pos.x) < EPSILON &&
+			abs(mPrevPos.y - pos.y) < EPSILON)
+		{
+			if ( L"PLAYER_IDLE_LEFT" != anim->GetCurAnimation()->GetName())
+				GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
+		}
+
+		else
+		{
+			if (L"PLAYER_WALK_LEFT" != anim->GetCurAnimation()->GetName())
+				GetAnimator()->SelectAnimation(L"PLAYER_WALK_LEFT");
+		}
+	}
+		break;
+
+	case PLAYER_DIR::RIGHT:
+	{
+		if (abs(mPrevPos.x - pos.x) < EPSILON &&
+			abs(mPrevPos.y - pos.y) < EPSILON)
+		{
+			if (L"PLAYER_IDLE_RIGHT" != anim->GetCurAnimation()->GetName())
+				GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+		}
+
+		else
+		{
+			if (L"PLAYER_WALK_RIGHT" != anim->GetCurAnimation()->GetName())
+				GetAnimator()->SelectAnimation(L"PLAYER_WALK_RIGHT");
+		}
+	}
+		break;
 	}
 
+	mPrevPos = GetPos();
 	SetPos(pos);
 	GameObject::Update();
 }
 
 void Player::Render()
 {
+
 
 	GameObject::Render();
 }

@@ -40,6 +40,8 @@ void Animator::CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec
 
 	anim = new Animation;
 	anim->mOwner = this;
+	anim->SetName(_animName);
+	
 	anim->Create(_tex, _leftTop, _slice, _offset, _duration, _frmCount);
 	
 	mAnimMap.insert(std::make_pair(_animName, anim));

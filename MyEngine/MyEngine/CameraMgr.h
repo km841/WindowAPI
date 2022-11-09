@@ -8,6 +8,13 @@ enum class CAMERA_EFFECT
     END,
 };
 
+struct CameraEffect
+{
+    CAMERA_EFFECT   mEffect;
+    float           mAlphaTime;
+    float           mEndTime;
+};
+
 class GameObject;
 class Texture;
 class CameraMgr :
@@ -31,21 +38,21 @@ public:
 public:
     void WorldToScreenCalc();
     void SetEffect(CAMERA_EFFECT _effect, float _endTime);
+    void RemoveEffect();
     
 
 private:
-    Vec2            mLookPos;
-    Vec2            mDistance;   
-    float           mAccTime;
-    GameObject*     mObject;
+    Vec2                    mLookPos;
+    Vec2                    mDistance;   
+    float                   mAccTime;
+    GameObject*             mObject;
 
 private:
-    BLENDFUNCTION   mBlendFunc;
-    float           mAlphaValue;
-    Texture*        mCutton;
-    CAMERA_EFFECT   mEffect;
+    BLENDFUNCTION           mBlendFunc;
+    float                   mAlphaValue;
+    Texture*                mCutton;
 
-    float           mAlphaTime;
-    float           mEndTime;
+    std::list<CameraEffect> mCamEffects;
+    CameraEffect            mCurEffect;
 };
 

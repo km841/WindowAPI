@@ -128,6 +128,9 @@
     <Filter Include="Engine\GameObject\Structure">
       <UniqueIdentifier>{de0fee5d-3cf8-4732-ab44-ad67cd758f6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Player\State">
+      <UniqueIdentifier>{fc1c8b2b-2dc1-4157-a768-415a317ac2c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Structure.h">
       <Filter>Engine\GameObject\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Engine\GameObject\Player\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="Structure.cpp">
       <Filter>Engine\GameObject\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Engine\GameObject\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

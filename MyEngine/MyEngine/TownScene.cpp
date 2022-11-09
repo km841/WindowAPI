@@ -27,6 +27,9 @@ void TownScene::Render()
 
 void TownScene::Enter()
 {
+	CameraMgr::GetInstance().RemoveEffect();
+	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
+
 	Load(L"..\\Resource\\Map\\new_map.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG", L"Texture\\TownBG.bmp");
@@ -51,6 +54,7 @@ void TownScene::Enter()
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
+	player->Initialize();
 	CameraMgr::GetInstance().SetTrackingObject(player);
 	
 	EventRegisteror::GetInstance().CreateObject(townSkyBg, townSkyBg->GetType());
