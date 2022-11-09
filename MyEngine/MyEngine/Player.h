@@ -19,7 +19,12 @@ public:
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
 
+public:
+    Texture* GetTexture(const std::wstring& _key);
+    void SelectTexture(const std::wstring& _key);
+
 private:
-    Texture* mTexture;
+    std::map<std::wstring, Texture*> mTextureMap;
+    Texture* mCurTexture;
 };
 

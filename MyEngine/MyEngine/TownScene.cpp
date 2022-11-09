@@ -29,12 +29,19 @@ void TownScene::Enter()
 {
 	Load(L"..\\Resource\\Map\\new_map.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
+	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG", L"Texture\\TownBG.bmp");
 	Texture* floor = ResourceMgr::GetInstance().Load<Texture>(L"Floor", L"Texture\\Town_Floor.bmp");
 
 	BackgroundUI* townSkyBg = new BackgroundUI;
 	townSkyBg->SetTexture(townSky);
 	townSkyBg->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
 	townSkyBg->SetSize(townSky->GetSize());
+
+	BackgroundUI* townForestBg = new BackgroundUI;
+	townForestBg->SetTexture(townBG);
+	townForestBg->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
+	townForestBg->SetSize(townBG->GetSize());
+	townForestBg->SetPos(Vec2(0, 100));
 
 	Structure* townFloor = new Structure;
 	townFloor->SetPos(Vec2(TILE_SIZE * 50, TILE_SIZE * 20));
@@ -43,15 +50,13 @@ void TownScene::Enter()
 	townFloor->SetType(OBJECT_TYPE::STRUCTURE);
 
 	Player* player = new Player;
-	player->SetPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
+	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
 	CameraMgr::GetInstance().SetTrackingObject(player);
 	
 	EventRegisteror::GetInstance().CreateObject(townSkyBg, townSkyBg->GetType());
+	EventRegisteror::GetInstance().CreateObject(townForestBg, townForestBg->GetType());
 	EventRegisteror::GetInstance().CreateObject(townFloor, townFloor->GetType());
 	EventRegisteror::GetInstance().CreateObject(player, player->GetType());
-
-	//CameraMgr::GetInstance().SetLookPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
-
 }
 
 void TownScene::Exit()
