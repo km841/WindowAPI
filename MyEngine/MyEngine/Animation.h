@@ -2,6 +2,7 @@
 
 class Animator;
 class Texture;
+class GameObject;
 
 struct AnimInfo
 {
@@ -16,8 +17,31 @@ class Animation
 public:
     Animation();
     virtual ~Animation();
-
     friend class Animator;
+
+    struct EventAnimation
+    {
+        Animation*   mAnim;
+        Vec2         mOffset;
+        Vec2         mSize;
+        std::wstring mName;
+
+        EventAnimation()
+            : mAnim(nullptr)
+        {}
+
+        EventAnimation(const std::wstring& _name, Animation* _anim, Vec2 _offset, Vec2 _size)
+            : mAnim(_anim)
+            , mOffset(_offset)
+            , mSize(_size)
+        {}
+    };
+
+    struct Event
+    {
+        EventAnimation mEnter;
+        EventAnimation mExit;
+    };
 
 public:
     virtual void Update();
@@ -28,14 +52,21 @@ public:
     inline void SetName(const std::wstring& _name) { mName = _name; }
     inline const std::wstring& GetName() const { return mName; }
 
+    void SetEnterEvent(EventAnimation _event); 
+    void SetExitEvent(EventAnimation _event);
+
 private:
     Animator*             mOwner;
     Texture*              mTex;
-
     std::wstring          mName;
     
     std::vector<AnimInfo> mAnim;
     int                   mCurFrm;
     float                 mAccTime;
+    bool                  mRepeat;
+
+private:
+    Event*                mEvent;
+    GameObject*           mDummyObj;
 };
 

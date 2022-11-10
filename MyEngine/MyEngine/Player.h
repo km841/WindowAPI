@@ -1,19 +1,24 @@
 #pragma once
 #include "GameObject.h"
 
+#define PLAYER_SPEED 400.f
+
+class Texture;
+class IdleState;
+class WalkState;
+
+struct PlayerState
+{
+    static IdleState* Idle;
+    static WalkState* Walk;
+};
+
 enum class PLAYER_DIR
 {
     LEFT,
     RIGHT,
 };
 
-enum class PLAYER_STATE
-{
-    IDLE,
-    WALK,
-};
-
-class Texture;
 class Player :
     public GameObject
 {
@@ -33,22 +38,17 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 public:
-    Texture* GetTexture(const std::wstring& _key);
-    inline Texture* GetCurTexture() const { return mCurTexture; }
-
-
-    void SelectTexture(const std::wstring& _key);
+    void PlayerInput();
+    bool IsMove() const;
 
 private:
     Texture* mDefaultTexture;
-    std::map<std::wstring, Texture*> mTextureMap;
-    Texture* mCurTexture;
+    State* mState;
 
-    PLAYER_DIR mDir;
-    PLAYER_DIR mPrevDir;
-
-    PLAYER_STATE mPrevState;
-    PLAYER_STATE mState;
     Vec2 mPrevPos;
+    PLAYER_DIR mDir;
+
+    friend class IdleState;
+    friend class WalkState;
 };
 

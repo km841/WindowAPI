@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#define CAMERA_SPEED 600.f
 
 enum class CAMERA_EFFECT
 {

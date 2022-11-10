@@ -2,6 +2,7 @@
 
 class Collider;
 class Animator;
+class Animation;
 class GameObject;
 
 struct Components
@@ -9,6 +10,8 @@ struct Components
 	Collider* mCollider;
 	Animator* mAnimator;
 };
+
+;
 
 struct Relation
 {
@@ -34,7 +37,7 @@ public:
 	GameObject& operator= (const GameObject& _other);
 
 public:
-	virtual void Initialize() = 0;
+	virtual void Initialize();
 	virtual void Update();
 	virtual void Render();
 	virtual void Destroy();
@@ -54,14 +57,14 @@ public:
 
 	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }
-	void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
+	inline void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
 	
 	void CreateComponent(Collider* _collider);
 	void CreateComponent(Animator* _animator);
 
 	inline Collider* GetCollider() const { return mComponents.mCollider; }
 	inline Animator* GetAnimator() const { return mComponents.mAnimator; }
-
+	
 public:
 	virtual void OnCollision(Collider* _other) {};
 	virtual void OnCollisionEnter(Collider* _other) {};

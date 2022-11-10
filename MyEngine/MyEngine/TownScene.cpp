@@ -20,8 +20,6 @@ void TownScene::Update()
 
 void TownScene::Render()
 {
-
-
 	Scene::Render();
 }
 
@@ -44,7 +42,7 @@ void TownScene::Enter()
 	townForestBg->SetTexture(townBG);
 	townForestBg->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
 	townForestBg->SetSize(townBG->GetSize());
-	townForestBg->SetPos(Vec2(0, 100));
+	townForestBg->SetPos(Vec2(0, 200));
 
 	Structure* townFloor = new Structure;
 	townFloor->SetPos(Vec2(TILE_SIZE * 50, TILE_SIZE * 20));

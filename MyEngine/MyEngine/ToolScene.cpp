@@ -125,6 +125,7 @@ void ToolScene::Enter()
 {
 	// 툴에 사용할 모든 타일을 벡터에 넣음
 	// 넣고 나서 16열로 출력
+	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 	CameraMgr::GetInstance().SetLookPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
 	Vec2 texSize = mDefaultTexture->GetSize();

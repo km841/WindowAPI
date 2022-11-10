@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "TimeMgr.h"
 #include "CameraMgr.h"
+#include "GameObject.h"
+#include "EventRegisteror.h"
 
 Animation::Animation()
 {
@@ -12,6 +14,11 @@ Animation::Animation()
 
 Animation::~Animation()
 {
+	if (nullptr != mEvent)
+		delete mEvent;
+
+	if (nullptr != mDummyObj)
+		delete mDummyObj;
 }
 
 void Animation::Update()
@@ -26,9 +33,20 @@ void Animation::Update()
 		++mCurFrm;
 
 		if (mCurFrm >= mAnim.size())
+		{
 			mCurFrm = 0;
+			if (nullptr != mDummyObj)
+			{
+				mDummyObj->GetAnimator()->SelectAnimation(mEvent->mEnter.mName);
+			}
+		}
 		
 		mAccTime = 0;
+	}
+
+	if (nullptr != mDummyObj)
+	{
+		mDummyObj->Update();
 	}
 }
 
@@ -57,6 +75,13 @@ void Animation::Render()
 		, (int)(mAnim[mCurFrm].mSlice.y)
 		, RGB(255, 0, 255)
 	);
+
+	if (nullptr != mDummyObj)
+	{
+		mDummyObj->Render();
+	}
+
+	
 }
 
 void Animation::Create(Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
@@ -72,4 +97,45 @@ void Animation::Create(Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, 
 		
 		mAnim.push_back(anim);
 	}
+}
+
+void Animation::SetEnterEvent(EventAnimation _event)
+{
+	if (nullptr == mEvent)
+	{
+		mEvent = new Event;
+
+		if (nullptr == mDummyObj)
+		{
+			mDummyObj = new GameObject;
+			mDummyObj->CreateComponent(new Animator);
+			mDummyObj->GetAnimator()->AddAnimation(_event.mName, _event.mAnim);
+
+			Vec2 ownerPos = mOwner->GetOwner()->GetPos();
+			mDummyObj->SetPos(ownerPos + _event.mOffset);
+			mDummyObj->SetSize(_event.mSize);
+		}
+		else
+		{
+			mDummyObj->GetAnimator()->AddAnimation(_event.mName, _event.mAnim);
+		}
+		
+	}
+	mEvent->mEnter = _event; 
+}
+
+void Animation::SetExitEvent(EventAnimation _event)
+{
+	if (nullptr == mEvent)
+	{
+		mEvent = new Event;
+		mDummyObj = new GameObject;
+		mDummyObj->CreateComponent(new Animator);
+
+		Vec2 ownerPos = mOwner->GetOwner()->GetPos();
+		mDummyObj->SetPos(ownerPos + _event.mOffset);
+		mDummyObj->SetSize(_event.mSize);
+	}
+
+	mEvent->mExit = _event;
 }

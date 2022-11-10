@@ -45,6 +45,10 @@ GameObject& GameObject::operator=(const GameObject& _other)
 	return *this;
 }
 
+void GameObject::Initialize()
+{
+}
+
 void GameObject::Update()
 {
 	if (nullptr != GetCollider())

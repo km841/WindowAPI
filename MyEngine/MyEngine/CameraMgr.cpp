@@ -26,21 +26,21 @@ void CameraMgr::Initialize()
 void CameraMgr::Update()
 {
 
-	if (IS_PRESSED(KEY::W))
+	if (IS_PRESSED(KEY::UP))
 	{
-		mLookPos.y -= 600 * DT;
+		mLookPos.y -= (CAMERA_SPEED * DT);
 	}
-	if (IS_PRESSED(KEY::S))
+	if (IS_PRESSED(KEY::DOWN))
 	{
-		mLookPos.y += 600 * DT;
+		mLookPos.y += (CAMERA_SPEED * DT);
 	}
-	if (IS_PRESSED(KEY::A))
+	if (IS_PRESSED(KEY::LEFT))
 	{
-		mLookPos.x -= 600 * DT;
+		mLookPos.x -= (CAMERA_SPEED * DT);
 	}
-	if (IS_PRESSED(KEY::D))
+	if (IS_PRESSED(KEY::RIGHT))
 	{
-		mLookPos.x += 600 * DT;
+		mLookPos.x += (CAMERA_SPEED * DT);
 	}
 
 	WorldToScreenCalc();

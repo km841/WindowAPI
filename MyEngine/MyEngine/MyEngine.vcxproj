@@ -154,6 +154,7 @@
     <ClInclude Include="EventRegisteror.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IconUI.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="State.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UtilLib.h" />
+    <ClInclude Include="WalkState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -195,6 +197,7 @@
     <ClCompile Include="EventRegisteror.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IconUI.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="State.cpp" />
@@ -227,6 +230,7 @@
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UtilLib.cpp" />
+    <ClCompile Include="WalkState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc" />

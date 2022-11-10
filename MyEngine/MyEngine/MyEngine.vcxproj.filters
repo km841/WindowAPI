@@ -131,6 +131,9 @@
     <Filter Include="Engine\GameObject\Player\State">
       <UniqueIdentifier>{fc1c8b2b-2dc1-4157-a768-415a317ac2c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Player\State\Base">
+      <UniqueIdentifier>{a2b3c86d-76a2-474d-a3ba-7a250557aed3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -248,8 +251,14 @@
     <ClInclude Include="Structure.h">
       <Filter>Engine\GameObject\Structure</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
+    <ClInclude Include="IdleState.h">
       <Filter>Engine\GameObject\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>Engine\GameObject\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Engine\GameObject\Player\State\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,8 +383,14 @@
     <ClCompile Include="Structure.cpp">
       <Filter>Engine\GameObject\Structure</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
+    <ClCompile Include="IdleState.cpp">
       <Filter>Engine\GameObject\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>Engine\GameObject\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Engine\GameObject\Player\State\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
