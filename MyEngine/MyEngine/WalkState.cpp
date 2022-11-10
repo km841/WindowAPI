@@ -2,6 +2,8 @@
 #include "WalkState.h"
 #include "Player.h"
 #include "Animator.h"
+#include "Animation.h"
+#include "Effect.h"
 
 WalkState::WalkState(Player* _obj)
 	: State(_obj)
@@ -12,10 +14,12 @@ WalkState::WalkState(Player* _obj)
 void WalkState::Enter()
 {
 	Animation* anim = nullptr;
+
 	switch (mPlayer->mDir)
 	{
 	case PLAYER_DIR::LEFT:
 		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_WALK_LEFT");
+		
 		if (nullptr == anim)
 			return;
 

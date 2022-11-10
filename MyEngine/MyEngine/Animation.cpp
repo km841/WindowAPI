@@ -9,6 +9,7 @@
 #include "EventRegisteror.h"
 
 Animation::Animation()
+	:mFinish(false)
 {
 }
 
@@ -23,6 +24,9 @@ Animation::~Animation()
 
 void Animation::Update()
 {
+	if (mFinish)
+		return;
+
 	if (mAnim.empty())
 		return;
 
@@ -34,7 +38,15 @@ void Animation::Update()
 
 		if (mCurFrm >= mAnim.size())
 		{
-			mCurFrm = 0;
+			switch (mRepeat)
+			{
+			case TRUE: mCurFrm = 0;
+				break;
+
+			case FALSE: mFinish = true;
+				break;
+			}
+
 			if (nullptr != mDummyObj)
 			{
 				mDummyObj->GetAnimator()->SelectAnimation(mEvent->mEnter.mName);
@@ -46,12 +58,18 @@ void Animation::Update()
 
 	if (nullptr != mDummyObj)
 	{
+		Vec2 ownerPos = mOwner->GetOwner()->GetPos();
+		
+		mDummyObj->SetPos(ownerPos + mEvent->mEnter.mOffset);
 		mDummyObj->Update();
 	}
 }
 
 void Animation::Render()
 {
+	if (mFinish)
+		return;
+
 	if (mAnim.empty())
 		return;
 
@@ -62,7 +80,7 @@ void Animation::Render()
 	// Convert RenderPos
 	pos = RENDER_POS(pos);
 
-	TransparentBlt(
+     	TransparentBlt(
 		BACK_BUF_DC
 		, (int)(pos.x - size.x / 2.f)
 		, (int)(pos.y - size.y)
@@ -109,7 +127,10 @@ void Animation::SetEnterEvent(EventAnimation _event)
 		{
 			mDummyObj = new GameObject;
 			mDummyObj->CreateComponent(new Animator);
+			_event.mAnim->mOwner = mDummyObj->GetAnimator();
+			mDummyObj->GetAnimator()->SetOwner(mDummyObj);
 			mDummyObj->GetAnimator()->AddAnimation(_event.mName, _event.mAnim);
+			mDummyObj->GetAnimator()->SelectAnimation(_event.mName);
 
 			Vec2 ownerPos = mOwner->GetOwner()->GetPos();
 			mDummyObj->SetPos(ownerPos + _event.mOffset);
@@ -138,4 +159,10 @@ void Animation::SetExitEvent(EventAnimation _event)
 	}
 
 	mEvent->mExit = _event;
+}
+
+void Animation::Reset()
+{
+	mCurFrm = 0;
+	mFinish = false;
 }

@@ -134,6 +134,9 @@
     <Filter Include="Engine\GameObject\Player\State\Base">
       <UniqueIdentifier>{a2b3c86d-76a2-474d-a3ba-7a250557aed3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect">
+      <UniqueIdentifier>{58eebe92-97b0-4581-97ce-3b2f088e4411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Engine\GameObject\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Engine\GameObject\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

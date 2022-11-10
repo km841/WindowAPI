@@ -3,6 +3,7 @@
 
 #define PLAYER_SPEED 400.f
 
+class Effect;
 class Texture;
 class IdleState;
 class WalkState;
@@ -39,11 +40,20 @@ public:
 
 public:
     void PlayerInput();
+    void EffectInput();
     bool IsMove() const;
+    bool IsLeftMove() const;
+    bool IsRightMove() const;
+
+    inline void SetEffect(Effect* _effect) { mEffect = _effect; }
+    inline Effect* GetEffect() const { return mEffect; }
+
+    inline Vec2 GetPrevPos() const { return mPrevPos; }
 
 private:
     Texture* mDefaultTexture;
-    State* mState;
+    State*   mState;
+    Effect*  mEffect;
 
     Vec2 mPrevPos;
     PLAYER_DIR mDir;

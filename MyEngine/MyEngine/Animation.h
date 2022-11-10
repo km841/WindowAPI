@@ -54,6 +54,13 @@ public:
 
     void SetEnterEvent(EventAnimation _event); 
     void SetExitEvent(EventAnimation _event);
+    inline int GetCurFrame() const { return mCurFrm; }
+
+    inline bool IsFinished() const { return mFinish; }
+
+    inline void SetOwner(Animator* _anim) { mOwner = _anim; }
+
+    void Reset();
 
 private:
     Animator*             mOwner;
@@ -64,6 +71,7 @@ private:
     int                   mCurFrm;
     float                 mAccTime;
     bool                  mRepeat;
+    bool                  mFinish;
 
 private:
     Event*                mEvent;
