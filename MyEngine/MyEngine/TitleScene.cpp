@@ -5,7 +5,7 @@
 #include "ResourceMgr.h"
 #include "EventRegisteror.h"
 #include "KeyMgr.h"
-#include "BackgroundUI.h"
+#include "InfRepeatBg.h"
 #include "MouseMgr.h"
 #include "ButtonUI.h"
 #include "CameraMgr.h"
@@ -52,21 +52,21 @@ void TitleScene::Enter()
 	std::function<void()> exitBtnCallback = []() {PostMessage(APP_INSTANCE.GetHwnd(), WM_QUIT, 0, 0); };
 
 	// FrondCloud Setting
-	BackgroundUI* fUI = new BackgroundUI;
+	InfRepeatBg* fUI = new InfRepeatBg;
 	fUI->SetTexture(frontCloud);
 	fUI->SetSpeed(70.f);
 	fUI->SetSize(frontCloud->GetSize());
 	fUI->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
 
 	// BackCloud Setting
-	BackgroundUI* bUI = new BackgroundUI;
+	InfRepeatBg* bUI = new InfRepeatBg;
 	bUI->SetTexture(backCloud);
 	bUI->SetSpeed(15.f);
 	bUI->SetSize(backCloud->GetSize());
 	bUI->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
 
 	// Logo Setting
-	BackgroundUI* logoUI = new BackgroundUI;
+	InfRepeatBg* logoUI = new InfRepeatBg;
 	logoUI->SetTexture(mainLogo);
 	logoUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	logoUI->SetSize(mainLogo->GetSize());

@@ -92,9 +92,6 @@
     <Filter Include="Engine\GameObject\UI">
       <UniqueIdentifier>{c58ccb67-294d-4fd1-a389-e35e29e4723e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\UI\BackgroundUI">
-      <UniqueIdentifier>{18ae77b9-311c-40d2-883f-8e0681693827}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Manager\MouseMgr">
       <UniqueIdentifier>{56a05229-3efe-4d80-972d-583ca2eba682}</UniqueIdentifier>
     </Filter>
@@ -136,6 +133,21 @@
     </Filter>
     <Filter Include="Engine\GameObject\Effect">
       <UniqueIdentifier>{58eebe92-97b0-4581-97ce-3b2f088e4411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Background">
+      <UniqueIdentifier>{7b590a3a-821c-4633-959d-087b5cccfe4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Background\UserFollowBg">
+      <UniqueIdentifier>{320a058b-925a-4b78-9f58-58d6995142b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Background\InfRepeatBg">
+      <UniqueIdentifier>{82439c7d-7d14-434d-afa3-486b1145eb95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene">
+      <UniqueIdentifier>{2bb4b51e-a286-459c-9278-a53092b56d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Dungeon1">
+      <UniqueIdentifier>{0e2ca030-778a-49d9-91a7-680756b8b57f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +230,6 @@
     <ClInclude Include="UI.h">
       <Filter>Engine\GameObject\UI</Filter>
     </ClInclude>
-    <ClInclude Include="BackgroundUI.h">
-      <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
-    </ClInclude>
     <ClInclude Include="MouseMgr.h">
       <Filter>Engine\Manager\MouseMgr</Filter>
     </ClInclude>
@@ -265,6 +274,15 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Engine\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="InfRepeatBg.h">
+      <Filter>Engine\GameObject\Background\InfRepeatBg</Filter>
+    </ClInclude>
+    <ClInclude Include="UserFollowingBg.h">
+      <Filter>Engine\GameObject\Background\UserFollowBg</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon1Scene.h">
+      <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,9 +371,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>Engine\GameObject\UI</Filter>
     </ClCompile>
-    <ClCompile Include="BackgroundUI.cpp">
-      <Filter>Engine\GameObject\UI\BackgroundUI</Filter>
-    </ClCompile>
     <ClCompile Include="MouseMgr.cpp">
       <Filter>Engine\Manager\MouseMgr</Filter>
     </ClCompile>
@@ -400,6 +415,15 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Engine\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="InfRepeatBg.cpp">
+      <Filter>Engine\GameObject\Background\InfRepeatBg</Filter>
+    </ClCompile>
+    <ClCompile Include="UserFollowingBg.cpp">
+      <Filter>Engine\GameObject\Background\UserFollowBg</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon1Scene.cpp">
+      <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

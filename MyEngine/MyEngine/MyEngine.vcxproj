@@ -142,7 +142,8 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="BackgroundUI.h" />
+    <ClInclude Include="Dungeon1Scene.h" />
+    <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
     <ClInclude Include="CheckButtonUI.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="ToolUI.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UserFollowingBg.h" />
     <ClInclude Include="UtilLib.h" />
     <ClInclude Include="WalkState.h" />
   </ItemGroup>
@@ -187,7 +189,8 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BackgroundUI.cpp" />
+    <ClCompile Include="Dungeon1Scene.cpp" />
+    <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
@@ -231,6 +234,7 @@
     <ClCompile Include="ToolUI.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UserFollowingBg.cpp" />
     <ClCompile Include="UtilLib.cpp" />
     <ClCompile Include="WalkState.cpp" />
   </ItemGroup>

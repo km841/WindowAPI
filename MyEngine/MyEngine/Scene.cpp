@@ -14,6 +14,8 @@ Scene::Scene()
 	mOFN.lpstrFilter = L"Map File\0*.map\0";
 	mOFN.lpstrInitialDir = L"..\\Resource\\Map\\";
 	mOFN.nMaxFile = sizeof(mFileName);
+	mOFN.Flags = OFN_OVERWRITEPROMPT;
+	mOFN.lpstrDefExt = L".map";
 }
 
 Scene::~Scene()

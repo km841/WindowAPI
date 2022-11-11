@@ -29,6 +29,7 @@ void WalkState::Enter()
 
 	case PLAYER_DIR::RIGHT:
 		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_WALK_RIGHT");
+
 		if (nullptr == anim)
 			return;
 

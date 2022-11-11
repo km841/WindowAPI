@@ -55,6 +55,7 @@ public:
     void SetEnterEvent(EventAnimation _event); 
     void SetExitEvent(EventAnimation _event);
     inline int GetCurFrame() const { return mCurFrm; }
+    inline void SetCurFrame(int _frm) { mCurFrm = _frm; }
 
     inline bool IsFinished() const { return mFinish; }
 

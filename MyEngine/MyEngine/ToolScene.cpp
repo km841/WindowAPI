@@ -111,8 +111,8 @@ void ToolScene::Render()
 			mDefaultTexture->GetDC(),
 			(int)(ltPos.x),
 			(int)(ltPos.y),
-			IMAGE_TILE_SIZE,
-			IMAGE_TILE_SIZE,
+			IMAGE_TILE_SIZE_X,
+			IMAGE_TILE_SIZE_Y,
 			mBlendFunc
 		);
 	}
@@ -143,12 +143,12 @@ void ToolScene::Enter()
 	int row = 0;
 
 	// Åø UI ÀÛ¾÷
-	for (int y = 0; y < texSize.y / IMAGE_TILE_SIZE; ++y)
+	for (int y = 0; y < texSize.y / IMAGE_TILE_SIZE_Y; ++y)
 	{
-		for (int x = 0; x < (texSize.x / IMAGE_TILE_SIZE - 1); ++x)
+		for (int x = 0; x < (texSize.x / IMAGE_TILE_SIZE_X - 1); ++x)
 		{
 			IconUI* child = new IconUI;
-			child->SetLTPos(Vec2(x * IMAGE_TILE_SIZE, y * IMAGE_TILE_SIZE));
+			child->SetLTPos(Vec2(x * IMAGE_TILE_SIZE_X, y * IMAGE_TILE_SIZE_Y));
 			child->SetPos(Vec2(col * TILE_SIZE, row * TILE_SIZE));
 			child->SetParentUI(toolUI);
 
@@ -192,7 +192,12 @@ void ToolScene::Save()
 	if (GetSaveFileName(&mOFN))
 	{
 		std::wstring fileName = GetFileName();
-		fileName += L".map";
+
+		if (L".map" != fileName.substr(fileName.size() - 4))
+		{
+			fileName += L".map";
+		}
+
 
 		FILE* fp = nullptr;
 		_wfopen_s(&fp, fileName.c_str(), L"w");

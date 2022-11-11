@@ -44,6 +44,7 @@ public:
 
 private:
     Vec2                    mLookPos;
+    Vec2                    mPrevLookPos;
     Vec2                    mDistance;   
     float                   mAccTime;
     GameObject*             mObject;

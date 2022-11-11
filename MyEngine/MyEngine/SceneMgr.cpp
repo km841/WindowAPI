@@ -4,6 +4,7 @@
 #include "ToolScene.h"
 #include "PlayScene.h"
 #include "TownScene.h"
+#include "Dungeon1Scene.h"
 
 SceneMgr::SceneMgr()
 	: mScenes{}
@@ -30,6 +31,7 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::TOOL] = new ToolScene;
 	mScenes[(UINT)SCENE_TYPE::PLAY] = new PlayScene;
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
+	mScenes[(UINT)SCENE_TYPE::DUNGEON1] = new Dungeon1Scene;
 
 
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];
@@ -49,6 +51,7 @@ void SceneMgr::Update()
 
 void SceneMgr::Render()
 {
+
 	mCurScene->Render();
 }
 

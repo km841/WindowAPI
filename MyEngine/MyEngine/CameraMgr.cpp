@@ -27,21 +27,17 @@ void CameraMgr::Update()
 {
 
 	if (IS_PRESSED(KEY::UP))
-	{
 		mLookPos.y -= (CAMERA_SPEED * DT);
-	}
+	
 	if (IS_PRESSED(KEY::DOWN))
-	{
 		mLookPos.y += (CAMERA_SPEED * DT);
-	}
+	
 	if (IS_PRESSED(KEY::LEFT))
-	{
 		mLookPos.x -= (CAMERA_SPEED * DT);
-	}
+	
 	if (IS_PRESSED(KEY::RIGHT))
-	{
 		mLookPos.x += (CAMERA_SPEED * DT);
-	}
+	
 
 	WorldToScreenCalc();
 
@@ -50,7 +46,21 @@ void CameraMgr::Update()
 		if (mObject->GetType() == OBJECT_TYPE::PLAYER)
 		{
 			Vec2 pos = mObject->GetPos();
-			mLookPos = pos + Vec2(0.f, -160.f);
+			mPrevLookPos = mLookPos;
+
+			if (pos.x - (WINDOW_WIDTH_SIZE / 2.f) < 0)
+				mLookPos = Vec2(mPrevLookPos.x, pos.y - 160.f);
+			else if (pos.y - (WINDOW_HEIGHT_SIZE / 2.f) < 0)
+				mLookPos = Vec2(pos.x, mPrevLookPos.y);
+
+			else if (pos.y + (WINDOW_HEIGHT_SIZE / 2.f) > TILE_SIZE * 28)
+				mLookPos = Vec2(pos.x, mPrevLookPos.y);
+
+			else
+				mLookPos = pos + Vec2(0.f, -160.f);
+
+				
+			//mLookPos = pos + Vec2(0.f, -160.f);
 		}
 		else
 		{
@@ -84,13 +94,6 @@ void CameraMgr::Update()
 		mCamEffects.pop_front();
 		mAlphaValue = 0.0f;
 	}
-
-
-
-
-
-
-
 }
 
 void CameraMgr::Render()

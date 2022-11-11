@@ -50,8 +50,8 @@ void Tile::Render()
 		mTex->GetDC(),
 		(int)mTileLT.x,
 		(int)mTileLT.y,
-		IMAGE_TILE_SIZE,
-		IMAGE_TILE_SIZE,
+		IMAGE_TILE_SIZE_X,
+		IMAGE_TILE_SIZE_Y,
 		RGB(255, 0, 255)
 	);
 }

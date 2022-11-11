@@ -30,6 +30,7 @@ enum class SCENE_TYPE
 	TOOL,
 	PLAY,
 	TOWN,
+	DUNGEON1,
 
 	END,
 };

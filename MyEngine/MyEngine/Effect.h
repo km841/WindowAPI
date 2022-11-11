@@ -10,7 +10,7 @@ public:
 	virtual void Destroy();
 
 public:
-	inline void SetOwner(GameObject* _obj) { mOwner = _obj; }
+	inline void		   SetOwner(GameObject* _obj) { mOwner = _obj; }
 	inline GameObject* GetOwner() { return mOwner; }
 
 	inline void SetOffset(Vec2 _offset) { mOffset = _offset; }

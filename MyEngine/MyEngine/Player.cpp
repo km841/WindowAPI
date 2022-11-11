@@ -47,6 +47,7 @@ Player::Player()
 
 	dustLeft->SetOwner(effect->GetAnimator());
 	dustRight->SetOwner(effect->GetAnimator());
+
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_LEFT", dustLeft);
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_RIGHT", dustRight);
 	SetEffect(effect);
@@ -77,7 +78,6 @@ void Player::Initialize()
 
 void Player::Update()
 {
-
 	PlayerInput();
 	EffectInput();
 
@@ -132,35 +132,37 @@ void Player::PlayerInput()
 
 void Player::EffectInput()
 {
-	if (PlayerState::Walk == mState)
+	Animation* anim = GetAnimator()->GetCurAnimation();
+	Animation* dustRight = mEffect->GetAnimator()->FindAnimation(L"PLAYER_DUST_RIGHT");
+	Animation* dustLeft = mEffect->GetAnimator()->FindAnimation(L"PLAYER_DUST_LEFT");
+
+	if (IS_JUST_PRESSED(KEY::A) || IS_JUST_PRESSED(KEY::D))
 	{
-		Animation* anim = GetAnimator()->GetCurAnimation();
+		dustRight->Reset();
+		dustLeft->Reset();
+		anim->SetCurFrame(0);
+	}
 
-		if (anim->GetCurFrame() == 0)
+	if (PlayerState::Walk == mState || anim->GetCurFrame() == 0)
+	{
+		Vec2 pos = GetPos();
+
+		if (IS_PRESSED(KEY::A))
 		{
-			Vec2 pos = GetPos();
+			if (dustRight->IsFinished())
+				dustRight->Reset();
 
-			if (IsLeftMove())
-			{
-				Animation* dustLeft = mEffect->GetAnimator()->FindAnimation(L"PLAYER_DUST_RIGHT");
+			mEffect->SetOffset(Vec2(35.f, 0.f));
+			mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_RIGHT");
+		}
 
-				if (dustLeft->IsFinished())
-					dustLeft->Reset();
+		else if (IS_PRESSED(KEY::D))
+		{
+			if (dustLeft->IsFinished())
+				dustLeft->Reset();
 
-				mEffect->SetOffset(Vec2(35.f, 0.f));
-				mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_RIGHT");
-			}
-
-			else if (IsRightMove())
-			{
-				Animation* dustRight = mEffect->GetAnimator()->FindAnimation(L"PLAYER_DUST_LEFT");
-
-				if (dustRight->IsFinished())
-					dustRight->Reset();
-
-				mEffect->SetOffset(Vec2(-35.f, 0.f));
-				mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_LEFT");
-			}
+			mEffect->SetOffset(Vec2(-25.f, 0.f));
+			mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_LEFT");
 		}
 	}
 }
@@ -181,7 +183,19 @@ bool Player::IsLeftMove() const
 bool Player::IsRightMove() const
 {
 	Vec2 pos = GetPos();
-	return ((mPrevPos.x - pos.x) < EPSILON);
+	return ((pos.x - mPrevPos.x) > EPSILON);
+}
+
+bool Player::IsUpMove() const
+{
+	Vec2 pos = GetPos();
+	return ((mPrevPos.y - pos.y) > EPSILON);
+}
+
+bool Player::isDownMove() const
+{
+	Vec2 pos = GetPos();
+	return ((pos.y - mPrevPos.y) > EPSILON);
 }
 
 void Player::Render()
