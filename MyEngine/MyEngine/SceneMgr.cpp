@@ -33,7 +33,6 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
 	mScenes[(UINT)SCENE_TYPE::DUNGEON1] = new Dungeon1Scene;
 
-
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];
 	
 	for (int i = 0; i < (UINT)SCENE_TYPE::END; ++i)

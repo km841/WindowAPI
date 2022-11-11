@@ -47,7 +47,7 @@ void Dungeon1Scene::Enter()
 	Load(L"..\\Resource\\Map\\dungeon1.map");
 
 	Player* player = new Player;
-	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
+	player->SetPos(Vec2(TILE_SIZE * 10, TILE_SIZE * 20));
 	player->Initialize();
 	CameraMgr::GetInstance().SetTrackingObject(player);
 
