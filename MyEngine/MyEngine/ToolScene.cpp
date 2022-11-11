@@ -13,7 +13,7 @@
 
 void ToolScene::Initialize()
 {
-	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
+	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map2.bmp");
 	assert(mDefaultTexture);
 
 	mBlendFunc = {};
@@ -142,7 +142,6 @@ void ToolScene::Enter()
 	int col = 0;
 	int row = 0;
 
-	// Åø UI ÀÛ¾÷
 	for (int y = 0; y < texSize.y / IMAGE_TILE_SIZE_Y; ++y)
 	{
 		for (int x = 0; x < (texSize.x / IMAGE_TILE_SIZE_X - 1); ++x)
@@ -184,6 +183,29 @@ void ToolScene::RemoveTile(Vec2 _pos)
 			EventRegisteror::GetInstance().DeleteObject(tileGroup[i]);
 			break;
 		}
+	}
+}
+
+IconUI* ToolScene::CutTile(UI* _parentUI, Vec2 _ltPos, Vec2 _slice)
+{
+	size_t size = _parentUI->GetChildUI().size();
+	int row = (int)(size / (WINDOW_WIDTH_SIZE / TILE_SIZE));
+	int col = size % (WINDOW_WIDTH_SIZE / TILE_SIZE);
+
+
+	IconUI* iconUI = new IconUI;
+	iconUI->SetLTPos(_ltPos);
+	iconUI->SetPos(Vec2(col * TILE_SIZE, row * TILE_SIZE));
+	iconUI->SetParentUI(_parentUI);
+
+	return iconUI;
+}
+
+void ToolScene::CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount)
+{
+	for (int i = 0; i < _tileCount; ++i)
+	{
+		_parentUI->AddChild(CutTile(_parentUI, _ltPos + (_offset * (float)i), _slice));
 	}
 }
 

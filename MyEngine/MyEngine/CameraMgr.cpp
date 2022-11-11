@@ -47,25 +47,21 @@ void CameraMgr::Update()
 		{
 			Vec2 pos = mObject->GetPos();
 			mPrevLookPos = mLookPos;
-
-			if (pos.x - (WINDOW_WIDTH_SIZE / 2.f) < 0)
-				mLookPos = Vec2(mPrevLookPos.x, pos.y - 160.f);
-			else if (pos.y - (WINDOW_HEIGHT_SIZE / 2.f) < 0)
-				mLookPos = Vec2(pos.x, mPrevLookPos.y);
-
-			else if (pos.y + (WINDOW_HEIGHT_SIZE / 2.f) > TILE_SIZE * 28)
-				mLookPos = Vec2(pos.x, mPrevLookPos.y);
-
-			else
-				mLookPos = pos + Vec2(0.f, -160.f);
-
-				
-			//mLookPos = pos + Vec2(0.f, -160.f);
+			mLookPos = pos;
 		}
 		else
 		{
 			mLookPos = mObject->GetPos();
 		}
+
+		if (mLookPos.x - WINDOW_WIDTH_SIZE / 2.f < 0.f)
+			mLookPos.x = WINDOW_WIDTH_SIZE / 2.f;
+
+		if (mLookPos.y - WINDOW_HEIGHT_SIZE / 2.f < 0.f)
+			mLookPos.y = WINDOW_HEIGHT_SIZE / 2.f;
+
+		if (mLookPos.y + WINDOW_HEIGHT_SIZE / 2.f > BOTTOM_LIMIT)
+			mLookPos.y = BOTTOM_LIMIT - (WINDOW_HEIGHT_SIZE / 2.f);
 	}
 
 	if (mCamEffects.empty())
