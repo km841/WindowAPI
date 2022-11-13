@@ -67,9 +67,9 @@ void TownScene::Enter()
 	townForestBg->SetTexture(townBG);
 	townForestBg->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
 	townForestBg->SetSize(townBG->GetSize());
-	townForestBg->SetPos(Vec2(-1000, 200));
+	townForestBg->SetPos(Vec2(-500, 100));
 	townForestBg->SetPlayer(player);
-	townForestBg->SetSpeed(30.f);
+	townForestBg->SetSpeed(15.f);
 
 	UserFollowingBg* townTreeBg = new UserFollowingBg(true);
 	townTreeBg->SetTexture(treeBG);
@@ -78,7 +78,7 @@ void TownScene::Enter()
 	townTreeBg->SetPos(Vec2(200, 750));
 	townTreeBg->SetPlayer(player);
 	townTreeBg->SetTimes(TIMES);
-	townTreeBg->SetSpeed(100.f);
+	townTreeBg->SetSpeed(50.f);
 
 	Structure* townFloor = new Structure;
 	townFloor->SetPos(Vec2(TILE_SIZE * 50, TILE_SIZE * 20));

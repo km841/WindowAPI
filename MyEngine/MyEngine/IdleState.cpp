@@ -16,21 +16,11 @@ void IdleState::Enter()
 	switch (mPlayer->mDir)
 	{
 	case PLAYER_DIR::LEFT:
-		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_IDLE_LEFT");
-		if (nullptr == anim)
-			return;
-
-		if (mPlayer->GetAnimator()->GetCurAnimation() != anim)
-			mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
+		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
 		break;
 
 	case PLAYER_DIR::RIGHT:
-		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_IDLE_RIGHT");
-		if (nullptr == anim)
-			return;
-
-		if (mPlayer->GetAnimator()->GetCurAnimation() != anim)
-			mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 		break;
 	}
 }

@@ -36,10 +36,10 @@ void UserFollowingBg::Update()
 			pos.x += mSpeed * DT;
 
 		if (mPlayer->IsUpMove())
-			pos.y -= mSpeed * DT;
+			pos.y -= (mSpeed * 2.f) * DT ;
 		
 		if (mPlayer->isDownMove())
-			pos.y += mSpeed * DT;
+			pos.y += (mSpeed * 2.f) * DT;
 
 		SetPos(pos);
 	}

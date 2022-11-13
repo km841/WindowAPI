@@ -22,6 +22,7 @@ Player::Player()
 {
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
+	mState = PlayerState::Idle;
 
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -78,34 +79,16 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	PlayerInput();
-	EffectInput();
-
-	if (IsMove())
-	{
-		if (nullptr != mState)
-			mState->Exit();
-		
-		mState = PlayerState::Walk;
-		mState->Enter();
-	}
-
-	else
-	{
-		if (nullptr != mState)
-			mState->Exit();
-
-		mState = PlayerState::Idle;
-		mState->Enter();
-	}
-	
-	if (nullptr != mEffect)
-		mEffect->Update();
+	MoveUpdate();
+	EffectUpdate();
+	StateUpdate();
+	AnimationUpdate();
 
 	GameObject::Update();
+	mPrevState = mState;
 }
 
-void Player::PlayerInput()
+void Player::MoveUpdate()
 {
 	Vec2 pos = GetPos();
 
@@ -121,6 +104,8 @@ void Player::PlayerInput()
 	if (IS_PRESSED(KEY::D))
 		pos.x += (PLAYER_SPEED * DT);
 
+	mPrevDir = mDir;
+
 	if (MOUSE_POS.x > RENDER_POS(pos).x)
 		mDir = PLAYER_DIR::RIGHT;
 	else
@@ -130,7 +115,7 @@ void Player::PlayerInput()
 	SetPos(pos);
 }
 
-void Player::EffectInput()
+void Player::EffectUpdate()
 {
 	Animation* anim = GetAnimator()->GetCurAnimation();
 	Animation* dustRight = mEffect->GetAnimator()->FindAnimation(L"PLAYER_DUST_RIGHT");
@@ -145,18 +130,16 @@ void Player::EffectInput()
 
 	if (PlayerState::Walk == mState || anim->GetCurFrame() == 0)
 	{
-		Vec2 pos = GetPos();
-
 		if (IS_PRESSED(KEY::A))
 		{
 			if (dustRight->IsFinished())
 				dustRight->Reset();
-
+			
 			mEffect->SetOffset(Vec2(35.f, 0.f));
 			mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_RIGHT");
 		}
 
-		else if (IS_PRESSED(KEY::D))
+		if (IS_PRESSED(KEY::D))
 		{
 			if (dustLeft->IsFinished())
 				dustLeft->Reset();
@@ -165,6 +148,34 @@ void Player::EffectInput()
 			mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_LEFT");
 		}
 	}
+
+	if (nullptr != mEffect)
+		mEffect->Update();
+}
+
+void Player::StateUpdate()
+{
+	if (IS_PRESSED(KEY::A) || IS_PRESSED(KEY::D))
+	{
+		if (nullptr != mState)
+			mState->Exit();
+
+		mState = PlayerState::Walk;
+	}
+
+	if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
+	{
+		if (nullptr != mState)
+			mState->Exit();
+
+		mState = PlayerState::Idle;
+	}
+}
+
+void Player::AnimationUpdate()
+{
+	if ((mState != mPrevState) || (mDir != mPrevDir))
+		mState->Enter();
 }
 
 bool Player::IsMove() const

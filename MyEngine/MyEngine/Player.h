@@ -40,8 +40,10 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 public:
-    void PlayerInput();
-    void EffectInput();
+    void MoveUpdate();
+    void EffectUpdate();
+    void StateUpdate();
+    void AnimationUpdate();
 
     bool IsMove() const;
     bool IsLeftMove() const;
@@ -56,10 +58,12 @@ public:
 
 private:
     Texture*   mDefaultTexture;
+    State*     mPrevState;
     State*     mState;
     Effect*    mEffect;
 
     Vec2       mPrevPos;
+    PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
 
     friend class IdleState;

@@ -31,7 +31,7 @@ void ToolScene::Update()
 
 	if (nullptr != selectedUI)
 	{
-		if (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - HEIGHT_CORRECT - (TILE_SIZE * 3)  && IS_LBUTTON_CLICKED)
+		if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - HEIGHT_CORRECT - (TILE_SIZE * 3)))
 		{
 			const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 			bool existFlag = false;
