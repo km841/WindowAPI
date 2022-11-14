@@ -1,6 +1,7 @@
 #pragma once
 
 class Collider;
+class RigidBody;
 class Animator;
 class Animation;
 class GameObject;
@@ -9,6 +10,7 @@ struct Components
 {
 	Collider* mCollider;
 	Animator* mAnimator;
+	RigidBody* mRigidBody;
 };
 
 ;
@@ -55,15 +57,20 @@ public:
 	inline OBJECT_TYPE GetType() const { return mType; }
 	inline void		   SetType(OBJECT_TYPE _type) { mType = _type; }
 
+	inline bool		   GetGravity() const { return mGravity; }
+	inline void		   SetGravity(bool _gravity) { mGravity = _gravity; }
+
 	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }
 	inline void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
 	
 	void CreateComponent(Collider* _collider);
 	void CreateComponent(Animator* _animator);
+	void CreateComponent(RigidBody* _rigidBody);
 
 	inline Collider* GetCollider() const { return mComponents.mCollider; }
 	inline Animator* GetAnimator() const { return mComponents.mAnimator; }
+	inline RigidBody* GetRigidBody() const { return mComponents.mRigidBody; }
 	
 public:
 	virtual void OnCollision(Collider* _other) {};
@@ -76,6 +83,9 @@ private:
 	Vec2				mScale;
 	Components			mComponents;
 	OBJECT_TYPE			mType;
+
+	bool				mGravity;
+	bool				mGround;
 
 	std::set<Relation>  mRelations;
 };

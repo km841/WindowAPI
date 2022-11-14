@@ -127,8 +127,8 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 	Vec2 leftSize = _left->GetSize();
 	Vec2 rightSize = _right->GetSize();
 
-	if (abs(leftPos.x - rightPos.x) < (leftSize.x + rightSize.x) / 2.f &&
-		abs(leftPos.y - rightPos.y) < (leftSize.y + rightSize.y) / 2.f)
+	if (abs(leftPos.x - rightPos.x) <= (leftSize.x + rightSize.x) / 2.f &&
+		abs(leftPos.y - rightPos.y) <= (leftSize.y + rightSize.y) / 2.f)
 	{
 		return true;
 	}

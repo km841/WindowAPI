@@ -61,6 +61,8 @@ public:
 
     inline void SetOwner(Animator* _anim) { mOwner = _anim; }
 
+    inline void SetRepeat(bool _repeat) { mRepeat = _repeat; }
+
     void Reset();
 
 private:

@@ -21,6 +21,8 @@ void ToolScene::Initialize()
 	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 	mBlendFunc.BlendOp = AC_SRC_OVER;
 	mBlendFunc.SourceConstantAlpha = 127;
+
+	Scene::Initialize();
 }
 
 void ToolScene::Update()

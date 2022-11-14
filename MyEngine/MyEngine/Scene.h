@@ -10,7 +10,7 @@ public:
 	friend class EventMgr;
 
 public:
-	virtual void Initialize() = 0;
+	virtual void Initialize();
 	virtual void Update();
 	virtual void Render();
 

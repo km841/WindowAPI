@@ -9,10 +9,12 @@
 #include "CameraMgr.h"
 #include "UserFollowingBg.h"
 #include "MouseMgr.h"
+#include "Wall.h"
+#include "CollisionMgr.h"
 
 void TownScene::Initialize()
 {
-	
+	Scene::Initialize();
 }
 
 void TownScene::Update()
@@ -84,13 +86,20 @@ void TownScene::Enter()
 	townFloor->SetPos(Vec2(TILE_SIZE * 50, TILE_SIZE * 20));
 	townFloor->SetTexture(floor);
 	townFloor->SetSize(floor->GetSize() * TIMES);
-	townFloor->SetType(OBJECT_TYPE::STRUCTURE);
 
-	EventRegisteror::GetInstance().CreateObject(townSkyBg, townSkyBg->GetType());
-	EventRegisteror::GetInstance().CreateObject(townForestBg, townForestBg->GetType());
-	EventRegisteror::GetInstance().CreateObject(townTreeBg, townTreeBg->GetType());
-	EventRegisteror::GetInstance().CreateObject(townFloor, townFloor->GetType());
-	EventRegisteror::GetInstance().CreateObject(player, player->GetType());
+	Wall* wall = new Wall;
+	wall->SetPos(Vec2(5000, TILE_SIZE * 20));
+	wall->SetSize(Vec2(10000, 30));
+
+	AddGameObject(townSkyBg, townSkyBg->GetType());
+	AddGameObject(townForestBg, townForestBg->GetType());
+	AddGameObject(townTreeBg, townTreeBg->GetType());
+	AddGameObject(townFloor, townFloor->GetType());
+	AddGameObject(player, player->GetType());
+	AddGameObject(wall, wall->GetType());
+
+	Initialize();
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 }
 
 void TownScene::Exit()

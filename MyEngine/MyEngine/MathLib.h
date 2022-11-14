@@ -68,6 +68,13 @@ public:
 		return ret;
 	}
 
+	Vec2& operator+= (float _f)
+	{
+		x += _f;
+		y += _f;
+		return *this;
+	}
+
 	Vec2& operator+= (const Vec2& _other)
 	{
 		x += _other.x;
@@ -125,8 +132,13 @@ public:
 
 	void Norm()
 	{
-		float length = sqrt( (x * x) + (y * y) );
+		float length = Len();
 		x /= length;
 		y /= length;
+	}
+
+	float Len()
+	{
+		return sqrt((x * x) + (y * y));
 	}
 };

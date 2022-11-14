@@ -30,6 +30,18 @@ Scene::~Scene()
 	}
 }
 
+void Scene::Initialize()
+{
+	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)
+	{
+		for (size_t x = 0; mObjects[y].size() > x; ++x)
+		{
+			if (nullptr != mObjects[y][x])
+				mObjects[y][x]->Initialize();
+		}
+	}
+}
+
 void Scene::Update()
 {
 	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)

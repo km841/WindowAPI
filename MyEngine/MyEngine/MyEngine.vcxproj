@@ -157,8 +157,10 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IconUI.h" />
     <ClInclude Include="IdleState.h" />
+    <ClInclude Include="JumpState.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Texture.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="UserFollowingBg.h" />
     <ClInclude Include="UtilLib.h" />
     <ClInclude Include="WalkState.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -203,8 +206,10 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -237,6 +242,7 @@
     <ClCompile Include="UserFollowingBg.cpp" />
     <ClCompile Include="UtilLib.cpp" />
     <ClCompile Include="WalkState.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc" />

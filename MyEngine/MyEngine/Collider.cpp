@@ -8,7 +8,7 @@ UINT Collider::gID = 0;
 Collider::Collider()
 	:mID(gID++)
 {
-	SetSize(Vec2(30.f, 30.f));
+	//SetSize(Vec2(30.f, 30.f));
 }
 
 Collider::~Collider()
@@ -28,9 +28,11 @@ void Collider::Render()
 {
 	Vec2 size = GetSize();
 	Vec2 pos = GetPos();
+
 	// Convert Render Pos
 	pos = RENDER_POS(pos);
 	HPEN pen = 0;
+
 	if (mColCnt > 0)
 		pen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	else

@@ -6,6 +6,7 @@
 Structure::Structure()
 	: mTexture(nullptr)
 {
+	SetType(OBJECT_TYPE::STRUCTURE);
 }
 
 Structure::~Structure()

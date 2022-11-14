@@ -2,9 +2,12 @@
 #include "GameObject.h"
 #include "Collider.h"
 #include "Animator.h"
+#include "RigidBody.h"
 
 GameObject::GameObject()
 	:mScale(Vec2(1.f, 1.f))
+	,mGround(true)
+	,mGravity(false)
 {
 }
 
@@ -22,6 +25,13 @@ GameObject::~GameObject()
 	{
 		delete animator;
 		animator = nullptr;
+	}
+
+	RigidBody* rigidBody = GetRigidBody();
+	if (nullptr != rigidBody)
+	{
+		delete rigidBody;
+		rigidBody = nullptr;
 	}
 }
 
@@ -51,11 +61,15 @@ void GameObject::Initialize()
 
 void GameObject::Update()
 {
-	if (nullptr != GetCollider())
-		GetCollider()->Update();
 
 	if (nullptr != GetAnimator())
 		GetAnimator()->Update();
+
+	if (nullptr != GetRigidBody())
+		GetRigidBody()->Update();
+
+	if (nullptr != GetCollider())
+		GetCollider()->Update();
 }
 
 void GameObject::Render()
@@ -81,4 +95,10 @@ void GameObject::CreateComponent(Animator* _animator)
 {
 	assert(nullptr != _animator);
 	mComponents.mAnimator = _animator;
+}
+
+void GameObject::CreateComponent(RigidBody* _rigidBody)
+{
+	assert(nullptr != _rigidBody);
+	mComponents.mRigidBody = _rigidBody;
 }

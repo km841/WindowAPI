@@ -1,18 +1,20 @@
 #pragma once
 #include "GameObject.h"
 
-#define PLAYER_SPEED 400.f
+#define PLAYER_SPEED 350.f
 
 class State;
 class Effect;
 class Texture;
 class IdleState;
 class WalkState;
+class JumpState;
 
 struct PlayerState
 {
     static IdleState* Idle;
     static WalkState* Walk;
+    static JumpState* Jump;
 };
 
 enum class PLAYER_DIR
@@ -49,12 +51,13 @@ public:
     bool IsLeftMove() const;
     bool IsRightMove() const;
     bool IsUpMove() const;
-    bool isDownMove() const;
+    bool IsDownMove() const;
 
     inline void    SetEffect(Effect* _effect) { mEffect = _effect; }
     inline Effect* GetEffect() const { return mEffect; }
 
     inline Vec2 GetPrevPos() const { return mPrevPos; }
+    inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
 private:
     Texture*   mDefaultTexture;
@@ -65,8 +68,15 @@ private:
     Vec2       mPrevPos;
     PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
+    
+    float      mJumpYValue;
+    float      mJumpXValue;
+    float      mJumpXMaxValue;
+    float      mJumpYMinValue;
+    bool       mFall;
 
     friend class IdleState;
     friend class WalkState;
+    friend class JumpState;
 };
 

@@ -32,7 +32,7 @@ void Animator::Render()
 }
 
 Animation* Animator::CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop
-							       , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount, bool _isRepeat)
+							       , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
 {
 	Animation* anim = FindAnimation(_animName);
 	if (nullptr != anim)
@@ -41,16 +41,15 @@ Animation* Animator::CreateAnimation(const std::wstring& _animName, Texture* _te
 	anim = new Animation;
 	anim->mOwner = this;
 	anim->SetName(_animName);
-	anim->mRepeat = _isRepeat;
 	
 	anim->Create(_tex, _leftTop, _slice, _offset, _duration, _frmCount);
 	return anim;
 }
 
 void Animator::RegisterAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset
-							         , float _duration, UINT _frmCount, bool _isRepeat)
+							         , float _duration, UINT _frmCount)
 {
-	Animation* anim = CreateAnimation(_animName, _tex, _leftTop, _slice, _offset, _duration, _frmCount, _isRepeat);
+	Animation* anim = CreateAnimation(_animName, _tex, _leftTop, _slice, _offset, _duration, _frmCount);
 	AddAnimation(_animName, anim);
 }
 
@@ -63,7 +62,10 @@ Animation* Animator::FindAnimation(const std::wstring& _animName)
 	return nullptr;
 }
 
-void Animator::SelectAnimation(const std::wstring& _animName)
+void Animator::SelectAnimation(const std::wstring& _animName, bool _repeat)
 {
-	mCurAnim = FindAnimation(_animName);
+	Animation* anim = FindAnimation(_animName);	
+	anim->SetRepeat(_repeat);
+	mCurAnim = anim;
+
 }

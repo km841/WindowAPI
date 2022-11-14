@@ -26,20 +26,16 @@ void UserFollowingBg::Update()
 {
 	if (nullptr != mPlayer)
 	{
-		Vec2 playerPos = GetPos();
-		Vec2 pos = GetPos();
+		Vec2 playerPos = mPlayer->GetPos();
+		Vec2 playerPrevPos = mPlayer->GetPrevPos();
+		Vec2 playerDir =  playerPos - playerPrevPos;
 
-		if (mPlayer->IsLeftMove())
-			pos.x -= mSpeed * DT;
-
-		if (mPlayer->IsRightMove())
-			pos.x += mSpeed * DT;
-
-		if (mPlayer->IsUpMove())
-			pos.y -= (mSpeed * 2.f) * DT ;
+		float playerSpeed = mPlayer->GetPlayerSpeed();
+		// 플레이어 속도 : 플레이어 이동거리 = 내 속도 : 내 이동거리
+		Vec2 distance = (playerDir * mSpeed / playerSpeed);
 		
-		if (mPlayer->isDownMove())
-			pos.y += (mSpeed * 2.f) * DT;
+		Vec2 pos = GetPos();
+		pos += distance;
 
 		SetPos(pos);
 	}

@@ -9,6 +9,7 @@
 
 void Dungeon1Scene::Initialize()
 {
+	Scene::Initialize();
 }
 
 void Dungeon1Scene::Update()

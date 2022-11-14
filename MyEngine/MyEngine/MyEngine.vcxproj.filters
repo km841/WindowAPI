@@ -122,9 +122,6 @@
     <Filter Include="Engine\Scene\TownScene">
       <UniqueIdentifier>{6ba9b6c6-54f2-4db8-96d4-776cdbf1e41c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Structure">
-      <UniqueIdentifier>{de0fee5d-3cf8-4732-ab44-ad67cd758f6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Player\State">
       <UniqueIdentifier>{fc1c8b2b-2dc1-4157-a768-415a317ac2c4}</UniqueIdentifier>
     </Filter>
@@ -134,20 +131,44 @@
     <Filter Include="Engine\GameObject\Effect">
       <UniqueIdentifier>{58eebe92-97b0-4581-97ce-3b2f088e4411}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Background">
-      <UniqueIdentifier>{7b590a3a-821c-4633-959d-087b5cccfe4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Background\UserFollowBg">
-      <UniqueIdentifier>{320a058b-925a-4b78-9f58-58d6995142b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Background\InfRepeatBg">
-      <UniqueIdentifier>{82439c7d-7d14-434d-afa3-486b1145eb95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene\DungeonScene">
       <UniqueIdentifier>{2bb4b51e-a286-459c-9278-a53092b56d05}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Scene\DungeonScene\Dungeon1">
       <UniqueIdentifier>{0e2ca030-778a-49d9-91a7-680756b8b57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{956697ff-14a1-4924-92b6-c8e42b393ce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Player\State\JumpState">
+      <UniqueIdentifier>{6280e646-3b88-4b9e-b9e7-cf82c6dfcd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Player\State\IdleState">
+      <UniqueIdentifier>{baa22340-628c-413a-9467-c9176dc6f331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Player\State\WalkState">
+      <UniqueIdentifier>{f5061e16-f702-454e-97fc-5fa3413f37ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent">
+      <UniqueIdentifier>{3cdea778-cb95-4787-9dde-5ae6210bd066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Structure">
+      <UniqueIdentifier>{de0fee5d-3cf8-4732-ab44-ad67cd758f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Background">
+      <UniqueIdentifier>{7b590a3a-821c-4633-959d-087b5cccfe4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Background\UserFollowBg">
+      <UniqueIdentifier>{320a058b-925a-4b78-9f58-58d6995142b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Background\InfRepeatBg">
+      <UniqueIdentifier>{82439c7d-7d14-434d-afa3-486b1145eb95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Wall">
+      <UniqueIdentifier>{3ce8c1fe-662d-49a2-8bc0-44c0aa2e7238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Foothold">
+      <UniqueIdentifier>{db824440-4188-40ed-a669-e1c626c1027e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,13 +282,7 @@
       <Filter>Engine\Scene\TownScene</Filter>
     </ClInclude>
     <ClInclude Include="Structure.h">
-      <Filter>Engine\GameObject\Structure</Filter>
-    </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>Engine\GameObject\Player\State</Filter>
-    </ClInclude>
-    <ClInclude Include="WalkState.h">
-      <Filter>Engine\GameObject\Player\State</Filter>
+      <Filter>Engine\GameObject\MapComponent\Structure</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
@@ -276,13 +291,28 @@
       <Filter>Engine\GameObject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="InfRepeatBg.h">
-      <Filter>Engine\GameObject\Background\InfRepeatBg</Filter>
+      <Filter>Engine\GameObject\MapComponent\Background\InfRepeatBg</Filter>
     </ClInclude>
     <ClInclude Include="UserFollowingBg.h">
-      <Filter>Engine\GameObject\Background\UserFollowBg</Filter>
+      <Filter>Engine\GameObject\MapComponent\Background\UserFollowBg</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon1Scene.h">
       <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Engine\GameObject\Player\State\IdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>Engine\GameObject\Player\State\WalkState</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpState.h">
+      <Filter>Engine\GameObject\Player\State\JumpState</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Engine\GameObject\MapComponent\Wall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -402,13 +432,7 @@
       <Filter>Engine\Scene\TownScene</Filter>
     </ClCompile>
     <ClCompile Include="Structure.cpp">
-      <Filter>Engine\GameObject\Structure</Filter>
-    </ClCompile>
-    <ClCompile Include="IdleState.cpp">
-      <Filter>Engine\GameObject\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="WalkState.cpp">
-      <Filter>Engine\GameObject\Player\State</Filter>
+      <Filter>Engine\GameObject\MapComponent\Structure</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
@@ -417,13 +441,28 @@
       <Filter>Engine\GameObject\Effect</Filter>
     </ClCompile>
     <ClCompile Include="InfRepeatBg.cpp">
-      <Filter>Engine\GameObject\Background\InfRepeatBg</Filter>
+      <Filter>Engine\GameObject\MapComponent\Background\InfRepeatBg</Filter>
     </ClCompile>
     <ClCompile Include="UserFollowingBg.cpp">
-      <Filter>Engine\GameObject\Background\UserFollowBg</Filter>
+      <Filter>Engine\GameObject\MapComponent\Background\UserFollowBg</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon1Scene.cpp">
       <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Engine\GameObject\Player\State\IdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>Engine\GameObject\Player\State\WalkState</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpState.cpp">
+      <Filter>Engine\GameObject\Player\State\JumpState</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Engine\GameObject\MapComponent\Wall</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

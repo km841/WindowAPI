@@ -14,6 +14,8 @@ void PlayScene::Initialize()
 {
 	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PlayBackground", L"Texture\\Play.bmp");
 	assert(mDefaultTexture != nullptr);
+
+	Scene::Initialize();
 }
 
 void PlayScene::Update()
