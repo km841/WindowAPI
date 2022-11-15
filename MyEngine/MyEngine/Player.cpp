@@ -23,10 +23,16 @@ JumpState* PlayerState::Jump = nullptr;
 
 Player::Player()
 	:mJumpYValue(700.f)
+	,mJumpYMinValue(0.f)
 	,mJumpXValue(0.f)
 	,mJumpXMaxValue(300.f)
-	, mJumpYMinValue(0.f)
 	,mFall(false)
+	,mDashAccTime(0.f)
+	,mDashAccMaxTime(.1f)
+	,mDecTime(0.f)
+	,mDecMaxTime(.12f)
+	,mDecDash(false)
+	,mAccDash(false)
 {
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
@@ -112,6 +118,34 @@ void Player::Update()
 
 void Player::MoveUpdate()
 {
+	if (mDecTime > 0.f && mDecTime < mDecMaxTime)
+	{
+		float ratio = 1.f - (mDecTime / mDecMaxTime);
+		Vec2 curSpeed = mDashSpeed * ratio;
+
+		GetRigidBody()->SetVelocity(curSpeed);
+
+		mDecTime += DT;
+		if (mDecTime >= mDecMaxTime)
+		{
+			mDecTime = 0.f;
+			mDecDash = false;
+		}
+	}
+
+	if (mAccDash && mDashAccTime >= mDashAccMaxTime)
+	{
+		mAccDash = false;
+		mDecDash = true;
+		mDecTime = DT;
+		mDashSpeed = GetRigidBody()->GetVelocity();
+	}
+
+	else
+	{
+		mDashAccTime += DT;
+	}
+
 	Vec2 pos = GetPos();
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
@@ -130,10 +164,22 @@ void Player::MoveUpdate()
 			if (mJumpYValue < mJumpYMinValue)
 				mJumpYValue = mJumpYMinValue;
 		}
+	}
 
-		//if (mJumpYValue >= 700.f)
-		//	mFall = true;
+	if (IS_JUST_RBUTTON_CLICKED)
+	{
+		Vec2 velocity = GetRigidBody()->GetVelocity();
 
+		Vec2 mousePos = MOUSE_POS;
+		Vec2 pos = RENDER_POS(GetPos());
+		Vec2 dashDir = mousePos - pos;
+		dashDir.Norm();
+
+		GetRigidBody()->SetVelocity(dashDir * 1500.f);
+		SetGround(false);
+		mAccDash = true;
+		mDashAccTime = 0.f;
+		mDashSpeed = Vec2(dashDir * 1000.f);
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))
@@ -141,7 +187,6 @@ void Player::MoveUpdate()
 		if (PlayerState::Jump == mState)
 			mFall = true;
 	}
-		//pos.y -= (PLAYER_SPEED * DT);
 
 	if (IS_PRESSED(KEY::S))
 	{
@@ -154,16 +199,18 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			mJumpXValue -= 50.f;
-			if (-mJumpXMaxValue > mJumpXValue)
-				mJumpXValue = -mJumpXMaxValue;
-			
-			GetRigidBody()->SetVelocity(Vec2(mJumpXValue, velocity.y));
+			if (velocity.x > 0.f && false == mAccDash && false == mDecDash)
+				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
+
+			if (-mJumpXMaxValue < GetRigidBody()->GetVelocity().x)
+				GetRigidBody()->AddVelocity(Vec2(-5.f, 0.f));
 		}
 		else
+		{
+			if (!mAccDash)
 			GetRigidBody()->SetVelocity(Vec2(-PLAYER_SPEED, velocity.y));
+		}
 	}
-		//pos.x -= (PLAYER_SPEED * DT);
 
 	if (IS_PRESSED(KEY::D))
 	{
@@ -171,16 +218,18 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			mJumpXValue += 50.f;
-			if (mJumpXMaxValue < mJumpXValue)
-				mJumpXValue = mJumpXMaxValue;
-				
-			GetRigidBody()->SetVelocity(Vec2(mJumpXValue, velocity.y));
+			if (velocity.x < 0.f && false == mAccDash)
+				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
+
+			if (mJumpXMaxValue > GetRigidBody()->GetVelocity().x)
+				GetRigidBody()->AddVelocity(Vec2(5.f, 0.f));
 		}
 		else
+		{
+			if (!mAccDash)
 			GetRigidBody()->SetVelocity(Vec2(PLAYER_SPEED, velocity.y));
+		}
 	}
-		//pos.x += (PLAYER_SPEED * DT);
 
 	mPrevDir = mDir;
 
@@ -215,7 +264,6 @@ void Player::EffectUpdate()
 	{
 		if (IS_PRESSED(KEY::A))
 		{
-			
 			dustRight->Reset();
 			
 			mEffect->SetOffset(Vec2(35.f, 0.f));
@@ -224,14 +272,11 @@ void Player::EffectUpdate()
 
 		if (IS_PRESSED(KEY::D))
 		{
-			
 			dustLeft->Reset();
 
 			mEffect->SetOffset(Vec2(-25.f, 0.f));
 			mEffect->GetAnimator()->SelectAnimation(L"PLAYER_DUST_LEFT", false);
 		}
-
-		
 	}
 
 	if (nullptr != mEffect)
@@ -241,6 +286,14 @@ void Player::EffectUpdate()
 
 void Player::StateUpdate()
 {
+	if (false == GetGround())
+	{
+		if (nullptr != mState)
+			mState->Exit();
+
+		mState = PlayerState::Jump;
+	}
+
 	if (PlayerState::Jump != mState)
 	{
 		if (IS_PRESSED(KEY::A) || IS_PRESSED(KEY::D))
@@ -249,8 +302,6 @@ void Player::StateUpdate()
 				mState->Exit();
 
 			mState = PlayerState::Walk;
-			//GetAnimator()->GetCurAnimation()->SetCurFrame(0);
-			SetGravity(false);
 		}
 
 		if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
@@ -261,8 +312,6 @@ void Player::StateUpdate()
 			Vec2 velocity = GetRigidBody()->GetVelocity();
 			GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));
 			mState = PlayerState::Idle;
-			//GetAnimator()->GetCurAnimation()->SetCurFrame(0);
-			SetGravity(false);
 		}
 	}
 
@@ -270,7 +319,7 @@ void Player::StateUpdate()
 	if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
 	{
 		Vec2 velocity = GetRigidBody()->GetVelocity();
-		GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));
+	/*	GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));*/
 	}
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
@@ -279,13 +328,15 @@ void Player::StateUpdate()
 			mState->Exit();
 
 		mState = PlayerState::Jump;
-		//GetAnimator()->GetCurAnimation()->SetCurFrame(0);
-		SetGravity(true);
+		SetGround(false);
 	}
-	
-
 
 	
+
+	if (false == GetGround())
+		SetGravity(true);
+	else
+		SetGravity(false);
 }
 
 void Player::AnimationUpdate()
@@ -344,8 +395,10 @@ void Player::OnCollisionEnter(Collider* _other)
 {
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
 	{
-		SetGravity(false);
+		SetGround(true);
 		mFall = false;
+		mDecDash = false;
+		mAccDash = false;
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 		GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 		mState = PlayerState::Idle;

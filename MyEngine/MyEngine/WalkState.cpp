@@ -18,10 +18,14 @@ void WalkState::Enter()
 	switch (mPlayer->mDir)
 	{
 	case PLAYER_DIR::LEFT:
+		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_WALK_LEFT");
+		anim->Reset();
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_WALK_LEFT");
 		break;
 
 	case PLAYER_DIR::RIGHT:
+		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_WALK_RIGHT");
+		anim->Reset();
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_WALK_RIGHT");
 		break;
 	}

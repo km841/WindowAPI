@@ -69,11 +69,23 @@ private:
     PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
     
+public:
     float      mJumpYValue;
     float      mJumpXValue;
     float      mJumpXMaxValue;
     float      mJumpYMinValue;
     bool       mFall;
+
+public:
+    bool       mAccDash;
+    float      mDashAccTime;
+    float      mDashAccMaxTime;
+    Vec2       mDashSpeed;
+
+    bool       mDecDash;
+    float      mDecTime;
+    float      mDecMaxTime;
+
 
     friend class IdleState;
     friend class WalkState;

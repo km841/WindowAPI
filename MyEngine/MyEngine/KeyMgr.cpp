@@ -17,7 +17,7 @@ void KeyMgr::Update()
 		{
 			if (GetAsyncKeyState(KEY_CODE[i]) & 0x8000)
 			{
-				switch (GetKeyState((KEY)i))
+				switch (mKeyStates[i])
 				{
 				case KEY_STATE::JUST_PRESSED:
 					mKeyStates[i] = KEY_STATE::PRESSED;
@@ -38,7 +38,7 @@ void KeyMgr::Update()
 
 			else
 			{
-				switch (GetKeyState((KEY)i))
+				switch (mKeyStates[i])
 				{
 				case KEY_STATE::JUST_PRESSED:
 					mKeyStates[i] = KEY_STATE::JUST_RELEASED;
