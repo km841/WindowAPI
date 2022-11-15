@@ -25,12 +25,16 @@ public:
 
 public:
     inline Item* GetEquipItem(ITEM_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
-    void SetEquipItem(Item* _item);
+    void         SetEquipItem(Item* _item);
 
     inline Player* GetPlayer() { return mPlayer; }
-    inline void SetPlayer(Player* _player) { mPlayer = _player; }
+    inline void    SetPlayer(Player* _player) { mPlayer = _player; }
+
     inline void SetRender(bool _flag = true) { mRender = _flag; }
     inline bool GetRender() const { return mRender; }
+
+public:
+    void ChangeSlot();
 
 private:
     Player* mPlayer;

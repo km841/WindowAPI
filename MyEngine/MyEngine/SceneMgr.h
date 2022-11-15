@@ -1,6 +1,7 @@
 #pragma once
 
 class Scene;
+class Player;
 class SceneMgr
 	: public Singleton< SceneMgr >
 {
@@ -15,7 +16,6 @@ public:
 public:
 	inline Scene* GetCurScene() const { return mCurScene; }
 	void ChangeScene(SCENE_TYPE _eType);
-
 
 private:
 	Scene* mScenes[(UINT)SCENE_TYPE::END];

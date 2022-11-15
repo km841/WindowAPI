@@ -18,6 +18,7 @@
 #include "RigidBody.h"
 #include "Inventory.h"
 
+Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
 WalkState* PlayerState::Walk = nullptr;
 JumpState* PlayerState::Jump = nullptr;
@@ -31,11 +32,12 @@ Player::Player()
 	,mDashAccTime(0.f)
 	,mDashAccMaxTime(.1f)
 	,mDecTime(0.f)
-	,mDecMaxTime(.12f)
+	,mDecMaxTime(.08f)
 	,mDecDash(false)
 	,mAccDash(false)
 	,mInventory(nullptr)
 {
+	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
 	PlayerState::Jump = new JumpState(this);
@@ -129,14 +131,17 @@ void Player::Update()
 
 void Player::MoveUpdate()
 {
-	if (mDecTime > 0.f && mDecTime < mDecMaxTime)
+	// 감속 시간이 0이상이고 최대치보다 작은 경우
+	if (mDecDash && mDecTime < mDecMaxTime)
 	{
+		// 현재 감속시간을 최대 감속시간으로 나눠서 1로 뺀 반대 값을 취한다.
 		float ratio = 1.f - (mDecTime / mDecMaxTime);
 		Vec2 curSpeed = mDashSpeed * ratio;
 
 		GetRigidBody()->SetVelocity(curSpeed);
 
 		mDecTime += DT;
+		// 이번 증가량으로 인해 최대 감속시간이 되었다면 감속을 종료한다.
 		if (mDecTime >= mDecMaxTime)
 		{
 			mDecTime = 0.f;
@@ -144,8 +149,10 @@ void Player::MoveUpdate()
 		}
 	}
 
+	// 가속 플래그가 켜져있고, 가속 시간이 최대 가속시간을 넘었다면
 	if (mAccDash && mDashAccTime >= mDashAccMaxTime)
 	{
+		// 가속을 해제하고 감속을 시작한다.
 		mAccDash = false;
 		mDecDash = true;
 		mDecTime = DT;
@@ -153,9 +160,8 @@ void Player::MoveUpdate()
 	}
 
 	else
-	{
 		mDashAccTime += DT;
-	}
+	
 
 	Vec2 pos = GetPos();
 
@@ -177,7 +183,7 @@ void Player::MoveUpdate()
 		}
 	}
 
-	if (IS_JUST_RBUTTON_CLICKED)
+	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
 	{
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 
@@ -186,11 +192,12 @@ void Player::MoveUpdate()
 		Vec2 dashDir = mousePos - pos;
 		dashDir.Norm();
 
-		GetRigidBody()->SetVelocity(dashDir * 1500.f);
+		GetRigidBody()->SetVelocity(dashDir * PLAYER_DASH_SPEED);
 		SetGround(false);
 		mAccDash = true;
+		mFall = true;
 		mDashAccTime = 0.f;
-		mDashSpeed = Vec2(dashDir * 1000.f);
+		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))
@@ -210,16 +217,18 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			if (velocity.x > 0.f && false == mAccDash && false == mDecDash)
+			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
+			if (velocity.x > 0.f && NotInDash())
 				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
 
+			// 현재 X방향 속도가 최대치에 도달하지 않은 경우 값 증가
 			if (-mJumpXMaxValue < GetRigidBody()->GetVelocity().x)
 				GetRigidBody()->AddVelocity(Vec2(-5.f, 0.f));
 		}
 		else
 		{
-			if (!mAccDash)
-			GetRigidBody()->SetVelocity(Vec2(-PLAYER_SPEED, velocity.y));
+			if (NotInDash())
+				GetRigidBody()->SetVelocity(Vec2(-PLAYER_SPEED, velocity.y));
 		}
 	}
 
@@ -229,21 +238,25 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			if (velocity.x < 0.f && false == mAccDash && false == mDecDash)
+			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
+			if (velocity.x < 0.f && NotInDash())
 				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
 
+			// 현재 X방향 속도가 최대치에 도달하지 않은 경우 값 증가
 			if (mJumpXMaxValue > GetRigidBody()->GetVelocity().x)
 				GetRigidBody()->AddVelocity(Vec2(5.f, 0.f));
 		}
 		else
 		{
-			if (!mAccDash)
-			GetRigidBody()->SetVelocity(Vec2(PLAYER_SPEED, velocity.y));
+			if (NotInDash())
+				GetRigidBody()->SetVelocity(Vec2(PLAYER_SPEED, velocity.y));
 		}
 	}
 
+	//현재 방향 기록
 	mPrevDir = mDir;
 
+	// 마우스 방향에 따라 현재 방향 변경 
 	if (MOUSE_POS.x > RENDER_POS(pos).x)
 		mDir = PLAYER_DIR::RIGHT;
 	else
@@ -348,7 +361,7 @@ void Player::StateUpdate()
 		mInventory->SetRender();
 	}
 
-	else if (true == isInventoryRender && IS_JUST_PRESSED(KEY::V))
+	else if (true == isInventoryRender && (IS_JUST_PRESSED(KEY::V) || IS_JUST_PRESSED(KEY::ESC)))
 	{
 		mInventory->SetRender(false);
 	}

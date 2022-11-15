@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #define PLAYER_SPEED 350.f
+#define PLAYER_DASH_SPEED 1500.f
 
 class State;
 class Effect;
@@ -59,6 +60,15 @@ public:
 
     inline Vec2 GetPrevPos() const { return mPrevPos; }
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
+
+    inline Inventory* GetInventory() { return mInventory; }
+    bool NotInDash() const { return (!mAccDash && !mDecDash); }
+    
+public:
+    static Player* GetPlayer() { return mPlayer; }
+
+private:
+    static Player* mPlayer;
 
 private:
     Texture*   mDefaultTexture;

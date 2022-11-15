@@ -35,7 +35,7 @@ Inventory::~Inventory()
 void Inventory::Initialize()
 {
 	mLeftBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"inven_left", L"Texture\\inventory_1_slot.bmp");
-	mRightBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"inven_left", L"Texture\\inventory_2_slot.bmp");
+	mRightBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"inven_right", L"Texture\\inventory_2_slot.bmp");
 
 	if (nullptr == mLeftBaseTex || nullptr == mRightBaseTex)
 		assert(nullptr);
@@ -58,43 +58,31 @@ void Inventory::Render()
 		{
 			Vec2 pos = GetPos();
 			Vec2 size = mLeftBaseTex->GetSize();
-			switch (mSlot)
+
+			Texture* curBase = nullptr;
+
+			if (1 == mSlot)
 			{
-			case 0:
-			
-				TransparentBlt(
-					BACK_BUF_DC,
-					(int)pos.x,
-					(int)pos.y,
-					(int)size.x,
-					(int)size.y,
-					mLeftBaseTex->GetDC(),
-					0, 0,
-					(int)size.x,
-					(int)size.y,
-					RGB(255, 0, 255)
-				);
-				break;
-
-
-			case 1:
-			
-				TransparentBlt(
-					BACK_BUF_DC,
-					(int)pos.x,
-					(int)pos.y,
-					(int)size.x,
-					(int)size.y,
-					mRightBaseTex->GetDC(),
-					0, 0,
-					(int)size.x,
-					(int)size.y,
-					RGB(255, 0, 255)
-				);
-				break;
-
-
+				curBase = mLeftBaseTex;
 			}
+			else if (0 == mSlot)
+			{
+				curBase = mRightBaseTex;
+			}
+
+			TransparentBlt(
+				BACK_BUF_DC,
+				(int)pos.x,
+				(int)pos.y,
+				(int)size.x,
+				(int)size.y,
+				curBase->GetDC(),
+				0, 0,
+				(int)size.x,
+				(int)size.y,
+				RGB(255, 0, 255)
+			);
+			
 		}
 	}
 }
@@ -103,4 +91,9 @@ void Inventory::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();
 	mEquipItems[(UINT)itemType] = _item;
+}
+
+void Inventory::ChangeSlot()
+{
+	mSlot = (mSlot + 1) % 2;
 }
