@@ -24,6 +24,15 @@ public:
 		, y(_other.y)
 	{ }
 
+	bool operator< (const Vec2& _other) const
+	{
+		if (x < _other.x &&
+			y < _other.y)
+			return true;
+
+		return false;
+	}
+
 	bool operator>=(const Vec2& _other)
 	{
 		if (x >= _other.x &&

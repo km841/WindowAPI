@@ -16,6 +16,7 @@
 #include "GameObject.h"
 #include "Effect.h"
 #include "RigidBody.h"
+#include "Inventory.h"
 
 IdleState* PlayerState::Idle = nullptr;
 WalkState* PlayerState::Walk = nullptr;
@@ -33,6 +34,7 @@ Player::Player()
 	,mDecMaxTime(.12f)
 	,mDecDash(false)
 	,mAccDash(false)
+	,mInventory(nullptr)
 {
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
@@ -82,6 +84,9 @@ Player::Player()
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 160.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
 
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+
+	mInventory = new Inventory;
+	mInventory->Initialize();
 }
 
 Player::~Player()
@@ -97,6 +102,9 @@ Player::~Player()
 
 	if (nullptr != mEffect)
 		delete mEffect;
+
+	if (nullptr != mInventory)
+		delete mInventory;
 }
 
 void Player::Initialize()
@@ -111,6 +119,9 @@ void Player::Update()
 
 	StateUpdate();
 	AnimationUpdate();
+
+	if (nullptr != mInventory)
+		mInventory->Update();
 
 	GameObject::Update();
 	mPrevState = mState;
@@ -218,7 +229,7 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			if (velocity.x < 0.f && false == mAccDash)
+			if (velocity.x < 0.f && false == mAccDash && false == mDecDash)
 				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
 
 			if (mJumpXMaxValue > GetRigidBody()->GetVelocity().x)
@@ -331,6 +342,16 @@ void Player::StateUpdate()
 		SetGround(false);
 	}
 
+	bool isInventoryRender = mInventory->GetRender();
+	if (false == isInventoryRender && IS_JUST_PRESSED(KEY::V))
+	{
+		mInventory->SetRender();
+	}
+
+	else if (true == isInventoryRender && IS_JUST_PRESSED(KEY::V))
+	{
+		mInventory->SetRender(false);
+	}
 	
 
 	if (false == GetGround())
@@ -381,6 +402,8 @@ void Player::Render()
 	GameObject::Render();
 	if (nullptr != mEffect)
 		mEffect->Render();
+	if (nullptr != mInventory)
+		mInventory->Render();
 }
 
 void Player::Destroy()

@@ -9,6 +9,7 @@ class Texture;
 class IdleState;
 class WalkState;
 class JumpState;
+class Inventory;
 
 struct PlayerState
 {
@@ -64,6 +65,7 @@ private:
     State*     mPrevState;
     State*     mState;
     Effect*    mEffect;
+    Inventory* mInventory;
 
     Vec2       mPrevPos;
     PLAYER_DIR mPrevDir;

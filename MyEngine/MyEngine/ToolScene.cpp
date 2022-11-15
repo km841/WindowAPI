@@ -13,7 +13,7 @@
 
 void ToolScene::Initialize()
 {
-	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map2.bmp");
+	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map3.bmp");
 	assert(mDefaultTexture);
 
 	mBlendFunc = {};

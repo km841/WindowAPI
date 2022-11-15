@@ -157,6 +157,8 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IconUI.h" />
     <ClInclude Include="IdleState.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="JumpState.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
@@ -206,6 +208,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />

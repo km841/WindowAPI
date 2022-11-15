@@ -170,6 +170,15 @@
     <Filter Include="Engine\GameObject\MapComponent\Foothold">
       <UniqueIdentifier>{db824440-4188-40ed-a669-e1c626c1027e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Inventory">
+      <UniqueIdentifier>{8ad650c5-cc46-4679-ae59-89a62b957794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Item">
+      <UniqueIdentifier>{79f186a7-747d-44c0-8b40-ba3d630a49f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Item\Base">
+      <UniqueIdentifier>{82afa0a0-bcc8-416a-bc3b-958bda2f0789}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -313,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Engine\GameObject\MapComponent\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Engine\GameObject\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Engine\GameObject\Item\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +478,12 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Engine\GameObject\MapComponent\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Engine\GameObject\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Engine\GameObject\Item\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
