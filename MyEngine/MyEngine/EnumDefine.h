@@ -14,6 +14,7 @@ enum class BRUSH_TYPE
 	BLACK,
 	WHITE,
 	GRAY,
+	MAGENTA,
 	END,
 };
 

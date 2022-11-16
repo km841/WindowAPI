@@ -1,4 +1,11 @@
 #pragma once
+#define PI 3.1415926535
+
+
+
+
+
+
 
 struct Vec2
 {
@@ -160,4 +167,26 @@ public:
 	{
 		return sqrt((x * x) + (y * y));
 	}
+
+
 };
+
+static float DegreeToRadian(float _degree)
+{
+	return (_degree * PI) / 180.f;
+}
+
+static float RadianToDegree(float _radian)
+{
+	return (_radian * 180) / PI;
+}
+
+static Vec2 RotateVector(Vec2 _v, float _degree)
+{
+	float radian = DegreeToRadian(_degree);
+
+	float x = _v.x * cosf(radian) - _v.y * sinf(radian);
+	float y = _v.x * sinf(radian) + _v.y * cosf(radian);
+
+	return Vec2(x, y);
+}

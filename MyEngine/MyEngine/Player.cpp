@@ -116,20 +116,24 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	mPrevPos = GetPos();
+	GameObject::Update();
+	
 	if (nullptr != mInventory)
 	{
 		mInventory->Update();
 		mInventory->EquipItemUpdate();
 	}
-
+	
 	MoveUpdate();
 	EffectUpdate();
 
 	StateUpdate();
 	AnimationUpdate();
 
-	GameObject::Update();
+	
 	mPrevState = mState;
+	
 }
 
 void Player::MoveUpdate()
@@ -265,7 +269,7 @@ void Player::MoveUpdate()
 	else
 		mDir = PLAYER_DIR::LEFT;
 
-	mPrevPos = GetPos();
+	
 	SetPos(pos);
 }
 
@@ -341,6 +345,7 @@ void Player::StateUpdate()
 			mState = PlayerState::Idle;
 		}
 	}
+
 
 
 	if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
@@ -439,6 +444,7 @@ void Player::OnCollisionEnter(Collider* _other)
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
 	{
 		SetGround(true);
+		SetGravity(false);
 		mFall = false;
 		mDecDash = false;
 		mAccDash = false;
@@ -452,7 +458,11 @@ void Player::OnCollisionEnter(Collider* _other)
 
 void Player::OnCollisionExit(Collider* _other)
 {
-
+	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
+	{
+		SetGround(false);
+		SetGravity(true);
+	}
 }
 
 

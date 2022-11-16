@@ -20,6 +20,7 @@ struct WindowGDI
 		hBrushes[(UINT)BRUSH_TYPE::BLACK] = (HBRUSH)GetStockObject(BLACK_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::WHITE] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::GRAY] = (HBRUSH)GetStockObject(GRAY_BRUSH);
+		hBrushes[(UINT)BRUSH_TYPE::MAGENTA] = CreateSolidBrush(RGB(255, 0, 255));
 	}
 
 	~WindowGDI()
@@ -88,3 +89,4 @@ struct Event
 	DWORD_PTR lParam;
 	DWORD_PTR wParam;
 };
+
