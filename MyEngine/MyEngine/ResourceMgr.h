@@ -31,6 +31,7 @@ public:
 	}
 
 	Texture* CreateTexture(const std::wstring _key, Vec2 _size);
+	Texture* CreateTexture(const std::wstring _key, HDC _dc, Vec2 _size);
 
 
 private:

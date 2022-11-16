@@ -23,6 +23,9 @@ public:
     virtual void Update() override;
     virtual void Render() override;
 
+    void EquipItemUpdate();
+    void EquipItemRender();
+
 public:
     inline Item* GetEquipItem(ITEM_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
     void         SetEquipItem(Item* _item);
@@ -41,7 +44,7 @@ private:
     Item*   mEquipItems[(UINT)ITEM_TYPE::END];
     int     mMoney;
     SlotMap mInventory;
-    int     mSlot;
+    INVENTORY_SLOT mSlot;
     // 각 좌표에 대응되는 nullptr로 초기세팅됨
 
     Texture* mLeftBaseTex;

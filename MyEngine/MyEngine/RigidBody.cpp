@@ -36,8 +36,6 @@ void RigidBody::Update()
 	mForce = Vec2(0.f, 0.f);
 }
 
-
-
 void RigidBody::Move()
 {
 	Vec2 ownerPos = mOwner->GetPos();

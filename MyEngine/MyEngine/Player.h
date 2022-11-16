@@ -32,6 +32,10 @@ public:
     Player();
     virtual ~Player();
 
+    friend class IdleState;
+    friend class WalkState;
+    friend class JumpState;
+
 public:
     virtual void Initialize() override;
     virtual void Update() override;
@@ -62,7 +66,7 @@ public:
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
     inline Inventory* GetInventory() { return mInventory; }
-    bool NotInDash() const { return (!mAccDash && !mDecDash); }
+    inline bool NotInDash() const { return (!mAccDash && !mDecDash); }
     
 public:
     static Player* GetPlayer() { return mPlayer; }
@@ -81,14 +85,14 @@ private:
     PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
     
-public:
+private:
     float      mJumpYValue;
     float      mJumpXValue;
     float      mJumpXMaxValue;
     float      mJumpYMinValue;
     bool       mFall;
 
-public:
+private:
     bool       mAccDash;
     float      mDashAccTime;
     float      mDashAccMaxTime;
@@ -97,10 +101,5 @@ public:
     bool       mDecDash;
     float      mDecTime;
     float      mDecMaxTime;
-
-
-    friend class IdleState;
-    friend class WalkState;
-    friend class JumpState;
 };
 

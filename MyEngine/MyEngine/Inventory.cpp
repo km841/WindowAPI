@@ -5,12 +5,13 @@
 #include "MouseMgr.h"
 #include "Texture.h"
 #include "ResourceMgr.h"
+#include "ShortSword.h"
 
 Inventory::Inventory()
 	: mRender(false)
 	, mNextSlotPos(0.f, 0.f)
 	, mMoney(0)
-	, mSlot(0)
+	, mSlot(INVENTORY_SLOT::LEFT_SLOT)
 	, mLeftBaseTex(nullptr)
 	, mRightBaseTex(nullptr)
 {
@@ -44,6 +45,11 @@ void Inventory::Initialize()
 
 	SetPos(Vec2(WINDOW_WIDTH_SIZE - size.x, 0.f));
 	SetSize(size);
+
+	ShortSword* shortSword = new ShortSword;
+	shortSword->Initialize();
+	SetEquipItem(shortSword);
+
 }
 
 void Inventory::Update()
@@ -60,14 +66,15 @@ void Inventory::Render()
 			Vec2 size = mLeftBaseTex->GetSize();
 
 			Texture* curBase = nullptr;
-
-			if (1 == mSlot)
+			switch (mSlot)
 			{
+			case INVENTORY_SLOT::LEFT_SLOT:
 				curBase = mLeftBaseTex;
-			}
-			else if (0 == mSlot)
-			{
+				break;
+
+			case INVENTORY_SLOT::RIGHT_SLOT:
 				curBase = mRightBaseTex;
+				break;
 			}
 
 			TransparentBlt(
@@ -87,6 +94,24 @@ void Inventory::Render()
 	}
 }
 
+void Inventory::EquipItemUpdate()
+{
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Update();
+	}
+}
+
+void Inventory::EquipItemRender()
+{
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Render();
+	}
+}
+
 void Inventory::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();
@@ -95,5 +120,5 @@ void Inventory::SetEquipItem(Item* _item)
 
 void Inventory::ChangeSlot()
 {
-	mSlot = (mSlot + 1) % 2;
+	mSlot = (INVENTORY_SLOT)(((int)mSlot + 1) % 2);
 }

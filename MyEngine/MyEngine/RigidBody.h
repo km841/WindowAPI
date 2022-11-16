@@ -14,7 +14,7 @@ public:
     inline void AddForce(Vec2 _force) { mForce += _force; }
 
 public:
-    inline void SetMass(float _mass) { mMass = _mass; }
+    inline void  SetMass(float _mass) { mMass = _mass; }
     inline float GetMass() const { return mMass; }
 
     inline void SetVelocity(Vec2 _velocity) { mVelocity = _velocity; }

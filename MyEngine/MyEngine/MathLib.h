@@ -139,6 +139,16 @@ public:
 		return ret;
 	}
 
+	operator POINT()
+	{
+		return POINT{ static_cast<LONG>(x), static_cast<LONG>(y) };
+	}
+
+	operator POINT() const
+	{
+		return POINT{ static_cast<LONG>(x), static_cast<LONG>(y) };
+	}
+
 	void Norm()
 	{
 		float length = Len();

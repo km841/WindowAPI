@@ -116,14 +116,17 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	if (nullptr != mInventory)
+	{
+		mInventory->Update();
+		mInventory->EquipItemUpdate();
+	}
+
 	MoveUpdate();
 	EffectUpdate();
 
 	StateUpdate();
 	AnimationUpdate();
-
-	if (nullptr != mInventory)
-		mInventory->Update();
 
 	GameObject::Update();
 	mPrevState = mState;
@@ -412,11 +415,15 @@ bool Player::IsDownMove() const
 
 void Player::Render()
 {
+	if (nullptr != mInventory)
+	{
+		mInventory->Render();
+		mInventory->EquipItemRender();
+	}
+
 	GameObject::Render();
 	if (nullptr != mEffect)
 		mEffect->Render();
-	if (nullptr != mInventory)
-		mInventory->Render();
 }
 
 void Player::Destroy()

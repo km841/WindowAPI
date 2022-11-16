@@ -163,8 +163,10 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="ShortSword.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MathLib.h" />
@@ -214,8 +216,10 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="ShortSword.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MyEngine.cpp" />

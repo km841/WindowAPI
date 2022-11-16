@@ -7,6 +7,14 @@ Item::Item()
 
 Item::~Item()
 {
+	if (nullptr != mTexture)
+		delete mTexture;
+
+	if (nullptr != mIconTexture)
+		delete mIconTexture;
+
+	mTexture = nullptr;
+	mIconTexture = nullptr;
 }
 
 void Item::Initialize()

@@ -81,3 +81,17 @@ enum class ITEM_TYPE
 	ACCESSORIES_4,
 	END
 };
+
+enum class INVENTORY_SLOT
+{
+	LEFT_SLOT,
+	RIGHT_SLOT
+};
+
+enum class VERTICES_POINT
+{
+	LEFT_TOP,
+	RIGHT_TOP,
+	LEFT_BOTTOM,
+	END,
+};
