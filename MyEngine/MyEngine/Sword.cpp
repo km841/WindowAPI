@@ -51,8 +51,11 @@ void Sword::Update()
 		Texture* tex = GetTexture();
 		Vec2 playerPos = player->GetPos();
 		Vec2 offset = GetOffset();
+		float offsetDistance = offset.Len();
 		PLAYER_DIR playerDir = player->GetPlayerDir();
 		Vec2 dirVec = { 0, 0 };
+		Vec2 rotOffset = offset;
+		rotOffset.Norm();
 
 		// 기본 모서리를 저장해뒀다가, 마우스 각도에 따라 계산
 		// angle을 구하는 법 : 플레이어가 바라보는 위치 (1, 0) or (-1, 0)과 마우스간의 각도
@@ -72,9 +75,10 @@ void Sword::Update()
 		mousePos.Norm();
 
 		float angle = (float)(acos(dirVec.Dot(mousePos)) - PI) * 5.f;
+		rotOffset = RotateVector(rotOffset, angle);
+		rotOffset = rotOffset * offsetDistance;
 
-		Vec2 textureAnchor = (tex->GetSize() / 2.f);
-		textureAnchor.x = textureAnchor.x / 2.f;
+		Vec2 textureAnchor = tex->GetSize() / 2.f;
 
 		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
 		{
@@ -97,8 +101,9 @@ void Sword::Update()
 		{
 			mRotatedVertices[i] = mRotatedVertices[i] * distances[i] + textureAnchor;
 		}
-
-		SetPos(playerPos + offset);
+		// offset 구하는 법
+		// 각도 + 
+		SetPos(playerPos + rotOffset);
 	}
 }
 
@@ -139,7 +144,8 @@ void Sword::Render()
 		Vec2 pos = RENDER_POS(GetPos());
 		TransparentBlt(
 			BACK_BUF_DC,
-			(int)(pos.x - size.x),
+			// 40은 테스트를 위한 임시값
+			(int)(pos.x - size.x + 40),
 			(int)(pos.y - size.y),
 			(int)size.x,
 			(int)size.y,

@@ -8,7 +8,7 @@
 
 ShortSword::ShortSword()
 {
-	SetOffset(Vec2(70.f, -2.f));
+	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON_1);
 }
 
