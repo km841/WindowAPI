@@ -28,7 +28,11 @@ public:
     inline Vec2 GetOffset() const { return mOffset; }
 
 private:
+    Vec2 mPosL;
+    Vec2 mPosR;
+    Vec2 mAnchor;
     Vec2 mVertices[(UINT)VERTICES_POINT::END];
+    Vec2 mRotatedVertices[(UINT)VERTICES_POINT::END];
     Vec2 mOffset;
     Texture* mTransTexture;
 

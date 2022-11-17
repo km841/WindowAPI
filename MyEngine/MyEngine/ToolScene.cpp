@@ -33,7 +33,7 @@ void ToolScene::Update()
 
 	if (nullptr != selectedUI)
 	{
-		if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - HEIGHT_CORRECT - (TILE_SIZE * 3)))
+		if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
 		{
 			const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 			bool existFlag = false;
@@ -134,7 +134,7 @@ void ToolScene::Enter()
 
 	ToolUI* toolUI = new ToolUI;
 	toolUI->SetTexture(mDefaultTexture);
-	toolUI->SetPos(Vec2(0, WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3) - HEIGHT_CORRECT));
+	toolUI->SetPos(Vec2(0, WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)));
 
 	// ∏  ¿ÃπÃ¡ˆ ≥ª¿« ¿Œµ¶Ω∫
 	int colMax = WINDOW_WIDTH_SIZE / TILE_SIZE;

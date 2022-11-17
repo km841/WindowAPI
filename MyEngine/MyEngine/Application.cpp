@@ -36,9 +36,21 @@ void Application::WindowInit(const WindowData& _winData)
 	DeleteObject(oldBit);
 
 	RECT rect = { 0, 0, static_cast<LONG>(mWinData.iWidth), static_cast<LONG>(mWinData.iHeight) };
+	
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+	SetWindowPos(mWinData.hWnd, NULL, 0, 0, rect.right, rect.bottom, NULL);
+
+	RECT clientRect = {};
+	GetClientRect(_winData.hWnd, &clientRect);
+
+	UINT rightDiff = WINDOW_WIDTH_SIZE - clientRect.right;
+	UINT bottomDiff = WINDOW_HEIGHT_SIZE - clientRect.bottom;
+
+	rect.right += rightDiff;
+	rect.bottom += bottomDiff;
 
 	SetWindowPos(mWinData.hWnd, NULL, 0, 0, rect.right, rect.bottom, NULL);
+
 	mWinData.iWidth = rect.right;
 	mWinData.iHeight = rect.bottom;
 }

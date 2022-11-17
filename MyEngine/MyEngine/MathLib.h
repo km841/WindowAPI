@@ -168,6 +168,11 @@ public:
 		return sqrt((x * x) + (y * y));
 	}
 
+	float Dot(const Vec2& _other)
+	{
+		return (x * _other.x) + (y * _other.y);
+	}
+
 
 };
 
@@ -178,15 +183,13 @@ static float DegreeToRadian(float _degree)
 
 static float RadianToDegree(float _radian)
 {
-	return (_radian * 180) / PI;
+	return (_radian * 180.f) / PI;
 }
 
-static Vec2 RotateVector(Vec2 _v, float _degree)
+static Vec2 RotateVector(Vec2 _v, float _radian)
 {
-	float radian = DegreeToRadian(_degree);
-
-	float x = _v.x * cosf(radian) - _v.y * sinf(radian);
-	float y = _v.x * sinf(radian) + _v.y * cosf(radian);
+	float x = _v.x * cos(_radian) - _v.y * sin(_radian);
+	float y = _v.x * sin(_radian) + _v.y * cos(_radian);
 
 	return Vec2(x, y);
 }

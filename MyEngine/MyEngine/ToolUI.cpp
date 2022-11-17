@@ -39,7 +39,7 @@ void ToolUI::Render()
 	{
 		Rectangle(BACK_BUF_DC,
 			0,
-			WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3) - HEIGHT_CORRECT,
+			WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3),
 			WINDOW_WIDTH_SIZE,
 			WINDOW_HEIGHT_SIZE);
 	}

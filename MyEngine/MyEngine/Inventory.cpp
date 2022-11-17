@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "ShortSword.h"
+#include "GreatSword.h"
 
 Inventory::Inventory()
 	: mRender(false)
@@ -49,6 +50,11 @@ void Inventory::Initialize()
 	ShortSword* shortSword = new ShortSword;
 	shortSword->Initialize();
 	SetEquipItem(shortSword);
+
+	//GreatSword* greatSword = new GreatSword;
+	//greatSword->Initialize();
+	//SetEquipItem(greatSword);
+
 
 }
 

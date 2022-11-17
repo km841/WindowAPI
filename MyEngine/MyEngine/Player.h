@@ -67,6 +67,8 @@ public:
 
     inline Inventory* GetInventory() { return mInventory; }
     inline bool NotInDash() const { return (!mAccDash && !mDecDash); }
+
+    inline PLAYER_DIR GetPlayerDir() const { return mDir; }
     
 public:
     static Player* GetPlayer() { return mPlayer; }
