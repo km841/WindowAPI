@@ -74,9 +74,16 @@ void Sword::Update()
 		Vec2 mousePos = MOUSE_POS;
 		mousePos.Norm();
 
-		float angle = (float)(acos(dirVec.Dot(mousePos)) - PI) * 5.f;
+		float offsetDegree = DegreeToRadian(185.f);
+		float angle = (float)(acos(dirVec.Dot(mousePos)) - offsetDegree/* - (3.f * (PI / 2.f))*/) * 5.f;
+
+		if (PLAYER_DIR::LEFT == playerDir)
+		{
+			angle = angle / 2.f;
+		}
+
 		rotOffset = RotateVector(rotOffset, angle);
-		rotOffset = rotOffset * offsetDistance;
+		rotOffset = rotOffset * 30.f;
 
 		Vec2 textureAnchor = tex->GetSize() / 2.f;
 
@@ -102,7 +109,6 @@ void Sword::Update()
 			mRotatedVertices[i] = mRotatedVertices[i] * distances[i] + textureAnchor;
 		}
 		// offset 구하는 법
-		// 각도 + 
 		SetPos(playerPos + rotOffset);
 	}
 }
@@ -141,12 +147,26 @@ void Sword::Render()
 
 		//anchor가 transparentblt에서 사용될듯
 
+		Player* player = Player::GetPlayer();
+		PLAYER_DIR dir = player->GetPlayerDir();
+		float offsetX = 0.f;
+		switch (dir)
+		{
+		case PLAYER_DIR::LEFT:
+			offsetX = 12.f;
+			break;
+
+		case PLAYER_DIR::RIGHT:
+			offsetX = 51.f;
+			break;
+		}
+
 		Vec2 pos = RENDER_POS(GetPos());
 		TransparentBlt(
 			BACK_BUF_DC,
 			// 40은 테스트를 위한 임시값
-			(int)(pos.x - size.x + 40),
-			(int)(pos.y - size.y),
+			(int)(pos.x - size.x + offsetX),
+			(int)(pos.y - size.y + 8),
 			(int)size.x,
 			(int)size.y,
 			transTex->GetDC(),

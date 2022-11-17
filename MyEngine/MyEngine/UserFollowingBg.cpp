@@ -33,10 +33,7 @@ void UserFollowingBg::Update()
 		float playerSpeed = mPlayer->GetPlayerSpeed();
 		// 플레이어 속도 : 플레이어 이동거리 = 내 속도 : 내 이동거리
 		Vec2 distance = (playerDir * mSpeed / playerSpeed);
-		if (distance.y < 0.f)
-		{
-			int a = 0;
-		}
+	
 		
 		Vec2 pos = GetPos();
 		pos += distance;
