@@ -10,6 +10,9 @@ ShortSword::ShortSword()
 {
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON_1);
+	SetLeftDirOffset(8.f);
+	SetRightDirOffset(51.f);
+	SetYOffset(8.f);
 }
 
 ShortSword::~ShortSword()
@@ -37,20 +40,16 @@ void ShortSword::Initialize()
 
 void ShortSword::Update()
 {
+	// 애니메이션 업데이트
+	// X, Y좌표 알아야 함
+	// 칼 현재 각도에서 이동한 각도
 
-	// shortsword의 pos
-	// pos.x - size.x, pos.y - size.y가 좌상단
-	// pos.x + size.x, pos.y - size.y가 우상단
-	// pos.x - size.x, pos.y + size.y가 좌하단
-
-	// 10도 올라간 칼의 위치는?
-	// (xcos10' - ysin10'), (xsin10' + ycos10')
-
-	// pos를 정하는건? 플레이어 기준 offset
 	Sword::Update();
 }
 
 void ShortSword::Render()
 {
+
+	// 애니메이션 렌더
 	Sword::Render();
 }

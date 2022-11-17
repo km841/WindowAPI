@@ -23,6 +23,7 @@ enum class PLAYER_DIR
 {
     LEFT,
     RIGHT,
+    END,
 };
 
 class Player :

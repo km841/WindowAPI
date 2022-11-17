@@ -22,11 +22,7 @@ Sword::~Sword()
 
 void Sword::Initialize()
 {
-	mAnchor = Vec2(0.1f, 0.5f);
-
 	Texture* tex = GetTexture();
-
-
 	mVertices[(UINT)VERTICES_POINT::LEFT_TOP] = Vec2(0.f, 0.f);
 	mVertices[(UINT)VERTICES_POINT::RIGHT_TOP] = Vec2(tex->GetSize().x , 0.f);
 	mVertices[(UINT)VERTICES_POINT::LEFT_BOTTOM] = Vec2(0.f, tex->GetSize().y);
@@ -34,14 +30,6 @@ void Sword::Initialize()
 
 void Sword::Update()
 {
-	// shortsword의 pos
-	// pos.x - size.x, pos.y - size.y가 좌상단
-	// pos.x + size.x, pos.y - size.y가 우상단
-	// pos.x - size.x, pos.y + size.y가 좌하단
-
-	// 10도 올라간 칼의 위치는?
-	// (xcos10' - ysin10'), (xsin10' + ycos10')
-
 	// pos를 정하는건? 플레이어 기준 offset
 	// 마우스 위치에 따라 각도 변경
 	Player* player = Player::GetPlayer();
@@ -50,17 +38,13 @@ void Sword::Update()
 
 		Texture* tex = GetTexture();
 		Vec2 playerPos = player->GetPos();
-		Vec2 offset = GetOffset();
-		float offsetDistance = offset.Len();
 		PLAYER_DIR playerDir = player->GetPlayerDir();
-		Vec2 dirVec = { 0, 0 };
-		Vec2 rotOffset = offset;
-		rotOffset.Norm();
 
 		// 기본 모서리를 저장해뒀다가, 마우스 각도에 따라 계산
 		// angle을 구하는 법 : 플레이어가 바라보는 위치 (1, 0) or (-1, 0)과 마우스간의 각도
 		// 바라보는 각도와 일치할 때는 -100도
 
+		Vec2 dirVec = { 0, 0 };
 		switch (playerDir)
 		{
 		case PLAYER_DIR::LEFT:
@@ -75,15 +59,19 @@ void Sword::Update()
 		mousePos.Norm();
 
 		float offsetDegree = DegreeToRadian(185.f);
-		float angle = (float)(acos(dirVec.Dot(mousePos)) - offsetDegree/* - (3.f * (PI / 2.f))*/) * 5.f;
+		float angle = (float)(acos(dirVec.Dot(mousePos)) - offsetDegree) * 5.f;
 
 		if (PLAYER_DIR::LEFT == playerDir)
 		{
 			angle = angle / 2.f;
 		}
 
+		Vec2 rotOffset = GetOffset();
+		rotOffset.Norm();
+
+		float offsetDistance = 30.f;
 		rotOffset = RotateVector(rotOffset, angle);
-		rotOffset = rotOffset * 30.f;
+		rotOffset = rotOffset * offsetDistance;
 
 		Vec2 textureAnchor = tex->GetSize() / 2.f;
 
@@ -106,9 +94,9 @@ void Sword::Update()
 
 		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
 		{
-			mRotatedVertices[i] = mRotatedVertices[i] * distances[i] + textureAnchor;
+			mRotatedVertices[i] = (mRotatedVertices[i] * distances[i]) + textureAnchor;
 		}
-		// offset 구하는 법
+		
 		SetPos(playerPos + rotOffset);
 	}
 }
@@ -145,19 +133,19 @@ void Sword::Render()
 			0, 0
 		);
 
-		//anchor가 transparentblt에서 사용될듯
-
 		Player* player = Player::GetPlayer();
 		PLAYER_DIR dir = player->GetPlayerDir();
 		float offsetX = 0.f;
+		float offsetY = GetYOffset();
+
 		switch (dir)
 		{
 		case PLAYER_DIR::LEFT:
-			offsetX = 12.f;
+			offsetX = GetLeftDirOffset();
 			break;
 
 		case PLAYER_DIR::RIGHT:
-			offsetX = 51.f;
+			offsetX = GetRightDirOffset();
 			break;
 		}
 
@@ -166,7 +154,7 @@ void Sword::Render()
 			BACK_BUF_DC,
 			// 40은 테스트를 위한 임시값
 			(int)(pos.x - size.x + offsetX),
-			(int)(pos.y - size.y + 8),
+			(int)(pos.y - size.y + offsetY),
 			(int)size.x,
 			(int)size.y,
 			transTex->GetDC(),

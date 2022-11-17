@@ -27,13 +27,23 @@ public:
     inline void SetOffset(Vec2 _offset) { mOffset = _offset; }
     inline Vec2 GetOffset() const { return mOffset; }
 
+    inline void SetLeftDirOffset(float _offset) { mXAxisDirOffset[(UINT)PLAYER_DIR::LEFT] = _offset; }
+    inline void SetRightDirOffset(float _offset) { mXAxisDirOffset[(UINT)PLAYER_DIR::RIGHT] = _offset; }
+    inline float GetLeftDirOffset() const { return mXAxisDirOffset[(UINT)PLAYER_DIR::LEFT]; }
+    inline float GetRightDirOffset() const { return mXAxisDirOffset[(UINT)PLAYER_DIR::RIGHT]; }
+
+    inline float GetYOffset() const { return mYAxisOffset; }
+    inline void SetYOffset(float _offset) { mYAxisOffset = _offset; }
+
+
+
 private:
-    Vec2 mPosL;
-    Vec2 mPosR;
-    Vec2 mAnchor;
     Vec2 mVertices[(UINT)VERTICES_POINT::END];
     Vec2 mRotatedVertices[(UINT)VERTICES_POINT::END];
     Vec2 mOffset;
+    float mXAxisDirOffset[(UINT)PLAYER_DIR::END];
+    float mYAxisOffset;
+
     Texture* mTransTexture;
 
 };
