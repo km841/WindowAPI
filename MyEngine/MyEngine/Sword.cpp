@@ -39,59 +39,65 @@ void Sword::Update()
 	// 마우스 위치에 따라 각도 변경
 	Player* player = Player::GetPlayer();
 
-	
-
 	if (nullptr != player) {
 
 		Texture* tex = GetTexture();
 		Vec2 playerPos = player->GetPos();
 		PLAYER_DIR playerDir = player->GetPlayerDir();
 
-		// 기본 모서리를 저장해뒀다가, 마우스 각도에 따라 계산
-		// angle을 구하는 법 : 플레이어가 바라보는 위치 (1, 0) or (-1, 0)과 마우스간의 각도
-		// 바라보는 각도와 일치할 때는 -100도
-
 		Vec2 dirVec = { 0, 0 };
+		float times = 1.f;
 		switch (playerDir)
 		{
 		case PLAYER_DIR::LEFT:
 			dirVec = Vec2(-1, 0);
+			times = 2.f;
 			break;
 		case PLAYER_DIR::RIGHT:
 			dirVec = Vec2(1, 0);
+			times = 4.f;
 			break;
 		}
+
 
 		Vec2 mousePos = MOUSE_POS;
 		mousePos.Norm();
 
-		// 각도 계산
-		float offsetDegree = DegreeToRadian(185.f);
-		float angle = (float)(acos(dirVec.Dot(mousePos)) - offsetDegree) * 5.f;
+		float angle = (float)acos(dirVec.Dot(mousePos)) * times;
 
-		mAngle = -angle;
-
-		// 플레이어 방향에 따른 처리
 		if (PLAYER_DIR::LEFT == playerDir)
-			angle = angle / 2.f;
+			angle -= PI;
+		
+		//int degree = RadianToDegree(angle);
+		//degree %= 360;
+
+		//wchar_t buf[256] = {};
+		//swprintf_s(buf, L"%d", degree);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+
+		switch (playerDir)
+		{
+		case PLAYER_DIR::LEFT:
+			mAngle = angle - PI;
+			break;
+		case PLAYER_DIR::RIGHT:
+			mAngle = angle;
+			break;
+		}
 
 		
-
-		// 칼 상태값에 따른 처리
 		if (SWORD_STATE::DOWN_STATE == mState)
 		{
 			switch (playerDir)
 			{
 			case PLAYER_DIR::LEFT:
-				angle -= (float)PI + (PI / 6.0);
+				angle += (float)(PI + (PI / 6.0));
 				break;
 			case PLAYER_DIR::RIGHT:
-				angle += (float)PI + (PI / 6.0);
+				angle -= (float)(PI + (PI / 6.0));
 				break;
 			}
 		}
-
-		
 
 		Vec2 rotOffset = GetOffset();
 		rotOffset.Norm();

@@ -79,17 +79,23 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 
 	Animation* anim = FindAnimation(_animName);
 	Texture* orgTex = anim->GetTexture();
-
+	
 	// 신규 DC 초기화
 	static Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(L"RotAnimTex", orgTex->GetSize());
 	Brush brush(rotTex->GetDC(), BRUSH_TYPE::MAGENTA);
-	Rectangle(rotTex->GetDC(), -1, -1, rotTex->GetWidth() + 1, rotTex->GetHeight() + 1);
+	Rectangle(rotTex->GetDC(), -5, -5, rotTex->GetWidth() + 5, rotTex->GetHeight() + 5);
 
 	const std::vector<AnimInfo>& animInfo = anim->GetAnimInfo();
 
 	// Slice 크기의 임시 버퍼 생성
 	static Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(L"RotTempTex", animInfo.front().mSlice);
-	Rectangle(tempTex->GetDC(), -1, -1, tempTex->GetWidth() + 1, tempTex->GetHeight() + 1);
+	static Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(L"RotMaskTex", animInfo.front().mSlice);
+
+	Brush tempBrush(tempTex->GetDC(), BRUSH_TYPE::MAGENTA);
+	Rectangle(tempTex->GetDC(), -5, -5, tempTex->GetWidth() + 5, tempTex->GetHeight() + 5);
+
+	Brush maskBrush(maskTex->GetDC(), BRUSH_TYPE::MAGENTA);
+	Rectangle(maskTex->GetDC(), -5, -5, maskTex->GetWidth() + 5, maskTex->GetHeight() + 5);
 
 
 	for (int i = 0; i < animInfo.size(); ++i)
@@ -120,7 +126,6 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 			vertices[(UINT)VERTICES_POINT::RIGHT_TOP],
 			vertices[(UINT)VERTICES_POINT::LEFT_BOTTOM]
 		};
-		
 		TransparentBlt(
 			tempTex->GetDC(),
 			0, 0,
@@ -135,7 +140,7 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 		);
 
 		PlgBlt(
-			tempTex->GetDC(),
+			maskTex->GetDC(),
 			points,
 			tempTex->GetDC(),
 			0, 0,
@@ -144,25 +149,18 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 			NULL,
 			0, 0
 		);
-		//Rectangle(
-		//	rotTex->GetDC(),
-		//	animInfo[i].mLeftTop.x  ,
-		//	animInfo[i].mLeftTop.y ,
-		//	animInfo[i].mSlice.x + 1,
-		//	animInfo[i].mSlice.y + 1
-		//	);
 
-
-
-		BitBlt(
+		TransparentBlt(
 			rotTex->GetDC(),
 			animInfo[i].mLeftTop.x,
 			animInfo[i].mLeftTop.y,
 			animInfo[i].mSlice.x,
 			animInfo[i].mSlice.y,
-			tempTex->GetDC(),
+			maskTex->GetDC(),
 			0, 0,
-			SRCCOPY
+			animInfo[i].mSlice.x,
+			animInfo[i].mSlice.y,
+			RGB(255, 0, 255)
 		);
 	}
 
@@ -175,7 +173,7 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 		rotTex,
 		animInfo[0].mLeftTop,
 		animInfo[0].mSlice,
-		Vec2(animInfo[0].mSlice.x, 0.f),
+		Vec2(animInfo[0].mSlice.x, animInfo[0].mLeftTop.y),
 		animInfo[0].mDuration,
 		animInfo.size()
 	);

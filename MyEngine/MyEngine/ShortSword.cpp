@@ -22,9 +22,9 @@ ShortSword::ShortSword()
 	GetAnimator()->SetOwner(this);
 
 	Effect* effect = new Effect;
-	effect->SetOwner(this);
+	effect->SetOwner(Player::GetPlayer());
 	effect->SetSize(Vec2(120.f, 120.f));
-	effect->SetOffset(Vec2(30.f, 10.f));
+	effect->SetOffset(Vec2(0.f, 40.f));
 	effect->CreateComponent(new Animator);
 	effect->GetAnimator()->SetOwner(effect);
 
@@ -82,7 +82,21 @@ void ShortSword::Update()
 		{
 			rotAnim->Reset();
 		}
-		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", GetAngle(), false);
+		Vec2 dirVec = {1.f, 0.f};
+		PLAYER_DIR dir = Player::GetPlayer()->GetPlayerDir();
+
+		Vec2 mousePos = MOUSE_POS;
+		Vec2 effectPos = RENDER_POS(GetEffect()->GetPos());
+		Vec2 effDirVec = mousePos - effectPos;
+
+		effDirVec.Norm();
+		mousePos.Norm();
+
+		float angle = GetAngle();
+
+		Vec2 basicOffset(Vec2(0.f, 60.f));
+		GetEffect()->SetOffset(basicOffset + effDirVec * 70.f);
+		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}
 
 	Effect* effect = GetEffect();
@@ -106,15 +120,24 @@ void ShortSword::Render()
 		{
 
 		Texture* tex = anim->GetTexture();
+		Vec2 effPos = RENDER_POS(effect->GetPos());
 
-			BitBlt(BACK_BUF_DC,
-				100, 100,
-				tex->GetWidth(),
-				tex->GetHeight(),
-				tex->GetDC(),
-				0, 0,
-				SRCCOPY
-			);
+		//Rectangle(BACK_BUF_DC,
+		//	effPos.x - 10,
+		//	effPos.y - 10,
+		//	effPos.x + 10,
+		//	effPos.y + 10
+		//);
+			//TransparentBlt(BACK_BUF_DC,
+			//	100, 100,
+			//	tex->GetWidth(),
+			//	tex->GetHeight(),
+			//	tex->GetDC(),
+			//	0, 0,
+			//	tex->GetWidth(),
+			//	tex->GetHeight(),
+			//	0
+			//);
 		}
 
 
