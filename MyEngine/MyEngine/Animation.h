@@ -54,7 +54,7 @@ public:
 
     void SetEnterEvent(EventAnimation _event); 
     void SetExitEvent(EventAnimation _event);
-    inline int GetCurFrame() const { return mCurFrm; }
+    inline int  GetCurFrame() const { return mCurFrm; }
     inline void SetCurFrame(int _frm) { mCurFrm = _frm; }
 
     inline bool IsFinished() const { return mFinish; }
@@ -62,6 +62,11 @@ public:
     inline void SetOwner(Animator* _anim) { mOwner = _anim; }
 
     inline void SetRepeat(bool _repeat) { mRepeat = _repeat; }
+
+    inline void SetTexture(Texture* _tex) { mTex = _tex; }
+    inline Texture* GetTexture() const { return mTex; }
+
+    inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
     void Reset();
 

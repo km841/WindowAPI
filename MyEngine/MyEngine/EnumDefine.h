@@ -96,3 +96,10 @@ enum class VERTICES_POINT
 	LEFT_BOTTOM,
 	END,
 };
+
+enum class SWORD_STATE
+{
+	UP_STATE,
+	DOWN_STATE,
+	END,
+};

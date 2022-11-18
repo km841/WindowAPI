@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+
+class Effect;
 class Sword :
     public Item
 {
@@ -35,6 +37,19 @@ public:
     inline float GetYOffset() const { return mYAxisOffset; }
     inline void SetYOffset(float _offset) { mYAxisOffset = _offset; }
 
+    inline void SetEffect(Effect* _effect) { mEffect = _effect; }
+    inline Effect* GetEffect() const { return mEffect; }
+
+    inline void SetSwordState(SWORD_STATE _state) { mState = _state; }
+    inline SWORD_STATE GetSwordState() const { return mState; }
+
+    inline void SetPrevSwordState(SWORD_STATE _state) { mPrevState = _state; }
+    inline SWORD_STATE GetPrevSwordState() const { return mPrevState; }
+
+    void ChangeSwordState();
+
+    inline float GetAngle() const { return mAngle; }
+
 
 
 private:
@@ -43,8 +58,13 @@ private:
     Vec2 mOffset;
     float mXAxisDirOffset[(UINT)PLAYER_DIR::END];
     float mYAxisOffset;
+    float mAngle;
+
+    Effect* mEffect;
 
     Texture* mTransTexture;
+    SWORD_STATE mState;
+    SWORD_STATE mPrevState;
 
 };
 

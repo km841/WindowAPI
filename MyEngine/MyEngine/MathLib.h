@@ -125,6 +125,14 @@ public:
 		return ret;
 	}
 
+	Vec2& operator*= (float _f)
+	{
+		x *= _f;
+		y *= _f;
+
+		return *this;
+	}
+
 	Vec2 operator/ (const Vec2& _other)
 	{
 		Vec2 ret = { x, y };
@@ -137,6 +145,16 @@ public:
 	}
 
 	Vec2 operator/ (float _f)
+	{
+		assert(_f != 0);
+		Vec2 ret = { x, y };
+		ret.x /= _f;
+		ret.y /= _f;
+
+		return ret;
+	}
+
+	Vec2 operator/ (float _f) const
 	{
 		assert(_f != 0);
 		Vec2 ret = { x, y };

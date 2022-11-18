@@ -32,6 +32,25 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+		{
+			delete mEquipItems[i];
+			mEquipItems[i] = nullptr;
+		}
+	}
+
+	for (auto& item : mInventory)
+	{
+		if (nullptr != item.second)
+		{
+			delete item.second;
+			item.second = nullptr;
+		}
+
+	}
+
 }
 
 void Inventory::Initialize()

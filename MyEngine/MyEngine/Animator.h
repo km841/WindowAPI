@@ -25,6 +25,7 @@ public:
 
     Animation* FindAnimation(const std::wstring& _animName);
     void SelectAnimation(const std::wstring& _animName, bool _repeat = true);
+    void RotSelectAnimation(const std::wstring& _animName, float _angle, bool _repeat = true);
 
     inline Animation* GetCurAnimation() const { return mCurAnim; }
 

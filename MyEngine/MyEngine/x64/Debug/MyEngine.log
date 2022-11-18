@@ -1,2 +1,17 @@
 ﻿  unity_V3282SPJOYH61Z5M.cpp
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(133,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(132,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(131,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(130,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(128,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(127,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(143,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(142,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(162,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(161,22): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(160,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(159,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Animator.cpp(181,2): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Sword.cpp(86,36): warning C4305: '-=': 'double'에서 'float'(으)로 잘립니다.
+C:\WindowsAPI\MyEngine\MyEngine\Sword.cpp(89,36): warning C4305: '+=': 'double'에서 'float'(으)로 잘립니다.
   MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\x64\Debug\MyEngine.exe

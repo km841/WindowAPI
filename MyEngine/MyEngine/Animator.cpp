@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Animator.h"
 #include "Animation.h"
+#include "Texture.h"
+#include "ResourceMgr.h"
 
 
 Animator::Animator()
@@ -67,5 +69,123 @@ void Animator::SelectAnimation(const std::wstring& _animName, bool _repeat)
 	Animation* anim = FindAnimation(_animName);	
 	anim->SetRepeat(_repeat);
 	mCurAnim = anim;
+
+}
+
+void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, bool _repeat)
+{
+
+	//CreateRotAnimation을 만들고... 그 애니메이션은 덮어쓸 수 있게 함 그 애니메이션은 텍스쳐만 다름
+
+	Animation* anim = FindAnimation(_animName);
+	Texture* orgTex = anim->GetTexture();
+
+	// 신규 DC 초기화
+	static Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(L"RotAnimTex", orgTex->GetSize());
+	Brush brush(rotTex->GetDC(), BRUSH_TYPE::MAGENTA);
+	Rectangle(rotTex->GetDC(), -1, -1, rotTex->GetWidth() + 1, rotTex->GetHeight() + 1);
+
+	const std::vector<AnimInfo>& animInfo = anim->GetAnimInfo();
+
+	// Slice 크기의 임시 버퍼 생성
+	static Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(L"RotTempTex", animInfo.front().mSlice);
+	Rectangle(tempTex->GetDC(), -1, -1, tempTex->GetWidth() + 1, tempTex->GetHeight() + 1);
+
+
+	for (int i = 0; i < animInfo.size(); ++i)
+	{
+		Vec2 vertices[(UINT)VERTICES_POINT::END] = {};
+		vertices[(UINT)VERTICES_POINT::LEFT_TOP] = { 0.f, 0.f };
+		vertices[(UINT)VERTICES_POINT::RIGHT_TOP] = { animInfo[i].mSlice.x, 0.f };
+		vertices[(UINT)VERTICES_POINT::LEFT_BOTTOM] = { 0.f, animInfo[i].mSlice.y };
+
+		Vec2 anchorPoint = (animInfo[i].mSlice / 2.f);
+		float distances[(UINT)VERTICES_POINT::END] = {};
+		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
+		{
+			vertices[i] = vertices[i] - anchorPoint;
+			distances[i] = vertices[i].Len();
+			vertices[i].Norm();
+		}
+
+		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
+		{
+			vertices[i] = RotateVector(vertices[i], _angle);
+			vertices[i] *= distances[i];
+			vertices[i] += anchorPoint;
+		}
+
+		POINT points[(UINT)VERTICES_POINT::END] = {
+			vertices[(UINT)VERTICES_POINT::LEFT_TOP],
+			vertices[(UINT)VERTICES_POINT::RIGHT_TOP],
+			vertices[(UINT)VERTICES_POINT::LEFT_BOTTOM]
+		};
+		
+		TransparentBlt(
+			tempTex->GetDC(),
+			0, 0,
+			animInfo[i].mSlice.x,
+			animInfo[i].mSlice.y,
+			orgTex->GetDC(),
+			animInfo[i].mLeftTop.x,
+			animInfo[i].mLeftTop.y,
+			animInfo[i].mSlice.x,
+			animInfo[i].mSlice.y,
+			0
+		);
+
+		PlgBlt(
+			tempTex->GetDC(),
+			points,
+			tempTex->GetDC(),
+			0, 0,
+			animInfo[i].mSlice.x,
+			animInfo[i].mSlice.y,
+			NULL,
+			0, 0
+		);
+		//Rectangle(
+		//	rotTex->GetDC(),
+		//	animInfo[i].mLeftTop.x  ,
+		//	animInfo[i].mLeftTop.y ,
+		//	animInfo[i].mSlice.x + 1,
+		//	animInfo[i].mSlice.y + 1
+		//	);
+
+
+
+		BitBlt(
+			rotTex->GetDC(),
+			animInfo[i].mLeftTop.x,
+			animInfo[i].mLeftTop.y,
+			animInfo[i].mSlice.x,
+			animInfo[i].mSlice.y,
+			tempTex->GetDC(),
+			0, 0,
+			SRCCOPY
+		);
+	}
+
+	
+	//anim->SetTexture(rotTex);
+	anim->SetRepeat(_repeat);
+
+	RegisterAnimation(
+		_animName + L"Rot",
+		rotTex,
+		animInfo[0].mLeftTop,
+		animInfo[0].mSlice,
+		Vec2(animInfo[0].mSlice.x, 0.f),
+		animInfo[0].mDuration,
+		animInfo.size()
+	);
+
+	mCurAnim = FindAnimation(_animName + L"Rot");
+
+	// curanim에 들어가면 update를 통해 애니메이션의 각 프레임이
+	// 변경된 texture로 바꿔주면 될듯
+	// 그러면 기존과 동일한 texture를 만든 후 거기 현재 각도에 맞춰서 회전해서 그려주고
+	// SetTexture로 변경한 후에
+	// 그걸 Render에서 출력하도록 함
 
 }

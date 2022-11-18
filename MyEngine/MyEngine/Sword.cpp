@@ -6,18 +6,23 @@
 #include "TimeMgr.h"
 #include "CameraMgr.h"
 #include "MouseMgr.h"
+#include "Animation.h"
+#include "Animator.h"
+#include "Effect.h"
 
 Sword::Sword()
+	: mState(SWORD_STATE::UP_STATE)
+	, mAngle(0.f)
 {
-
+	
 }
 
 Sword::~Sword()
 {
-	if (mTransTexture)
-		delete mTransTexture;
+	//if (mTransTexture)
+	//	delete mTransTexture;
 
-	mTransTexture = nullptr;
+	//mTransTexture = nullptr;
 }
 
 void Sword::Initialize()
@@ -33,6 +38,8 @@ void Sword::Update()
 	// pos를 정하는건? 플레이어 기준 offset
 	// 마우스 위치에 따라 각도 변경
 	Player* player = Player::GetPlayer();
+
+	
 
 	if (nullptr != player) {
 
@@ -58,13 +65,33 @@ void Sword::Update()
 		Vec2 mousePos = MOUSE_POS;
 		mousePos.Norm();
 
+		// 각도 계산
 		float offsetDegree = DegreeToRadian(185.f);
 		float angle = (float)(acos(dirVec.Dot(mousePos)) - offsetDegree) * 5.f;
 
+		mAngle = -angle;
+
+		// 플레이어 방향에 따른 처리
 		if (PLAYER_DIR::LEFT == playerDir)
-		{
 			angle = angle / 2.f;
+
+		
+
+		// 칼 상태값에 따른 처리
+		if (SWORD_STATE::DOWN_STATE == mState)
+		{
+			switch (playerDir)
+			{
+			case PLAYER_DIR::LEFT:
+				angle -= (float)PI + (PI / 6.0);
+				break;
+			case PLAYER_DIR::RIGHT:
+				angle += (float)PI + (PI / 6.0);
+				break;
+			}
 		}
+
+		
 
 		Vec2 rotOffset = GetOffset();
 		rotOffset.Norm();
@@ -99,6 +126,8 @@ void Sword::Update()
 		
 		SetPos(playerPos + rotOffset);
 	}
+
+	GameObject::Update();
 }
 
 void Sword::Render()
@@ -135,6 +164,7 @@ void Sword::Render()
 
 		Player* player = Player::GetPlayer();
 		PLAYER_DIR dir = player->GetPlayerDir();
+
 		float offsetX = 0.f;
 		float offsetY = GetYOffset();
 
@@ -152,7 +182,6 @@ void Sword::Render()
 		Vec2 pos = RENDER_POS(GetPos());
 		TransparentBlt(
 			BACK_BUF_DC,
-			// 40은 테스트를 위한 임시값
 			(int)(pos.x - size.x + offsetX),
 			(int)(pos.y - size.y + offsetY),
 			(int)size.x,
@@ -165,4 +194,9 @@ void Sword::Render()
 			
 		);
 	}
+}
+
+void Sword::ChangeSwordState()
+{
+	mState = (SWORD_STATE)(((UINT)mState + 1) % 2);
 }
