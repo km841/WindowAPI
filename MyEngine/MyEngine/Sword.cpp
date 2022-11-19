@@ -19,10 +19,7 @@ Sword::Sword()
 
 Sword::~Sword()
 {
-	//if (mTransTexture)
-	//	delete mTransTexture;
 
-	//mTransTexture = nullptr;
 }
 
 void Sword::Initialize()
@@ -51,7 +48,7 @@ void Sword::Update()
 		{
 		case PLAYER_DIR::LEFT:
 			dirVec = Vec2(-1, 0);
-			times = 2.f;
+			times = 2.3f;
 			break;
 		case PLAYER_DIR::RIGHT:
 			dirVec = Vec2(1, 0);
@@ -66,14 +63,14 @@ void Sword::Update()
 		float angle = (float)acos(dirVec.Dot(mousePos)) * times;
 
 		if (PLAYER_DIR::LEFT == playerDir)
-			angle -= PI;
+			angle -= PI + (PI / 2.0);
 		
-		//int degree = RadianToDegree(angle);
-		//degree %= 360;
+		int degree = RadianToDegree(angle);
+		degree %= 360;
 
-		//wchar_t buf[256] = {};
-		//swprintf_s(buf, L"%d", degree);
-		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+		wchar_t buf[256] = {};
+		swprintf_s(buf, L"%d", degree);
+		SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
 		switch (playerDir)
 		{

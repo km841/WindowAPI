@@ -42,6 +42,9 @@ ShortSword::ShortSword()
 
 ShortSword::~ShortSword()
 {
+	Effect* effect = GetEffect();
+	if (nullptr != effect)
+		delete effect;
 }
 
 void ShortSword::Initialize()
@@ -94,8 +97,22 @@ void ShortSword::Update()
 
 		float angle = GetAngle();
 
-		Vec2 basicOffset(Vec2(0.f, 60.f));
-		GetEffect()->SetOffset(basicOffset + effDirVec * 70.f);
+		Player* player = Player::GetPlayer();
+		PLAYER_DIR playerDir = player->GetPlayerDir();
+		Vec2 basicOffset = {};
+
+		switch (playerDir)
+		{
+		case PLAYER_DIR::LEFT:
+			basicOffset = Vec2(-25.f, -15.f);
+			break;
+
+		case PLAYER_DIR::RIGHT:
+			basicOffset = Vec2(25.f, -15.f);
+			break;
+		}
+		
+		GetEffect()->SetOffset(basicOffset + effDirVec * 5.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}
 

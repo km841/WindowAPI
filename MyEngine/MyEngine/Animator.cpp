@@ -129,13 +129,13 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 		TransparentBlt(
 			tempTex->GetDC(),
 			0, 0,
-			animInfo[i].mSlice.x,
-			animInfo[i].mSlice.y,
+			(int)animInfo[i].mSlice.x,
+			(int)animInfo[i].mSlice.y,
 			orgTex->GetDC(),
-			animInfo[i].mLeftTop.x,
-			animInfo[i].mLeftTop.y,
-			animInfo[i].mSlice.x,
-			animInfo[i].mSlice.y,
+			(int)animInfo[i].mLeftTop.x,
+			(int)animInfo[i].mLeftTop.y,
+			(int)animInfo[i].mSlice.x,
+			(int)animInfo[i].mSlice.y,
 			0
 		);
 
@@ -144,28 +144,26 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 			points,
 			tempTex->GetDC(),
 			0, 0,
-			animInfo[i].mSlice.x,
-			animInfo[i].mSlice.y,
+			(int)animInfo[i].mSlice.x,
+			(int)animInfo[i].mSlice.y,
 			NULL,
 			0, 0
 		);
 
 		TransparentBlt(
 			rotTex->GetDC(),
-			animInfo[i].mLeftTop.x,
-			animInfo[i].mLeftTop.y,
-			animInfo[i].mSlice.x,
-			animInfo[i].mSlice.y,
+			(int)animInfo[i].mLeftTop.x,
+			(int)animInfo[i].mLeftTop.y,
+			(int)animInfo[i].mSlice.x,
+			(int)animInfo[i].mSlice.y,
 			maskTex->GetDC(),
 			0, 0,
-			animInfo[i].mSlice.x,
-			animInfo[i].mSlice.y,
+			(int)animInfo[i].mSlice.x,
+			(int)animInfo[i].mSlice.y,
 			RGB(255, 0, 255)
 		);
 	}
 
-	
-	//anim->SetTexture(rotTex);
 	anim->SetRepeat(_repeat);
 
 	RegisterAnimation(
@@ -175,10 +173,11 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 		animInfo[0].mSlice,
 		Vec2(animInfo[0].mSlice.x, animInfo[0].mLeftTop.y),
 		animInfo[0].mDuration,
-		animInfo.size()
+		(UINT)animInfo.size()
 	);
 
 	mCurAnim = FindAnimation(_animName + L"Rot");
+	mCurAnim->SetEffectAnimation(true);
 
 	// curanim에 들어가면 update를 통해 애니메이션의 각 프레임이
 	// 변경된 texture로 바꿔주면 될듯

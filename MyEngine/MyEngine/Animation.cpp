@@ -79,11 +79,16 @@ void Animation::Render()
 
 	// Convert RenderPos
 	pos = RENDER_POS(pos);
+	float divideY = 1.f;
+	if (mEffect)
+	{
+		divideY = 2.f;
+	}
 
-     	TransparentBlt(
+    TransparentBlt(
 		BACK_BUF_DC
 		, (int)(pos.x - size.x / 2.f)
-		, (int)(pos.y - size.y)
+		, (int)(pos.y - size.y / divideY)
 		, (int)(size.x)
 		, (int)(size.y)
 		, mTex->GetDC()
@@ -93,6 +98,7 @@ void Animation::Render()
 		, (int)(mAnim[mCurFrm].mSlice.y)
 		, RGB(255, 0, 255)
 	);
+	
 
 	if (nullptr != mDummyObj)
 	{

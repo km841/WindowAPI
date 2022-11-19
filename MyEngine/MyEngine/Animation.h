@@ -56,6 +56,8 @@ public:
     void SetExitEvent(EventAnimation _event);
     inline int  GetCurFrame() const { return mCurFrm; }
     inline void SetCurFrame(int _frm) { mCurFrm = _frm; }
+    inline void     SetTexture(Texture* _tex) { mTex = _tex; }
+    inline Texture* GetTexture() const { return mTex; }
 
     inline bool IsFinished() const { return mFinish; }
 
@@ -63,8 +65,7 @@ public:
 
     inline void SetRepeat(bool _repeat) { mRepeat = _repeat; }
 
-    inline void SetTexture(Texture* _tex) { mTex = _tex; }
-    inline Texture* GetTexture() const { return mTex; }
+    inline void SetEffectAnimation(bool _effect) { mEffect = _effect; }
 
     inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
@@ -80,6 +81,7 @@ private:
     float                 mAccTime;
     bool                  mRepeat;
     bool                  mFinish;
+    bool                  mEffect;
 
 private:
     Event*                mEvent;
