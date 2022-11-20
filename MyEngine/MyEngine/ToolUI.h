@@ -16,6 +16,10 @@ public:
 	virtual void Destroy();
 
 public:
+	virtual bool OnMouse();
+	virtual bool OnClicked();
+
+public:
 	inline void SetPage(int _page) { mCurPage = _page; }
 	inline int  GetPage() const { return mCurPage; }
 

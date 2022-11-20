@@ -31,3 +31,23 @@ void EventRegisteror::ChangeScene(SCENE_TYPE _eType)
 	
 	EventMgr::GetInstance().AddEvent(event);
 }
+
+void EventRegisteror::EnableUI(UI_TYPE _eType)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::ENABLE_UI;
+	event.wParam = (DWORD_PTR)_eType;
+	event.lParam = 0;
+
+	EventMgr::GetInstance().AddEvent(event);
+}
+
+void EventRegisteror::DisableUI(UI_TYPE _eType)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::DISABLE_UI;
+	event.wParam = (DWORD_PTR)_eType;
+	event.lParam = 0;
+
+	EventMgr::GetInstance().AddEvent(event);
+}

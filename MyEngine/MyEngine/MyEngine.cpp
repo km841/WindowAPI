@@ -1,7 +1,8 @@
 ﻿#include "pch.h"
 #include "MyEngine.h"
 #include "Player.h"
-#include "Inventory.h"
+#include "InventoryUI.h"
+#include "UIMgr.h"
 
 #define MAX_LOADSTRING 100
 
@@ -140,9 +141,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEWHEEL:
     {
         Player* player = Player::GetPlayer();
+
+
         if (nullptr != player)
         {
-            player->GetInventory()->ChangeSlot();
+            InventoryUI* inventory = 
+                static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+            inventory->ChangeSlot();
         }
     }
     break;

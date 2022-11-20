@@ -5,6 +5,7 @@
 
 UI::UI(bool _camMode)
 	: mCamMode(_camMode)
+	, mState(false)
 {
 	
 }

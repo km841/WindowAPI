@@ -147,7 +147,6 @@
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
-    <ClInclude Include="CheckButtonUI.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
@@ -158,7 +157,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IconUI.h" />
     <ClInclude Include="IdleState.h" />
-    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JumpState.h" />
     <ClInclude Include="Monster.h" />
@@ -188,6 +187,7 @@
     <ClInclude Include="ToolUI.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIMgr.h" />
     <ClInclude Include="UserFollowingBg.h" />
     <ClInclude Include="UtilLib.h" />
     <ClInclude Include="WalkState.h" />
@@ -202,7 +202,6 @@
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />
-    <ClCompile Include="CheckButtonUI.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -212,7 +211,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IconUI.cpp" />
     <ClCompile Include="IdleState.cpp" />
-    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -249,6 +248,7 @@
     <ClCompile Include="ToolUI.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIMgr.cpp" />
     <ClCompile Include="UserFollowingBg.cpp" />
     <ClCompile Include="UtilLib.cpp" />
     <ClCompile Include="WalkState.cpp" />

@@ -10,6 +10,7 @@ IconUI* IconUI::selectedUI = nullptr;
 IconUI::IconUI()
 	: UI(false)
 {
+	SetState();
 }
 
 IconUI::~IconUI()
@@ -22,24 +23,24 @@ void IconUI::Initialize()
 
 void IconUI::Update()
 {
-	ToolUI* parentUI = (ToolUI*)GetParentUI();
-	Vec2 mousePos = MOUSE_POS;
+	if (IS_RBUTTON_CLICKED)
+		selectedUI = nullptr;
+
+	if (!GetState())
+		return;
+
+	ToolUI* parentUI = dynamic_cast<ToolUI*>(GetParentUI());
 
 	Vec2 parentPos = parentUI->GetPos();
 	Vec2 pos = parentPos + GetPos();
 
-	pos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
-
-	if (IS_RBUTTON_CLICKED)
-		selectedUI = nullptr;
-
-	if (pos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 4))
+	Vec2 IconPos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
+	if (IconPos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3))
 		return;
 
-	if (pos.x <= mousePos.x && pos.x + TILE_SIZE >= mousePos.x &&
-		pos.y <= mousePos.y && pos.y + TILE_SIZE >= mousePos.y)
+	if (mOnMouse)
 	{
-		if (IS_LBUTTON_CLICKED)
+		if (mOnClicked)
 			selectedUI = this;
 	}
 
@@ -49,6 +50,9 @@ void IconUI::Update()
 
 void IconUI::Render()
 {	
+	if (!GetState())
+		return;
+
 	ToolUI* parentUI = (ToolUI*)GetParentUI();
 
 	if (nullptr != parentUI)
@@ -60,7 +64,7 @@ void IconUI::Render()
 			Vec2 pos = parentUI->GetPos();
 			pos += GetPos();
 			pos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
-			if (pos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 4))
+			if (pos.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3))
 				return;
 
 			TransparentBlt(
@@ -95,4 +99,23 @@ void IconUI::Render()
 
 void IconUI::Destroy()
 {
+}
+
+bool IconUI::OnMouse()
+{
+	ToolUI* parentUI = (ToolUI*)GetParentUI();
+	Vec2 mousePos = MOUSE_POS;
+
+	Vec2 parentPos = parentUI->GetPos();
+	Vec2 pos = parentPos + GetPos();
+
+	pos = CameraMgr::GetInstance().GetIconUIPos(pos, parentUI->GetPage());
+
+	return (pos.x <= mousePos.x && pos.x + TILE_SIZE >= mousePos.x &&
+		pos.y <= mousePos.y && pos.y + TILE_SIZE >= mousePos.y);
+}
+
+bool IconUI::OnClicked()
+{
+	return OnMouse() && IS_LBUTTON_CLICKED;
 }

@@ -63,14 +63,14 @@ void Sword::Update()
 		float angle = (float)acos(dirVec.Dot(mousePos)) * times;
 
 		if (PLAYER_DIR::LEFT == playerDir)
-			angle -= PI + (PI / 2.0);
+			angle -= PI + (PI / 2.f);
 		
-		int degree = RadianToDegree(angle);
-		degree %= 360;
+		//int degree = RadianToDegree(angle);
+		//degree %= 360;
 
-		wchar_t buf[256] = {};
-		swprintf_s(buf, L"%d", degree);
-		SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+		//wchar_t buf[256] = {};
+		//swprintf_s(buf, L"%d", degree);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
 		switch (playerDir)
 		{

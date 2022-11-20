@@ -7,6 +7,7 @@
 ToolUI::ToolUI()
 	: UI(false)
 {
+	SetState();
 }
 
 ToolUI::~ToolUI()
@@ -19,6 +20,9 @@ void ToolUI::Initialize()
 
 void ToolUI::Update()
 {
+	if (!GetState())
+		return;
+
 	if (GetTexture())
 	{
 		if (IS_JUST_PRESSED(KEY::PAGE_UP) && mCurPage > 0)
@@ -34,6 +38,9 @@ void ToolUI::Update()
 
 void ToolUI::Render()
 {
+	if (!GetState())
+		return;
+
 	Texture* texture = GetTexture();
 	if (nullptr != texture)
 	{
@@ -49,5 +56,33 @@ void ToolUI::Render()
 
 void ToolUI::Destroy() 
 {
+}
+
+bool ToolUI::OnMouse()
+{
+	const std::vector<UI*>& iconUI = GetChildUI();
+	for (int i = 0; i < iconUI.size(); ++i)
+	{
+		if (iconUI[i]->OnMouse())
+			iconUI[i]->SetOnMouseState(true);
+		else
+			iconUI[i]->SetOnMouseState(false);
+	}
+
+	return false;
+}
+
+bool ToolUI::OnClicked()
+{
+	const std::vector<UI*>& iconUI = GetChildUI();
+	for (int i = 0; i < iconUI.size(); ++i)
+	{
+		if (iconUI[i]->OnClicked())
+			iconUI[i]->SetOnClickedState(true);
+		else
+			iconUI[i]->SetOnClickedState(false);
+	}
+
+	return false;
 }
 

@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Collider.h"
 #include "GameObject.h"
+#include "UIMgr.h"
 
 void EventMgr::Initialize()
 {
@@ -41,6 +42,14 @@ void EventMgr::Execute(Event _event)
 
 	case EVENT_TYPE::SCENE_CHANGE:
 		SceneMgr::GetInstance().ChangeScene((SCENE_TYPE)_event.wParam);
+		break;
+
+	case EVENT_TYPE::ENABLE_UI:
+		UIMgr::GetInstance().EnableUI((UI_TYPE)_event.wParam);
+		break;
+
+	case EVENT_TYPE::DISABLE_UI:
+		UIMgr::GetInstance().DisableUI((UI_TYPE)_event.wParam);
 		break;
 	}
 }

@@ -11,6 +11,10 @@
 #include "MouseMgr.h"
 #include "Wall.h"
 #include "CollisionMgr.h"
+#include "InventoryUI.h"
+#include "ShortSword.h"
+#include "UIMgr.h"
+#include "KeyMgr.h"
 
 void TownScene::Initialize()
 {
@@ -19,6 +23,7 @@ void TownScene::Initialize()
 
 void TownScene::Update()
 {
+
 	Scene::Update();
 }
 
@@ -91,12 +96,16 @@ void TownScene::Enter()
 	wall->SetPos(Vec2(5000, TILE_SIZE * 20));
 	wall->SetSize(Vec2(10000, 30));
 
+	InventoryUI* inven = 
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
 	AddGameObject(townTreeBg, townTreeBg->GetType());
 	AddGameObject(townFloor, townFloor->GetType());
 	AddGameObject(player, player->GetType());
 	AddGameObject(wall, wall->GetType());
+	AddGameObject(inven, inven->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);

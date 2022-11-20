@@ -112,7 +112,7 @@ void ShortSword::Update()
 			break;
 		}
 		
-		GetEffect()->SetOffset(basicOffset + effDirVec * 5.f);
+		GetEffect()->SetOffset(basicOffset + effDirVec * 10.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}
 

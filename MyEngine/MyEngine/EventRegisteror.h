@@ -10,6 +10,9 @@ public:
 	void DeleteObject(GameObject* _obj);
 	void ChangeScene(SCENE_TYPE _eType);
 
+	void EnableUI(UI_TYPE _eType);
+	void DisableUI(UI_TYPE _eType);
+
 private:
 
 };

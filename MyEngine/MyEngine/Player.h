@@ -10,7 +10,8 @@ class Texture;
 class IdleState;
 class WalkState;
 class JumpState;
-class Inventory;
+class InventoryUI;
+class Item;
 
 struct PlayerState
 {
@@ -66,10 +67,16 @@ public:
     inline Vec2 GetPrevPos() const { return mPrevPos; }
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
-    inline Inventory* GetInventory() { return mInventory; }
     inline bool NotInDash() const { return (!mAccDash && !mDecDash); }
 
     inline PLAYER_DIR GetPlayerDir() const { return mDir; }
+
+public:
+    inline Item* GetEquipItem(ITEM_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
+    void         SetEquipItem(Item* _item);
+
+    void EquipItemUpdate();
+    void EquipItemRender();
     
 public:
     static Player* GetPlayer() { return mPlayer; }
@@ -82,7 +89,8 @@ private:
     State*     mPrevState;
     State*     mState;
     Effect*    mEffect;
-    Inventory* mInventory;
+    Item*      mEquipItems[(UINT)ITEM_TYPE::END];
+
 
     Vec2       mPrevPos;
     PLAYER_DIR mPrevDir;

@@ -31,6 +31,10 @@ public:
 	virtual void Destroy();
 
 public:
+	virtual bool OnMouse();
+	virtual bool OnClicked();
+
+public:
 	virtual void TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
 
 	inline void  SetEvent(std::function<void()> _func) { mEvent = _func; };
@@ -38,7 +42,6 @@ public:
 
 
 protected:
-	bool				  mOnMouse;
 	std::function<void()> mEvent;
 	TextureInfo			  mStates[(UINT)ButtonState::END];
 

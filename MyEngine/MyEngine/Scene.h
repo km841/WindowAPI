@@ -1,6 +1,7 @@
 #pragma once
 class GameObject;
 class Texture;
+class UI;
 class Scene
 {
 public:
@@ -20,6 +21,7 @@ public:
 
 public:
 	inline const std::vector<GameObject*>& GetObjectGroup(OBJECT_TYPE _eType) const { return mObjects[(UINT)_eType]; }
+
 	void AddGameObject(GameObject* _obj, OBJECT_TYPE _eType);
 	void DeleteObjGroup(OBJECT_TYPE _eType);
 

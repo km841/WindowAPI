@@ -13,6 +13,7 @@
 #include "EventMgr.h"
 #include "CollisionMgr.h"
 #include "CameraMgr.h"
+#include "UIMgr.h"
 
 void Application::Initialize(const WindowData& _winData)
 {
@@ -23,6 +24,7 @@ void Application::Initialize(const WindowData& _winData)
 	TimeMgr::GetInstance().Initialize();
 	CameraMgr::GetInstance().Initialize();
 	SceneMgr::GetInstance().Initialize();
+	UIMgr::GetInstance().Initialize();
 	
 }
 
@@ -65,6 +67,7 @@ void Application::Tick()
 	MouseMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
+	UIMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
 	CollisionMgr::GetInstance().Update();
 

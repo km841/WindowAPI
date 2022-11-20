@@ -43,8 +43,8 @@ enum class OBJECT_TYPE
 	BACKGROUND_LAST,
 	TILE,
 	STRUCTURE,
-	MONSTER,
 	PLAYER,
+	MONSTER,
 	DUMMY,
 	WALL,
 	MISSILE_FROM_MONSTER,
@@ -63,6 +63,12 @@ enum class EVENT_TYPE
 
 	SCENE_CHANGE,
 	// lParam : No used, wParam : Scene Type
+
+	ENABLE_UI,
+	// lParam : No used, wParam : UI Type
+
+	DISABLE_UI,
+	// lParam : No used, wParam : UI Type
 };
 
 enum class RELATION_TYPE
@@ -102,4 +108,17 @@ enum class SWORD_STATE
 	UP_STATE,
 	DOWN_STATE,
 	END,
+};
+
+enum class UI_TYPE
+{
+	HP,
+	DASH_GAUGE,
+	MINIMAP,
+	INVENTORY,
+	TOOL,
+
+
+
+	END
 };

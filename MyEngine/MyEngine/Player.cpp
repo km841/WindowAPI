@@ -16,7 +16,10 @@
 #include "GameObject.h"
 #include "Effect.h"
 #include "RigidBody.h"
-#include "Inventory.h"
+#include "InventoryUI.h"
+#include "UIMgr.h"
+#include "EventRegisteror.h"
+#include "ShortSword.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -35,7 +38,6 @@ Player::Player()
 	,mDecMaxTime(.08f)
 	,mDecDash(false)
 	,mAccDash(false)
-	,mInventory(nullptr)
 {
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
@@ -87,8 +89,15 @@ Player::Player()
 
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 
-	mInventory = new Inventory;
-	mInventory->Initialize();
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		mEquipItems[i] = nullptr;
+	}
+
+	ShortSword* shortSword = new ShortSword;
+	shortSword->Initialize();
+	SetEquipItem(shortSword);
+
 }
 
 Player::~Player()
@@ -105,8 +114,15 @@ Player::~Player()
 	if (nullptr != mEffect)
 		delete mEffect;
 
-	if (nullptr != mInventory)
-		delete mInventory;
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+		{
+			delete mEquipItems[i];
+			mEquipItems[i] = nullptr;
+		}
+	}
+
 }
 
 void Player::Initialize()
@@ -118,13 +134,7 @@ void Player::Update()
 {
 	mPrevPos = GetPos();
 	GameObject::Update();
-	
-	if (nullptr != mInventory)
-	{
-		mInventory->Update();
-		mInventory->EquipItemUpdate();
-	}
-	
+	EquipItemUpdate();
 	MoveUpdate();
 	EffectUpdate();
 
@@ -363,16 +373,23 @@ void Player::StateUpdate()
 		SetGround(false);
 	}
 
-	bool isInventoryRender = mInventory->GetRender();
-	if (false == isInventoryRender && IS_JUST_PRESSED(KEY::V))
+	InventoryUI* invenUI =
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+
+	if (nullptr != invenUI)
 	{
-		mInventory->SetRender();
+		bool InvenState = invenUI->GetState();
+		if (false == InvenState && IS_JUST_PRESSED(KEY::V))
+		{
+			EventRegisteror::GetInstance().EnableUI(UI_TYPE::INVENTORY);
+		}
+
+		else if (true == InvenState && (IS_JUST_PRESSED(KEY::V) || IS_JUST_PRESSED(KEY::ESC)))
+		{
+			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
+		}
 	}
 
-	else if (true == isInventoryRender && (IS_JUST_PRESSED(KEY::V) || IS_JUST_PRESSED(KEY::ESC)))
-	{
-		mInventory->SetRender(false);
-	}
 	
 
 	if (false == GetGround())
@@ -420,15 +437,11 @@ bool Player::IsDownMove() const
 
 void Player::Render()
 {
-	if (nullptr != mInventory)
-	{
-		mInventory->Render();
-		mInventory->EquipItemRender();
-	}
-
+	EquipItemRender();
 	GameObject::Render();
 	if (nullptr != mEffect)
 		mEffect->Render();
+
 }
 
 void Player::Destroy()
@@ -466,5 +479,27 @@ void Player::OnCollisionExit(Collider* _other)
 }
 
 
+void Player::EquipItemUpdate()
+{
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Update();
+	}
+}
 
+void Player::EquipItemRender()
+{
+	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Render();
+	}
+}
+
+void Player::SetEquipItem(Item* _item)
+{
+	ITEM_TYPE itemType = _item->GetItemType();
+	mEquipItems[(UINT)itemType] = _item;
+}
 

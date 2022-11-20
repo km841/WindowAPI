@@ -77,7 +77,7 @@ void TitleScene::Enter()
 	// Start Button Setting
 	ButtonUI* startBtnUI = new ButtonUI;
 	startBtnUI->SetTexture(startButton);
-	startBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	startBtnUI->SetType(OBJECT_TYPE::UI);
 	startBtnUI->SetSize(startButton->GetSize());
 	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.49f));
 	startBtnUI->SetEvent(startBtnCallback);
@@ -89,7 +89,7 @@ void TitleScene::Enter()
 	// Tool Button Setting
 	ButtonUI* toolBtnUI = new ButtonUI;
 	toolBtnUI->SetTexture(toolButton);
-	toolBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	toolBtnUI->SetType(OBJECT_TYPE::UI);
 	toolBtnUI->SetSize(toolButton->GetSize());
 	toolBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.30f));
 	toolBtnUI->SetEvent(toolBtnCallback);
@@ -101,7 +101,7 @@ void TitleScene::Enter()
 	// Exit Button Setting
 	ButtonUI* exitBtnUI = new ButtonUI;
 	exitBtnUI->SetTexture(exitButton);
-	exitBtnUI->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	exitBtnUI->SetType(OBJECT_TYPE::UI);
 	exitBtnUI->SetSize(exitButton->GetSize());
 	exitBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.15f));
 	exitBtnUI->SetEvent(exitBtnCallback);
