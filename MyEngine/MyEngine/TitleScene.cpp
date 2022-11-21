@@ -9,6 +9,8 @@
 #include "MouseMgr.h"
 #include "ButtonUI.h"
 #include "CameraMgr.h"
+#include "UIMgr.h"
+#include "InventoryUI.h"
 
 void TitleScene::Initialize()
 {
@@ -117,6 +119,7 @@ void TitleScene::Enter()
 	EventRegisteror::GetInstance().CreateObject(startBtnUI, startBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(toolBtnUI, toolBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(exitBtnUI, exitBtnUI->GetType());
+
 }
 
 void TitleScene::Exit()

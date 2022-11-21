@@ -12,14 +12,14 @@ UIMgr::UIMgr()
 
 UIMgr::~UIMgr()
 {
-	for (int i = 0; i < (UINT)UI_TYPE::END; ++i)
-	{
-		if (nullptr != mUIMap[(UI_TYPE)i])
-		{
-			delete mUIMap[(UI_TYPE)i];
-			mUIMap[(UI_TYPE)i] = nullptr;
-		}
-	}
+	//for (int i = 0; i < (UINT)UI_TYPE::END; ++i)
+	//{
+	//	if (nullptr != mUIMap[(UI_TYPE)i])
+	//	{
+	//		delete mUIMap[(UI_TYPE)i];
+	//		mUIMap[(UI_TYPE)i] = nullptr;
+	//	}
+	//}
 }
 
 void UIMgr::Initialize()

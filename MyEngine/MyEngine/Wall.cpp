@@ -24,7 +24,9 @@ void Wall::Initialize()
 
 void Wall::Update()
 {
-	SetPos(GetOwner()->GetPos());
+	if (nullptr != GetOwner())
+		SetPos(GetOwner()->GetPos());
+
 	GameObject::Update();
 }
 
