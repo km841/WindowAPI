@@ -65,9 +65,6 @@ public:
     inline void    SetEffect(Effect* _effect) { mEffect = _effect; }
     inline Effect* GetEffect() const { return mEffect; }
 
-    inline void    SetDashEffect(DashEffect* _effect) { mDashEffect = _effect; }
-    inline DashEffect* GetDashEffect() const { return mDashEffect; }
-
     inline Vec2 GetPrevPos() const { return mPrevPos; }
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
@@ -94,7 +91,7 @@ private:
     State*         mPrevState;
     State*         mState;
     Effect*        mEffect;
-    DashEffect*    mDashEffect;
+    DashEffect*    mDashEffect[AFTER_IMAGE_TOTAL];
     Item*          mEquipItems[(UINT)ITEM_TYPE::END];
 
 
@@ -119,6 +116,8 @@ private:
     float      mDecTime;
     float      mDecMaxTime;
 
-    float      mAfterImgOffset;
+    float      mImgDuration;
+    float      mCurImgDuration;
+    int        mImgCount;
 };
 

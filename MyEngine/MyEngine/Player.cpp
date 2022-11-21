@@ -34,12 +34,14 @@ Player::Player()
 	,mJumpXMaxValue(300.f)
 	,mFall(false)
 	,mDashAccTime(0.f)
-	,mAfterImgOffset(0.015f)
+	,mImgCount(0)
 	,mDashAccMaxTime(.1f)
 	,mDecTime(0.f)
 	,mDecMaxTime(.08f)
 	,mDecDash(false)
 	,mAccDash(false)
+	,mImgDuration(0.04f)
+	,mCurImgDuration(0.04f)
 {
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
@@ -83,12 +85,21 @@ Player::Player()
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_RIGHT", dustRight);
 	SetEffect(effect);
 
-	DashEffect* dashEffect = new DashEffect;
-	dashEffect->SetOwner(this);
-	dashEffect->SetSize(Vec2(96.f, 96.f));
-	dashEffect->SetOffset(Vec2(0.f, 0.f));
-	dashEffect->SetTexture(mDashTexture);
-	SetDashEffect(dashEffect);
+	//DashEffect* dashEffect = new DashEffect;
+	//dashEffect->SetOwner(this);
+	//dashEffect->SetSize(Vec2(96.f, 96.f));
+	//dashEffect->SetOffset(Vec2(0.f, 0.f));
+	//dashEffect->SetTexture(mDashTexture);
+	//SetDashEffect(dashEffect);
+
+	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
+	{
+		mDashEffect[i] = new DashEffect;
+		mDashEffect[i]->SetOwner(this);
+		mDashEffect[i]->SetSize(GetSize());
+		mDashEffect[i]->SetOffset(Vec2(0.f, 0.f));
+		mDashEffect[i]->SetTexture(mDashTexture);
+	}
 	
 
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
@@ -125,9 +136,12 @@ Player::~Player()
 	if (nullptr != mEffect)
 		delete mEffect;
 
-	if (nullptr != mDashEffect)
-		delete mDashEffect;
-
+	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
+	{
+		if (nullptr != mDashEffect[i])
+			delete mDashEffect[i];
+	}
+	
 	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
 	{
 		if (nullptr != mEquipItems[i])
@@ -191,7 +205,23 @@ void Player::MoveUpdate()
 	}
 
 	else
+	{
+		if (mImgCount < AFTER_IMAGE_TOTAL)
+		{
+			if (mImgDuration > mCurImgDuration)
+			{
+				mCurImgDuration += DT;
+			}
+			else
+			{
+				mDashEffect[mImgCount]->SetPos(GetPos());
+				mDashEffect[mImgCount]->Reset();
+				++mImgCount;
+			}
+		}
+
 		mDashAccTime += DT;
+	}
 	
 
 	Vec2 pos = GetPos();
@@ -229,7 +259,8 @@ void Player::MoveUpdate()
 		mFall = true;
 		mDashAccTime = 0.f;
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
-		mDashEffect->Reset();
+		mImgCount = 0;
+		mCurImgDuration = 0.f;
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))
@@ -338,8 +369,11 @@ void Player::EffectUpdate()
 	if (nullptr != mEffect)
 		mEffect->Update();
 
-	if (nullptr != mDashEffect)
-		mDashEffect->Update();
+	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
+	{
+		if (nullptr != mDashEffect[i])
+			mDashEffect[i]->Update();
+	}
 	
 }
 
@@ -460,8 +494,11 @@ void Player::Render()
 	if (nullptr != mEffect)
 		mEffect->Render();
 
-	if (nullptr != mDashEffect)
-		mDashEffect->Render();
+	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
+	{
+		if (nullptr != mDashEffect[i])
+			mDashEffect[i]->Render();
+	}
 
 
 }

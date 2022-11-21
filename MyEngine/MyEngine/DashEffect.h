@@ -1,6 +1,6 @@
 #pragma once
 #include "Effect.h"
-#define AFTER_IMAGE_TOTAL 4
+
 
 
 class DashEffect :
@@ -19,14 +19,11 @@ public:
 
 private:
     BLENDFUNCTION   mBlendFunc;
-    float           mCurDuration;
-    float           mDuration;
 
-    Vec2            mStayPos[AFTER_IMAGE_TOTAL];
+    float           mAlpha;
+
     float           mCurStayTime;
     float           mStayTime;
 
-    int             mImgCount;
-    int             mCurImg;
 };
 
