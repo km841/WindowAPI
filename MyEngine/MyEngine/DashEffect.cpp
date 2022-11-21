@@ -78,15 +78,15 @@ void DashEffect::Render()
 
 				AlphaBlend(
 					BACK_BUF_DC,
-					mCurPos.x - size.x / 2.f,
-					mCurPos.y - size.y,
-					size.x,
-					size.y,
+					(int)(mCurPos.x - size.x / 2.f),
+					(int)(mCurPos.y - size.y),
+					(int)size.x,
+					(int)size.y,
 					tex->GetDC(),
-					ltPos.x,
-					ltPos.y,
-					size.x / TIMES,
-					size.y / TIMES,
+					(int)ltPos.x,
+					(int)ltPos.y,
+					(int)(size.x / TIMES),
+					(int)(size.y / TIMES),
 					mBlendFunc
 				);
 
@@ -105,8 +105,8 @@ void DashEffect::Render()
 
 void DashEffect::Reset()
 {
-	mImgCount = 0.f;
-	mCurImg = 0.f;
+	mImgCount = 0;
+	mCurImg = 0;
 	mCurStayTime = 0.f;
 	mCurDuration = 0.f;
 	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)

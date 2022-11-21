@@ -125,6 +125,9 @@ Player::~Player()
 	if (nullptr != mEffect)
 		delete mEffect;
 
+	if (nullptr != mDashEffect)
+		delete mDashEffect;
+
 	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
 	{
 		if (nullptr != mEquipItems[i])

@@ -96,6 +96,15 @@ void ToolScene::Render()
 	
 
 	Scene::Render();
+	
+	SetTextColor(BACK_BUF_DC, RGB(0, 64, 128));
+	wchar_t nextPage[256] = L"> 다음 타일 페이지       (Page     Up)";
+	wchar_t prevPage[256] = L"> 이전 타일 페이지       (Page Down)";
+	wchar_t comment[256] = L"> 선택 해제 & 타일 지우기 (우클릭)";
+
+	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 60, nextPage, (int)wcslen(nextPage));
+	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 40, prevPage, (int)wcslen(prevPage));
+	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 20, comment, (int)wcslen(comment));
 
 	// 블럭이 클릭되었을 때의 이벤트
 	IconUI* selectedUI = IconUI::GetSelectedUI();

@@ -1,12 +1,2 @@
 ﻿  unity_CAV2U7EU6ORRJZ7I.cpp
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(89,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(88,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(87,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(86,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(84,10): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(83,10): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(82,16): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(81,16): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(108,14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\DashEffect.cpp(109,12): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\x64\Debug\MyEngine.exe
