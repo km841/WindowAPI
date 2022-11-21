@@ -42,6 +42,9 @@ public:
 
     inline float GetAngle() const { return mAngle; }
 
+    inline void SetDuration(float _duration) { mDuration = _duration; }
+    inline float GetDuration() const { return mDuration; }
+
 
 
 private:
@@ -51,6 +54,8 @@ private:
     float mXAxisDirOffset[(UINT)PLAYER_DIR::END];
     float mYAxisOffset;
     float mAngle;
+    float mDuration;
+
 
     Effect* mEffect;
 

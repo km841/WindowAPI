@@ -13,6 +13,7 @@
 Sword::Sword()
 	: mState(SWORD_STATE::UP_STATE)
 	, mAngle(0.f)
+	, mDuration(0.f)
 {
 	
 }

@@ -6,6 +6,7 @@
 
 class State;
 class Effect;
+class DashEffect;
 class Texture;
 class IdleState;
 class WalkState;
@@ -64,6 +65,9 @@ public:
     inline void    SetEffect(Effect* _effect) { mEffect = _effect; }
     inline Effect* GetEffect() const { return mEffect; }
 
+    inline void    SetDashEffect(DashEffect* _effect) { mDashEffect = _effect; }
+    inline DashEffect* GetDashEffect() const { return mDashEffect; }
+
     inline Vec2 GetPrevPos() const { return mPrevPos; }
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
@@ -85,11 +89,13 @@ private:
     static Player* mPlayer;
 
 private:
-    Texture*   mDefaultTexture;
-    State*     mPrevState;
-    State*     mState;
-    Effect*    mEffect;
-    Item*      mEquipItems[(UINT)ITEM_TYPE::END];
+    Texture*       mDefaultTexture;
+    Texture*       mDashTexture;
+    State*         mPrevState;
+    State*         mState;
+    Effect*        mEffect;
+    DashEffect*    mDashEffect;
+    Item*          mEquipItems[(UINT)ITEM_TYPE::END];
 
 
     Vec2       mPrevPos;
@@ -112,5 +118,7 @@ private:
     bool       mDecDash;
     float      mDecTime;
     float      mDecMaxTime;
+
+    float      mAfterImgOffset;
 };
 

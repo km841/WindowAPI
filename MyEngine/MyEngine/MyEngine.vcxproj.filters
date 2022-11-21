@@ -194,6 +194,12 @@
     <Filter Include="Engine\GameObject\UI\Base">
       <UniqueIdentifier>{a39f639c-7312-4bd9-ac22-872f3d62036d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\DashEffect">
+      <UniqueIdentifier>{5aaeff6d-3d68-4c4f-9c4a-19b3fd5ea472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\Base">
+      <UniqueIdentifier>{7e390d41-e0f5-4189-b930-a27ede90dc8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -302,9 +308,6 @@
     <ClInclude Include="State.h">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Engine\GameObject\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="InfRepeatBg.h">
       <Filter>Engine\GameObject\MapComponent\Background\InfRepeatBg</Filter>
     </ClInclude>
@@ -352,6 +355,12 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Engine\GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DashEffect.h">
+      <Filter>Engine\GameObject\Effect\DashEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Engine\GameObject\Effect\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -467,9 +476,6 @@
     <ClCompile Include="State.cpp">
       <Filter>Engine\GameObject\Player\State\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Engine\GameObject\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="InfRepeatBg.cpp">
       <Filter>Engine\GameObject\MapComponent\Background\InfRepeatBg</Filter>
     </ClCompile>
@@ -517,6 +523,12 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Engine\GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DashEffect.cpp">
+      <Filter>Engine\GameObject\Effect\DashEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Engine\GameObject\Effect\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

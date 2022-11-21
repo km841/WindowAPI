@@ -83,6 +83,10 @@ void CameraMgr::Update()
 		mAlphaValue = ratio;
 		mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
 		break;
+
+	case CAMERA_EFFECT::SHAKE:
+		mLookPos.x += 2.f;
+		break;
 	}
 	
 	if (mCurEffect.mAlphaTime >= mCurEffect.mEndTime)
@@ -94,7 +98,8 @@ void CameraMgr::Update()
 
 void CameraMgr::Render()
 {
-	if (mCamEffects.empty())
+	if (mCamEffects.empty() || 
+		CAMERA_EFFECT::SHAKE == mCamEffects.front().mEffect)
 		return;
 
 	AlphaBlend(BACK_BUF_DC,

@@ -20,6 +20,7 @@
 #include "UIMgr.h"
 #include "EventRegisteror.h"
 #include "ShortSword.h"
+#include "DashEffect.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -33,6 +34,7 @@ Player::Player()
 	,mJumpXMaxValue(300.f)
 	,mFall(false)
 	,mDashAccTime(0.f)
+	,mAfterImgOffset(0.015f)
 	,mDashAccMaxTime(.1f)
 	,mDecTime(0.f)
 	,mDecMaxTime(.08f)
@@ -49,6 +51,7 @@ Player::Player()
 	SetSize(Vec2(96.f, 96.f));
 
 	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
+	mDashTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
 	Texture* dust = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
 
 	CreateComponent(new Collider);
@@ -79,6 +82,14 @@ Player::Player()
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_LEFT", dustLeft);
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_RIGHT", dustRight);
 	SetEffect(effect);
+
+	DashEffect* dashEffect = new DashEffect;
+	dashEffect->SetOwner(this);
+	dashEffect->SetSize(Vec2(96.f, 96.f));
+	dashEffect->SetOffset(Vec2(0.f, 0.f));
+	dashEffect->SetTexture(mDashTexture);
+	SetDashEffect(dashEffect);
+	
 
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 32.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
@@ -215,6 +226,7 @@ void Player::MoveUpdate()
 		mFall = true;
 		mDashAccTime = 0.f;
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
+		mDashEffect->Reset();
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))
@@ -322,6 +334,9 @@ void Player::EffectUpdate()
 
 	if (nullptr != mEffect)
 		mEffect->Update();
+
+	if (nullptr != mDashEffect)
+		mDashEffect->Update();
 	
 }
 
@@ -441,6 +456,10 @@ void Player::Render()
 	GameObject::Render();
 	if (nullptr != mEffect)
 		mEffect->Render();
+
+	if (nullptr != mDashEffect)
+		mDashEffect->Render();
+
 
 }
 

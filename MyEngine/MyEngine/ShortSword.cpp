@@ -17,6 +17,7 @@ ShortSword::ShortSword()
 	SetLeftDirOffset(8.f);
 	SetRightDirOffset(51.f);
 	SetYOffset(8.f);
+	SetDuration(0.225f);
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -32,7 +33,7 @@ ShortSword::ShortSword()
 	Texture* swordEffectTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEff", L"Texture\\ShortSword_Effect.bmp");
 
 	Animation* swordEffect = 
-		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(40.f, 40.f), Vec2(40.f, 0.f), 0.1f, 3);
+		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(40.f, 40.f), Vec2(40.f, 0.f), 0.075f, 3);
 	swordEffect->SetOwner(effect->GetAnimator());
 
 	effect->GetAnimator()->AddAnimation(L"ShortSwordEffect", swordEffect);
@@ -73,9 +74,18 @@ void ShortSword::Update()
 	// 칼 현재 각도에서 이동한 각도
 	SetPrevSwordState(GetSwordState());
 
-	if (IS_JUST_LBUTTON_CLICKED)
+	if (GetDuration() > mCurDuration)
 	{
-		ChangeSwordState();
+		mCurDuration += DT;
+	}
+	else
+	{
+		if (IS_JUST_LBUTTON_CLICKED)
+		{
+			ChangeSwordState();
+			CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, 0.01f);
+			mCurDuration = 0.f;
+		}
 	}
 
 	if (GetPrevSwordState() != GetSwordState())
@@ -112,7 +122,7 @@ void ShortSword::Update()
 			break;
 		}
 		
-		GetEffect()->SetOffset(basicOffset + effDirVec * 10.f);
+		GetEffect()->SetOffset(basicOffset + effDirVec * 13.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}
 

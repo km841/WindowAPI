@@ -57,11 +57,6 @@ void InventoryUI::Initialize()
 
 	SetPos(Vec2(WINDOW_WIDTH_SIZE - size.x, 0.f));
 	SetSize(size);
-	//GreatSword* greatSword = new GreatSword;
-	//greatSword->Initialize();
-	//SetEquipItem(greatSword);
-
-
 }
 
 void InventoryUI::Update()

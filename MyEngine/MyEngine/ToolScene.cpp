@@ -18,7 +18,7 @@ void ToolScene::Initialize()
 
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
-	mBlendFunc.AlphaFormat = 0;
+	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 	mBlendFunc.BlendOp = AC_SRC_OVER;
 	mBlendFunc.SourceConstantAlpha = 127;
 
