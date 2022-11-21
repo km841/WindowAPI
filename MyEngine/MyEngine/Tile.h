@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObject.h"
+class Wall;
+class CollisionComponent;
+
 class Tile :
     public GameObject
 {
@@ -17,11 +20,22 @@ public:
 	inline void SetLTPos(Vec2 _ltPos) { mTileLT = _ltPos; }
 	inline Vec2 GetLTPos() const { return mTileLT; }
 
+	inline void		 SetTileType(TILE_TYPE _type) { mTileType = _type; }
+	inline TILE_TYPE GetTileType() const { return mTileType; }
+
+	inline CollisionComponent* GetCollisionComponent() { return mCollisionComponent; }
+	inline void ClearCollisionComponent() { mCollisionComponent = nullptr; }
+
 	void Save(FILE* _fp) const;
 	void Load(FILE* _fp);
 
+public:
+	void CreateWall();
+	void CreateFoothold();
+
 private:
 	Vec2 mTileLT;
-	
+	TILE_TYPE mTileType;
+	CollisionComponent* mCollisionComponent;
 };
 

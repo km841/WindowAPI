@@ -21,6 +21,10 @@ public:
 	virtual void TextureProcessing(Vec2 _leftTop, Vec2 _offset, Vec2 _size);
 
 public:
+	virtual bool OnMouse();
+	virtual bool OnClicked();
+
+public:
 	static CheckButtonUI* GetCheckButtonUI() { return g_Checked; }
 	static void SetCheckButtonUI(CheckButtonUI* _checkBtn) { g_Checked = _checkBtn; }
 

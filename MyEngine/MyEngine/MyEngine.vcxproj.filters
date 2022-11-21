@@ -107,9 +107,6 @@
     <Filter Include="Engine\Scene\TitleScene">
       <UniqueIdentifier>{2c2b3fea-15ea-4da7-8a99-b59cc4dbdca0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Tile">
-      <UniqueIdentifier>{67f32aaf-c140-4ede-bcf5-00fddb5095bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\UI\ToolUI">
       <UniqueIdentifier>{0a938206-63d9-454a-97f5-cf4da0c75f27}</UniqueIdentifier>
     </Filter>
@@ -158,12 +155,6 @@
     <Filter Include="Engine\GameObject\MapComponent\Background\InfRepeatBg">
       <UniqueIdentifier>{82439c7d-7d14-434d-afa3-486b1145eb95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\MapComponent\Wall">
-      <UniqueIdentifier>{3ce8c1fe-662d-49a2-8bc0-44c0aa2e7238}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\MapComponent\Foothold">
-      <UniqueIdentifier>{db824440-4188-40ed-a669-e1c626c1027e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Item">
       <UniqueIdentifier>{79f186a7-747d-44c0-8b40-ba3d630a49f3}</UniqueIdentifier>
     </Filter>
@@ -199,6 +190,27 @@
     </Filter>
     <Filter Include="Engine\GameObject\Effect\Base">
       <UniqueIdentifier>{7e390d41-e0f5-4189-b930-a27ede90dc8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile">
+      <UniqueIdentifier>{67f32aaf-c140-4ede-bcf5-00fddb5095bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ToolUI\CheckButtonUI">
+      <UniqueIdentifier>{50bdd6e4-6396-40e5-8035-bdfc8ad41f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile\TileCollisionType">
+      <UniqueIdentifier>{c5f12499-f12f-4c2c-b35b-56ad73ef32f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile\TileCollisionType\Wall">
+      <UniqueIdentifier>{3ce8c1fe-662d-49a2-8bc0-44c0aa2e7238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile\TileCollisionType\Foothold">
+      <UniqueIdentifier>{db824440-4188-40ed-a669-e1c626c1027e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile\Base">
+      <UniqueIdentifier>{a4c55edb-9f7b-4806-a29e-5fd31bce82f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Tile\TileCollisionType\Base">
+      <UniqueIdentifier>{dd194855-1182-4716-8665-dd9ea6c3a09f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +305,6 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Engine\Scene\TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Engine\GameObject\Tile</Filter>
-    </ClInclude>
     <ClInclude Include="ToolUI.h">
       <Filter>Engine\GameObject\UI\ToolUI</Filter>
     </ClInclude>
@@ -330,7 +339,7 @@
       <Filter>Engine\GameObject\Player\State\JumpState</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>Engine\GameObject\MapComponent\Wall</Filter>
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Wall</Filter>
     </ClInclude>
     <ClInclude Include="InventoryUI.h">
       <Filter>Engine\GameObject\UI\InventoryUI</Filter>
@@ -361,6 +370,18 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Engine\GameObject\Effect\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckButtonUI.h">
+      <Filter>Engine\GameObject\UI\ToolUI\CheckButtonUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Foothold.h">
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Foothold</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Engine\GameObject\MapComponent\Tile\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -461,9 +482,6 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Engine\Scene\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Engine\GameObject\Tile</Filter>
-    </ClCompile>
     <ClCompile Include="ToolUI.cpp">
       <Filter>Engine\GameObject\UI\ToolUI</Filter>
     </ClCompile>
@@ -498,7 +516,7 @@
       <Filter>Engine\GameObject\Player\State\JumpState</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
-      <Filter>Engine\GameObject\MapComponent\Wall</Filter>
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Wall</Filter>
     </ClCompile>
     <ClCompile Include="InventoryUI.cpp">
       <Filter>Engine\GameObject\UI\InventoryUI</Filter>
@@ -529,6 +547,18 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Engine\GameObject\Effect\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckButtonUI.cpp">
+      <Filter>Engine\GameObject\UI\ToolUI\CheckButtonUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Foothold.cpp">
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Foothold</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\GameObject\MapComponent\Tile\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

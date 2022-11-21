@@ -47,6 +47,7 @@ enum class OBJECT_TYPE
 	MONSTER,
 	DUMMY,
 	WALL,
+	FOOTHOLD,
 	MISSILE_FROM_MONSTER,
 	MISSILE_FROM_PLAYER,
 	UI = 15,
@@ -117,6 +118,17 @@ enum class UI_TYPE
 	MINIMAP,
 	INVENTORY,
 	TOOL,
+
+
+
+	END
+};
+
+enum class TILE_TYPE
+{
+	WALL,
+	FOOTHOLD,
+	NONE,
 
 
 

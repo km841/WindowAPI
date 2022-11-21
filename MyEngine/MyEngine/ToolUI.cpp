@@ -8,6 +8,7 @@ ToolUI::ToolUI()
 	: UI(false)
 {
 	SetState();
+	SetType(OBJECT_TYPE::UI);
 }
 
 ToolUI::~ToolUI()

@@ -74,6 +74,7 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
+
 	if (nullptr != GetCollider())
 		GetCollider()->Render();
 

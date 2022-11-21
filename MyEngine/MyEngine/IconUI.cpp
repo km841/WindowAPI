@@ -29,7 +29,7 @@ void IconUI::Update()
 	if (!GetState())
 		return;
 
-	ToolUI* parentUI = dynamic_cast<ToolUI*>(GetParentUI());
+	ToolUI* parentUI = static_cast<ToolUI*>(GetParentUI());
 
 	Vec2 parentPos = parentUI->GetPos();
 	Vec2 pos = parentPos + GetPos();

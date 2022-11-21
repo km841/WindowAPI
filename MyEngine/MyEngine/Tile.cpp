@@ -3,6 +3,8 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "CameraMgr.h"
+#include "Wall.h"
+#include "Foothold.h"
 
 Tile::Tile()
 {
@@ -12,7 +14,11 @@ Tile::Tile()
 
 Tile::~Tile()
 {
-
+	if (nullptr != mCollisionComponent)
+	{
+		delete mCollisionComponent;
+		mCollisionComponent = nullptr;
+	}
 }
 
 void Tile::Initialize()
@@ -21,6 +27,10 @@ void Tile::Initialize()
 
 void Tile::Update()
 {
+	if (nullptr != mCollisionComponent)
+	{
+		mCollisionComponent->Update();
+	}
 }
 
 void Tile::Render()
@@ -54,6 +64,11 @@ void Tile::Render()
 		IMAGE_TILE_SIZE_Y,
 		RGB(255, 0, 255)
 	);
+
+	if (nullptr != mCollisionComponent)
+	{
+		mCollisionComponent->Render();
+	}
 }
 
 void Tile::Destroy()
@@ -79,5 +94,19 @@ void Tile::Load(FILE* _fp)
 
 	SetPos(pos);
 	SetLTPos(ltPos);
+}
+
+void Tile::CreateWall()
+{
+	mCollisionComponent = new Wall;
+	mCollisionComponent->SetOwner(this);
+	SetType(mCollisionComponent->GetType());
+}
+
+void Tile::CreateFoothold()
+{
+	mCollisionComponent = new Foothold;
+	mCollisionComponent->SetOwner(this);
+	SetType(mCollisionComponent->GetType());
 }
 

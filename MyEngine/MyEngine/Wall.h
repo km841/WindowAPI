@@ -1,7 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "CollisionComponent.h"
+class Tile;
 class Wall :
-    public GameObject
+    public CollisionComponent
 {
 public:
     Wall();
@@ -16,6 +17,8 @@ public:
     virtual void OnCollision(Collider* _other);
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
+
+public:
 
 private:
 

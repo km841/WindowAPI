@@ -6,6 +6,7 @@
 ButtonUI::ButtonUI()
 	:UI(false)
 {
+	SetType(OBJECT_TYPE::UI);
 }
 
 ButtonUI::~ButtonUI()
