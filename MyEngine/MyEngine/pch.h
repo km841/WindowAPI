@@ -66,5 +66,6 @@
 #define TIMES 3.f
 #define BOTTOM_LIMIT TILE_SIZE * 24
 #define AFTER_IMAGE_TOTAL 4
+#define COMMENT_MAX_SIZE 256
 
 

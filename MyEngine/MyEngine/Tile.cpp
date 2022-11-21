@@ -100,13 +100,11 @@ void Tile::CreateWall()
 {
 	mCollisionComponent = new Wall;
 	mCollisionComponent->SetOwner(this);
-	SetType(mCollisionComponent->GetType());
 }
 
 void Tile::CreateFoothold()
 {
 	mCollisionComponent = new Foothold;
 	mCollisionComponent->SetOwner(this);
-	SetType(mCollisionComponent->GetType());
 }
 

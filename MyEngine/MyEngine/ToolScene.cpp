@@ -60,16 +60,17 @@ void ToolScene::Update()
 				{
 				case TILE_TYPE::WALL:
 					tile->CreateWall();
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::WALL);
 					break;
 				case TILE_TYPE::FOOTHOLD:
 					tile->CreateFoothold();
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::FOOTHOLD);
 					break;
 				case TILE_TYPE::NONE:
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+					
 					break;
 				}
+
+				EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+
 			}
 
 			else
@@ -144,28 +145,32 @@ void ToolScene::Render()
 	Scene::Render();
 	
 	SetTextColor(BACK_BUF_DC, RGB(0, 0, 0));
-	wchar_t collisionPage[256] = L"> 충돌체 타입 선택 UI";
-	TextOut(BACK_BUF_DC, 0, 10, collisionPage, (int)wcslen(collisionPage));
+	static wchar_t collisionPage[COMMENT_MAX_SIZE] = L"> 충돌체 타입 선택 UI";
+	TextOut(BACK_BUF_DC, 2, 10, collisionPage, (int)wcslen(collisionPage));
 
 	SetTextColor(BACK_BUF_DC, RGB(128, 64, 0));
-	wchar_t tileColType_Wall[256] = L" 타일 충돌 타입: 벽";
-	wchar_t tileColType_Foothold[256] = L" 타일 충돌 타입: 발판";
-	wchar_t tileColType_None[256] = L" 타일 충돌 타입: 없음";
+	static wchar_t tileColType_Wall[COMMENT_MAX_SIZE] = L" 타일 충돌 타입: 벽";
+	static wchar_t tileColType_Foothold[COMMENT_MAX_SIZE] = L" 타일 충돌 타입: 발판";
+	static wchar_t tileColType_None[COMMENT_MAX_SIZE] = L" 타일 충돌 타입: 없음";
 
 	TextOut(BACK_BUF_DC, 50, 40, tileColType_Wall, (int)wcslen(tileColType_Wall));
 	TextOut(BACK_BUF_DC, 50, 80, tileColType_Foothold, (int)wcslen(tileColType_Foothold));
 	TextOut(BACK_BUF_DC, 50, 120, tileColType_None, (int)wcslen(tileColType_None));
 
 	SetTextColor(BACK_BUF_DC, RGB(0, 64, 128));
-	wchar_t nextPage[256] = L"> 다음 타일 페이지       (Page     Up)";
-	wchar_t prevPage[256] = L"> 이전 타일 페이지       (Page Down)";
-	wchar_t comment[256] = L"> 선택 해제 & 타일 지우기 (우클릭)";
-	
+	static wchar_t nextPage[COMMENT_MAX_SIZE] = L"> 다음 타일 페이지       (Page     Up)";
+	static wchar_t prevPage[COMMENT_MAX_SIZE] = L"> 이전 타일 페이지       (Page Down)";
+	static wchar_t comment[COMMENT_MAX_SIZE] = L"> 선택 해제 & 타일 지우기 (우클릭)";
+	static wchar_t saveComment[COMMENT_MAX_SIZE] = L"> 맵 저장하기                (CTRL  +  S)";
+	static wchar_t loadComment[COMMENT_MAX_SIZE] = L"> 맵 불러오기                (CTRL  +  O)";
+
+	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 100, saveComment, (int)wcslen(saveComment));
+	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 80, loadComment, (int)wcslen(loadComment));
 	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 60, nextPage, (int)wcslen(nextPage));
 	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 40, prevPage, (int)wcslen(prevPage));
 	TextOut(BACK_BUF_DC, WINDOW_WIDTH_SIZE - 270, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 20, comment, (int)wcslen(comment));
 
-	wchar_t tilePage[256] = L"> 타일 선택 UI";
+	static wchar_t tilePage[COMMENT_MAX_SIZE] = L"> 타일 선택 UI";
 	TextOut(BACK_BUF_DC, 0, WINDOW_HEIGHT_SIZE - TILE_SIZE * 3 - 20, tilePage, (int)wcslen(tilePage));
 
 	// 블럭이 클릭되었을 때의 이벤트
@@ -268,19 +273,6 @@ void ToolScene::Enter()
 	noneCheckBtnUI->SetIndex((int)TILE_TYPE::NONE);
 
 	CheckButtonUI::SetCheckButtonUI(noneCheckBtnUI);
-
-	/*
-		ButtonUI* startBtnUI = new ButtonUI;
-	startBtnUI->SetTexture(startButton);
-	startBtnUI->SetType(OBJECT_TYPE::UI);
-	startBtnUI->SetSize(startButton->GetSize());
-	startBtnUI->SetPos(Vec2(WINDOW_WIDTH_SIZE / 2.0f, WINDOW_HEIGHT_SIZE / 1.49f));
-	startBtnUI->SetEvent(startBtnCallback);
-	startBtnUI->TextureProcessing(
-		Vec2(0.f, 0.f),
-		Vec2(startButton->GetWidth() / 2.f, 0.f),
-		Vec2(startButton->GetWidth() / 2.f, (float)startButton->GetHeight()));
-	*/
 
 
 	EventRegisteror::GetInstance().CreateObject(toolUI, toolUI->GetType());
