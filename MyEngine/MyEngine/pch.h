@@ -11,6 +11,7 @@
 #include <map>
 #include <set>
 #include <functional>
+#include <fstream>
 
 /*C STYLE HEADER*/
 #include <windows.h>

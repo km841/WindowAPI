@@ -40,7 +40,7 @@ void ToolScene::Update()
 		Tile* tile = nullptr;
 		for (int i = 0; i < tileGroup.size(); ++i)
 		{
-			if (tileGroup[i]->GetPos() == tilePos)
+			if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
 			{
 				tile = static_cast<Tile*>(tileGroup[i]);
 			}
@@ -341,16 +341,16 @@ void ToolScene::Save()
 
 
 		FILE* fp = nullptr;
-		_wfopen_s(&fp, fileName.c_str(), L"w");
+		_wfopen_s(&fp, fileName.c_str(), L"wb");
 
 		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 		size_t tileSize = tileGroup.size();
-		fwrite(&tileSize, sizeof(int), 1, fp);
+		fwrite(&tileSize, sizeof(size_t), 1, fp);
 
 		
 		for (const auto& tile : tileGroup)
 		{
-			dynamic_cast<Tile*>(tile)->Save(fp);
+			static_cast<Tile*>(tile)->Save(fp);
 		}
 
 		fclose(fp);
@@ -365,22 +365,24 @@ void ToolScene::Load()
 		
 
 		FILE* fp = nullptr;
-		_wfopen_s(&fp, fileName.c_str(), L"r");
+		_wfopen_s(&fp, fileName.c_str(), L"rb");
 
 		
 		DeleteObjGroup(OBJECT_TYPE::TILE);
 
-		int tileSize = 0;
-		fread(&tileSize, sizeof(int), 1, fp);
+		size_t tileSize = 0;
+
+		fread(&tileSize, sizeof(size_t), 1, fp);
 		TileInitialize(tileSize);
 
 		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 		for (const auto& tile : tileGroup)
 		{
-			dynamic_cast<Tile*>(tile)->Load(fp);
+			static_cast<Tile*>(tile)->Load(fp);
 		}
 
 		fclose(fp);
+
 	}
 }
 

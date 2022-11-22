@@ -27,7 +27,7 @@ public:
 
 public:
 	inline std::wstring GetFileName() const { return mFileName; }
-	void TileInitialize(int _size);
+	void TileInitialize(size_t _size);
 
 public:
 	void Load(const std::wstring& _path);

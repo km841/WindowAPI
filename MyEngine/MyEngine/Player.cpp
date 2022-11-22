@@ -86,13 +86,6 @@ Player::Player()
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_RIGHT", dustRight);
 	SetEffect(effect);
 
-	//DashEffect* dashEffect = new DashEffect;
-	//dashEffect->SetOwner(this);
-	//dashEffect->SetSize(Vec2(96.f, 96.f));
-	//dashEffect->SetOffset(Vec2(0.f, 0.f));
-	//dashEffect->SetTexture(mDashTexture);
-	//SetDashEffect(dashEffect);
-
 	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
 	{
 		mDashEffect[i] = new DashEffect;
@@ -173,11 +166,11 @@ void Player::Update()
 	
 	mPrevState = mState;
 
-	float colCount= GetCollider()->GetColCnt();
+	//float colCount= GetCollider()->GetColCnt();
 
-	wchar_t szBuffer[256] = {};
-	swprintf_s(szBuffer, L"colCount : %f", colCount);
-	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	//wchar_t szBuffer[256] = {};
+	//swprintf_s(szBuffer, L"colCount : %f", colCount);
+	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	
 }
 
@@ -186,51 +179,12 @@ void Player::MoveUpdate()
 	// 감속 시간이 0이상이고 최대치보다 작은 경우
 	if (mDecDash && mDecTime < mDecMaxTime)
 	{
-		// 현재 감속시간을 최대 감속시간으로 나눠서 1로 뺀 반대 값을 취한다.
-		float ratio = 1.f - (mDecTime / mDecMaxTime);
-		Vec2 curSpeed = mDashSpeed * ratio;
-
-		GetRigidBody()->SetVelocity(curSpeed);
-
-		mDecTime += DT;
-		// 이번 증가량으로 인해 최대 감속시간이 되었다면 감속을 종료한다.
-		if (mDecTime >= mDecMaxTime)
-		{
-			mDecTime = 0.f;
-			mDecDash = false;
-		}
+		DashDeceleration();
 	}
 
 	// 가속 플래그가 켜져있고, 가속 시간이 최대 가속시간을 넘었다면
-	if (mAccDash && mDashAccTime >= mDashAccMaxTime)
-	{
-		// 가속을 해제하고 감속을 시작한다.
-		mAccDash = false;
-		mDecDash = true;
-		mDecTime = DT;
-		mDashSpeed = GetRigidBody()->GetVelocity();
-	}
-
-	else
-	{
-		if (mImgCount < AFTER_IMAGE_TOTAL)
-		{
-			if (mImgDuration > mCurImgDuration)
-			{
-				mCurImgDuration += DT;
-			}
-			else
-			{
-				mDashEffect[mImgCount]->SetPos(GetPos());
-				mDashEffect[mImgCount]->Reset();
-				++mImgCount;
-			}
-		}
-
-		mDashAccTime += DT;
-	}
+	DashAcceleration();
 	
-
 	Vec2 pos = GetPos();
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
@@ -262,7 +216,8 @@ void Player::MoveUpdate()
 
 
 		GetRigidBody()->SetVelocity(dashDir * PLAYER_DASH_SPEED);
-		SetGround(false);
+
+		//SetGround(false);
 		mAccDash = true;
 		mFall = true;
 		mDashAccTime = 0.f;
@@ -410,9 +365,12 @@ void Player::StateUpdate()
 			if (nullptr != mState)
 				mState->Exit();
 
-			Vec2 velocity = GetRigidBody()->GetVelocity();
-			GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));
-			mState = PlayerState::Idle;
+			if (!mAccDash)
+			{
+				Vec2 velocity = GetRigidBody()->GetVelocity();
+				GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));
+				mState = PlayerState::Idle;
+			}
 		}
 	}
 
@@ -524,21 +482,47 @@ void Player::OnCollisionEnter(Collider* _other)
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
 		// 하단이었을 때만
-		Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
-		TILE_TYPE tileType = otherTile->GetTileType();
+		Tile* tile = static_cast<Tile*>(_other->GetOwner());
+		Vec2 playerPos = GetPos();
+		Vec2 otherPos = _other->GetPos();
+		Vec2 pos = GetCollider()->GetPos();
+
+		Vec2 otherSize = _other->GetSize();
+		Vec2 size = GetCollider()->GetSize();
 
 
-		SetGround(true);
-		SetGravity(false);
-		mFall = false;
-		mDecDash = false;
-		mAccDash = false;
-		Vec2 velocity = GetRigidBody()->GetVelocity();
-		GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
-		mState = PlayerState::Idle;
-		mJumpYValue = 700.f;
-		mJumpXValue = 0.f;
-		
+		if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 10.f))
+		{
+
+			if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
+			{
+				float diff = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
+				pos.y -= diff;
+				playerPos.y -= diff;
+				SetPos(playerPos);
+				GetCollider()->SetPos(pos);
+			}
+
+			else if (TILE_TYPE::WALL == tile->GetTileType())
+			{
+				
+			}
+
+			Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
+			TILE_TYPE tileType = otherTile->GetTileType();
+
+			SetGround(true);
+			SetGravity(false);
+			mFall = false;
+			mDecDash = false;
+			mAccDash = false;
+			Vec2 velocity = GetRigidBody()->GetVelocity();
+			GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
+			mState = PlayerState::Idle;
+			mJumpYValue = 700.f;
+			mJumpXValue = 0.f;
+
+		}
 	}
 }
 
@@ -550,7 +534,6 @@ void Player::OnCollisionExit(Collider* _other)
 		{
 			SetGround(false);
 			SetGravity(true);	
-
 		}
 		
 	}
@@ -572,6 +555,59 @@ void Player::EquipItemRender()
 	{
 		if (nullptr != mEquipItems[i])
 			mEquipItems[i]->Render();
+	}
+}
+
+void Player::DashEffectReset()
+{
+	mDashEffect[mImgCount]->SetPos(GetPos());
+	mDashEffect[mImgCount]->Reset();
+}
+
+void Player::DashDeceleration()
+{
+	// 현재 감속시간을 최대 감속시간으로 나눠서 1로 뺀 반대 값을 취한다.
+	float ratio = 1.f - (mDecTime / mDecMaxTime);
+	Vec2 curSpeed = mDashSpeed * ratio;
+
+	GetRigidBody()->SetVelocity(curSpeed);
+
+	mDecTime += DT;
+	// 이번 증가량으로 인해 최대 감속시간이 되었다면 감속을 종료한다.
+	if (mDecTime >= mDecMaxTime)
+	{
+		mDecTime = 0.f;
+		mDecDash = false;
+	}
+}
+
+void Player::DashAcceleration()
+{
+	if (mAccDash && mDashAccTime >= mDashAccMaxTime)
+	{
+		// 가속을 해제하고 감속을 시작한다.
+		mAccDash = false;
+		mDecDash = true;
+		mDecTime = DT;
+		mDashSpeed = GetRigidBody()->GetVelocity();
+	}
+
+	else
+	{
+		if (mImgCount < AFTER_IMAGE_TOTAL)
+		{
+			if (mImgDuration > mCurImgDuration)
+			{
+				mCurImgDuration += DT;
+			}
+			else
+			{
+				DashEffectReset();
+				++mImgCount;
+			}
+		}
+
+		mDashAccTime += DT;
 	}
 }
 

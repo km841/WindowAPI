@@ -73,6 +73,11 @@ public:
     inline PLAYER_DIR GetPlayerDir() const { return mDir; }
 
 public:
+    void DashEffectReset();
+    void DashDeceleration();
+    void DashAcceleration();
+
+public:
     inline Item* GetEquipItem(ITEM_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
     void         SetEquipItem(Item* _item);
 

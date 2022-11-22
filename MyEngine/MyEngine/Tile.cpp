@@ -56,8 +56,8 @@ void Tile::Render()
 	Vec2 ltPos = CameraMgr::GetInstance().GetLookPos() - (resolution / 2.f);
 
 	// 렌더링 최적화
-	if (pos.x < ltPos.x - TILE_SIZE || pos.x >= (ltPos.x + resolution.x) ||
-		pos.y < ltPos.y - TILE_SIZE || pos.y >= (ltPos.y + resolution.y))
+	if (pos.x < ltPos.x - TILE_SIZE || pos.x >= (ltPos.x + resolution.x) + TILE_SIZE ||
+		pos.y < ltPos.y - TILE_SIZE || pos.y >= (ltPos.y + resolution.y) + TILE_SIZE)
 	{
 		return;
 	}
@@ -65,8 +65,8 @@ void Tile::Render()
 	Vec2 renderPos = RENDER_POS(pos);
 	TransparentBlt(
 		BACK_BUF_DC,
-		(int)renderPos.x - TILE_SIZE / 2.f,
-		(int)renderPos.y - TILE_SIZE / 2.f,
+		(int)(renderPos.x - TILE_SIZE / 2.f),
+		(int)(renderPos.y - TILE_SIZE / 2.f),
 		TILE_SIZE,
 		TILE_SIZE,
 		mTex->GetDC(),

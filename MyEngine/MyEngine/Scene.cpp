@@ -87,7 +87,7 @@ void Scene::DeleteObjGroup(OBJECT_TYPE _eType)
 	mObjects[(UINT)_eType].clear();
 }
 
-void Scene::TileInitialize(int _size)
+void Scene::TileInitialize(size_t _size)
 {
 	std::vector<GameObject*>& tiles =  mObjects[(UINT)OBJECT_TYPE::TILE];
 	for (int i = 0; i < _size; ++i)
@@ -99,13 +99,13 @@ void Scene::TileInitialize(int _size)
 void Scene::Load(const std::wstring& _path)
 {
 	FILE* fp = nullptr;
-	_wfopen_s(&fp, _path.c_str(), L"r");
-
+	_wfopen_s(&fp, _path.c_str(), L"rb");
 
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 
-	int tileSize = 0;
-	fread(&tileSize, sizeof(int), 1, fp);
+	size_t tileSize = 0;
+	fread(&tileSize, sizeof(size_t), 1, fp);
+
 	TileInitialize(tileSize);
 
 	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
