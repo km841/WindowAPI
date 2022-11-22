@@ -21,6 +21,7 @@
 #include "EventRegisteror.h"
 #include "ShortSword.h"
 #include "DashEffect.h"
+#include "Tile.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -171,6 +172,12 @@ void Player::Update()
 
 	
 	mPrevState = mState;
+
+	float colCount= GetCollider()->GetColCnt();
+
+	wchar_t szBuffer[256] = {};
+	swprintf_s(szBuffer, L"colCount : %f", colCount);
+	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	
 }
 
@@ -253,6 +260,7 @@ void Player::MoveUpdate()
 		Vec2 dashDir = mousePos - pos;
 		dashDir.Norm();
 
+
 		GetRigidBody()->SetVelocity(dashDir * PLAYER_DASH_SPEED);
 		SetGround(false);
 		mAccDash = true;
@@ -260,7 +268,7 @@ void Player::MoveUpdate()
 		mDashAccTime = 0.f;
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
 		mImgCount = 0;
-		mCurImgDuration = 0.f;
+
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))
@@ -513,27 +521,38 @@ void Player::OnCollision(Collider* _other)
 
 void Player::OnCollisionEnter(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
+	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
+		// 하단이었을 때만
+		Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
+		TILE_TYPE tileType = otherTile->GetTileType();
+
+
 		SetGround(true);
 		SetGravity(false);
 		mFall = false;
 		mDecDash = false;
 		mAccDash = false;
 		Vec2 velocity = GetRigidBody()->GetVelocity();
-		GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
+		GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
 		mState = PlayerState::Idle;
 		mJumpYValue = 700.f;
 		mJumpXValue = 0.f;
+		
 	}
 }
 
 void Player::OnCollisionExit(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
+	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
-		SetGround(false);
-		SetGravity(true);
+		if (GetCollider()->GetColCnt() == 0)
+		{
+			SetGround(false);
+			SetGravity(true);	
+
+		}
+		
 	}
 }
 

@@ -33,29 +33,30 @@ void ToolScene::Update()
 	Vec2 mousePos = WORLD_POS(MOUSE_POS);
 	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
-	if (nullptr != selectedUI)
-	{
-		if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
-		{
-			const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
-			Tile* tile = nullptr;
-			for (int i = 0; i < tileGroup.size(); ++i)
-			{
-				if (tileGroup[i]->GetPos() == tilePos)
-				{
-					tile = dynamic_cast<Tile*>(tileGroup[i]);
-				}
-			}
 
-			if (nullptr == tile)
+	if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
+	{
+		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+		Tile* tile = nullptr;
+		for (int i = 0; i < tileGroup.size(); ++i)
+		{
+			if (tileGroup[i]->GetPos() == tilePos)
+			{
+				tile = static_cast<Tile*>(tileGroup[i]);
+			}
+		}
+
+		if (nullptr == tile)
+		{
+			// 타일이 없는 자리의 경우
+
+			if (nullptr != selectedUI)
 			{
 				Tile* tile = new Tile;
-				tile->SetPos(tilePos);
+				tile->SetPos(tilePos + Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
 				tile->SetLTPos(selectedUI->GetLTPos());
 
 				TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
-				tile->SetTileType(tileType);
-
 				switch (tileType)
 				{
 				case TILE_TYPE::WALL:
@@ -65,46 +66,50 @@ void ToolScene::Update()
 					tile->CreateFoothold();
 					break;
 				case TILE_TYPE::NONE:
-					
+				
 					break;
 				}
 
+				tile->SetTileType(tileType);
 				EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
-
 			}
 
-			else
-			{
-				TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
-				CollisionComponent* tileComponent = tile->GetCollisionComponent();
-
-				if (nullptr != tileComponent)
-				{
-					tile->ClearCollisionComponent();
-					delete tileComponent;
-				}
-
-				switch (tileType)
-				{
-				case TILE_TYPE::WALL:
-					tile->CreateWall();
-					break;
-				case TILE_TYPE::FOOTHOLD:
-					tile->CreateFoothold();
-					break;
-				case TILE_TYPE::NONE:
-					break;
-				}
-
-				tile->SetTileType(tileType);
-			}
 		}
+
+		else
+		{
+			// 타일이 있는 자리의 경우
+
+			TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
+			CollisionComponent* tileComponent = tile->GetCollisionComponent();
+
+			if (nullptr != tileComponent)
+			{
+				tile->ClearCollisionComponent();
+				delete tileComponent;
+			}
+
+			switch (tileType)
+			{
+			case TILE_TYPE::WALL:
+				tile->CreateWall();
+				break;
+			case TILE_TYPE::FOOTHOLD:
+				tile->CreateFoothold();
+				break;
+			case TILE_TYPE::NONE:
+				break;
+			}
+
+			tile->SetTileType(tileType);
+			
+		}
+	
 	}
-	else
-	{
-		if (IS_RBUTTON_CLICKED)
-			RemoveTile(tilePos);
-	}
+
+	if (IS_RBUTTON_CLICKED)
+		RemoveTile(tilePos);
+	
 
 	if (IS_PRESSED(KEY::LCTRL) && IS_JUST_PRESSED(KEY::S))
 	{
@@ -292,7 +297,7 @@ void ToolScene::RemoveTile(Vec2 _pos)
 	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
 	for (int i = 0; i < tileGroup.size(); ++i)
 	{
-		if (tileGroup[i]->GetPos() == _pos)
+		if (tileGroup[i]->GetPos() == _pos + TILE_OFFSET)
 		{
 			EventRegisteror::GetInstance().DeleteObject(tileGroup[i]);
 			break;

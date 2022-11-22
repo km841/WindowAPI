@@ -54,7 +54,7 @@ void TownScene::Enter()
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
-	Load(L"..\\Resource\\Map\\new_map.map");
+	Load(L"..\\Resource\\Map\\new_map2.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
 	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
@@ -92,9 +92,9 @@ void TownScene::Enter()
 	townFloor->SetTexture(floor);
 	townFloor->SetSize(floor->GetSize() * TIMES);
 
-	Wall* wall = new Wall;
-	wall->SetPos(Vec2(5000, TILE_SIZE * 20));
-	wall->SetSize(Vec2(10000, 30));
+	//Wall* wall = new Wall;
+	//wall->SetPos(Vec2(5000, TILE_SIZE * 20));
+	//wall->SetSize(Vec2(10000, 30));
 
 	InventoryUI* inven = 
 		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
@@ -104,11 +104,11 @@ void TownScene::Enter()
 	AddGameObject(townTreeBg, townTreeBg->GetType());
 	AddGameObject(townFloor, townFloor->GetType());
 	AddGameObject(player, player->GetType());
-	AddGameObject(wall, wall->GetType());
+	//AddGameObject(wall, wall->GetType());
 	AddGameObject(inven, inven->GetType());
 
 	Initialize();
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::TILE);
 }
 
 void TownScene::Exit()

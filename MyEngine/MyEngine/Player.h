@@ -119,5 +119,6 @@ private:
     float      mImgDuration;
     float      mCurImgDuration;
     int        mImgCount;
+
 };
 

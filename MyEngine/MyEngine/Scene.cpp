@@ -25,7 +25,10 @@ Scene::~Scene()
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
 			if (nullptr != mObjects[y][x])
+			{
 				delete mObjects[y][x];
+				mObjects[y][x] = nullptr;
+			}
 		}
 	}
 }

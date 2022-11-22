@@ -33,6 +33,12 @@ public:
 	void CreateWall();
 	void CreateFoothold();
 
+
+public:
+	virtual void OnCollision(Collider* _other);
+	virtual void OnCollisionEnter(Collider* _other);
+	virtual void OnCollisionExit(Collider* _other);
+
 private:
 	Vec2 mTileLT;
 	TILE_TYPE mTileType;

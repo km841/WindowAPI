@@ -5,11 +5,19 @@
 #include "CameraMgr.h"
 #include "Wall.h"
 #include "Foothold.h"
+#include "Collider.h"
 
 Tile::Tile()
 {
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 	SetType(OBJECT_TYPE::TILE);
+
+	CreateComponent(new Collider);
+	GetCollider()->SetOwner(this);
+	GetCollider()->SetSize(Vec2(TILE_SIZE, TILE_SIZE));
+	//GetCollider()->SetOffset(Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
+	
+	
 }
 
 Tile::~Tile()
@@ -23,6 +31,8 @@ Tile::~Tile()
 
 void Tile::Initialize()
 {
+	GetCollider()->SetPos(GetPos());
+	GetCollider()->SetSize(GetSize());
 }
 
 void Tile::Update()
@@ -31,6 +41,8 @@ void Tile::Update()
 	{
 		mCollisionComponent->Update();
 	}
+
+	GameObject::Update();
 }
 
 void Tile::Render()
@@ -53,8 +65,8 @@ void Tile::Render()
 	Vec2 renderPos = RENDER_POS(pos);
 	TransparentBlt(
 		BACK_BUF_DC,
-		(int)renderPos.x,
-		(int)renderPos.y,
+		(int)renderPos.x - TILE_SIZE / 2.f,
+		(int)renderPos.y - TILE_SIZE / 2.f,
 		TILE_SIZE,
 		TILE_SIZE,
 		mTex->GetDC(),
@@ -69,6 +81,8 @@ void Tile::Render()
 	{
 		mCollisionComponent->Render();
 	}
+
+	//GameObject::Render();
 }
 
 void Tile::Destroy()
@@ -79,21 +93,38 @@ void Tile::Save(FILE* _fp) const
 {
 	Vec2 pos = GetPos();
 	Vec2 ltPos = GetLTPos();
+	TILE_TYPE tileType = GetTileType();
 	
 	fwrite(&pos, sizeof(Vec2), 1, _fp);
 	fwrite(&ltPos, sizeof(Vec2), 1, _fp);
+	fwrite(&tileType, sizeof(TILE_TYPE), 1, _fp);
 }
 
 void Tile::Load(FILE* _fp)
 {
 	Vec2 pos;
 	Vec2 ltPos;
+	TILE_TYPE tileType;
 
 	fread(&pos, sizeof(Vec2), 1, _fp);
 	fread(&ltPos, sizeof(Vec2), 1, _fp);
+	fread(&tileType, sizeof(TILE_TYPE), 1, _fp);
 
 	SetPos(pos);
 	SetLTPos(ltPos);
+	SetTileType(tileType);
+
+	switch (tileType)
+	{
+	case TILE_TYPE::WALL:
+		CreateWall();
+		break;
+	case TILE_TYPE::FOOTHOLD:
+		CreateFoothold();
+		break;
+	}
+
+	Initialize();
 }
 
 void Tile::CreateWall()
@@ -106,5 +137,25 @@ void Tile::CreateFoothold()
 {
 	mCollisionComponent = new Foothold;
 	mCollisionComponent->SetOwner(this);
+}
+
+void Tile::OnCollision(Collider* _other)
+{
+	if (nullptr != mCollisionComponent)
+		mCollisionComponent->GetCollider()->OnCollision(_other);
+}
+
+void Tile::OnCollisionEnter(Collider* _other)
+{
+
+	if (nullptr != mCollisionComponent)
+		mCollisionComponent->GetCollider()->OnCollisionEnter(_other);
+	
+}
+
+void Tile::OnCollisionExit(Collider* _other)
+{
+	if (nullptr != mCollisionComponent)
+		mCollisionComponent->GetCollider()->OnCollisionExit(_other);
 }
 

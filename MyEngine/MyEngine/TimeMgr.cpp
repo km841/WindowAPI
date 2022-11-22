@@ -27,8 +27,8 @@ void TimeMgr::Render()
 		mAcc = 0.;
 		mCallCount = 0;
 
-		wchar_t szBuffer[256] = {};
+		/*wchar_t szBuffer[256] = {};
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", mFPS, mDT);
-		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);*/
 	}
 }

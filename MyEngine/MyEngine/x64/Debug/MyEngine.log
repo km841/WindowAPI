@@ -1,2 +1,6 @@
-﻿  unity_IZIIWRAUIYSC86GN.cpp
+﻿  pch.cpp
+  unity_IZIIWRAUIYSC86GN.cpp
+C:\WindowsAPI\MyEngine\MyEngine\Player.cpp(176,16): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Tile.cpp(69,20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Tile.cpp(68,20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\x64\Debug\MyEngine.exe

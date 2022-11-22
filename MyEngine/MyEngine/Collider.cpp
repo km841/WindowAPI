@@ -66,24 +66,15 @@ void Collider::Render()
 
 	Brush brush(BACK_BUF_DC, BRUSH_TYPE::HOLLOW);
 
-	if (OBJECT_TYPE::WALL == objectType ||
-		OBJECT_TYPE::FOOTHOLD == objectType)
-	{
-		Rectangle(BACK_BUF_DC
-			, (int)pos.x
-			, (int)pos.y
-			, (int)(pos.x + size.x)
-			, (int)(pos.y + size.y));
-	}
 
-	else
-	{
-		Rectangle(BACK_BUF_DC
-			, (int)(pos.x - (size.x / 2))
-			, (int)(pos.y - (size.y / 2))
-			, (int)(pos.x + (size.x / 2))
-			, (int)(pos.y + (size.y / 2)));
-	}
+
+
+	Rectangle(BACK_BUF_DC
+		, (int)(pos.x - (size.x / 2))
+		, (int)(pos.y - (size.y / 2))
+		, (int)(pos.x + (size.x / 2))
+		, (int)(pos.y + (size.y / 2)));
+	
 	
 
 	SelectObject(BACK_BUF_DC, oldPen);
@@ -97,12 +88,12 @@ void Collider::OnCollision(Collider* _other)
 
 void Collider::OnCollisionEnter(Collider* _other)
 {
-	mOwner->OnCollisionEnter(_other);
 	mColCnt++;
+	mOwner->OnCollisionEnter(_other);
 }
 
 void Collider::OnCollisionExit(Collider* _other)
 {
-	mOwner->OnCollisionExit(_other);
 	mColCnt--;
+	mOwner->OnCollisionExit(_other);
 }

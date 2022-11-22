@@ -6,6 +6,7 @@
 Wall::Wall()
 {
 	SetType(OBJECT_TYPE::WALL);
+	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
 	GetCollider()->SetSize(Vec2(TILE_SIZE, TILE_SIZE));
@@ -19,7 +20,7 @@ void Wall::Initialize()
 {
 	GetCollider()->SetPos(GetPos());
 	GetCollider()->SetSize(GetSize());
-	GetCollider()->SetOffset(Vec2(0.f, GetSize().y / 2.f));
+	//GetCollider()->SetOffset(Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
 }
 
 void Wall::Update()
@@ -61,7 +62,7 @@ void Wall::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 내 충돌체와 상대 충돌체의 좌표와 크기를 비교해서 그만큼 뺌
-		
+
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
 
@@ -69,11 +70,13 @@ void Wall::OnCollisionEnter(Collider* _other)
 		Vec2 otherSize = _other->GetSize();
 
 		float diff = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
-	
+
 		Vec2 otherObjPos = _other->GetOwner()->GetPos();
 		otherObjPos.y -= diff;
+		otherPos.y -= diff;
 		_other->GetOwner()->SetPos(otherObjPos);
-		
+		_other->SetPos(otherPos);
+
 	}
 }
 

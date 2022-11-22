@@ -16,10 +16,16 @@ Animation::Animation()
 Animation::~Animation()
 {
 	if (nullptr != mEvent)
+	{
 		delete mEvent;
+		mEvent = nullptr;
+	}
 
 	if (nullptr != mDummyObj)
+	{
 		delete mDummyObj;
+		mDummyObj = nullptr;
+	}
 }
 
 void Animation::Update()
