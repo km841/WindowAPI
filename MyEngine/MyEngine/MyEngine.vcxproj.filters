@@ -212,6 +212,15 @@
     <Filter Include="Engine\GameObject\MapComponent\Tile\TileCollisionType\Base">
       <UniqueIdentifier>{dd194855-1182-4716-8665-dd9ea6c3a09f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\NPC">
+      <UniqueIdentifier>{43ce9599-937c-422b-ac18-4bb524a4400b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\NPC\Base">
+      <UniqueIdentifier>{7a892b5d-37d0-40ea-ac97-3f77a11aa8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\NPC\BlackSmith">
+      <UniqueIdentifier>{b3c71a49-8f61-4ce7-81d9-ab3765adf21d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -382,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Engine\GameObject\NPC\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackSmithNPC.h">
+      <Filter>Engine\GameObject\NPC\BlackSmith</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -559,6 +574,12 @@
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Engine\GameObject\NPC\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackSmithNPC.cpp">
+      <Filter>Engine\GameObject\NPC\BlackSmith</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

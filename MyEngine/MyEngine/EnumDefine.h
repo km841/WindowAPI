@@ -43,6 +43,7 @@ enum class OBJECT_TYPE
 	BACKGROUND_LAST,
 	STRUCTURE,
 	TILE,
+	NPC,
 	PLAYER,
 	MONSTER,
 	DUMMY,
@@ -77,7 +78,7 @@ enum class RELATION_TYPE
 	COLLISION,
 };
 
-enum class ITEM_TYPE
+enum class EQUIP_TYPE
 {
 	WEAPON_1,
 	SHIELD_1,
@@ -88,6 +89,13 @@ enum class ITEM_TYPE
 	ACCESSORIES_3,
 	ACCESSORIES_4,
 	END
+};
+
+enum class ITEM_TYPE
+{
+	WEAPON,
+	SECONDARY,
+	ACCESSORIES,
 };
 
 enum class INVENTORY_SLOT

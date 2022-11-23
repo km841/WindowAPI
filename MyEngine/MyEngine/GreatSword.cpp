@@ -9,7 +9,7 @@
 GreatSword::GreatSword()
 {
 	SetOffset(Vec2(40.f, -2.f));
-	SetItemType(ITEM_TYPE::WEAPON_1);
+	SetItemType(ITEM_TYPE::WEAPON);
 }
 
 GreatSword::~GreatSword()

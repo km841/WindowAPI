@@ -17,6 +17,9 @@ public:
     inline Vec2 GetSize() const { return mSize; }
     inline HDC GetDC() const { return mDC; }
 
+public:
+    Pixel GetPixel(int x, int y);
+
 private:
     HDC          mDC;
     HBITMAP      mBit;

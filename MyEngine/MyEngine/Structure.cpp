@@ -2,9 +2,15 @@
 #include "Structure.h"
 #include "CameraMgr.h"
 #include "Texture.h"
+#include "Player.h"
+#include "Collider.h"
+#include "State.h"
+#include "IdleState.h"
+#include "RigidBody.h"
 
 Structure::Structure()
 	: mTexture(nullptr)
+	, mPixelTexture(nullptr)
 {
 	SetType(OBJECT_TYPE::STRUCTURE);
 }
@@ -49,17 +55,5 @@ void Structure::Render()
 }
 
 void Structure::Destroy()
-{
-}
-
-void Structure::OnCollision(Collider* _other)
-{
-}
-
-void Structure::OnCollisionEnter(Collider* _other)
-{
-}
-
-void Structure::OnCollisionExit(Collider* _other)
 {
 }

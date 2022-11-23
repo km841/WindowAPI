@@ -12,6 +12,7 @@ public:
 
 public:
 	void WindowInit(const WindowData& _winData);
+	void ConfineMouse();
 
 public:
 	inline HDC GetMainDC() const { return mWinData.hMainDC; }

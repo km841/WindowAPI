@@ -105,7 +105,7 @@ Player::Player()
 
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 
-	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
 		mEquipItems[i] = nullptr;
 	}
@@ -136,7 +136,7 @@ Player::~Player()
 			delete mDashEffect[i];
 	}
 	
-	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
 		if (nullptr != mEquipItems[i])
 		{
@@ -189,20 +189,29 @@ void Player::MoveUpdate()
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
 	{
-		// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
-		if (!mFall)
+		if (IS_PRESSED(KEY::S))
 		{
-			Vec2 velocity = GetRigidBody()->GetVelocity();
-
-			if (mJumpYValue > mJumpYMinValue)
-			{
-				GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-				mJumpYValue -= 15.f;
-			}
-
-			if (mJumpYValue < mJumpYMinValue)
-				mJumpYValue = mJumpYMinValue;
+			int a = 0;
 		}
+
+		else
+		{
+			// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
+			if (!mFall)
+			{
+				Vec2 velocity = GetRigidBody()->GetVelocity();
+
+				if (mJumpYValue > mJumpYMinValue)
+				{
+					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
+					mJumpYValue -= 15.f;
+				}
+
+				if (mJumpYValue < mJumpYMinValue)
+					mJumpYValue = mJumpYMinValue;
+			}
+		}
+
 	}
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
@@ -384,11 +393,22 @@ void Player::StateUpdate()
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
 	{
+		if (IS_PRESSED(KEY::S))
+		{
+			switch (mGroundType)
+			{
+			case TILE_TYPE::WALL:
+				return;
+			}
+		}
+
+		
 		if (nullptr != mState)
 			mState->Exit();
 
 		mState = PlayerState::Jump;
 		SetGround(false);
+
 	}
 
 	InventoryUI* invenUI =
@@ -490,37 +510,44 @@ void Player::OnCollisionEnter(Collider* _other)
 		Vec2 otherSize = _other->GetSize();
 		Vec2 size = GetCollider()->GetSize();
 
-
-		if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 10.f))
+		if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
 		{
-
-			if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
+			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 15.f))
 			{
-				float diff = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
-				pos.y -= diff;
-				playerPos.y -= diff;
-				SetPos(playerPos);
-				GetCollider()->SetPos(pos);
-			}
-
-			else if (TILE_TYPE::WALL == tile->GetTileType())
-			{
+				if (NotInDash())
+				{
+					float diff = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
+					pos.y -= diff;
+					playerPos.y -= diff;
+					SetPos(playerPos);
+					GetCollider()->SetPos(pos);
+				}
 				
+
+
+				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
+				TILE_TYPE tileType = otherTile->GetTileType();
+
+				InGround();
+			}
+		}
+
+		else if (TILE_TYPE::WALL == tile->GetTileType())
+		{
+			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f))
+			{
+				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
+				TILE_TYPE tileType = otherTile->GetTileType();
+
+				InGround();
 			}
 
-			Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
-			TILE_TYPE tileType = otherTile->GetTileType();
-
-			SetGround(true);
-			SetGravity(false);
-			mFall = false;
-			mDecDash = false;
-			mAccDash = false;
-			Vec2 velocity = GetRigidBody()->GetVelocity();
-			GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
-			mState = PlayerState::Idle;
-			mJumpYValue = 700.f;
-			mJumpXValue = 0.f;
+			else if ((otherPos.y + (otherSize.y / 2.f)) <= (pos.y - (size.y / 2.f)))
+			{
+				mFall = true;
+				Vec2 velocity = GetRigidBody()->GetVelocity();
+				GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
+			}
 
 		}
 	}
@@ -542,19 +569,68 @@ void Player::OnCollisionExit(Collider* _other)
 
 void Player::EquipItemUpdate()
 {
-	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	InventoryUI* inven =
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	INVENTORY_SLOT curSlot = inven->GetSlot();
+
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
+
 		if (nullptr != mEquipItems[i])
+		{
+			if (INVENTORY_SLOT::LEFT_SLOT == curSlot)
+			{
+				if ((UINT)EQUIP_TYPE::WEAPON_2 == i)
+					continue;
+
+				if ((UINT)EQUIP_TYPE::SHIELD_2 == i)
+					continue;
+			}
+
+			else if (INVENTORY_SLOT::RIGHT_SLOT == curSlot)
+			{
+				if ((UINT)EQUIP_TYPE::WEAPON_1 == i)
+					continue;
+
+				if ((UINT)EQUIP_TYPE::SHIELD_1 == i)
+					continue;
+			}
+
 			mEquipItems[i]->Update();
+		}
 	}
 }
 
 void Player::EquipItemRender()
 {
-	for (int i = 0; i < (UINT)ITEM_TYPE::END; ++i)
+	InventoryUI* inven =
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	INVENTORY_SLOT curSlot = inven->GetSlot();
+
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
 		if (nullptr != mEquipItems[i])
+		{
+			if (INVENTORY_SLOT::LEFT_SLOT == curSlot)
+			{
+				if ((UINT)EQUIP_TYPE::WEAPON_2 == i)
+					continue;
+
+				if ((UINT)EQUIP_TYPE::SHIELD_2 == i)
+					continue;
+			}
+
+			else if (INVENTORY_SLOT::RIGHT_SLOT == curSlot)
+			{
+				if ((UINT)EQUIP_TYPE::WEAPON_1 == i)
+					continue;
+
+				if ((UINT)EQUIP_TYPE::SHIELD_1 == i)
+					continue;
+			}
+
 			mEquipItems[i]->Render();
+		}
 	}
 }
 
@@ -611,9 +687,54 @@ void Player::DashAcceleration()
 	}
 }
 
+void Player::InGround()
+{
+	SetGround(true);
+	SetGravity(false);
+	mFall = false;
+	mDecDash = false;
+	mAccDash = false;
+	Vec2 velocity = GetRigidBody()->GetVelocity();
+	GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
+	mState = PlayerState::Idle;
+	mJumpYValue = 700.f;
+	mJumpXValue = 0.f;
+}
+
+void Player::OutGround()
+{
+	SetGround(false);
+	SetGravity(true);
+}
+
 void Player::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();
+	InventoryUI* inven = 
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+
+	switch (itemType)
+	{
+	case ITEM_TYPE::WEAPON:
+	{
+		INVENTORY_SLOT curSlot = inven->GetSlot();
+		switch (curSlot)
+		{
+		case INVENTORY_SLOT::LEFT_SLOT:
+			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_1] = _item;
+			break;
+		case INVENTORY_SLOT::RIGHT_SLOT:
+			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_2] = _item;
+			break;
+		}
+	}
+
+		break;
+	case ITEM_TYPE::SECONDARY:
+		break;
+	case ITEM_TYPE::ACCESSORIES:
+		break;
+	}
 	mEquipItems[(UINT)itemType] = _item;
 }
 

@@ -33,10 +33,28 @@ void TitleScene::Render()
 	DeleteObject(brush);
 
 	Scene::Render();
+
+	static Texture* cursor
+		= ResourceMgr::GetInstance().Load<Texture>(L"Cursor", L"Texture\\Cursor.bmp");
+	Vec2 mousePos = MOUSE_POS;
+	Vec2 cursorSize = cursor->GetSize();
+
+	TransparentBlt(
+		BACK_BUF_DC,
+		(int)(mousePos.x - ((cursorSize.x * TIMES) / 2.f)),
+		(int)(mousePos.y - ((cursorSize.y * TIMES) / 2.f)),
+		(int)(cursorSize.x * TIMES),
+		(int)(cursorSize.y * TIMES),
+		cursor->GetDC(),
+		0, 0,
+		(int)cursorSize.x,
+		(int)cursorSize.y,
+		RGB(255, 0, 255));
 }
 
 void TitleScene::Enter()
 {
+	ShowCursor(false);
 	// Camera Effect Setting
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
@@ -128,4 +146,5 @@ void TitleScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_MIDDLE);
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_LAST);
 	DeleteObjGroup(OBJECT_TYPE::UI);
+	ShowCursor(true);
 }

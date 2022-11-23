@@ -57,8 +57,32 @@ void Application::WindowInit(const WindowData& _winData)
 	mWinData.iHeight = rect.bottom;
 }
 
+void Application::ConfineMouse()
+{
+	RECT rect = {};
+	GetClientRect(GetHwnd(), &rect);
+
+	POINT lt = {};
+	POINT rb = {};
+	lt.x = rect.left;
+	lt.y = rect.top;
+	rb.x = rect.right;
+	rb.y = rect.bottom;
+
+	ClientToScreen(GetHwnd(), &lt);
+	ClientToScreen(GetHwnd(), &rb);
+	rect.left = lt.x;
+	rect.top = lt.y;
+	rect.right = rb.x;
+	rect.bottom = rb.y;
+	ClipCursor(&rect);
+}
+
 void Application::Tick()
 {
+	// Mouse inside the screen
+	//ConfineMouse();
+
 	// Buffer Initialize
 	Rectangle(BACK_BUF_DC, 0, 0, GetWidth(), GetHeight());
 
@@ -91,6 +115,7 @@ void Application::Render()
 
 void Application::Destroy()
 {
+	ClipCursor(NULL);
 	ReleaseDC(mWinData.hWnd, mWinData.hMainDC);
 	DeleteDC(mWinData.hBackBufDC);
 	DeleteObject(mWinData.hBackBufBit);

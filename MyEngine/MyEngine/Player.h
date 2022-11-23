@@ -72,17 +72,28 @@ public:
 
     inline PLAYER_DIR GetPlayerDir() const { return mDir; }
 
+
 public:
     void DashEffectReset();
     void DashDeceleration();
     void DashAcceleration();
 
+    void InGround();
+    void OutGround();
+
+    inline State* GetState() const { return mState; }
+
+
 public:
-    inline Item* GetEquipItem(ITEM_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
+    inline Item* GetEquipItem(EQUIP_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
     void         SetEquipItem(Item* _item);
 
     void EquipItemUpdate();
     void EquipItemRender();
+
+public:
+    inline void SetGroundType(TILE_TYPE _tileType) { mGroundType = _tileType; }
+    inline TILE_TYPE GetGroundType() const { return mGroundType; }
     
 public:
     static Player* GetPlayer() { return mPlayer; }
@@ -97,12 +108,15 @@ private:
     State*         mState;
     Effect*        mEffect;
     DashEffect*    mDashEffect[AFTER_IMAGE_TOTAL];
-    Item*          mEquipItems[(UINT)ITEM_TYPE::END];
+    Item*          mEquipItems[(UINT)EQUIP_TYPE::END];
 
 
     Vec2       mPrevPos;
     PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
+
+private:
+    TILE_TYPE  mGroundType;
     
 private:
     float      mJumpYValue;

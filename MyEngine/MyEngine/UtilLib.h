@@ -90,3 +90,38 @@ struct Event
 	DWORD_PTR wParam;
 };
 
+union Pixel
+{
+	struct
+	{
+		BYTE R;
+		BYTE G;
+		BYTE B;
+		BYTE A;
+	};
+	DWORD Color;
+
+	Pixel(BYTE r, BYTE g, BYTE b, BYTE a)
+		:R(r), G(g), B(b), A(a)
+	{}
+
+	Pixel(COLORREF color)
+		:Color(color)
+	{}
+
+	bool IsMagenta()
+	{
+		return (R == 255 && G == 0 && B == 255);
+	}
+	
+	bool IsWhite()
+	{
+		return (R == 255 && G == 255 && B == 255);
+	}
+
+	bool IsBlue()
+	{
+		return (R == 0 && G == 0 && B == 255);
+	}
+};
+

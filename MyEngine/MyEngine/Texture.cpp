@@ -44,3 +44,9 @@ bool Texture::Load(const std::wstring& _path)
 
 	return true;
 }
+
+Pixel Texture::GetPixel(int x, int y)
+{
+	COLORREF rgba = ::GetPixel(mDC, x, y);
+	return Pixel(rgba);
+}

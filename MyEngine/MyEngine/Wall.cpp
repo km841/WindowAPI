@@ -2,6 +2,7 @@
 #include "Wall.h"
 #include "Collider.h"
 #include "Tile.h"
+#include "Player.h"
 
 Wall::Wall()
 {
@@ -33,7 +34,7 @@ void Wall::Update()
 
 void Wall::Render()
 {
-	GameObject::Render();
+	//GameObject::Render();
 }
 
 void Wall::OnCollision(Collider* _other)
@@ -52,9 +53,10 @@ void Wall::OnCollision(Collider* _other)
 		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
 
 		Vec2 otherObjPos = _other->GetOwner()->GetPos();
+		int sign = 1;
 		if (diff_x < diff_y)
 		{
-			int sign = 1;
+			
 			if (dirVec.x < 0.f)
 			{
 				sign = -sign;
@@ -66,7 +68,6 @@ void Wall::OnCollision(Collider* _other)
 
 		else
 		{
-			int sign = 1;
 			if (dirVec.y < 0.f)
 			{
 				sign = -sign;
@@ -78,6 +79,7 @@ void Wall::OnCollision(Collider* _other)
 
 		_other->GetOwner()->SetPos(otherObjPos);
 		_other->SetPos(otherPos);
+		static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::WALL);
 
 	}
 }
@@ -134,5 +136,5 @@ void Wall::OnCollisionEnter(Collider* _other)
 
 void Wall::OnCollisionExit(Collider* _other)
 {
-
+	static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
 }

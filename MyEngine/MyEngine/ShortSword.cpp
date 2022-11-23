@@ -13,7 +13,7 @@
 ShortSword::ShortSword()
 {
 	SetOffset(Vec2(40.f, -2.f));
-	SetItemType(ITEM_TYPE::WEAPON_1);
+	SetItemType(ITEM_TYPE::WEAPON);
 	SetLeftDirOffset(8.f);
 	SetRightDirOffset(51.f);
 	SetYOffset(8.f);
@@ -145,26 +145,8 @@ void ShortSword::Render()
 		Animation* anim = effect->GetAnimator()->FindAnimation(L"ShortSwordEffectRot");
 		if (nullptr != anim)
 		{
-
-		Texture* tex = anim->GetTexture();
-		Vec2 effPos = RENDER_POS(effect->GetPos());
-
-		//Rectangle(BACK_BUF_DC,
-		//	effPos.x - 10,
-		//	effPos.y - 10,
-		//	effPos.x + 10,
-		//	effPos.y + 10
-		//);
-			//TransparentBlt(BACK_BUF_DC,
-			//	100, 100,
-			//	tex->GetWidth(),
-			//	tex->GetHeight(),
-			//	tex->GetDC(),
-			//	0, 0,
-			//	tex->GetWidth(),
-			//	tex->GetHeight(),
-			//	0
-			//);
+			Texture* tex = anim->GetTexture();
+			Vec2 effPos = RENDER_POS(effect->GetPos());
 		}
 
 

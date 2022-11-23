@@ -15,6 +15,7 @@
 #include "ShortSword.h"
 #include "UIMgr.h"
 #include "KeyMgr.h"
+#include "BlackSmithNPC.h"
 
 void TownScene::Initialize()
 {
@@ -51,6 +52,7 @@ void TownScene::Render()
 
 void TownScene::Enter()
 {
+	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
@@ -58,12 +60,23 @@ void TownScene::Enter()
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
 	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
-	Texture* floor = ResourceMgr::GetInstance().Load<Texture>(L"Floor", L"Texture\\Town_Floor.bmp");
+	Texture* blackSmith = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith", L"Texture\\BlackSmith.bmp");
+	Texture* tree01 = ResourceMgr::GetInstance().Load<Texture>(L"Tree01", L"Texture\\Tree01.bmp");
+	Texture* tree02 = ResourceMgr::GetInstance().Load<Texture>(L"Tree02", L"Texture\\Tree02.bmp");
+	Texture* grass01 = ResourceMgr::GetInstance().Load<Texture>(L"Grass01", L"Texture\\Grass01.bmp");
+	Texture* grass02 = ResourceMgr::GetInstance().Load<Texture>(L"Grass02", L"Texture\\Grass02.bmp");
+	Texture* grass03 = ResourceMgr::GetInstance().Load<Texture>(L"Grass03", L"Texture\\Grass03.bmp");
+
+	//Texture* floorPixel = ResourceMgr::GetInstance().Load<Texture>(L"Floor_Pixel", L"Texture\\BlackSmith.bmp");
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
 	player->Initialize();
 	CameraMgr::GetInstance().SetTrackingObject(player);
+
+	BlackSmithNPC* blackSmithNPC = new BlackSmithNPC;
+	blackSmithNPC->SetPos(Vec2(TILE_SIZE * 30, TILE_SIZE * 20));
+	blackSmithNPC->Initialize();
 
 	InfRepeatBg* townSkyBg = new InfRepeatBg;
 	townSkyBg->SetTexture(townSky);
@@ -82,15 +95,49 @@ void TownScene::Enter()
 	townTreeBg->SetTexture(treeBG);
 	townTreeBg->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	townTreeBg->SetSize(treeBG->GetSize() * TIMES);
-	townTreeBg->SetPos(Vec2(200, 750));
+	townTreeBg->SetPos(Vec2(120, 750));
 	townTreeBg->SetPlayer(player);
 	townTreeBg->SetTimes(TIMES);
 	townTreeBg->SetSpeed(50.f);
 
-	Structure* townFloor = new Structure;
-	townFloor->SetPos(Vec2(TILE_SIZE * 50, TILE_SIZE * 20));
-	townFloor->SetTexture(floor);
-	townFloor->SetSize(floor->GetSize() * TIMES);
+	UserFollowingBg* townTreeBg2 = new UserFollowingBg(true);
+	townTreeBg2->SetTexture(treeBG);
+	townTreeBg2->SetType(OBJECT_TYPE::BACKGROUND_LAST);
+	townTreeBg2->SetSize(treeBG->GetSize() * TIMES);
+	townTreeBg2->SetPos(Vec2(120 + (treeBG->GetSize().x * TIMES / 2.f), 750.f));
+	townTreeBg2->SetPlayer(player);
+	townTreeBg2->SetTimes(TIMES);
+	townTreeBg2->SetSpeed(50.f);
+
+	Structure* blackSmithSt = new Structure;
+	blackSmithSt->SetPos(Vec2(TILE_SIZE * 30, TILE_SIZE * 20));
+	blackSmithSt->SetTexture(blackSmith);
+	blackSmithSt->SetSize(blackSmith->GetSize());
+
+	Structure* Tree01St = new Structure;
+	Tree01St->SetPos(Vec2(TILE_SIZE * 38, TILE_SIZE * 20));
+	Tree01St->SetTexture(tree01);
+	Tree01St->SetSize(tree01->GetSize());
+
+	Structure* Tree02St = new Structure;
+	Tree02St->SetPos(Vec2(TILE_SIZE * 45, TILE_SIZE * 20));
+	Tree02St->SetTexture(tree02);
+	Tree02St->SetSize(tree02->GetSize());
+
+	Structure* Grass01St = new Structure;
+	Grass01St->SetPos(Vec2(TILE_SIZE * 42, TILE_SIZE * 20));
+	Grass01St->SetTexture(grass01);
+	Grass01St->SetSize(grass01->GetSize());
+
+	Structure* Grass02St = new Structure;
+	Grass02St->SetPos(Vec2(TILE_SIZE * 47, TILE_SIZE * 20));
+	Grass02St->SetTexture(grass02);
+	Grass02St->SetSize(grass02->GetSize());
+
+	Structure* Grass03St = new Structure;
+	Grass03St->SetPos(Vec2(TILE_SIZE * 52, TILE_SIZE * 20));
+	Grass03St->SetTexture(grass03);
+	Grass03St->SetSize(grass03->GetSize());
 
 	//Wall* wall = new Wall;
 	//wall->SetPos(Vec2(5000, TILE_SIZE * 20));
@@ -101,10 +148,20 @@ void TownScene::Enter()
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
+
 	AddGameObject(townTreeBg, townTreeBg->GetType());
-	AddGameObject(townFloor, townFloor->GetType());
+	AddGameObject(townTreeBg2, townTreeBg2->GetType());
+
+	AddGameObject(blackSmithSt, blackSmithSt->GetType());
+	AddGameObject(Tree01St, Tree01St->GetType());
+	AddGameObject(Tree02St, Tree02St->GetType());
+
+	AddGameObject(Grass01St, Grass01St->GetType());
+	AddGameObject(Grass02St, Grass02St->GetType());
+	AddGameObject(Grass03St, Grass03St->GetType());
+
 	AddGameObject(player, player->GetType());
-	//AddGameObject(wall, wall->GetType());
+	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
 
 	Initialize();
@@ -116,5 +173,5 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_FIRST);
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_MIDDLE);
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_LAST);
-
+	ShowCursor(true);
 }

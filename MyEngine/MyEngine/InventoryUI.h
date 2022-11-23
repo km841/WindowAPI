@@ -31,6 +31,7 @@ public:
     inline Player* GetPlayer() { return mPlayer; }
     inline void    SetPlayer(Player* _player) { mPlayer = _player; }
 
+    inline INVENTORY_SLOT GetSlot() const { return mSlot; }
 
 public:
     void ChangeSlot();
