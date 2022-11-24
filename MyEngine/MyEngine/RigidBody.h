@@ -23,6 +23,12 @@ public:
 
     inline void SetGravity() { mGravity = true; }
 
+public:
+    //Helper Function
+    inline void SetVelocity_X_Zero() { mVelocity.x = 0.f; }
+    inline void SetVelocity_Y_Zero() { mVelocity.x = 0.f; }
+    inline void SetVelocity_Zero() { mVelocity = Vec2(0.f, 0.f); }
+
 private:
     void Move();
 

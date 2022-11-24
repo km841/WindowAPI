@@ -55,6 +55,7 @@ void Dungeon1Scene::Render()
 
 void Dungeon1Scene::Enter()
 {
+	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
@@ -75,4 +76,5 @@ void Dungeon1Scene::Enter()
 
 void Dungeon1Scene::Exit()
 {
+	ShowCursor(true);
 }

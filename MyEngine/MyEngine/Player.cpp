@@ -43,37 +43,44 @@ Player::Player()
 	,mDecMaxTime(.08f)
 	,mDecDash(false)
 	,mAccDash(false)
-	,mImgDuration(0.01f)
-	,mCurImgDuration(0.01f)
+	,mImgDuration(0.007f)
+	,mCurImgDuration(0.007f)
 	,mStop(false)
 {
+	SetType(OBJECT_TYPE::PLAYER);
+	SetSize(Vec2(96.f, 96.f));
+
+#pragma region PLAYER_STATE_INITIALIZE
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
 	PlayerState::Jump = new JumpState(this);
 	PlayerState::Eat = new EatState(this);
 	mState = PlayerState::Idle;
+#pragma endregion
 
-	SetType(OBJECT_TYPE::PLAYER);
-	SetSize(Vec2(96.f, 96.f));
-
+#pragma region PLAYER_TEXTURE_INITIALIZE
 	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
 	mDashTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
 	Texture* dust = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
 	Texture* noneAnim = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_NONE_ANIM", L"Texture\\NoneAnim.bmp");
+#pragma endregion
 
+#pragma region PLAYER_COMPONENT_INITIALIZE
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
+
+	GetCollider()->SetSize(Vec2(30.f, 30.f));
+	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
 	CreateComponent(new RigidBody);
 	GetRigidBody()->SetOwner(this);
+#pragma endregion
 
-	GetCollider()->SetSize(Vec2(30.f, 30.f));
-	GetCollider()->SetOffset(Vec2(0.f, -15.f));
-
+#pragma region PLAYER_DUST_EFFECT_INITIALIZE
 	Effect* effect = new Effect;
 	effect->SetOwner(this);
 	effect->SetSize(Vec2(48.f, 48.f));
@@ -90,7 +97,9 @@ Player::Player()
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_LEFT", dustLeft);
 	effect->GetAnimator()->AddAnimation(L"PLAYER_DUST_RIGHT", dustRight);
 	SetEffect(effect);
+#pragma endregion
 
+#pragma region PLAYER_DASH_EFFECT_INITIALIZE
 	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
 	{
 		mDashEffect[i] = new DashEffect;
@@ -99,8 +108,9 @@ Player::Player()
 		mDashEffect[i]->SetOffset(Vec2(0.f, 0.f));
 		mDashEffect[i]->SetTexture(mDashTexture);
 	}
+#pragma endregion
 	
-
+#pragma region PLAYER_ANIMATION
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 32.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_LEFT", mDefaultTexture, Vec2(0.f, 64.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.05f, 8);
@@ -108,9 +118,9 @@ Player::Player()
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_LEFT", mDefaultTexture, Vec2(0.f, 128.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 160.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
+#pragma endregion
 
-	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
-
+#pragma region PLAYER_EQUIP_ITEM_INITIALIZE
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
 		mEquipItems[i] = nullptr;
@@ -119,7 +129,9 @@ Player::Player()
 	ShortSword* shortSword = new ShortSword;
 	shortSword->Initialize();
 	SetEquipItem(shortSword);
+#pragma endregion
 
+	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 }
 
 Player::~Player()
@@ -390,8 +402,7 @@ void Player::StateUpdate()
 
 			if (!mAccDash)
 			{
-				Vec2 velocity = GetRigidBody()->GetVelocity();
-				GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));
+				GetRigidBody()->SetVelocity_X_Zero();
 				mState = PlayerState::Idle;
 			}
 		}
@@ -401,8 +412,7 @@ void Player::StateUpdate()
 
 	if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
 	{
-		Vec2 velocity = GetRigidBody()->GetVelocity();
-	/*	GetRigidBody()->SetVelocity(Vec2(0.f, velocity.y));*/
+		
 	}
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
@@ -444,8 +454,6 @@ void Player::StateUpdate()
 			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
 		}
 	}
-
-	
 
 	if (false == GetGround())
 		SetGravity(true);
@@ -531,13 +539,18 @@ void Player::OnCollisionEnter(Collider* _other)
 
 		if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
 		{
-			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 15.f))
+			float playerBtmLine = pos.y + (size.y / 2.f);
+			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
+			float clearance = 15.f;
+
+			if (playerBtmLine <= otherTopLine + 15.f)
 			{
 				if (NotInDash())
 				{
-					float diff = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
-					pos.y -= diff;
-					playerPos.y -= diff;
+					float diff_y = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
+					pos.y -= diff_y;
+					playerPos.y -= diff_y;
+
 					SetPos(playerPos);
 					GetCollider()->SetPos(pos);
 				}
@@ -551,21 +564,24 @@ void Player::OnCollisionEnter(Collider* _other)
 
 		else if (TILE_TYPE::WALL == tile->GetTileType())
 		{
-			float diff = (otherSize.x / 2.f + size.x / 2.f) - abs(otherPos.x - pos.x);
+			float diff_x = (otherSize.x / 2.f + size.x / 2.f) - abs(otherPos.x - pos.x);
 
-			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f) && diff > 10.f)
+			float playerBtmLine = pos.y + (size.y / 2.f);
+			float playerTopLine = pos.y - (size.y / 2.f);
+			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
+			float otherBtmLine = otherPos.y + (otherSize.y / 2.f);
+
+			float clearance = 5.f;
+
+			if ((playerBtmLine <= otherTopLine + clearance) && diff_x > 10.f)
 			{
-				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
-				TILE_TYPE tileType = otherTile->GetTileType();
-
 				InGround();
 			}
 
-			else if ((otherPos.y + (otherSize.y / 2.f)) <= (pos.y - (size.y / 2.f)))
+			else if (otherBtmLine <= playerTopLine)
 			{
 				mFall = true;
-				Vec2 velocity = GetRigidBody()->GetVelocity();
-				GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
+				GetRigidBody()->SetVelocity_Y_Zero();
 			}
 
 		}
@@ -576,7 +592,7 @@ void Player::OnCollisionExit(Collider* _other)
 {
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
-		if (GetCollider()->GetColCnt() == 1)
+		if (1 == GetCollider()->GetColCnt())
 		{
 			SetGround(false);
 			SetGravity(true);	
