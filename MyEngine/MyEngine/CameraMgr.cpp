@@ -68,9 +68,18 @@ void CameraMgr::Update()
 		return;
 
 	CameraEffect& mCurEffect = mCamEffects.front();
+
+	if (mCurEffect.mDelayTime > mCurEffect.mCurDelayTime)
+	{
+		mCurEffect.mCurDelayTime += DT;
+		return;
+	}
+
 	
 	mCurEffect.mAlphaTime += DT;
 	float ratio = mCurEffect.mAlphaTime / mCurEffect.mEndTime;
+
+
 
 	switch (mCurEffect.mEffect)
 	{
@@ -101,6 +110,11 @@ void CameraMgr::Render()
 	if (mCamEffects.empty() || 
 		CAMERA_EFFECT::SHAKE == mCamEffects.front().mEffect)
 		return;
+
+	if (mCurEffect.mDelayTime > mCurEffect.mCurDelayTime)
+	{
+		return;
+	}
 
 	AlphaBlend(BACK_BUF_DC,
 		0, 0,
@@ -135,7 +149,7 @@ void CameraMgr::WorldToScreenCalc()
 	mDistance = mLookPos - center;
 }
 
-void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime)
+void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime, float _delayTime)
 {
 	if (_endTime <= 0.0f)
 		return;
@@ -144,6 +158,8 @@ void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime)
 	camEffect.mEffect = _effect;
 	camEffect.mEndTime = _endTime;
 	camEffect.mAlphaTime = 0.0f;
+	camEffect.mDelayTime = _delayTime;
+	camEffect.mCurDelayTime = 0.0f;
 
 	mCamEffects.push_back(camEffect);
 }

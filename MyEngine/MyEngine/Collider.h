@@ -14,6 +14,8 @@ public:
 public:
     inline UINT GetID() const { return mID; }
     inline UINT GetColCnt() const { return mColCnt; }
+    inline void DecreaseColCnt() { mColCnt--; }
+    inline void ClearColCnt() { mColCnt = 0; }
 
 public:
     void OnCollision(Collider* _other);

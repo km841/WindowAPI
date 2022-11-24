@@ -145,6 +145,9 @@ void ToolScene::Render()
 		MoveToEx(BACK_BUF_DC, (int)renderPos.x, (int)renderPos.y, nullptr);
 		LineTo(BACK_BUF_DC, (int)renderPos.x, (int)(renderPos.y + ASSISTANT_LINE_Y));
 	}
+
+
+	GuideCircle();
 	
 
 	Scene::Render();
@@ -326,6 +329,26 @@ void ToolScene::CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, 
 	{
 		_parentUI->AddChild(CutTile(_parentUI, _ltPos + (_offset * (float)i), _slice));
 	}
+}
+
+void ToolScene::GuideCircle()
+{
+	Vec2 renderPos(-20, TILE_SIZE * 20 + (TILE_SIZE / 2));
+	renderPos = RENDER_POS(renderPos);
+
+
+	Brush magentaBrush(
+		BACK_BUF_DC,
+		BRUSH_TYPE::MAGENTA
+	);
+
+	Ellipse(
+		BACK_BUF_DC,
+		renderPos.x - 15,
+		renderPos.y - 15,
+		renderPos.x + 15,
+		renderPos.y + 15
+	);
 }
 
 void ToolScene::Save()

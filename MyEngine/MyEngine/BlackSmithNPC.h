@@ -15,6 +15,11 @@ public:
     virtual void Render() override;
     virtual void Destroy() override;
 
+public:
+    virtual void OnCollision(Collider* _other);
+    virtual void OnCollisionEnter(Collider* _other);
+    virtual void OnCollisionExit(Collider* _other);
+
 private:
     Texture* mDefaultTexture;
 };

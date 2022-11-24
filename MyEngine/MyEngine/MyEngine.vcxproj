@@ -147,6 +147,9 @@
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashEffect.h" />
     <ClInclude Include="Dungeon1Scene.h" />
+    <ClInclude Include="DungeonEatEvent.h" />
+    <ClInclude Include="EatState.h" />
+    <ClInclude Include="EventObject.h" />
     <ClInclude Include="Foothold.h" />
     <ClInclude Include="GreatSword.h" />
     <ClInclude Include="InfRepeatBg.h" />
@@ -208,6 +211,9 @@
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashEffect.cpp" />
     <ClCompile Include="Dungeon1Scene.cpp" />
+    <ClCompile Include="DungeonEatEvent.cpp" />
+    <ClCompile Include="EatState.cpp" />
+    <ClCompile Include="EventObject.cpp" />
     <ClCompile Include="Foothold.cpp" />
     <ClCompile Include="GreatSword.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />

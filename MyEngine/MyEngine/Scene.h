@@ -9,6 +9,7 @@ public:
 	~Scene();
 
 	friend class EventMgr;
+	friend class SceneMgr;
 
 public:
 	virtual void Initialize();
@@ -24,10 +25,13 @@ public:
 
 	void AddGameObject(GameObject* _obj, OBJECT_TYPE _eType);
 	void DeleteObjGroup(OBJECT_TYPE _eType);
+	
 
 public:
 	inline std::wstring GetFileName() const { return mFileName; }
 	void TileInitialize(size_t _size);
+
+	
 
 public:
 	void Load(const std::wstring& _path);

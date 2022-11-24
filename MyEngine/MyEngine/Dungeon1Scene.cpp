@@ -6,6 +6,8 @@
 #include "ResourceMgr.h"
 #include "Player.h"
 #include "EventRegisteror.h"
+#include "Collider.h"
+#include "CollisionMgr.h"
 
 void Dungeon1Scene::Initialize()
 {
@@ -15,6 +17,17 @@ void Dungeon1Scene::Initialize()
 void Dungeon1Scene::Update()
 {
 	Scene::Update();
+
+	//Player* player = Player::GetPlayer();
+	//if (nullptr != player)
+	//{
+
+	//	wchar_t szBuffer[256] = {};
+	//	swprintf_s(szBuffer, L"playerX : %f, playerY : %f", player->GetPos().x, player->GetPos().y);
+	//	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	//}
+
+	
 }
 
 void Dungeon1Scene::Render()
@@ -47,12 +60,17 @@ void Dungeon1Scene::Enter()
 
 	Load(L"..\\Resource\\Map\\dungeon1.map");
 
-	Player* player = new Player;
-	player->SetPos(Vec2(TILE_SIZE * 10, TILE_SIZE * 20));
-	player->Initialize();
-	CameraMgr::GetInstance().SetTrackingObject(player);
+	Player* player = Player::GetPlayer();
+	if (nullptr != player)
+	{
+		
+		player->SetPos(Vec2(TILE_SIZE * 5,  TILE_SIZE * 20));
+		player->SetStop(false);
+	}
 
-	EventRegisteror::GetInstance().CreateObject(player, player->GetType());
+	Initialize();
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::TILE);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 }
 
 void Dungeon1Scene::Exit()

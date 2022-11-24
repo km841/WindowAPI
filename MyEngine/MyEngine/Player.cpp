@@ -13,6 +13,7 @@
 #include "IdleState.h"
 #include "WalkState.h"
 #include "JumpState.h"
+#include "EatState.h"
 #include "GameObject.h"
 #include "Effect.h"
 #include "RigidBody.h"
@@ -27,6 +28,7 @@ Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
 WalkState* PlayerState::Walk = nullptr;
 JumpState* PlayerState::Jump = nullptr;
+EatState*  PlayerState::Eat = nullptr;
 
 Player::Player()
 	:mJumpYValue(700.f)
@@ -43,11 +45,13 @@ Player::Player()
 	,mAccDash(false)
 	,mImgDuration(0.04f)
 	,mCurImgDuration(0.04f)
+	,mStop(false)
 {
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
 	PlayerState::Walk = new WalkState(this);
 	PlayerState::Jump = new JumpState(this);
+	PlayerState::Eat = new EatState(this);
 	mState = PlayerState::Idle;
 
 	SetType(OBJECT_TYPE::PLAYER);
@@ -56,6 +60,7 @@ Player::Player()
 	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
 	mDashTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
 	Texture* dust = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
+	Texture* noneAnim = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_NONE_ANIM", L"Texture\\NoneAnim.bmp");
 
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
@@ -102,6 +107,7 @@ Player::Player()
 	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_RIGHT", mDefaultTexture, Vec2(0.f, 96.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.05f, 8);
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_LEFT", mDefaultTexture, Vec2(0.f, 128.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 160.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
 
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
 
@@ -126,6 +132,9 @@ Player::~Player()
 
 	if (nullptr != PlayerState::Jump)
 		delete PlayerState::Jump;
+
+	if (nullptr != PlayerState::Eat)
+		delete PlayerState::Eat;
 
 	if (nullptr != mEffect)
 		delete mEffect;
@@ -154,33 +163,32 @@ void Player::Initialize()
 
 void Player::Update()
 {
+
 	mPrevPos = GetPos();
 	GameObject::Update();
 	EquipItemUpdate();
+
+	if (mStop)
+		return;
+	
 	MoveUpdate();
 	EffectUpdate();
-
 	StateUpdate();
 	AnimationUpdate();
 
-	
-	mPrevState = mState;
-
-	//float colCount= GetCollider()->GetColCnt();
-
 	//wchar_t szBuffer[256] = {};
-	//swprintf_s(szBuffer, L"colCount : %f", colCount);
+	//swprintf_s(szBuffer, L"jumpVelocity : %f", mJumpYValue);
 	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	
+	mPrevState = mState;
 }
 
 void Player::MoveUpdate()
 {
 	// 감속 시간이 0이상이고 최대치보다 작은 경우
 	if (mDecDash && mDecTime < mDecMaxTime)
-	{
 		DashDeceleration();
-	}
+	
 
 	// 가속 플래그가 켜져있고, 가속 시간이 최대 가속시간을 넘었다면
 	DashAcceleration();
@@ -191,7 +199,7 @@ void Player::MoveUpdate()
 	{
 		if (IS_PRESSED(KEY::S))
 		{
-			int a = 0;
+			//TO DO
 		}
 
 		else
@@ -204,7 +212,7 @@ void Player::MoveUpdate()
 				if (mJumpYValue > mJumpYMinValue)
 				{
 					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-					mJumpYValue -= 15.f;
+					mJumpYValue -= DT * 1300.f;
 				}
 
 				if (mJumpYValue < mJumpYMinValue)
@@ -475,6 +483,8 @@ bool Player::IsDownMove() const
 
 void Player::Render()
 {
+	if (mStop)
+		return;
 	EquipItemRender();
 	GameObject::Render();
 	if (nullptr != mEffect)
@@ -495,6 +505,7 @@ void Player::Destroy()
 
 void Player::OnCollision(Collider* _other)
 {
+	int a = 0;
 }
 
 void Player::OnCollisionEnter(Collider* _other)
@@ -534,7 +545,9 @@ void Player::OnCollisionEnter(Collider* _other)
 
 		else if (TILE_TYPE::WALL == tile->GetTileType())
 		{
-			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f))
+			float diff = (otherSize.x / 2.f + size.x / 2.f) - abs(otherPos.x - pos.x);
+
+			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f) && diff > 3.f)
 			{
 				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
 				TILE_TYPE tileType = otherTile->GetTileType();
@@ -557,12 +570,11 @@ void Player::OnCollisionExit(Collider* _other)
 {
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
-		if (GetCollider()->GetColCnt() == 0)
+		if (GetCollider()->GetColCnt() == 1)
 		{
 			SetGround(false);
 			SetGravity(true);	
 		}
-		
 	}
 }
 
@@ -705,6 +717,12 @@ void Player::OutGround()
 {
 	SetGround(false);
 	SetGravity(true);
+}
+
+inline void Player::SetStop(bool _flag)
+{
+	mStop = _flag;
+	GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 }
 
 void Player::SetEquipItem(Item* _item)

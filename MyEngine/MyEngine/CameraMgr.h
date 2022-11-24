@@ -15,6 +15,8 @@ struct CameraEffect
     CAMERA_EFFECT   mEffect;
     float           mAlphaTime;
     float           mEndTime;
+    float           mDelayTime;
+    float           mCurDelayTime;
 };
 
 class GameObject;
@@ -37,9 +39,11 @@ public:
     Vec2 GetTileCoord(Vec2 _tilePos) const;
     Vec2 GetIconUIPos(Vec2 _uiPos, int _index) const;
 
+    inline bool IsEffectProgress() { return !mCamEffects.empty(); }
+
 public:
     void WorldToScreenCalc();
-    void SetEffect(CAMERA_EFFECT _effect, float _endTime);
+    void SetEffect(CAMERA_EFFECT _effect, float _endTime, float _delayTime = 0.f);
     void RemoveEffect();
     
 
@@ -49,6 +53,7 @@ private:
     Vec2                    mDistance;   
     float                   mAccTime;
     GameObject*             mObject;
+
 
 private:
     BLENDFUNCTION           mBlendFunc;

@@ -221,6 +221,18 @@
     <Filter Include="Engine\GameObject\NPC\BlackSmith">
       <UniqueIdentifier>{b3c71a49-8f61-4ce7-81d9-ab3765adf21d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject">
+      <UniqueIdentifier>{0a578e66-a7a7-41d2-b48c-e05164548ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\DungeonEatEvent">
+      <UniqueIdentifier>{fc10fc6e-3e0a-4835-b9c9-60bff54255f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\Base">
+      <UniqueIdentifier>{33f9b93b-dec1-46f4-9455-7af544549e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Player\State\EatState">
+      <UniqueIdentifier>{77649b5b-fab8-4b1a-b8c1-9300cfe2310e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -397,6 +409,15 @@
     </ClInclude>
     <ClInclude Include="BlackSmithNPC.h">
       <Filter>Engine\GameObject\NPC\BlackSmith</Filter>
+    </ClInclude>
+    <ClInclude Include="EventObject.h">
+      <Filter>Engine\GameObject\MapComponent\EventObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonEatEvent.h">
+      <Filter>Engine\GameObject\MapComponent\EventObject\DungeonEatEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="EatState.h">
+      <Filter>Engine\GameObject\Player\State\EatState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -580,6 +601,15 @@
     </ClCompile>
     <ClCompile Include="BlackSmithNPC.cpp">
       <Filter>Engine\GameObject\NPC\BlackSmith</Filter>
+    </ClCompile>
+    <ClCompile Include="EventObject.cpp">
+      <Filter>Engine\GameObject\MapComponent\EventObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonEatEvent.cpp">
+      <Filter>Engine\GameObject\MapComponent\EventObject\DungeonEatEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="EatState.cpp">
+      <Filter>Engine\GameObject\Player\State\EatState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

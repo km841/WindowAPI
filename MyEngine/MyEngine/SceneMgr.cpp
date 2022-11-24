@@ -5,6 +5,9 @@
 #include "PlayScene.h"
 #include "TownScene.h"
 #include "Dungeon1Scene.h"
+#include "GameObject.h"
+#include "Scene.h"
+#include "Collider.h"
 
 SceneMgr::SceneMgr()
 	: mScenes{}
@@ -59,4 +62,21 @@ void SceneMgr::ChangeScene(SCENE_TYPE _eType)
 	mCurScene->Exit();
 	mCurScene = mScenes[(UINT)_eType];
 	mCurScene->Enter();
+}
+
+void SceneMgr::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
+{
+	mScenes[(UINT)_eType]->AddGameObject(_obj, _obj->GetType());
+	_obj->GetCollider()->ClearColCnt();
+	std::vector<GameObject*>& objGroup = mCurScene->mObjects[(UINT)_obj->GetType()];
+	std::vector<GameObject*>::iterator iter = objGroup.begin();
+
+	for (; iter != objGroup.end(); ++iter)
+	{
+		if (*iter == _obj)
+		{
+			objGroup.erase(iter);
+			return;
+		}
+	}
 }

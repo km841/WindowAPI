@@ -16,6 +16,8 @@
 #include "UIMgr.h"
 #include "KeyMgr.h"
 #include "BlackSmithNPC.h"
+#include "DungeonEatEvent.h"
+#include "SceneMgr.h"
 
 void TownScene::Initialize()
 {
@@ -139,9 +141,13 @@ void TownScene::Enter()
 	Grass03St->SetTexture(grass03);
 	Grass03St->SetSize(grass03->GetSize());
 
-	//Wall* wall = new Wall;
-	//wall->SetPos(Vec2(5000, TILE_SIZE * 20));
-	//wall->SetSize(Vec2(10000, 30));
+	Structure* Grass03St_2 = new Structure;
+	Grass03St_2->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
+	Grass03St_2->SetTexture(grass03);
+	Grass03St_2->SetSize(grass03->GetSize());
+
+	DungeonEatEvent* eatEvent = new DungeonEatEvent;
+	eatEvent->SetPos(Vec2(TILE_SIZE * 70, TILE_SIZE * 20));
 
 	InventoryUI* inven = 
 		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
@@ -159,13 +165,17 @@ void TownScene::Enter()
 	AddGameObject(Grass01St, Grass01St->GetType());
 	AddGameObject(Grass02St, Grass02St->GetType());
 	AddGameObject(Grass03St, Grass03St->GetType());
+	AddGameObject(Grass03St_2, Grass03St_2->GetType());
 
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
+	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::TILE);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 }
 
 void TownScene::Exit()
@@ -173,5 +183,15 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_FIRST);
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_MIDDLE);
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_LAST);
+	DeleteObjGroup(OBJECT_TYPE::STRUCTURE);
+	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
+	DeleteObjGroup(OBJECT_TYPE::NPC);
+	DeleteObjGroup(OBJECT_TYPE::TILE);
+
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::TILE);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
+
 	ShowCursor(true);
 }

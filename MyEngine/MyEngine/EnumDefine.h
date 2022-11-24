@@ -44,6 +44,7 @@ enum class OBJECT_TYPE
 	STRUCTURE,
 	TILE,
 	NPC,
+	EVENT_OBJECT,
 	PLAYER,
 	MONSTER,
 	DUMMY,
@@ -63,6 +64,9 @@ enum class EVENT_TYPE
 	OBJECT_DELETE,
 	// lParam : Object Pointer, wParam : No used
 
+	OBJECT_TRANSFORT,
+	// lParam : Object Pointer, wParam : Scepe Type
+
 	SCENE_CHANGE,
 	// lParam : No used, wParam : Scene Type
 
@@ -71,6 +75,7 @@ enum class EVENT_TYPE
 
 	DISABLE_UI,
 	// lParam : No used, wParam : UI Type
+
 };
 
 enum class RELATION_TYPE

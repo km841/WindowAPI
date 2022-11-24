@@ -21,6 +21,9 @@ public:
 	void CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount);
 
 public:
+	void GuideCircle();
+
+public:
 	void Save();
 	void Load();
 

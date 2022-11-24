@@ -11,6 +11,7 @@ class Texture;
 class IdleState;
 class WalkState;
 class JumpState;
+class EatState;
 class InventoryUI;
 class Item;
 
@@ -19,6 +20,7 @@ struct PlayerState
     static IdleState* Idle;
     static WalkState* Walk;
     static JumpState* Jump;
+    static EatState*  Eat;
 };
 
 enum class PLAYER_DIR
@@ -38,6 +40,7 @@ public:
     friend class IdleState;
     friend class WalkState;
     friend class JumpState;
+    friend class EatState;
 
 public:
     virtual void Initialize() override;
@@ -82,6 +85,10 @@ public:
     void OutGround();
 
     inline State* GetState() const { return mState; }
+    inline void SetState(State* _state) { mState = _state; }
+
+    inline bool GetStop() const { return mStop; }
+    inline void SetStop(bool _flag);
 
 
 public:
@@ -114,6 +121,9 @@ private:
     Vec2       mPrevPos;
     PLAYER_DIR mPrevDir;
     PLAYER_DIR mDir;
+
+private:
+    bool       mStop;
 
 private:
     TILE_TYPE  mGroundType;

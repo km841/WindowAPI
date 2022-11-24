@@ -51,6 +51,16 @@ void EventMgr::Execute(Event _event)
 	case EVENT_TYPE::DISABLE_UI:
 		UIMgr::GetInstance().DisableUI((UI_TYPE)_event.wParam);
 		break;
+
+	case EVENT_TYPE::OBJECT_TRANSFORT:
+	{
+		GameObject* obj = (GameObject*)_event.lParam;
+		// 나와 연결된 충돌 제거
+		obj->ClearRelation();
+		SceneMgr::GetInstance().TransfortObject(obj, (SCENE_TYPE)_event.wParam);
+	}
+		break;
+
 	}
 }
 
@@ -61,22 +71,35 @@ void EventMgr::CollisionClear(GameObject* _obj)
 	{
 		//상대의 관계도를 가져옴
 		GameObject* other = rel.mOther;
-		std::set<Relation>& otherRelSet = other->GetRelations();
-		std::set<Relation>::iterator otherIter = otherRelSet.begin();
-
-		//상대의 관계도를 돌며 내가 있다면 충돌을 해제하고 나를 삭제
-		for (; otherIter != otherRelSet.end();)
+		if (nullptr != other)
 		{
-			if (otherIter->mOther == _obj)
+			std::set<Relation>& otherRelSet = other->GetRelations();
+			std::set<Relation>::iterator otherIter = otherRelSet.begin();
+
+			//상대의 관계도를 돌며 내가 있다면 충돌을 해제하고 나를 삭제
+			for (; otherIter != otherRelSet.end();)
 			{
-				other->GetCollider()->OnCollisionExit(_obj->GetCollider());
-				otherIter = otherRelSet.erase(otherIter);
-			}
-			else
-			{
-				++otherIter;
+				if (otherIter->mOther == _obj)
+				{
+					other->GetCollider()->OnCollisionExit(_obj->GetCollider());
+					otherIter = otherRelSet.erase(otherIter);
+				}
+				else
+				{
+					++otherIter;
+				}
 			}
 		}
+
+		else
+		{
+			if (0 < _obj->GetCollider()->GetColCnt())
+				_obj->GetCollider()->DecreaseColCnt();
+				
+
+			
+		}
+
 	}
 }
 

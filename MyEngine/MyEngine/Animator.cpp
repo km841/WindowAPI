@@ -67,9 +67,9 @@ Animation* Animator::FindAnimation(const std::wstring& _animName)
 void Animator::SelectAnimation(const std::wstring& _animName, bool _repeat)
 {
 	Animation* anim = FindAnimation(_animName);	
-	anim->SetRepeat(_repeat);
+	if (nullptr != anim)
+		anim->SetRepeat(_repeat);
 	mCurAnim = anim;
-
 }
 
 void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, bool _repeat)

@@ -33,7 +33,7 @@ void Foothold::Update()
 
 void Foothold::Render()
 {
-	//GameObject::Render();
+	GameObject::Render();
 }
 
 void Foothold::OnCollision(Collider* _other)

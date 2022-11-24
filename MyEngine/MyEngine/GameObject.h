@@ -66,6 +66,7 @@ public:
 	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }
 	inline void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
+	inline void ClearRelation() { mRelations.clear(); }
 	
 	void CreateComponent(Collider* _collider);
 	void CreateComponent(Animator* _animator);
