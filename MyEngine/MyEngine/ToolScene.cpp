@@ -344,10 +344,10 @@ void ToolScene::GuideCircle()
 
 	Ellipse(
 		BACK_BUF_DC,
-		renderPos.x - 15,
-		renderPos.y - 15,
-		renderPos.x + 15,
-		renderPos.y + 15
+		(int)(renderPos.x - 15),
+		(int)(renderPos.y - 15),
+		(int)(renderPos.x + 15),
+		(int)(renderPos.y + 15)
 	);
 }
 

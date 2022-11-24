@@ -67,7 +67,9 @@ void SceneMgr::ChangeScene(SCENE_TYPE _eType)
 void SceneMgr::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
 {
 	mScenes[(UINT)_eType]->AddGameObject(_obj, _obj->GetType());
-	_obj->GetCollider()->ClearColCnt();
+	if (nullptr != _obj->GetCollider())
+		_obj->GetCollider()->ClearColCnt();
+
 	std::vector<GameObject*>& objGroup = mCurScene->mObjects[(UINT)_obj->GetType()];
 	std::vector<GameObject*>::iterator iter = objGroup.begin();
 

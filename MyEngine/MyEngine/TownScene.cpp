@@ -32,6 +32,14 @@ void TownScene::Update()
 
 void TownScene::Render()
 {
+	Brush brush(BACK_BUF_DC, BRUSH_TYPE::BLACK);
+	Rectangle(
+		BACK_BUF_DC,
+		0, 0,
+		WINDOW_WIDTH_SIZE,
+		WINDOW_HEIGHT_SIZE
+	);
+
 	Scene::Render();
 
 	static Texture* aim 
@@ -191,6 +199,12 @@ void TownScene::Exit()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::TILE);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+
+
+	InventoryUI* inven =
+		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+
+	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
 	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
 
 	ShowCursor(true);

@@ -43,8 +43,8 @@ Player::Player()
 	,mDecMaxTime(.08f)
 	,mDecDash(false)
 	,mAccDash(false)
-	,mImgDuration(0.04f)
-	,mCurImgDuration(0.04f)
+	,mImgDuration(0.01f)
+	,mCurImgDuration(0.01f)
 	,mStop(false)
 {
 	mPlayer = this;
@@ -159,12 +159,16 @@ Player::~Player()
 void Player::Initialize()
 {
 	mPrevPos = GetPos();
+	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+	
 }
 
 void Player::Update()
 {
 
-	mPrevPos = GetPos();
+	if (!mStop)
+		mPrevPos = GetPos();
+
 	GameObject::Update();
 	EquipItemUpdate();
 
@@ -176,8 +180,9 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
+
 	//wchar_t szBuffer[256] = {};
-	//swprintf_s(szBuffer, L"jumpVelocity : %f", mJumpYValue);
+	//swprintf_s(szBuffer, L"cnt : %d", mImgCount);das
 	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	
 	mPrevState = mState;
@@ -185,7 +190,7 @@ void Player::Update()
 
 void Player::MoveUpdate()
 {
-	// 감속 시간이 0이상이고 최대치보다 작은 경우
+	// 감속 시간이 0이상이고 감속 최대치보다 작은 경우
 	if (mDecDash && mDecTime < mDecMaxTime)
 		DashDeceleration();
 	
@@ -199,7 +204,7 @@ void Player::MoveUpdate()
 	{
 		if (IS_PRESSED(KEY::S))
 		{
-			//TO DO
+			//TODO
 		}
 
 		else
@@ -238,8 +243,9 @@ void Player::MoveUpdate()
 		mAccDash = true;
 		mFall = true;
 		mDashAccTime = 0.f;
-		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
 		mImgCount = 0;
+		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
+		//mCurImgDuration = mImgDuration;
 
 	}
 
@@ -425,12 +431,15 @@ void Player::StateUpdate()
 	if (nullptr != invenUI)
 	{
 		bool InvenState = invenUI->GetState();
-		if (false == InvenState && IS_JUST_PRESSED(KEY::V))
+		if (false == InvenState 
+			&& IS_JUST_PRESSED(KEY::V))
 		{
 			EventRegisteror::GetInstance().EnableUI(UI_TYPE::INVENTORY);
 		}
 
-		else if (true == InvenState && (IS_JUST_PRESSED(KEY::V) || IS_JUST_PRESSED(KEY::ESC)))
+		else if (true == InvenState 
+			&& (IS_JUST_PRESSED(KEY::V) 
+			||  IS_JUST_PRESSED(KEY::ESC)))
 		{
 			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
 		}
@@ -485,8 +494,10 @@ void Player::Render()
 {
 	if (mStop)
 		return;
+
 	EquipItemRender();
 	GameObject::Render();
+
 	if (nullptr != mEffect)
 		mEffect->Render();
 
@@ -495,8 +506,6 @@ void Player::Render()
 		if (nullptr != mDashEffect[i])
 			mDashEffect[i]->Render();
 	}
-
-
 }
 
 void Player::Destroy()
@@ -505,7 +514,6 @@ void Player::Destroy()
 
 void Player::OnCollision(Collider* _other)
 {
-	int a = 0;
 }
 
 void Player::OnCollisionEnter(Collider* _other)
@@ -534,8 +542,6 @@ void Player::OnCollisionEnter(Collider* _other)
 					GetCollider()->SetPos(pos);
 				}
 				
-
-
 				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
 				TILE_TYPE tileType = otherTile->GetTileType();
 
@@ -547,7 +553,7 @@ void Player::OnCollisionEnter(Collider* _other)
 		{
 			float diff = (otherSize.x / 2.f + size.x / 2.f) - abs(otherPos.x - pos.x);
 
-			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f) && diff > 3.f)
+			if ((pos.y + (size.y / 2.f)) <= (otherPos.y - (otherSize.y / 2.f) + 5.f) && diff > 10.f)
 			{
 				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
 				TILE_TYPE tileType = otherTile->GetTileType();
@@ -680,8 +686,10 @@ void Player::DashAcceleration()
 		mDashSpeed = GetRigidBody()->GetVelocity();
 	}
 
+	// 가속중일 때
 	else
 	{
+		// 이미지 카운트가 최대치 미만이면
 		if (mImgCount < AFTER_IMAGE_TOTAL)
 		{
 			if (mImgDuration > mCurImgDuration)
@@ -692,6 +700,7 @@ void Player::DashAcceleration()
 			{
 				DashEffectReset();
 				++mImgCount;
+				mCurImgDuration = 0.f;
 			}
 		}
 
