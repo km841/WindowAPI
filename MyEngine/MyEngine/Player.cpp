@@ -219,6 +219,7 @@ void Player::MoveUpdate()
 	
 	Vec2 pos = GetPos();
 
+
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
 	{
 		if (IS_PRESSED(KEY::S))
@@ -234,21 +235,18 @@ void Player::MoveUpdate()
 
 			if (mJumpYValue > mJumpYMinValue)
 			{
-				// 선형보간 적용하려면?
-				// 현재 로직 : 누르고있을수록 jumpYValue를 통해 계속해서 힘을 감소시키는 것
-				// 변경할 로직 : 동일하지만 dt*1300을 ㅃ
-
-
-				GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-				mJumpYValue -= DT * 1300.f;
+				if (!mFall)
+				{
+					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
+					mJumpYValue -= DT * 1300.f;
+				}
 			}
 
 			if (mJumpYValue < mJumpYMinValue)
 				mJumpYValue = mJumpYMinValue;
 		}
-		
-
 	}
+	
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
 	{
@@ -269,10 +267,12 @@ void Player::MoveUpdate()
 		angle = Math::RadianToDegree(angle);
 
 		if (angle <= 15.f && angle >= 75.f)
+		{
 			SetGround(false);
+			mFall = true;
+		}
 
 		mAccDash = true;
-		mFall = true;
 		mDashAccTime = 0.f;
 		mImgCount = 0;
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
