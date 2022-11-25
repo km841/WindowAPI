@@ -196,8 +196,6 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
-
-
 	wchar_t szBuffer[256] = {};
 	swprintf_s(szBuffer, L"groundType : %d", mGroundType);
 	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
@@ -233,7 +231,7 @@ void Player::MoveUpdate()
 
 			if (mJumpYValue > mJumpYMinValue)
 			{
-				if (1)
+				if (!mFall)
 				{
 					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
 					mJumpYValue -= DT * 1300.f;
@@ -454,11 +452,6 @@ void Player::StateUpdate()
 			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
 		}
 	}
-
-	//if (false == GetGround())
-	//	SetGravity(true);
-	//else
-	//	SetGravity(false);
 }
 
 void Player::AnimationUpdate()
@@ -488,6 +481,7 @@ void Player::GroundStateUpdate()
 	}
 	else
 	{
+
 		mGroundType = static_cast<Tile*>(*iter)->GetTileType();
 
 		switch (mGroundType)
@@ -501,9 +495,17 @@ void Player::GroundStateUpdate()
 			break;
 
 		case TILE_TYPE::FOOTHOLD:
-			SetGround(true);
+		{
+			if (PlayerState::Jump == mState)
+				SetGround(false);
+			else
+				SetGround(true);
+		}
+
 			break;
 		}
+		
+
 	}
 }
 
@@ -562,6 +564,10 @@ void Player::Render()
 	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
 	TextOut(BACK_BUF_DC, 10, 10, isGround, wcslen(isGround));
 	TextOut(BACK_BUF_DC, 10, 30, isGravity, wcslen(isGravity));
+
+	wchar_t velocity[256] = {};
+	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
+	TextOut(BACK_BUF_DC, 10, 50, velocity, wcslen(velocity));
 }
 
 void Player::Destroy()
