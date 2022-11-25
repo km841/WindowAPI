@@ -58,6 +58,7 @@ public:
     void EffectUpdate();
     void StateUpdate();
     void AnimationUpdate();
+    void GroundStateUpdate();
 
     bool IsMove() const;
     bool IsLeftMove() const;
@@ -148,6 +149,8 @@ private:
     float      mImgDuration;
     float      mCurImgDuration;
     int        mImgCount;
+
+    bool       mGroundFlag;
 
 };
 

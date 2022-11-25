@@ -38,7 +38,7 @@ void Foothold::Render()
 
 void Foothold::OnCollision(Collider* _other)
 {
-	static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::FOOTHOLD);
+	//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::FOOTHOLD);
 }
 
 void Foothold::OnCollisionEnter(Collider* _other)
@@ -48,5 +48,5 @@ void Foothold::OnCollisionEnter(Collider* _other)
 
 void Foothold::OnCollisionExit(Collider* _other)
 {
-	static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
+	//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
 }

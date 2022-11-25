@@ -22,6 +22,8 @@
 #include "EventRegisteror.h"
 #include "ShortSword.h"
 #include "DashEffect.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 #include "Tile.h"
 
 Player* Player::mPlayer = nullptr;
@@ -46,6 +48,7 @@ Player::Player()
 	,mImgDuration(0.007f)
 	,mCurImgDuration(0.007f)
 	,mStop(false)
+	,mGroundFlag(false)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -191,6 +194,10 @@ void Player::Update()
 	EffectUpdate();
 	StateUpdate();
 	AnimationUpdate();
+	GroundStateUpdate();
+
+
+
 
 
 	//wchar_t szBuffer[256] = {};
@@ -222,20 +229,24 @@ void Player::MoveUpdate()
 		else
 		{
 			// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
-			if (!mFall)
+
+			Vec2 velocity = GetRigidBody()->GetVelocity();
+
+			if (mJumpYValue > mJumpYMinValue)
 			{
-				Vec2 velocity = GetRigidBody()->GetVelocity();
+				// 선형보간 적용하려면?
+				// 현재 로직 : 누르고있을수록 jumpYValue를 통해 계속해서 힘을 감소시키는 것
+				// 변경할 로직 : 동일하지만 dt*1300을 ㅃ
 
-				if (mJumpYValue > mJumpYMinValue)
-				{
-					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-					mJumpYValue -= DT * 1300.f;
-				}
 
-				if (mJumpYValue < mJumpYMinValue)
-					mJumpYValue = mJumpYMinValue;
+				GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
+				mJumpYValue -= DT * 1300.f;
 			}
+
+			if (mJumpYValue < mJumpYMinValue)
+				mJumpYValue = mJumpYMinValue;
 		}
+		
 
 	}
 
@@ -251,13 +262,20 @@ void Player::MoveUpdate()
 
 		GetRigidBody()->SetVelocity(dashDir * PLAYER_DASH_SPEED);
 
-		//SetGround(false);
+		// 지금 상태가 Ground인데, 대쉬 방향이 하단 좌우 몇도 이하면 해제안함
+
+		mousePos.Norm();
+		float angle = acos(dashDir.Dot(mousePos));
+		angle = Math::RadianToDegree(angle);
+
+		if (angle <= 15.f && angle >= 75.f)
+			SetGround(false);
+
 		mAccDash = true;
 		mFall = true;
 		mDashAccTime = 0.f;
 		mImgCount = 0;
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
-		//mCurImgDuration = mImgDuration;
 
 	}
 
@@ -275,16 +293,21 @@ void Player::MoveUpdate()
 	if (IS_PRESSED(KEY::A))
 	{
 		Vec2 velocity = GetRigidBody()->GetVelocity();
+		
 
 		if (PlayerState::Jump == mState)
 		{
-			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
-			if (velocity.x > 0.f && NotInDash())
-				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
+			Vec2 destVelocity = Vec2(velocity.x - 5000.f * DT, velocity.y);
+			Vec2 curVelocity = Math::Lerp(velocity, destVelocity, 0.2f);
 
-			// 현재 X방향 속도가 최대치에 도달하지 않은 경우 값 증가
-			if (-mJumpXMaxValue < GetRigidBody()->GetVelocity().x)
-				GetRigidBody()->AddVelocity(Vec2(-5.f, 0.f));
+			if (velocity.x < -mJumpXMaxValue)
+				return;
+
+			if (velocity.x > 0.f && NotInDash())
+				GetRigidBody()->SetVelocity(Vec2(-(velocity.x / 2.f), velocity.y));
+			else
+				GetRigidBody()->SetVelocity(curVelocity);
+
 		}
 		else
 		{
@@ -299,13 +322,20 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
-			if (velocity.x < 0.f && NotInDash())
-				GetRigidBody()->SetVelocity(Vec2(-velocity.x / 1.5f, velocity.y));
+			Vec2 destVelocity = Vec2(velocity.x + 5000.f * DT, velocity.y);
+			Vec2 curVelocity = Math::Lerp(velocity, destVelocity, 0.2f);
 
-			// 현재 X방향 속도가 최대치에 도달하지 않은 경우 값 증가
-			if (mJumpXMaxValue > GetRigidBody()->GetVelocity().x)
-				GetRigidBody()->AddVelocity(Vec2(5.f, 0.f));
+			//// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
+
+			if (velocity.x > mJumpXMaxValue)
+				return;
+
+			if (velocity.x < 0.f && NotInDash())
+				GetRigidBody()->SetVelocity(Vec2(-(velocity.x / 2.f), velocity.y));
+
+			else 
+				GetRigidBody()->SetVelocity(curVelocity);
+
 		}
 		else
 		{
@@ -408,35 +438,7 @@ void Player::StateUpdate()
 		}
 	}
 
-
-
-	if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
-	{
-		
-	}
-
-	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
-	{
-		if (IS_PRESSED(KEY::S))
-		{
-			switch (mGroundType)
-			{
-			case TILE_TYPE::WALL:
-				return;
-			}
-		}
-
-		
-		if (nullptr != mState)
-			mState->Exit();
-
-		mState = PlayerState::Jump;
-		SetGround(false);
-
-	}
-
-	InventoryUI* invenUI =
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	InventoryUI* invenUI = GET_UI(UI_TYPE::INVENTORY);
 
 	if (nullptr != invenUI)
 	{
@@ -455,7 +457,7 @@ void Player::StateUpdate()
 		}
 	}
 
-	if (false == GetGround())
+	if (false == GetGround() || TILE_TYPE::NONE == mGroundType)
 		SetGravity(true);
 	else
 		SetGravity(false);
@@ -465,6 +467,29 @@ void Player::AnimationUpdate()
 {
 	if ((mState != mPrevState) || (mDir != mPrevDir))
 		mState->Enter();
+}
+
+void Player::GroundStateUpdate()
+{
+	Vec2 pos = GetPos();
+	pos.y += 10;
+
+	pos = CameraMgr::GetInstance().GetTileCoord(pos);
+	pos += TILE_OFFSET;
+
+	const std::vector<GameObject*>& tileGroup = 
+		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::TILE);
+
+	for (int i = 0; i < tileGroup.size(); ++i)
+	{
+		if (nullptr != tileGroup[i])
+		{
+			if (pos == tileGroup[i]->GetPos())
+				mGroundType = static_cast<Tile*>(tileGroup[i])->GetTileType();
+			if (TILE_TYPE::NONE == mGroundType)
+				SetGround(false);
+		}
+	}
 }
 
 bool Player::IsMove() const
@@ -522,6 +547,7 @@ void Player::Destroy()
 
 void Player::OnCollision(Collider* _other)
 {
+
 }
 
 void Player::OnCollisionEnter(Collider* _other)
@@ -543,22 +569,29 @@ void Player::OnCollisionEnter(Collider* _other)
 			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
 			float clearance = 15.f;
 
-			if (playerBtmLine <= otherTopLine + 15.f)
+			if (playerBtmLine <= otherTopLine + 10.f)
 			{
 				if (NotInDash())
 				{
 					float diff_y = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
-					pos.y -= diff_y;
+
+					pos.y       -= diff_y;
 					playerPos.y -= diff_y;
 
 					SetPos(playerPos);
 					GetCollider()->SetPos(pos);
+
+					Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
+					TILE_TYPE tileType = otherTile->GetTileType();
+					RigidBody* rigidBody = GetRigidBody();
+
+					if (rigidBody->GetVelocity_Y() - rigidBody->GetGravityAcc().y < 0.f)
+					{
+						InGround();
+					}
 				}
 				
-				Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
-				TILE_TYPE tileType = otherTile->GetTileType();
 
-				InGround();
 			}
 		}
 
@@ -568,12 +601,13 @@ void Player::OnCollisionEnter(Collider* _other)
 
 			float playerBtmLine = pos.y + (size.y / 2.f);
 			float playerTopLine = pos.y - (size.y / 2.f);
-			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
-			float otherBtmLine = otherPos.y + (otherSize.y / 2.f);
+			float otherTopLine  = otherPos.y - (otherSize.y / 2.f);
+			float otherBtmLine  = otherPos.y + (otherSize.y / 2.f);
 
 			float clearance = 5.f;
+			float tolerance = 10.f;
 
-			if ((playerBtmLine <= otherTopLine + clearance) && diff_x > 10.f)
+			if ((playerBtmLine <= otherTopLine + clearance) && (diff_x > tolerance))
 			{
 				InGround();
 			}
@@ -595,7 +629,7 @@ void Player::OnCollisionExit(Collider* _other)
 		if (1 == GetCollider()->GetColCnt())
 		{
 			SetGround(false);
-			SetGravity(true);	
+			SetGravity(true);
 		}
 	}
 }
@@ -603,8 +637,7 @@ void Player::OnCollisionExit(Collider* _other)
 
 void Player::EquipItemUpdate()
 {
-	InventoryUI* inven =
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 	INVENTORY_SLOT curSlot = inven->GetSlot();
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
@@ -637,8 +670,7 @@ void Player::EquipItemUpdate()
 
 void Player::EquipItemRender()
 {
-	InventoryUI* inven =
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 	INVENTORY_SLOT curSlot = inven->GetSlot();
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
@@ -753,8 +785,7 @@ inline void Player::SetStop(bool _flag)
 void Player::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();
-	InventoryUI* inven = 
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 
 	switch (itemType)
 	{

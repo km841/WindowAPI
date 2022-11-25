@@ -101,7 +101,7 @@ void Sword::Update()
 		rotOffset.Norm();
 
 		float offsetDistance = 30.f;
-		rotOffset = RotateVector(rotOffset, angle);
+		rotOffset = Math::RotateVector(rotOffset, angle);
 		rotOffset = rotOffset * offsetDistance;
 
 		Vec2 textureAnchor = tex->GetSize() / 2.f;
@@ -120,7 +120,7 @@ void Sword::Update()
 		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
 		{
 			mRotatedVertices[i].Norm();
-			mRotatedVertices[i] = RotateVector(mRotatedVertices[i], angle);
+			mRotatedVertices[i] = Math::RotateVector(mRotatedVertices[i], angle);
 		}
 
 		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)

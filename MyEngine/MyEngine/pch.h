@@ -36,6 +36,7 @@
 #define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS)
 #define WORLD_POS(POS) CameraMgr::GetInstance().GetWorldPos(POS)
 #define MOUSE_POS MouseMgr::GetInstance().GetMousePos()
+#define GET_UI(TYPE) static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(TYPE))
 
 
 /*KEY CHECK MACRO*/

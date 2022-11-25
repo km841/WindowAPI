@@ -21,6 +21,8 @@ public:
     inline void AddVelocity(Vec2 _velocity) { mVelocity += _velocity; }
     inline Vec2 GetVelocity() const { return mVelocity; }
 
+    inline Vec2 GetGravityAcc() const { return mGravityAcc; }
+
     inline void SetGravity() { mGravity = true; }
 
 public:
@@ -28,6 +30,10 @@ public:
     inline void SetVelocity_X_Zero() { mVelocity.x = 0.f; }
     inline void SetVelocity_Y_Zero() { mVelocity.x = 0.f; }
     inline void SetVelocity_Zero() { mVelocity = Vec2(0.f, 0.f); }
+
+public:
+    inline float GetVelocity_Y() const { return mVelocity.y; }
+    inline float GetVelocity_X() const { return mVelocity.x; }
 
 private:
     void Move();

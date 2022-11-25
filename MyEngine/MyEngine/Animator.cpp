@@ -116,7 +116,7 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 
 		for (int i = 0; i < (UINT)VERTICES_POINT::END; ++i)
 		{
-			vertices[i] = RotateVector(vertices[i], _angle);
+			vertices[i] = Math::RotateVector(vertices[i], _angle);
 			vertices[i] *= distances[i];
 			vertices[i] += anchorPoint;
 		}

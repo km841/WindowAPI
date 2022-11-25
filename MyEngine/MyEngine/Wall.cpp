@@ -21,7 +21,6 @@ void Wall::Initialize()
 {
 	GetCollider()->SetPos(GetPos());
 	GetCollider()->SetSize(GetSize());
-	//GetCollider()->SetOffset(Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
 }
 
 void Wall::Update()
@@ -34,7 +33,7 @@ void Wall::Update()
 
 void Wall::Render()
 {
-	//GameObject::Render();
+	GameObject::Render();
 }
 
 void Wall::OnCollision(Collider* _other)
@@ -79,7 +78,10 @@ void Wall::OnCollision(Collider* _other)
 
 		_other->GetOwner()->SetPos(otherObjPos);
 		_other->SetPos(otherPos);
-		static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::WALL);
+
+
+
+		//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::WALL);
 
 	}
 }
@@ -136,5 +138,5 @@ void Wall::OnCollisionEnter(Collider* _other)
 
 void Wall::OnCollisionExit(Collider* _other)
 {
-	static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
+	//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
 }

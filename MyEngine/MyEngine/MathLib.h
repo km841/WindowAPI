@@ -213,20 +213,34 @@ public:
 
 };
 
-static float DegreeToRadian(float _degree)
+struct Math
 {
-	return (_degree * PI) / 180.f;
-}
+	static float DegreeToRadian(float _degree)
+	{
+		return (_degree * PI) / 180.f;
+	}
 
-static float RadianToDegree(float _radian)
-{
-	return (_radian * 180.f) / PI;
-}
+	static float RadianToDegree(float _radian)
+	{
+		return (_radian * 180.f) / PI;
+	}
 
-static Vec2 RotateVector(Vec2 _v, float _radian)
-{
-	float x = _v.x * cos(_radian) - _v.y * sin(_radian);
-	float y = _v.x * sin(_radian) + _v.y * cos(_radian);
+	static Vec2 RotateVector(Vec2 _v, float _radian)
+	{
+		float x = _v.x * cos(_radian) - _v.y * sin(_radian);
+		float y = _v.x * sin(_radian) + _v.y * cos(_radian);
 
-	return Vec2(x, y);
-}
+		return Vec2(x, y);
+	}
+
+	static float Lerp(float _f1, float _f2, float _t) {
+		return (1 - _t) * _f1 + _t * _f2;
+	}
+
+	static Vec2 Lerp(Vec2 _v1, Vec2 _v2, float _t) {
+		Vec2 temp = {};
+		temp.x = Lerp(_v1.x, _v2.x, _t);
+		temp.y = Lerp(_v1.y, _v2.y, _t);
+		return temp;
+	}
+};
