@@ -8,6 +8,9 @@
 #include "Collider.h"
 
 Tile::Tile()
+	: mTileLT{}
+	, mTileType{}
+	, mCollisionComponent{}
 {
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 	SetType(OBJECT_TYPE::TILE);

@@ -1,12 +1,6 @@
 #pragma once
 #define PI 3.1415926535f
 
-
-
-
-
-
-
 struct Vec2
 {
 public:
@@ -209,8 +203,6 @@ public:
 	{
 		return (x * _other.x) + (y * _other.y);
 	}
-
-
 };
 
 struct Math
@@ -243,4 +235,10 @@ struct Math
 		temp.y = Lerp(_v1.y, _v2.y, _t);
 		return temp;
 	}
+
+	static Vec2 ZeroVector()
+	{
+		return Vec2(0.f, 0.f);
+	}
+
 };

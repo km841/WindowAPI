@@ -101,6 +101,7 @@ enum class ITEM_TYPE
 	WEAPON,
 	SECONDARY,
 	ACCESSORIES,
+	END,
 };
 
 enum class INVENTORY_SLOT

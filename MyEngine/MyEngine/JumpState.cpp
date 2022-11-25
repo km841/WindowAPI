@@ -22,9 +22,13 @@ void JumpState::Enter()
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_RIGHT");
 		break;
 	}
+
+	//mPlayer->SetGround(false);
+	//mPlayer->SetGravity(true);
 }
 
 void JumpState::Exit()
 {
-
+	//mPlayer->SetGround(true);
+	//mPlayer->SetGravity(false);
 }

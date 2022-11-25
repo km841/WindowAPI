@@ -11,6 +11,7 @@
 #include "EventRegisteror.h"
 
 DungeonEatEvent::DungeonEatEvent()
+	:mFixPos{}
 {
 	SetType(OBJECT_TYPE::EVENT_OBJECT);
 

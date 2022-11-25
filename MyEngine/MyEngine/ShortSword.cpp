@@ -11,6 +11,7 @@
 #include "Effect.h"
 
 ShortSword::ShortSword()
+	:mCurDuration(0.f)
 {
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON);

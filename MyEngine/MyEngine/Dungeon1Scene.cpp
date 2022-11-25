@@ -32,7 +32,7 @@ void Dungeon1Scene::Update()
 
 void Dungeon1Scene::Render()
 {
-	
+	Background_Black();
 	Scene::Render();
 
 	static Texture* aim

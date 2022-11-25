@@ -192,17 +192,15 @@ void Player::Update()
 	
 	MoveUpdate();
 	EffectUpdate();
+	GroundStateUpdate();
 	StateUpdate();
 	AnimationUpdate();
-	GroundStateUpdate();
 
 
 
-
-
-	//wchar_t szBuffer[256] = {};
-	//swprintf_s(szBuffer, L"cnt : %d", mImgCount);das
-	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	wchar_t szBuffer[256] = {};
+	swprintf_s(szBuffer, L"groundType : %d", mGroundType);
+	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	
 	mPrevState = mState;
 }
@@ -235,7 +233,7 @@ void Player::MoveUpdate()
 
 			if (mJumpYValue > mJumpYMinValue)
 			{
-				if (!mFall)
+				if (1)
 				{
 					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
 					mJumpYValue -= DT * 1300.f;
@@ -457,10 +455,10 @@ void Player::StateUpdate()
 		}
 	}
 
-	if (false == GetGround() || TILE_TYPE::NONE == mGroundType)
-		SetGravity(true);
-	else
-		SetGravity(false);
+	//if (false == GetGround())
+	//	SetGravity(true);
+	//else
+	//	SetGravity(false);
 }
 
 void Player::AnimationUpdate()
@@ -472,22 +470,39 @@ void Player::AnimationUpdate()
 void Player::GroundStateUpdate()
 {
 	Vec2 pos = GetPos();
-	pos.y += 10;
-
 	pos = CameraMgr::GetInstance().GetTileCoord(pos);
 	pos += TILE_OFFSET;
 
 	const std::vector<GameObject*>& tileGroup = 
 		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::TILE);
 
-	for (int i = 0; i < tileGroup.size(); ++i)
+	std::vector<GameObject*>::const_iterator iter = std::find_if(
+		  tileGroup.begin()
+		, tileGroup.end()
+		, [&](GameObject* _obj) { return _obj->GetPos() == pos; });
+
+	if (iter == tileGroup.end())
 	{
-		if (nullptr != tileGroup[i])
+		mGroundType = TILE_TYPE::NONE;
+		SetGround(false);
+	}
+	else
+	{
+		mGroundType = static_cast<Tile*>(*iter)->GetTileType();
+
+		switch (mGroundType)
 		{
-			if (pos == tileGroup[i]->GetPos())
-				mGroundType = static_cast<Tile*>(tileGroup[i])->GetTileType();
-			if (TILE_TYPE::NONE == mGroundType)
-				SetGround(false);
+		case TILE_TYPE::NONE:
+			SetGround(false);
+			break;
+
+		case TILE_TYPE::WALL:
+			SetGround(true);
+			break;
+
+		case TILE_TYPE::FOOTHOLD:
+			SetGround(true);
+			break;
 		}
 	}
 }
@@ -539,6 +554,14 @@ void Player::Render()
 		if (nullptr != mDashEffect[i])
 			mDashEffect[i]->Render();
 	}
+
+	// Debug Info
+	wchar_t isGround[256] = {};
+	wchar_t isGravity[256] = {};
+	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
+	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
+	TextOut(BACK_BUF_DC, 10, 10, isGround, wcslen(isGround));
+	TextOut(BACK_BUF_DC, 10, 30, isGravity, wcslen(isGravity));
 }
 
 void Player::Destroy()
@@ -567,9 +590,9 @@ void Player::OnCollisionEnter(Collider* _other)
 		{
 			float playerBtmLine = pos.y + (size.y / 2.f);
 			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
-			float clearance = 15.f;
+			float clearance = 10.f;
 
-			if (playerBtmLine <= otherTopLine + 10.f)
+			if (playerBtmLine <= otherTopLine + clearance)
 			{
 				if (NotInDash())
 				{
@@ -626,11 +649,6 @@ void Player::OnCollisionExit(Collider* _other)
 {
 	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
 	{
-		if (1 == GetCollider()->GetColCnt())
-		{
-			SetGround(false);
-			SetGravity(true);
-		}
 	}
 }
 
@@ -759,7 +777,6 @@ void Player::DashAcceleration()
 void Player::InGround()
 {
 	SetGround(true);
-	SetGravity(false);
 	mFall = false;
 	mDecDash = false;
 	mAccDash = false;
@@ -773,13 +790,12 @@ void Player::InGround()
 void Player::OutGround()
 {
 	SetGround(false);
-	SetGravity(true);
 }
 
 inline void Player::SetStop(bool _flag)
 {
 	mStop = _flag;
-	GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
+	GetRigidBody()->SetVelocity(ZERO_VECTOR);
 }
 
 void Player::SetEquipItem(Item* _item)

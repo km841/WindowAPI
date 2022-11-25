@@ -61,7 +61,7 @@ public:
 	inline void		   SetGravity(bool _gravity) { mGravity = _gravity; }
 
 	inline bool		   GetGround() const { return mGround; }
-	inline void		   SetGround(bool _ground) { mGround = _ground; }
+	inline void		   SetGround(bool _ground) { mGround = _ground; mGravity = !(_ground); }
 
 	inline std::set<Relation>& GetRelations() { return mRelations; }
 	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }

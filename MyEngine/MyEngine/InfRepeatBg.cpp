@@ -6,6 +6,8 @@
 
 InfRepeatBg::InfRepeatBg()
 	: mSpeed(0.f)
+	, mTexture(nullptr)
+	, mChild(nullptr)
 {
 }
 

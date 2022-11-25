@@ -31,7 +31,9 @@ public:
 	inline std::wstring GetFileName() const { return mFileName; }
 	void TileInitialize(size_t _size);
 
-	
+public:
+	void Background_Black();
+	void Background_White();
 
 public:
 	void Load(const std::wstring& _path);

@@ -9,7 +9,16 @@
 #include "EventRegisteror.h"
 
 Animation::Animation()
-	:mFinish(false)
+	: mFinish(false)
+	, mOwner(nullptr)
+	, mName{}
+	, mAnim{}
+	, mCurFrm(0)
+	, mAccTime(0.f)
+	, mRepeat(false)
+	, mEffect(false)
+	, mEvent{}
+	, mDummyObj(nullptr)
 {
 }
 

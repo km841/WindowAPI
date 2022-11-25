@@ -96,6 +96,24 @@ void Scene::TileInitialize(size_t _size)
 	}
 }
 
+void Scene::Background_Black()
+{
+	Brush brush(BACK_BUF_DC, BRUSH_TYPE::BLACK);
+	Rectangle(BACK_BUF_DC,
+		0, 0,
+		WINDOW_WIDTH_SIZE,
+		WINDOW_HEIGHT_SIZE);
+}
+
+void Scene::Background_White()
+{
+	Brush brush(BACK_BUF_DC, BRUSH_TYPE::WHITE);
+	Rectangle(BACK_BUF_DC,
+		0, 0,
+		WINDOW_WIDTH_SIZE,
+		WINDOW_HEIGHT_SIZE);
+}
+
 void Scene::Load(const std::wstring& _path)
 {
 	FILE* fp = nullptr;

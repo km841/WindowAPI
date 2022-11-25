@@ -5,9 +5,14 @@
 #include "RigidBody.h"
 
 GameObject::GameObject()
-	:mScale(Vec2(1.f, 1.f))
-	,mGround(true)
-	,mGravity(false)
+	: mScale(Vec2(1.f, 1.f))
+	, mGround(true)
+	, mGravity(false)
+	, mPos{}
+	, mSize{}
+	, mComponents{}
+	, mType()
+	, mRelations()
 {
 }
 
