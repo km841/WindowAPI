@@ -22,8 +22,13 @@ public:
     void OnCollisionEnter(Collider* _other);
     void OnCollisionExit(Collider* _other);
 
+public:
+    inline void SetColliderType(const std::wstring& _type) { mColliderType = _type; }
+    inline std::wstring GetColliderType() const { return mColliderType; }
+
 private:
     static UINT gID;
+    std::wstring mColliderType;
     UINT        mID;
     UINT        mColCnt;
 

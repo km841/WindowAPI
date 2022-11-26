@@ -42,8 +42,6 @@ void Collider::Render()
 
 	else
 	{
-		
-
 		switch (objectType)
 		{
 		case OBJECT_TYPE::WALL:

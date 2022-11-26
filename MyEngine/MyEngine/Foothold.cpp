@@ -3,14 +3,15 @@
 #include "Collider.h"
 #include "Tile.h"
 #include "Player.h"
+#include "RigidBody.h"
 
 Foothold::Foothold()
 {
 	SetType(OBJECT_TYPE::FOOTHOLD);
-	SetSize(Vec2(TILE_SIZE, 1));
+	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
-	GetCollider()->SetSize(Vec2(TILE_SIZE, 1));
+	GetCollider()->SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 }
 
 Foothold::~Foothold()
@@ -21,7 +22,7 @@ void Foothold::Initialize()
 {
 	GetCollider()->SetPos(GetPos());
 	GetCollider()->SetSize(GetSize());
-	GetCollider()->SetOffset(Vec2(0.f, GetSize().y / 2.f));
+	//GetCollider()->SetOffset(Vec2(0.f, (TILE_SIZE / 2.f)));
 }
 
 void Foothold::Update()
@@ -38,26 +39,31 @@ void Foothold::Render()
 
 void Foothold::OnCollision(Collider* _other)
 {
-	//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::FOOTHOLD);
-
-	// 플레이어가 내 위쪽에 있다면 Ground처리
-
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-		// 플레이어를 위로 들어올린다.
+		Vec2 pos = GetCollider()->GetPos();
+		Vec2 size = GetCollider()->GetSize();
 
-		//선하고 점과의 충돌
+		Vec2 otherPos = _other->GetPos();
+		Vec2 otherObjPos = _other->GetOwner()->GetPos();
+		Vec2 otherSize = _other->GetSize();
 
-		Player* player = static_cast<Player*>(_other->GetOwner());
-		Vec2 playerPos = player->GetPos();
-		Vec2 playerSize = player->GetSize();
+		Vec2 dirVec = otherPos - pos;
 
-		//y = ax + b
+		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
 
+		if (dirVec.y < 0.f && diff_y > 0.f )
+		{
+			if (diff_y < 1.f)
+				return;
 
-		// 식을 만족하면 그 점은 방정식의 해가 된다
+			otherObjPos.y -= 1;
 
+			_other->GetOwner()->SetPos(otherObjPos);
+			
+		}
 	}
+	
 }
 
 void Foothold::OnCollisionEnter(Collider* _other)

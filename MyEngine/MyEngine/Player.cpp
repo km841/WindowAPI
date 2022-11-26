@@ -616,13 +616,13 @@ void Player::OnCollisionEnter(Collider* _other)
 			{
 				if (NotInDash())
 				{
-					float diff_y = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
+					//float diff_y = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
 
-					pos.y       -= diff_y;
-					playerPos.y -= diff_y;
+					//pos.y       -= diff_y;
+					//playerPos.y -= diff_y;
 
-					SetPos(playerPos);
-					GetCollider()->SetPos(pos);
+					//SetPos(playerPos);
+					//GetCollider()->SetPos(pos);
 
 					Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
 					TILE_TYPE tileType = otherTile->GetTileType();

@@ -168,6 +168,7 @@
     <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JumpState.h" />
+    <ClInclude Include="LineCollider.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="NPC.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="JumpState.cpp" />
+    <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="NPC.cpp" />

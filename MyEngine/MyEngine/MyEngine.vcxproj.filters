@@ -233,6 +233,9 @@
     <Filter Include="Engine\GameObject\Player\State\EatState">
       <UniqueIdentifier>{77649b5b-fab8-4b1a-b8c1-9300cfe2310e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Collider\LineCollider">
+      <UniqueIdentifier>{9f82b84d-8486-409c-8c59-4729c2545e9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="EatState.h">
       <Filter>Engine\GameObject\Player\State\EatState</Filter>
+    </ClInclude>
+    <ClInclude Include="LineCollider.h">
+      <Filter>Engine\Component\Collider\LineCollider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="EatState.cpp">
       <Filter>Engine\GameObject\Player\State\EatState</Filter>
+    </ClCompile>
+    <ClCompile Include="LineCollider.cpp">
+      <Filter>Engine\Component\Collider\LineCollider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
