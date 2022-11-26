@@ -12,6 +12,9 @@ void TimeMgr::Update()
 	QueryPerformanceCounter(&mCurCount);
 	mDT = (float)(mCurCount.QuadPart - mPrevCount.QuadPart) / (float)(mPrequency.QuadPart);
 	mPrevCount = mCurCount;
+
+	if (mDT > (1.f / 60.f))
+		mDT = (1.f / 60.f);
 }
 
 void TimeMgr::Render()

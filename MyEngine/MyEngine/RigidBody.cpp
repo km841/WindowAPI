@@ -32,8 +32,8 @@ void RigidBody::Update()
 
 	Move();
 
-	mAccel = Vec2(0.f, 0.f);
-	mForce = Vec2(0.f, 0.f);
+	mAccel = ZERO_VECTOR;
+	mForce = ZERO_VECTOR;
 }
 
 void RigidBody::Move()

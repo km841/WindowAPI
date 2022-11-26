@@ -175,7 +175,6 @@ void Player::Initialize()
 {
 	mPrevPos = GetPos();
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
-	
 }
 
 void Player::Update()
@@ -185,6 +184,10 @@ void Player::Update()
 		mPrevPos = GetPos();
 
 	GameObject::Update();
+
+	if (GetRigidBody()->GetVelocity_Y() > 800.f)
+		GetRigidBody()->SetVelocity_Y(800.f);
+	
 	EquipItemUpdate();
 
 	if (mStop)
@@ -199,6 +202,14 @@ void Player::Update()
 	wchar_t szBuffer[256] = {};
 	swprintf_s(szBuffer, L"groundType : %d", mGroundType);
 	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+
+	if (IS_PRESSED(KEY::G))
+	{
+		if (GetGravity())
+			SetGravity(false);
+		else
+			SetGravity(true);
+	}
 	
 	mPrevState = mState;
 }
@@ -479,6 +490,8 @@ void Player::GroundStateUpdate()
 		mGroundType = TILE_TYPE::NONE;
 		SetGround(false);
 	}
+
+
 	else
 	{
 
@@ -562,12 +575,12 @@ void Player::Render()
 	wchar_t isGravity[256] = {};
 	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
 	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
-	TextOut(BACK_BUF_DC, 10, 10, isGround, wcslen(isGround));
-	TextOut(BACK_BUF_DC, 10, 30, isGravity, wcslen(isGravity));
+	TextOut(BACK_BUF_DC, 10, 10, isGround, (int)wcslen(isGround));
+	TextOut(BACK_BUF_DC, 10, 30, isGravity, (int)wcslen(isGravity));
 
 	wchar_t velocity[256] = {};
 	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
-	TextOut(BACK_BUF_DC, 10, 50, velocity, wcslen(velocity));
+	TextOut(BACK_BUF_DC, 10, 50, velocity, (int)wcslen(velocity));
 }
 
 void Player::Destroy()
@@ -592,6 +605,7 @@ void Player::OnCollisionEnter(Collider* _other)
 		Vec2 otherSize = _other->GetSize();
 		Vec2 size = GetCollider()->GetSize();
 
+		// foothold 부분 프레임에 관련없이 잘 착지되도록.. 그리고 wall이 뚫리지 않도록 해야 함
 		if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
 		{
 			float playerBtmLine = pos.y + (size.y / 2.f);
@@ -786,8 +800,7 @@ void Player::InGround()
 	mFall = false;
 	mDecDash = false;
 	mAccDash = false;
-	Vec2 velocity = GetRigidBody()->GetVelocity();
-	GetRigidBody()->SetVelocity(Vec2(velocity.x, 0.f));
+	GetRigidBody()->SetVelocity_Y_Zero();
 	mState = PlayerState::Idle;
 	mJumpYValue = 700.f;
 	mJumpXValue = 0.f;

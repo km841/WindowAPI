@@ -28,12 +28,15 @@ public:
 public:
     //Helper Function
     inline void SetVelocity_X_Zero() { mVelocity.x = 0.f; }
-    inline void SetVelocity_Y_Zero() { mVelocity.x = 0.f; }
-    inline void SetVelocity_Zero() { mVelocity = Vec2(0.f, 0.f); }
+    inline void SetVelocity_Y_Zero() { mVelocity.y = 0.f; }
+    inline void SetVelocity_Zero() { mVelocity = ZERO_VECTOR; }
 
 public:
     inline float GetVelocity_Y() const { return mVelocity.y; }
     inline float GetVelocity_X() const { return mVelocity.x; }
+
+    inline void SetVelocity_Y(float _f) { mVelocity.y = _f; }
+    inline void SetVelocity_X(float _f) { mVelocity.x = _f; }
 
 private:
     void Move();
