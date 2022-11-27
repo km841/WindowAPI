@@ -25,12 +25,15 @@ public:
 public:
     inline void SetColliderType(const std::wstring& _type) { mColliderType = _type; }
     inline std::wstring GetColliderType() const { return mColliderType; }
+    inline void SetEnable(bool _flag) { mEnable = _flag; }
+    inline bool GetEnable() const { return mEnable; }
 
 private:
     static UINT gID;
     std::wstring mColliderType;
     UINT        mID;
     UINT        mColCnt;
+    bool        mEnable;
 
 };
 

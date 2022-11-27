@@ -10,6 +10,7 @@ public:
 
 	friend class EventMgr;
 	friend class SceneMgr;
+	friend class ToolScene;
 
 public:
 	virtual void Initialize();

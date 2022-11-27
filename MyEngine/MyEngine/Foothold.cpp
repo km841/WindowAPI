@@ -41,7 +41,7 @@ void Foothold::Update()
 		if (playerTilePos == topTilePos)
 		{
 			mPlayerAbobeMe = true;
-			player->GetRigidBody()->SetVelocity_Y(player->GetRigidBody()->GetVelocity_Y() * 0.9f);
+			player->GetRigidBody()->SetVelocity_Y(player->GetRigidBody()->GetVelocity_Y() * 0.95f);
 		}
 		else
 			mPlayerAbobeMe = false;

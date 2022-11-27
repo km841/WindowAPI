@@ -7,6 +7,7 @@ UINT Collider::gID = 0;
 
 Collider::Collider()
 	:mID(gID++)
+	,mEnable(true)
 {
 	//SetSize(Vec2(30.f, 30.f));
 }

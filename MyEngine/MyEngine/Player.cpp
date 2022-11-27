@@ -25,6 +25,7 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "Tile.h"
+#include "Foothold.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -198,9 +199,9 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
-	wchar_t szBuffer[256] = {};
-	swprintf_s(szBuffer, L"groundType : %d", mGroundType);
-	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	//wchar_t szBuffer[256] = {};
+	//swprintf_s(szBuffer, L"groundType : %d", mGroundType);
+	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
 	if (IS_PRESSED(KEY::G))
 	{
@@ -231,6 +232,7 @@ void Player::MoveUpdate()
 		if (IS_PRESSED(KEY::S))
 		{
 			//TODO
+
 		}
 
 		else
@@ -550,17 +552,8 @@ void Player::OnCollisionEnter(Collider* _other)
 
 void Player::OnCollisionExit(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
-	{
-		if (0 == GetCollider()->GetColCnt())
-			OutGround();
-	}
-
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::FOOTHOLD)
-	{
-		if (0 == GetCollider()->GetColCnt())
-			OutGround();
-	}
+	if (0 == GetCollider()->GetColCnt())
+		OutGround();
 }
 
 
