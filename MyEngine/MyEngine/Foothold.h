@@ -18,6 +18,6 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 private:
-
+    bool mPlayerAbobeMe;
 };
 

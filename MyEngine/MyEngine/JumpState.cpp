@@ -23,6 +23,7 @@ void JumpState::Enter()
 		break;
 	}
 
+
 	//mPlayer->SetGround(false);
 	//mPlayer->SetGravity(true);
 }

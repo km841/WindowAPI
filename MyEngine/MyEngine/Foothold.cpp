@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Player.h"
 #include "RigidBody.h"
+#include "CameraMgr.h"
 
 Foothold::Foothold()
 {
@@ -21,15 +22,31 @@ Foothold::~Foothold()
 void Foothold::Initialize()
 {
 	GetCollider()->SetPos(GetPos());
-	GetCollider()->SetSize(GetSize());
 	//GetCollider()->SetOffset(Vec2(0.f, (TILE_SIZE / 2.f)));
 }
 
 void Foothold::Update()
 {
-	if (nullptr != GetOwner())
-		SetPos(GetOwner()->GetPos());
+
 	GameObject::Update();
+	
+	Player* player =Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		Vec2 playerTilePos = CameraMgr::GetInstance().GetTileCoord(player->GetCollider()->GetPos());
+		Vec2 myTilePos = CameraMgr::GetInstance().GetTileCoord(GetPos());
+
+		Vec2 topTilePos= Vec2(myTilePos.x, myTilePos.y - TILE_SIZE);
+		if (playerTilePos == topTilePos)
+		{
+			mPlayerAbobeMe = true;
+			player->GetRigidBody()->SetVelocity_Y(player->GetRigidBody()->GetVelocity_Y() * 0.9f);
+		}
+		else
+			mPlayerAbobeMe = false;
+	}
+
 }
 
 void Foothold::Render()
@@ -39,39 +56,39 @@ void Foothold::Render()
 
 void Foothold::OnCollision(Collider* _other)
 {
+	// 플레이어가 이전에 내 위에 있었다면 속도를 낮추고 밀어올림
+	
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
 
 		Vec2 otherPos = _other->GetPos();
-		Vec2 otherObjPos = _other->GetOwner()->GetPos();
 		Vec2 otherSize = _other->GetSize();
 
-		Vec2 dirVec = otherPos - pos;
-
 		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
-
-		if (dirVec.y < 0.f && diff_y > 0.f )
+		Vec2 objectPos = _other->GetOwner()->GetPos();
+		if (diff_y > 0.f)
 		{
 			if (diff_y < 1.f)
 				return;
 
-			otherObjPos.y -= 1;
-
-			_other->GetOwner()->SetPos(otherObjPos);
-			
+			objectPos.y -= 1;
+			_other->GetOwner()->SetPos(objectPos);
 		}
 	}
-	
 }
 
 void Foothold::OnCollisionEnter(Collider* _other)
 {
-
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	{
+		if (mPlayerAbobeMe)
+			static_cast<Player*>(_other->GetOwner())->InGround();
+	}
 }
 
 void Foothold::OnCollisionExit(Collider* _other)
 {
-	//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::NONE);
+
 }

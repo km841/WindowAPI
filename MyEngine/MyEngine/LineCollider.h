@@ -14,9 +14,5 @@ public:
 private:
     Vec2 mLeftPos;
     Vec2 mRightPos;
-    float mAngle;
-
-    
-
 };
 

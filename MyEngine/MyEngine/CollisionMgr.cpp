@@ -4,6 +4,9 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "Tile.h"
+#include "Wall.h"
+#include "Foothold.h"
 
 
 void CollisionMgr::Initialize()
@@ -75,6 +78,10 @@ void CollisionMgr::CheckGroup(std::vector<GameObject*>& _row, std::vector<GameOb
 				iter = mColMap.find(id.ID);
 			}
 
+
+
+			
+
 			if (IsCollision(leftCol, rightCol))
 			{
 
@@ -126,6 +133,8 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 
 	Vec2 leftSize = _left->GetSize();
 	Vec2 rightSize = _right->GetSize();
+
+
 
 	if (abs(leftPos.x - rightPos.x) <= (leftSize.x + rightSize.x) / 2.f &&
 		abs(leftPos.y - rightPos.y) <= (leftSize.y + rightSize.y) / 2.f)

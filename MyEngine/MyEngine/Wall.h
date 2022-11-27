@@ -1,6 +1,7 @@
 #pragma once
 #include "CollisionComponent.h"
 class Tile;
+class Player;
 class Wall :
     public CollisionComponent
 {
@@ -21,6 +22,7 @@ public:
 public:
 
 private:
+    bool mPlayerAbobeMe;
 
 };
 

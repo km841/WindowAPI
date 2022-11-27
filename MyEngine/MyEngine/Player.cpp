@@ -195,7 +195,6 @@ void Player::Update()
 	
 	MoveUpdate();
 	EffectUpdate();
-	GroundStateUpdate();
 	StateUpdate();
 	AnimationUpdate();
 
@@ -471,56 +470,7 @@ void Player::AnimationUpdate()
 		mState->Enter();
 }
 
-void Player::GroundStateUpdate()
-{
-	Vec2 pos = GetPos();
-	pos = CameraMgr::GetInstance().GetTileCoord(pos);
-	pos += TILE_OFFSET;
 
-	const std::vector<GameObject*>& tileGroup = 
-		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::TILE);
-
-	std::vector<GameObject*>::const_iterator iter = std::find_if(
-		  tileGroup.begin()
-		, tileGroup.end()
-		, [&](GameObject* _obj) { return _obj->GetPos() == pos; });
-
-	if (iter == tileGroup.end())
-	{
-		mGroundType = TILE_TYPE::NONE;
-		SetGround(false);
-	}
-
-
-	else
-	{
-
-		mGroundType = static_cast<Tile*>(*iter)->GetTileType();
-
-		switch (mGroundType)
-		{
-		case TILE_TYPE::NONE:
-			SetGround(false);
-			break;
-
-		case TILE_TYPE::WALL:
-			SetGround(true);
-			break;
-
-		case TILE_TYPE::FOOTHOLD:
-		{
-			if (PlayerState::Jump == mState)
-				SetGround(false);
-			else
-				SetGround(true);
-		}
-
-			break;
-		}
-		
-
-	}
-}
 
 bool Player::IsMove() const
 {
@@ -594,81 +544,22 @@ void Player::OnCollision(Collider* _other)
 
 void Player::OnCollisionEnter(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
-	{
-		// 하단이었을 때만
-		Tile* tile = static_cast<Tile*>(_other->GetOwner());
-		Vec2 playerPos = GetPos();
-		Vec2 otherPos = _other->GetPos();
-		Vec2 pos = GetCollider()->GetPos();
 
-		Vec2 otherSize = _other->GetSize();
-		Vec2 size = GetCollider()->GetSize();
 
-		// foothold 부분 프레임에 관련없이 잘 착지되도록.. 그리고 wall이 뚫리지 않도록 해야 함
-		if (TILE_TYPE::FOOTHOLD == tile->GetTileType())
-		{
-			float playerBtmLine = pos.y + (size.y / 2.f);
-			float otherTopLine = otherPos.y - (otherSize.y / 2.f);
-			float clearance = 10.f;
-
-			if (playerBtmLine <= otherTopLine + clearance)
-			{
-				if (NotInDash())
-				{
-					//float diff_y = (otherSize.y / 2.f + size.y / 2.f) - abs(otherPos.y - pos.y);
-
-					//pos.y       -= diff_y;
-					//playerPos.y -= diff_y;
-
-					//SetPos(playerPos);
-					//GetCollider()->SetPos(pos);
-
-					Tile* otherTile = static_cast<Tile*>(_other->GetOwner());
-					TILE_TYPE tileType = otherTile->GetTileType();
-					RigidBody* rigidBody = GetRigidBody();
-
-					if (rigidBody->GetVelocity_Y() - rigidBody->GetGravityAcc().y < 0.f)
-					{
-						InGround();
-					}
-				}
-				
-
-			}
-		}
-
-		else if (TILE_TYPE::WALL == tile->GetTileType())
-		{
-			float diff_x = (otherSize.x / 2.f + size.x / 2.f) - abs(otherPos.x - pos.x);
-
-			float playerBtmLine = pos.y + (size.y / 2.f);
-			float playerTopLine = pos.y - (size.y / 2.f);
-			float otherTopLine  = otherPos.y - (otherSize.y / 2.f);
-			float otherBtmLine  = otherPos.y + (otherSize.y / 2.f);
-
-			float clearance = 5.f;
-			float tolerance = 10.f;
-
-			if ((playerBtmLine <= otherTopLine + clearance) && (diff_x > tolerance))
-			{
-				InGround();
-			}
-
-			else if (otherBtmLine <= playerTopLine)
-			{
-				mFall = true;
-				GetRigidBody()->SetVelocity_Y_Zero();
-			}
-
-		}
-	}
 }
 
 void Player::OnCollisionExit(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::TILE)
+	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
 	{
+		if (0 == GetCollider()->GetColCnt())
+			OutGround();
+	}
+
+	if (_other->GetOwner()->GetType() == OBJECT_TYPE::FOOTHOLD)
+	{
+		if (0 == GetCollider()->GetColCnt())
+			OutGround();
 	}
 }
 
