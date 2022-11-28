@@ -51,7 +51,8 @@ void Wall::Render()
 
 void Wall::OnCollision(Collider* _other)
 {
-	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType() || 
+		OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
 	{
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();

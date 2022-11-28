@@ -52,24 +52,22 @@
 #define IS_JUST_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::JUST_RBTN_CLICKED
 #define IS_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::RBTN_CLICKED
 
-#define EPSILON 0.00001
+constexpr auto EPSILON = 0.00001;
 
 /*WINDOW DEFAULT SIZE*/
-#define WINDOW_WIDTH_SIZE 1280 
-#define WINDOW_HEIGHT_SIZE 768
-#define ASSISTANT_LINE_X 100000
-#define ASSISTANT_LINE_Y 100000
+constexpr auto WINDOW_WIDTH_SIZE = 1280;
+constexpr auto WINDOW_HEIGHT_SIZE = 768;
+constexpr auto ASSISTANT_LINE_X = 100000;
+constexpr auto ASSISTANT_LINE_Y = 100000;
 
-#define FILENAME_MAX_SIZE 512
-#define IMAGE_TILE_SIZE_X 16
-#define IMAGE_TILE_SIZE_Y 16
-#define TILE_SIZE 48
-#define HEIGHT_CORRECT 28
-#define WIDTH_CORRECT 18
-#define TIMES 3.f
-#define BOTTOM_LIMIT TILE_SIZE * 24
-#define AFTER_IMAGE_TOTAL 4
-#define COMMENT_MAX_SIZE 256
-#define TILE_OFFSET TILE_SIZE / 2.f
+constexpr auto FILENAME_MAX_SIZE = 512;
+constexpr auto IMAGE_TILE_SIZE_X = 16;
+constexpr auto IMAGE_TILE_SIZE_Y = 16;
+constexpr auto TILE_SIZE = 48;
+constexpr auto TIMES = 3.f;
+constexpr auto BOTTOM_LIMIT = TILE_SIZE * 24;
+constexpr auto AFTER_IMAGE_TOTAL = 4;
+constexpr auto COMMENT_MAX_SIZE = 256;
+constexpr auto TILE_OFFSET = TILE_SIZE / 2.f;
 
 

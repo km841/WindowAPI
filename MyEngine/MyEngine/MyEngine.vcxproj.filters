@@ -236,6 +236,30 @@
     <Filter Include="Engine\Component\Collider\LineCollider">
       <UniqueIdentifier>{9f82b84d-8486-409c-8c59-4729c2545e9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI">
+      <UniqueIdentifier>{c3a14c61-1c0f-463a-a326-76a1f8330f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Base">
+      <UniqueIdentifier>{dccac5ad-d1ec-4b82-bbf8-6aebd36a0ebf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState">
+      <UniqueIdentifier>{63422dc0-db41-4d41-be39-904f9763ceda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Base">
+      <UniqueIdentifier>{0bd9cda3-5987-4f44-bbca-c694d7d3d68d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState">
+      <UniqueIdentifier>{66a5a81e-1b9b-4c16-8354-1563850f31ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\GiantSkullWarrior">
+      <UniqueIdentifier>{927fa401-5ba2-4573-a647-16b9dc53efca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\MonsterFactory">
+      <UniqueIdentifier>{13989927-249f-4bc5-b66f-f183b5ca0918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState">
+      <UniqueIdentifier>{d9f41615-713d-4541-bf3a-0dfa23a202f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -304,9 +328,6 @@
     </ClInclude>
     <ClInclude Include="EnumDefine.h">
       <Filter>Common\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Engine\GameObject\Monster</Filter>
     </ClInclude>
     <ClInclude Include="CollisionMgr.h">
       <Filter>Engine\Manager\CollisionMgr</Filter>
@@ -425,6 +446,27 @@
     <ClInclude Include="LineCollider.h">
       <Filter>Engine\Component\Collider\LineCollider</Filter>
     </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Engine\GameObject\Monster\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Engine\GameObject\Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterIdleState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="GiantSkullWarrior.h">
+      <Filter>Engine\GameObject\Monster\GiantSkullWarrior</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterFactory.h">
+      <Filter>Engine\GameObject\Monster\MonsterFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTraceState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc">
@@ -499,9 +541,6 @@
     </ClCompile>
     <ClCompile Include="EventRegisteror.cpp">
       <Filter>Common\EventReg</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="CollisionMgr.cpp">
       <Filter>Engine\Manager\CollisionMgr</Filter>
@@ -619,6 +658,27 @@
     </ClCompile>
     <ClCompile Include="LineCollider.cpp">
       <Filter>Engine\Component\Collider\LineCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Engine\GameObject\Monster\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Engine\GameObject\Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterIdleState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="GiantSkullWarrior.cpp">
+      <Filter>Engine\GameObject\Monster\GiantSkullWarrior</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterFactory.cpp">
+      <Filter>Engine\GameObject\Monster\MonsterFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterTraceState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

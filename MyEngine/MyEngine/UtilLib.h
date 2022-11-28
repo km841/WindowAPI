@@ -1,7 +1,12 @@
 #pragma once
 #include <Windows.h>
 
-
+struct MonsterInfo
+{
+	int mHP;
+	float mSpeed;
+	float mRecog;
+};
 
 struct WindowGDI
 {

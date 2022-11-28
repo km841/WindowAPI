@@ -8,6 +8,10 @@
 #include "EventRegisteror.h"
 #include "Collider.h"
 #include "CollisionMgr.h"
+#include "MonsterFactory.h"
+#include "GiantSkullWarrior.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 
 void Dungeon1Scene::Initialize()
 {
@@ -64,18 +68,31 @@ void Dungeon1Scene::Enter()
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
-		
 		player->SetPos(Vec2(TILE_SIZE * 5,  TILE_SIZE * 20));
 		player->SetStop(false);
 	}
+
+	Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
+
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull1, skull1->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
+
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
+
 }
 
 void Dungeon1Scene::Exit()
 {
 	ShowCursor(true);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
+
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
 }

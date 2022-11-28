@@ -14,11 +14,11 @@ void JumpState::Enter()
 	Animation* anim = nullptr;
 	switch (mPlayer->mDir)
 	{
-	case PLAYER_DIR::LEFT:
+	case DIR::LEFT:
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_LEFT");
 		break;
 
-	case PLAYER_DIR::RIGHT:
+	case DIR::RIGHT:
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_RIGHT");
 		break;
 	}

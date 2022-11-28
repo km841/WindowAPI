@@ -357,9 +357,9 @@ void Player::MoveUpdate()
 
 	// 마우스 방향에 따라 현재 방향 변경 
 	if (MOUSE_POS.x > RENDER_POS(pos).x)
-		mDir = PLAYER_DIR::RIGHT;
+		mDir = DIR::RIGHT;
 	else
-		mDir = PLAYER_DIR::LEFT;
+		mDir = DIR::LEFT;
 
 	
 	SetPos(pos);

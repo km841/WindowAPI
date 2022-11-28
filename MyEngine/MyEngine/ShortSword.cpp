@@ -97,7 +97,7 @@ void ShortSword::Update()
 			rotAnim->Reset();
 		}
 		Vec2 dirVec = {1.f, 0.f};
-		PLAYER_DIR dir = Player::GetPlayer()->GetPlayerDir();
+		DIR dir = Player::GetPlayer()->GetPlayerDir();
 
 		Vec2 mousePos = MOUSE_POS;
 		Vec2 effectPos = RENDER_POS(GetEffect()->GetPos());
@@ -109,16 +109,16 @@ void ShortSword::Update()
 		float angle = GetAngle();
 
 		Player* player = Player::GetPlayer();
-		PLAYER_DIR playerDir = player->GetPlayerDir();
+		DIR playerDir = player->GetPlayerDir();
 		Vec2 basicOffset = {};
 
 		switch (playerDir)
 		{
-		case PLAYER_DIR::LEFT:
+		case DIR::LEFT:
 			basicOffset = Vec2(-25.f, -15.f);
 			break;
 
-		case PLAYER_DIR::RIGHT:
+		case DIR::RIGHT:
 			basicOffset = Vec2(25.f, -15.f);
 			break;
 		}
