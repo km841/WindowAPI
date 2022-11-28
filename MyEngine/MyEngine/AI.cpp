@@ -2,6 +2,18 @@
 #include "AI.h"
 #include "MonsterState.h"
 
+AI::~AI()
+{
+	for (auto& state : mStateMap)
+	{
+		if (nullptr != state.second)
+		{
+			delete state.second;
+			state.second = nullptr;
+		}
+	}
+}
+
 void AI::Update()
 {
 	if (nullptr != mCurState)

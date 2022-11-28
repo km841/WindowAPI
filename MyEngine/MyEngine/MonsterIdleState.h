@@ -15,8 +15,12 @@ public:
     virtual void Enter();
     virtual void Exit();
 
-private:
+public:
+    bool PlayerCheck();
 
+private:
+    float mStayTime;
+    float mMaxStayTime;
 
 };
 

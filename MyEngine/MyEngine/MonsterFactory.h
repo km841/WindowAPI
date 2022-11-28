@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "MonsterIdleState.h"
 #include "MonsterTraceState.h"
+#include "MonsterPatrolState.h"
 #include "AI.h"
 //class MonsterIdleState;
 class AI;
@@ -38,10 +39,14 @@ public:
 			MonsterTraceState* traceState = new MonsterTraceState;
 			traceState->SetOwnerAI(ai);
 
+			MonsterPatrolState* patrolState = new MonsterPatrolState;
+			patrolState->SetOwnerAI(ai);
+
 			ai->AddState(idleState);
 			ai->AddState(traceState);
+			ai->AddState(patrolState);
 
-			ai->ChangeState(MONSTER_STATE::IDLE);
+			ai->ChangeState(MONSTER_STATE::PATROL);
 		}
 			break;
 

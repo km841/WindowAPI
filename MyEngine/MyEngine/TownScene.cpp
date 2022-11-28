@@ -195,6 +195,8 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::STRUCTURE);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	DeleteObjGroup(OBJECT_TYPE::NPC);
+	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
+	DeleteObjGroup(OBJECT_TYPE::WALL);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);

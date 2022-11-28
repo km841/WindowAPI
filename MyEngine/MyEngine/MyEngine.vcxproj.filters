@@ -260,6 +260,9 @@
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState">
       <UniqueIdentifier>{d9f41615-713d-4541-bf3a-0dfa23a202f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState">
+      <UniqueIdentifier>{f73f9d64-e57a-4087-b175-fea555af1911}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="MonsterTraceState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterPatrolState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +685,9 @@
     </ClCompile>
     <ClCompile Include="MonsterTraceState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterPatrolState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

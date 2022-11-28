@@ -29,7 +29,11 @@ Monster::Monster()
 
 Monster::~Monster()
 {
-
+	if (nullptr != mAI)
+	{
+		delete mAI;
+		mAI = nullptr;
+	}
 }
 
 void Monster::Initialize()

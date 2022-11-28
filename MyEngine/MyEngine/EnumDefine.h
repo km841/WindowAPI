@@ -159,6 +159,7 @@ enum class MONSTER_STATE
 {
 	IDLE,
 	TRACE,
+	PATROL,
 
 
 

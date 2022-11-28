@@ -22,11 +22,16 @@ public:
     inline void SetAI(AI* _ai) { mAI = _ai; }
     inline AI*  GetAI() const { return mAI; }
 
+    inline void SetDir(DIR _dir) { mDir = _dir;}
+    inline DIR  GetDir() const   { return mDir; }
+    inline void SetPrevDir(DIR _prevDir) { mPrevDir = _prevDir; }
+    inline DIR GetPrevDir() const { return mPrevDir; }
+    inline void ChangeDir() { mDir = (DIR)(((UINT)mDir + 1) % 2); }
+
     inline void        SetMonsterInfo(MonsterInfo _info) { mInfo = _info; }
     inline MonsterInfo GetMonsterInfo() const { return mInfo; }
 
-    inline DIR GetDir() const { return mDir; }
-    inline DIR GetPrevDir() const { return mPrevDir; }
+    
 
     inline void SetIdleAnimName(const std::wstring& _idleAnimName) { mIdleAnimName = _idleAnimName; }
     inline const std::wstring& GetIdleAnimName() const { return mIdleAnimName;}

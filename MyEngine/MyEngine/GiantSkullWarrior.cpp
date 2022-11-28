@@ -20,11 +20,6 @@ GiantSkullWarrior::GiantSkullWarrior()
 
 	std::wstring walkAnimName = L"GiantSkull_Walk";
 	SetWalkAnimName(walkAnimName);
-
-
-
-	
-
 	
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantSkullAnimTex", L"Texture\\giant_skull_animation.bmp");
 
