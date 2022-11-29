@@ -21,7 +21,7 @@ GiantSkullWarrior::GiantSkullWarrior()
 
 	std::wstring moveAnimName = L"GiantSkull_Move";
 	SetMoveAnimName(moveAnimName);
-
+	
 	std::wstring attAnimName = L"GiantSkull_Att";
 	SetAttAnimName(attAnimName);
 	

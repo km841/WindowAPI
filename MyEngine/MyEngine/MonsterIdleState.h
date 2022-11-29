@@ -16,6 +16,7 @@ public:
     virtual void Exit();
 
 public:
+    bool PlayerCheck();
 
 private:
     float mStayTime;

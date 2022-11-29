@@ -99,10 +99,10 @@ void MonsterTraceState::Update()
 
 
 
-	}
+			}
 
-}
-
+		}
+		
 void MonsterTraceState::Render()
 {
 	Player* player = Player::GetPlayer();
@@ -132,7 +132,7 @@ void MonsterTraceState::Render()
 			dirVec = Vec2(1, 0);
 			dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(-10.f));
 			break;
-		}
+	}
 
 		Pen pen(BACK_BUF_DC, PEN_TYPE::BLUE);
 		dirAngleVec *= info.mAttRange;
