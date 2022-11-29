@@ -27,7 +27,7 @@ void MonsterAttState::Update()
 	{
 		// reset ÇÏ°í trace·Î
 		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
-		monster->GetAnimator()->GetCurAnimation()->Reset();
+		
 	}
 }
 
@@ -52,5 +52,5 @@ void MonsterAttState::Enter()
 void MonsterAttState::Exit()
 {
 	Monster* monster = GetOwnerAI()->GetOwnerMonster();
-
+	monster->GetAnimator()->GetCurAnimation()->Reset();
 }
