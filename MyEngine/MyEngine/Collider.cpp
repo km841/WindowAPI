@@ -28,6 +28,8 @@ void Collider::Update()
 void Collider::Render()
 {
 	// Owner의 타입을 통해 그리는 색깔을 구별한다
+	if (!mEnable)
+		return;
 
 	Vec2 size = GetSize();
 	Vec2 pos = GetPos();

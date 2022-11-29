@@ -21,14 +21,14 @@ BlackSmithNPC::BlackSmithNPC()
 		ResourceMgr::GetInstance().Load<Texture>(L"F_KEY", L"Texture\\F.bmp");
 	SetKeyTexture(keyTexture);
 
-	SetSize(Vec2( 26*3, 24*3));
+	SetSize(Vec2( 72, 78));
 
 	GetAnimator()->RegisterAnimation(
 		L"BlackSmithAnim",
 		mDefaultTexture,
 		Vec2(0.f, 0.f),
-		Vec2(24.f, 26.f),
-		Vec2(24.f, 0.f),
+		Vec2(72.f, 78.f),
+		Vec2(72.f, 0.f),
 		0.05f,
 		6
 	);

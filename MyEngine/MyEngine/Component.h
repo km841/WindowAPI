@@ -24,6 +24,9 @@ public:
 	inline Vec2	GetOffset() const { return mOffset; }
 	inline void	SetOffset(Vec2 _offset)  {  mOffset = _offset; }
 
+	inline void SetOffset_X(float _offset) { mOffset.x = _offset; }
+	inline void SetOffset_Y(float _offset) { mOffset.y = _offset; }
+
 public:
 	virtual void Update() = 0;
 	virtual void Render() {}

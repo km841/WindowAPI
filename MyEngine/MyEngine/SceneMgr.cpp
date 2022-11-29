@@ -67,6 +67,7 @@ void SceneMgr::ChangeScene(SCENE_TYPE _eType)
 void SceneMgr::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
 {
 	mScenes[(UINT)_eType]->AddGameObject(_obj, _obj->GetType());
+
 	if (nullptr != _obj->GetCollider())
 		_obj->GetCollider()->ClearColCnt();
 

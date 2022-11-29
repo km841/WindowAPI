@@ -22,6 +22,11 @@ Scene::~Scene()
 {
 	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)
 	{
+		if (OBJECT_TYPE::EFFECT == (OBJECT_TYPE)y)
+		{
+			continue;
+		}
+
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
 			if (nullptr != mObjects[y][x])

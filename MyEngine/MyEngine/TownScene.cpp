@@ -81,8 +81,9 @@ void TownScene::Enter()
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
-	player->Initialize();
 	CameraMgr::GetInstance().SetTrackingObject(player);
+	//ShortSword* sword = static_cast<ShortSword*>(player->GetEquipItem(EQUIP_TYPE::WEAPON_1));
+	//AddGameObject(sword, sword->GetType());
 
 	BlackSmithNPC* blackSmithNPC = new BlackSmithNPC;
 	blackSmithNPC->SetPos(Vec2(TILE_SIZE * 30, TILE_SIZE * 20));

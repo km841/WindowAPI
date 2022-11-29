@@ -139,7 +139,7 @@ void Sword::Update()
 		SetPos(playerPos + rotOffset);
 	}
 
-	GameObject::Update();
+	//GameObject::Update();
 }
 
 void Sword::Render()

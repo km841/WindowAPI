@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "Animation.h"
+#include "EventRegisteror.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
@@ -114,4 +115,21 @@ void GiantSkullWarrior::Update()
 void GiantSkullWarrior::Render()
 {
 	Monster::Render();
+}
+
+void GiantSkullWarrior::OnCollision(Collider* _other)
+{
+}
+
+void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
+{
+	if (OBJECT_TYPE::EFFECT == _other->GetOwner()->GetType())
+	{
+		EventRegisteror::GetInstance().DeleteObject(this);
+	}
+
+}
+
+void GiantSkullWarrior::OnCollisionExit(Collider* _other)
+{
 }

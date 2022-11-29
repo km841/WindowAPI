@@ -114,7 +114,7 @@ Player::Player()
 	}
 #pragma endregion
 	
-#pragma region PLAYER_ANIMATION
+#pragma region PLAYER_ANIMATION_REGISTER
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 96.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_LEFT", mDefaultTexture, Vec2(0.f, 192.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 8);
@@ -124,15 +124,14 @@ Player::Player()
 	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 #pragma endregion
 
-#pragma region PLAYER_EQUIP_ITEM_INITIALIZE
+#pragma region PLAYER_EQUIP_ITEM_REGISTER
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
 		mEquipItems[i] = nullptr;
 	}
-
 	ShortSword* shortSword = new ShortSword;
-	shortSword->Initialize();
 	SetEquipItem(shortSword);
+
 #pragma endregion
 
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
@@ -176,6 +175,13 @@ void Player::Initialize()
 {
 	mPrevPos = GetPos();
 	GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");
+
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Initialize();
+	}
+
 }
 
 void Player::Update()
