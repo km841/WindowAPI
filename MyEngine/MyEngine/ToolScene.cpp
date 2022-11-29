@@ -12,6 +12,9 @@
 #include "KeyMgr.h"
 #include "Wall.h"
 #include "Foothold.h"
+#include "SceneMgr.h"
+#include "GameObject.h"
+#include "CollisionComponent.h"
 
 void ToolScene::Initialize()
 {
@@ -85,8 +88,33 @@ void ToolScene::Update()
 
 			if (nullptr != tileComponent)
 			{
+				// 내 위치와 같은 wall과 foothold를 지워줘야 한다
+
+				OBJECT_TYPE type = tileComponent->GetType();
+
+				if (OBJECT_TYPE::FOOTHOLD == type ||
+					OBJECT_TYPE::WALL == type)
+				{
+					std::vector<GameObject*>& objects =
+						SceneMgr::GetInstance().GetCurScene()->mObjects[(UINT)type];
+
+					std::vector<GameObject*>::iterator iter = objects.begin();
+
+					for (; iter != objects.end(); ++iter)
+					{
+						Vec2 tilePos = tile->GetPos();
+						Vec2 objPos = iter.operator*()->GetPos();
+
+						if (tilePos == objPos)
+						{
+							objects.erase(iter);
+							break;
+						}
+					}
+
+				}
+
 				tile->ClearCollisionComponent();
-				delete tileComponent;
 			}
 
 			switch (tileType)
@@ -302,7 +330,14 @@ void ToolScene::RemoveTile(Vec2 _pos)
 	{
 		if (tileGroup[i]->GetPos() == _pos + TILE_OFFSET)
 		{
-			EventRegisteror::GetInstance().DeleteObject(tileGroup[i]);
+			Tile* tile = static_cast<Tile*>(tileGroup[i]);
+			CollisionComponent* colCom = tile->GetCollisionComponent();
+			if (nullptr != colCom)
+			{
+				EventRegisteror::GetInstance().DeleteObject(colCom);
+			}
+			EventRegisteror::GetInstance().DeleteObject(tile);
+
 			break;
 		}
 	}

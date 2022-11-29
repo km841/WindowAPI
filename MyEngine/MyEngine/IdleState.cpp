@@ -15,13 +15,13 @@ void IdleState::Enter()
 	Animation* anim = nullptr;
 	switch (mPlayer->mDir)
 	{
-	case PLAYER_DIR::LEFT:
+	case DIR::LEFT:
 		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_IDLE_LEFT");
 		anim->Reset();
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_LEFT");
 		break;
 
-	case PLAYER_DIR::RIGHT:
+	case DIR::RIGHT:
 		anim = mPlayer->GetAnimator()->FindAnimation(L"PLAYER_IDLE_RIGHT");
 		anim->Reset();
 		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_IDLE_RIGHT");

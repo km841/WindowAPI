@@ -49,13 +49,19 @@ public:
 
 public:
     void Create(Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount);
-    inline void SetName(const std::wstring& _name) { mName = _name; }
+
+    inline void                SetName(const std::wstring& _name) { mName = _name; }
     inline const std::wstring& GetName() const { return mName; }
+
+    inline void SetOffset(Vec2 _offset) { mOffset = _offset; }
+    inline Vec2 GetOffset() const { return mOffset; }
 
     void SetEnterEvent(EventAnimation _event); 
     void SetExitEvent(EventAnimation _event);
+
     inline int  GetCurFrame() const { return mCurFrm; }
     inline void SetCurFrame(int _frm) { mCurFrm = _frm; }
+
     inline void     SetTexture(Texture* _tex) { mTex = _tex; }
     inline Texture* GetTexture() const { return mTex; }
 
@@ -75,6 +81,7 @@ private:
     Animator*             mOwner;
     Texture*              mTex;
     std::wstring          mName;
+    Vec2                  mOffset;
     
     std::vector<AnimInfo> mAnim;
     int                   mCurFrm;

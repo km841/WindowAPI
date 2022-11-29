@@ -23,12 +23,7 @@ struct PlayerState
     static EatState*  Eat;
 };
 
-enum class PLAYER_DIR
-{
-    LEFT,
-    RIGHT,
-    END,
-};
+
 
 class Player :
     public GameObject
@@ -73,7 +68,7 @@ public:
 
     inline bool NotInDash() const { return (!mAccDash && !mDecDash); }
 
-    inline PLAYER_DIR GetPlayerDir() const { return mDir; }
+    inline DIR GetPlayerDir() const { return mDir; }
 
 
 public:
@@ -99,7 +94,7 @@ public:
     void EquipItemRender();
 
 public:
-    inline void SetGroundType(TILE_TYPE _tileType) { mGroundType = _tileType; }
+    inline void      SetGroundType(TILE_TYPE _tileType) { mGroundType = _tileType; }
     inline TILE_TYPE GetGroundType() const { return mGroundType; }
     
 public:
@@ -119,8 +114,8 @@ private:
 
 
     Vec2       mPrevPos;
-    PLAYER_DIR mPrevDir;
-    PLAYER_DIR mDir;
+    DIR mPrevDir;
+    DIR mDir;
 
 private:
     bool       mStop;

@@ -49,17 +49,17 @@ void Sword::Update()
 
 		Texture* tex = GetTexture();
 		Vec2 playerPos = player->GetPos();
-		PLAYER_DIR playerDir = player->GetPlayerDir();
+		DIR playerDir = player->GetPlayerDir();
 
 		Vec2 dirVec = { 0, 0 };
 		float times = 1.f;
 		switch (playerDir)
 		{
-		case PLAYER_DIR::LEFT:
+		case DIR::LEFT:
 			dirVec = Vec2(-1, 0);
 			times = 2.3f;
 			break;
-		case PLAYER_DIR::RIGHT:
+		case DIR::RIGHT:
 			dirVec = Vec2(1, 0);
 			times = 4.f;
 			break;
@@ -71,7 +71,7 @@ void Sword::Update()
 
 		float angle = (float)acos(dirVec.Dot(mousePos)) * times;
 
-		if (PLAYER_DIR::LEFT == playerDir)
+		if (DIR::LEFT == playerDir)
 			angle -= PI + (PI / 2.f);
 		
 		//int degree = RadianToDegree(angle);
@@ -83,10 +83,10 @@ void Sword::Update()
 
 		switch (playerDir)
 		{
-		case PLAYER_DIR::LEFT:
+		case DIR::LEFT:
 			mAngle = angle - PI;
 			break;
-		case PLAYER_DIR::RIGHT:
+		case DIR::RIGHT:
 			mAngle = angle;
 			break;
 		}
@@ -96,10 +96,10 @@ void Sword::Update()
 		{
 			switch (playerDir)
 			{
-			case PLAYER_DIR::LEFT:
+			case DIR::LEFT:
 				angle += (float)(PI + (PI / 6.0));
 				break;
-			case PLAYER_DIR::RIGHT:
+			case DIR::RIGHT:
 				angle -= (float)(PI + (PI / 6.0));
 				break;
 			}
@@ -175,18 +175,18 @@ void Sword::Render()
 		);
 
 		Player* player = Player::GetPlayer();
-		PLAYER_DIR dir = player->GetPlayerDir();
+		DIR dir = player->GetPlayerDir();
 
 		float offsetX = 0.f;
 		float offsetY = GetYOffset();
 
 		switch (dir)
 		{
-		case PLAYER_DIR::LEFT:
+		case DIR::LEFT:
 			offsetX = GetLeftDirOffset();
 			break;
 
-		case PLAYER_DIR::RIGHT:
+		case DIR::RIGHT:
 			offsetX = GetRightDirOffset();
 			break;
 		}

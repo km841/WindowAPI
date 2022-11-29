@@ -34,7 +34,7 @@ ShortSword::ShortSword()
 	Texture* swordEffectTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEff", L"Texture\\ShortSword_Effect.bmp");
 
 	Animation* swordEffect = 
-		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(40.f, 40.f), Vec2(40.f, 0.f), 0.075f, 3);
+		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(120.f, 120.f), Vec2(120.f, 0.f), 0.075f, 3);
 	swordEffect->SetOwner(effect->GetAnimator());
 
 	effect->GetAnimator()->AddAnimation(L"ShortSwordEffect", swordEffect);
@@ -97,7 +97,7 @@ void ShortSword::Update()
 			rotAnim->Reset();
 		}
 		Vec2 dirVec = {1.f, 0.f};
-		PLAYER_DIR dir = Player::GetPlayer()->GetPlayerDir();
+		DIR dir = Player::GetPlayer()->GetPlayerDir();
 
 		Vec2 mousePos = MOUSE_POS;
 		Vec2 effectPos = RENDER_POS(GetEffect()->GetPos());
@@ -109,16 +109,16 @@ void ShortSword::Update()
 		float angle = GetAngle();
 
 		Player* player = Player::GetPlayer();
-		PLAYER_DIR playerDir = player->GetPlayerDir();
+		DIR playerDir = player->GetPlayerDir();
 		Vec2 basicOffset = {};
 
 		switch (playerDir)
 		{
-		case PLAYER_DIR::LEFT:
+		case DIR::LEFT:
 			basicOffset = Vec2(-25.f, -15.f);
 			break;
 
-		case PLAYER_DIR::RIGHT:
+		case DIR::RIGHT:
 			basicOffset = Vec2(25.f, -15.f);
 			break;
 		}

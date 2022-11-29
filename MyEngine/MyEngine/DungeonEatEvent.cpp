@@ -31,13 +31,13 @@ DungeonEatEvent::DungeonEatEvent()
 		L"DUNGEON_EAT_ANIM",
 		dungeonEatTex,
 		Vec2(0.f, 0.f),
-		Vec2(117.f, 85.f),
-		Vec2(117.f, 0.f),
+		Vec2(351.f, 255.f),
+		Vec2(351.f, 0.f),
 		0.06f,
 		28
 	);
 
-	SetSize(Vec2(117.f * 3.f, 85.f * 3.f));
+	SetSize(Vec2(351, 255));
 }
 
 DungeonEatEvent::~DungeonEatEvent()

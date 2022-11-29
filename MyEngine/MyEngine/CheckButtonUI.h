@@ -26,7 +26,7 @@ public:
 
 public:
 	static CheckButtonUI* GetCheckButtonUI() { return g_Checked; }
-	static void SetCheckButtonUI(CheckButtonUI* _checkBtn) { g_Checked = _checkBtn; }
+	static void           SetCheckButtonUI(CheckButtonUI* _checkBtn) { g_Checked = _checkBtn; }
 
 private:
 	static CheckButtonUI* g_Checked;

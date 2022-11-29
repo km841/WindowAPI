@@ -42,6 +42,16 @@ void EventRegisteror::ChangeScene(SCENE_TYPE _eType)
 	EventMgr::GetInstance().AddEvent(event);
 }
 
+void EventRegisteror::ChangeMonsterState(AI* _ai, MONSTER_STATE _eState)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::MONSTER_STATE_CHANGE;
+	event.lParam = (DWORD_PTR)_ai;
+	event.wParam = (DWORD_PTR)_eState;
+
+	EventMgr::GetInstance().AddEvent(event);
+}
+
 void EventRegisteror::EnableUI(UI_TYPE _eType)
 {
 	Event event = {};

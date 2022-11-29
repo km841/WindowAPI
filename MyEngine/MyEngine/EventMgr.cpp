@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "UIMgr.h"
+#include "AI.h"
 
 void EventMgr::Initialize()
 {
@@ -60,6 +61,13 @@ void EventMgr::Execute(Event _event)
 		SceneMgr::GetInstance().TransfortObject(obj, (SCENE_TYPE)_event.wParam);
 	}
 		break;
+
+	case EVENT_TYPE::MONSTER_STATE_CHANGE:
+	{
+		AI* ai = (AI*)_event.lParam;
+		ai->ChangeState((MONSTER_STATE)_event.wParam);
+	}
+	break;
 
 	}
 }

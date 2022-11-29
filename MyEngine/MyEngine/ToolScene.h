@@ -18,7 +18,7 @@ public:
 public:
 	void RemoveTile(Vec2 _pos);
 	IconUI* CutTile(UI* _parentUI, Vec2 _ltPos, Vec2 _slice);
-	void CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount);
+	void    CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount);
 
 public:
 	void GuideCircle();

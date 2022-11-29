@@ -37,7 +37,7 @@ public:
 	inline void SetState(bool _flag = true) { mState = _flag; }
 	inline bool GetState() const { return mState; }
 
-	inline void SetUIType(UI_TYPE _type) { mType = _type; }
+	inline void    SetUIType(UI_TYPE _type) { mType = _type; }
 	inline UI_TYPE GetUIType() const { return mType; }
 
 	inline void SetOnMouseState(bool _flag) { mOnMouse = _flag; }

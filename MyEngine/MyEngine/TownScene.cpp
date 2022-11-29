@@ -195,15 +195,16 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::STRUCTURE);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	DeleteObjGroup(OBJECT_TYPE::NPC);
+	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
+	DeleteObjGroup(OBJECT_TYPE::WALL);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 
-
-	InventoryUI* inven =
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
-
+	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
 	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
 

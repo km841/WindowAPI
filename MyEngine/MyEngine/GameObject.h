@@ -72,8 +72,8 @@ public:
 	void CreateComponent(Animator* _animator);
 	void CreateComponent(RigidBody* _rigidBody);
 
-	inline Collider* GetCollider() const { return mComponents.mCollider; }
-	inline Animator* GetAnimator() const { return mComponents.mAnimator; }
+	inline Collider*  GetCollider() const { return mComponents.mCollider; }
+	inline Animator*  GetAnimator() const { return mComponents.mAnimator; }
 	inline RigidBody* GetRigidBody() const { return mComponents.mRigidBody; }
 	
 public:

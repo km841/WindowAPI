@@ -19,6 +19,7 @@ Animation::Animation()
 	, mEffect(false)
 	, mEvent{}
 	, mDummyObj(nullptr)
+	, mOffset(ZERO_VECTOR)
 {
 }
 
@@ -90,7 +91,12 @@ void Animation::Render()
 
 	GameObject* ownerObject = mOwner->GetOwner();
 	Vec2		pos = ownerObject->GetPos();
-	Vec2		size = ownerObject->GetSize();
+	Vec2		offset = GetOffset();
+
+	if (offset.x != 0.f || offset.y != 0.f)
+	{
+		pos += offset;
+	}
 
 	// Convert RenderPos
 	pos = RENDER_POS(pos);
@@ -102,10 +108,10 @@ void Animation::Render()
 
     TransparentBlt(
 		BACK_BUF_DC
-		, (int)(pos.x - size.x / 2.f)
-		, (int)(pos.y - size.y / divideY)
-		, (int)(size.x)
-		, (int)(size.y)
+		, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
+		, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+		, (int)(mAnim[mCurFrm].mSlice.x)
+		, (int)(mAnim[mCurFrm].mSlice.y)
 		, mTex->GetDC()
 		, (int)(mAnim[mCurFrm].mLeftTop.x)
 		, (int)(mAnim[mCurFrm].mLeftTop.y)

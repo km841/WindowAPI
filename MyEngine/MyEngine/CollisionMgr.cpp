@@ -65,6 +65,9 @@ void CollisionMgr::CheckGroup(std::vector<GameObject*>& _row, std::vector<GameOb
 			if (leftObj == rightObj)
 				continue;
 
+			if (!leftCol->GetEnable() || !rightCol->GetEnable())
+				continue;
+
 			// 이전 프레임의 상태를 가져오는 중
 			COLLISION_ID id = {};
 			id.LID = leftCol->GetID();

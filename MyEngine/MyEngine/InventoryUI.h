@@ -26,8 +26,6 @@ public:
 
 
 public:
-
-
     inline Player* GetPlayer() { return mPlayer; }
     inline void    SetPlayer(Player* _player) { mPlayer = _player; }
 

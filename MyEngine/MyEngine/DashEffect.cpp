@@ -52,15 +52,15 @@ void DashEffect::Render()
 			Vec2 pos = RENDER_POS(GetPos());
 			Vec2 size = GetSize();
 			Vec2 ltPos = {};
-			PLAYER_DIR playerDir = Player::GetPlayer()->GetPlayerDir();
+			DIR playerDir = Player::GetPlayer()->GetPlayerDir();
 
 			switch (playerDir)
 			{
-			case PLAYER_DIR::LEFT:
+			case DIR::LEFT:
 				ltPos = Vec2(0.f, 0.f);
 				break;
 
-			case PLAYER_DIR::RIGHT:
+			case DIR::RIGHT:
 				ltPos = Vec2(0.f, 32.f);
 				break;
 			}

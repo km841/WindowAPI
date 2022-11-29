@@ -8,22 +8,32 @@
 #include "Animator.h"
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
+#include "RigidBody.h"
+#include "AI.h"
 
 Monster::Monster()
 {
-	SetPos(Vec2{ 900.f, 700.f });
-	SetScale(Vec2{ 2.f, 2.f });
 	SetType(OBJECT_TYPE::MONSTER);
-	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"Monster_Image", L"Texture\\Monster.bmp");
-	assert(nullptr != mTexture);
 
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
+
+	CreateComponent(new Animator);
+	GetAnimator()->SetOwner(this);
+
+	CreateComponent(new RigidBody);
+	GetRigidBody()->SetOwner(this);
+
+
 }
 
 Monster::~Monster()
 {
-
+	if (nullptr != mAI)
+	{
+		delete mAI;
+		mAI = nullptr;
+	}
 }
 
 void Monster::Initialize()
@@ -33,28 +43,16 @@ void Monster::Initialize()
 
 void Monster::Update()
 {
+	if (nullptr != mAI)
+		mAI->Update();
+
 	GameObject::Update();
 }
 
 void Monster::Render()
 {
-	Vec2 pos = GetPos();
-	Vec2 scale = GetScale();
-
-	// Convert Render Pos
-	pos = RENDER_POS(pos);
-
-	TransparentBlt(BACK_BUF_DC
-		, (int)(pos.x - (mTexture->GetWidth() * scale.x) / 2.f)
-		, (int)(pos.y - (mTexture->GetHeight() * scale.y) / 2.f)
-		, (int)(mTexture->GetWidth() * scale.x)
-		, (int)(mTexture->GetHeight() * scale.y)
-		, mTexture->GetDC()
-		, 0, 0
-		, mTexture->GetWidth()
-		, mTexture->GetHeight()
-		, RGB(255, 0, 255)
-	);
+	if (nullptr != mAI)
+		mAI->Render();
 
 	GameObject::Render();
 }
@@ -69,8 +67,6 @@ void Monster::OnCollision(Collider* _other)
 
 void Monster::OnCollisionEnter(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::PLAYER)
-		EventRegisteror::GetInstance().DeleteObject(this);
 }
 
 void Monster::OnCollisionExit(Collider* _other)

@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 enum class PEN_TYPE
 {
 	RED,
@@ -36,6 +38,7 @@ enum class SCENE_TYPE
 	END,
 };
 
+#define OBJECT_TYPE_MAX 32
 enum class OBJECT_TYPE
 {
 	BACKGROUND_FIRST,
@@ -45,15 +48,15 @@ enum class OBJECT_TYPE
 	TILE,
 	NPC,
 	EVENT_OBJECT,
-	PLAYER,
 	MONSTER,
+	PLAYER,
 	DUMMY,
 	WALL,
 	FOOTHOLD,
 	MISSILE_FROM_MONSTER,
 	MISSILE_FROM_PLAYER,
-	UI = 15,
-	END = 16,
+	UI = OBJECT_TYPE_MAX - 1,
+	END = OBJECT_TYPE_MAX,
 };
 
 enum class EVENT_TYPE
@@ -75,6 +78,9 @@ enum class EVENT_TYPE
 
 	DISABLE_UI,
 	// lParam : No used, wParam : UI Type
+
+	MONSTER_STATE_CHANGE,
+	// lParam : AI Pointer, wParam : Monster State Type
 
 };
 
@@ -147,4 +153,34 @@ enum class TILE_TYPE
 
 
 	END
+};
+
+enum class MONSTER_STATE
+{
+	IDLE,
+	TRACE,
+	PATROL,
+	ATTACK,
+
+
+	END,
+};
+
+enum class MONSTER_TYPE
+{
+	MELEE,
+	RANGE,
+	MELEE_FAST,
+	RANGE_FAST,
+	BOSS_1STAGE,
+	BOSS_2STATE,
+
+	END
+};
+
+enum class DIR
+{
+	LEFT,
+	RIGHT,
+	END,
 };

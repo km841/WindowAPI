@@ -25,6 +25,7 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "Tile.h"
+#include "Foothold.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -114,13 +115,13 @@ Player::Player()
 #pragma endregion
 	
 #pragma region PLAYER_ANIMATION
-	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 32.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.1f, 5);
-	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_LEFT", mDefaultTexture, Vec2(0.f, 64.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.05f, 8);
-	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_RIGHT", mDefaultTexture, Vec2(0.f, 96.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.05f, 8);
-	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_LEFT", mDefaultTexture, Vec2(0.f, 128.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
-	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 160.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
-	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(32.f, 32.f), Vec2(32.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_LEFT", mDefaultTexture, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
+	GetAnimator()->RegisterAnimation(L"PLAYER_IDLE_RIGHT", mDefaultTexture, Vec2(0.f, 96.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
+	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_LEFT", mDefaultTexture, Vec2(0.f, 192.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 8);
+	GetAnimator()->RegisterAnimation(L"PLAYER_WALK_RIGHT", mDefaultTexture, Vec2(0.f, 288.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 8);
+	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_LEFT", mDefaultTexture, Vec2(0.f, 384.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 480.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 #pragma endregion
 
 #pragma region PLAYER_EQUIP_ITEM_INITIALIZE
@@ -198,9 +199,9 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
-	wchar_t szBuffer[256] = {};
-	swprintf_s(szBuffer, L"groundType : %d", mGroundType);
-	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	//wchar_t szBuffer[256] = {};
+	//swprintf_s(szBuffer, L"groundType : %d", mGroundType);
+	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
 	if (IS_PRESSED(KEY::G))
 	{
@@ -231,6 +232,7 @@ void Player::MoveUpdate()
 		if (IS_PRESSED(KEY::S))
 		{
 			//TODO
+
 		}
 
 		else
@@ -355,9 +357,9 @@ void Player::MoveUpdate()
 
 	// 마우스 방향에 따라 현재 방향 변경 
 	if (MOUSE_POS.x > RENDER_POS(pos).x)
-		mDir = PLAYER_DIR::RIGHT;
+		mDir = DIR::RIGHT;
 	else
-		mDir = PLAYER_DIR::LEFT;
+		mDir = DIR::LEFT;
 
 	
 	SetPos(pos);
@@ -550,17 +552,8 @@ void Player::OnCollisionEnter(Collider* _other)
 
 void Player::OnCollisionExit(Collider* _other)
 {
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::WALL)
-	{
-		if (0 == GetCollider()->GetColCnt())
-			OutGround();
-	}
-
-	if (_other->GetOwner()->GetType() == OBJECT_TYPE::FOOTHOLD)
-	{
-		if (0 == GetCollider()->GetColCnt())
-			OutGround();
-	}
+	if (0 == GetCollider()->GetColCnt())
+		OutGround();
 }
 
 
