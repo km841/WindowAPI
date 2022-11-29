@@ -205,10 +205,6 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
-	//wchar_t szBuffer[256] = {};
-	//swprintf_s(szBuffer, L"groundType : %d", mGroundType);
-	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
-
 	if (IS_PRESSED(KEY::G))
 	{
 		if (GetGravity())

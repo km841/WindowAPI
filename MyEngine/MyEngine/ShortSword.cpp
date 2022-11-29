@@ -14,6 +14,7 @@
 
 ShortSword::ShortSword()
 	:mCurDuration(0.f)
+	,mAttFlag(false)
 {
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON);
@@ -81,12 +82,8 @@ void ShortSword::Update()
 	// 애니메이션 업데이트
 	// X, Y좌표 알아야 함
 	// 칼 현재 각도에서 이동한 각도
-	SetPrevSwordState(GetSwordState());
 
-	if (GetEffect()->GetCollider()->GetEnable())
-	{
-		GetEffect()->GetCollider()->SetEnable(false);
-	}
+	SetPrevSwordState(GetSwordState());
 
 	// 공격 딜레이
 	if (GetDuration() > mCurDuration)
@@ -95,6 +92,15 @@ void ShortSword::Update()
 	}
 	else
 	{
+		// 충돌체가 남아있는 시간
+		if (true == mAttFlag)
+		{
+			// 이 분기로 들어왔다는건 이전에 공격을 했다는 거고 세팅된 Duration을 넘어섰을때이므로
+			// 애니메이션이 끝났고 다음 애니메이션이 시작될 거라는 것
+			mAttFlag = false;
+			GetEffect()->GetCollider()->SetEnable(false);
+		}
+
 		if (IS_JUST_LBUTTON_CLICKED)
 		{
 			ChangeSwordState();
@@ -102,7 +108,7 @@ void ShortSword::Update()
 			mCurDuration = 0.f;
 
 			GetEffect()->GetCollider()->SetEnable(true);
-
+			mAttFlag = true;
 			// 칼 Effect 충돌체와 몬스터의 충돌체 충돌
 			// 칼 Effect 충돌체는 어떻게 정의되어야 하는가?
 			// 칼 Effect 충돌체는 공격시 Effect 위치에 잠깐 충돌체를 가진다
@@ -112,7 +118,7 @@ void ShortSword::Update()
 			// 좌/우에 따라 offset 값을 줌
 			// 충돌체가 원운동을 한다?
 
-			
+
 		}
 	}
 
@@ -136,9 +142,9 @@ void ShortSword::Update()
 		float angle = GetAngle();
 		float degree = Math::RadianToDegree(angle);
 
-		wchar_t buf[256] = {};
-		swprintf_s(buf, L"%f", degree);
-		SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+		//wchar_t buf[256] = {};
+		//swprintf_s(buf, L"%f", degree);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
 		if (abs(degree) > 150.f)
 		{

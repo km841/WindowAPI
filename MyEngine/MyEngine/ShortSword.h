@@ -14,6 +14,7 @@ public:
 
 private:
     float mCurDuration;
+    bool  mAttFlag;
 
 
 

@@ -242,29 +242,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI">
-      <UniqueIdentifier>{c58ccb67-294d-4fd1-a389-e35e29e4723e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\ButtonUI">
-      <UniqueIdentifier>{cda428b9-d93a-449b-8b36-a757ff2249ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\ToolUI">
-      <UniqueIdentifier>{0a938206-63d9-454a-97f5-cf4da0c75f27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\ToolUI\IconUI">
-      <UniqueIdentifier>{161984c0-e603-4200-a4be-69c69f7de4ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\ToolUI\CheckButtonUI">
-      <UniqueIdentifier>{50bdd6e4-6396-40e5-8035-bdfc8ad41f0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\InventoryUI">
-      <UniqueIdentifier>{8ad650c5-cc46-4679-ae59-89a62b957794}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\UI\Base">
-      <UniqueIdentifier>{a39f639c-7312-4bd9-ac22-872f3d62036d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterAttState">
       <UniqueIdentifier>{b713eeed-faa2-46da-8561-b1d0e341e5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI">
+      <UniqueIdentifier>{c58ccb67-294d-4fd1-a389-e35e29e4723e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ButtonUI">
+      <UniqueIdentifier>{cda428b9-d93a-449b-8b36-a757ff2249ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ToolUI">
+      <UniqueIdentifier>{0a938206-63d9-454a-97f5-cf4da0c75f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ToolUI\IconUI">
+      <UniqueIdentifier>{161984c0-e603-4200-a4be-69c69f7de4ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\ToolUI\CheckButtonUI">
+      <UniqueIdentifier>{50bdd6e4-6396-40e5-8035-bdfc8ad41f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\InventoryUI">
+      <UniqueIdentifier>{8ad650c5-cc46-4679-ae59-89a62b957794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\Base">
+      <UniqueIdentifier>{a39f639c-7312-4bd9-ac22-872f3d62036d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -344,7 +344,7 @@
       <Filter>Engine\Manager\MouseMgr</Filter>
     </ClInclude>
     <ClInclude Include="ButtonUI.h">
-      <Filter>Engine\GameObject\Monster\UI\ButtonUI</Filter>
+      <Filter>Engine\GameObject\UI\ButtonUI</Filter>
     </ClInclude>
     <ClInclude Include="ToolScene.h">
       <Filter>Engine\Scene\ToolScene</Filter>
@@ -356,7 +356,7 @@
       <Filter>Engine\Scene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="ToolUI.h">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI</Filter>
     </ClInclude>
     <ClInclude Include="TownScene.h">
       <Filter>Engine\Scene\TownScene</Filter>
@@ -392,7 +392,7 @@
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Wall</Filter>
     </ClInclude>
     <ClInclude Include="InventoryUI.h">
-      <Filter>Engine\GameObject\Monster\UI\InventoryUI</Filter>
+      <Filter>Engine\GameObject\UI\InventoryUI</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Engine\GameObject\Item\Base</Filter>
@@ -407,13 +407,13 @@
       <Filter>Engine\GameObject\Item\Sword\GreatSword</Filter>
     </ClInclude>
     <ClInclude Include="IconUI.h">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI\IconUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI\IconUI</Filter>
     </ClInclude>
     <ClInclude Include="UIMgr.h">
       <Filter>Engine\Manager\UIMgr</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>Engine\GameObject\Monster\UI\Base</Filter>
+      <Filter>Engine\GameObject\UI\Base</Filter>
     </ClInclude>
     <ClInclude Include="DashEffect.h">
       <Filter>Engine\GameObject\Effect\DashEffect</Filter>
@@ -422,7 +422,7 @@
       <Filter>Engine\GameObject\Effect\Base</Filter>
     </ClInclude>
     <ClInclude Include="CheckButtonUI.h">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI\CheckButtonUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI\CheckButtonUI</Filter>
     </ClInclude>
     <ClInclude Include="Foothold.h">
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Foothold</Filter>
@@ -566,7 +566,7 @@
       <Filter>Engine\Manager\MouseMgr</Filter>
     </ClCompile>
     <ClCompile Include="ButtonUI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\ButtonUI</Filter>
+      <Filter>Engine\GameObject\UI\ButtonUI</Filter>
     </ClCompile>
     <ClCompile Include="ToolScene.cpp">
       <Filter>Engine\Scene\ToolScene</Filter>
@@ -578,7 +578,7 @@
       <Filter>Engine\Scene\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="ToolUI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI</Filter>
     </ClCompile>
     <ClCompile Include="TownScene.cpp">
       <Filter>Engine\Scene\TownScene</Filter>
@@ -614,7 +614,7 @@
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Wall</Filter>
     </ClCompile>
     <ClCompile Include="InventoryUI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\InventoryUI</Filter>
+      <Filter>Engine\GameObject\UI\InventoryUI</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Engine\GameObject\Item\Base</Filter>
@@ -629,13 +629,13 @@
       <Filter>Engine\GameObject\Item\Sword\GreatSword</Filter>
     </ClCompile>
     <ClCompile Include="IconUI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI\IconUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI\IconUI</Filter>
     </ClCompile>
     <ClCompile Include="UIMgr.cpp">
       <Filter>Engine\Manager\UIMgr</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\Base</Filter>
+      <Filter>Engine\GameObject\UI\Base</Filter>
     </ClCompile>
     <ClCompile Include="DashEffect.cpp">
       <Filter>Engine\GameObject\Effect\DashEffect</Filter>
@@ -644,7 +644,7 @@
       <Filter>Engine\GameObject\Effect\Base</Filter>
     </ClCompile>
     <ClCompile Include="CheckButtonUI.cpp">
-      <Filter>Engine\GameObject\Monster\UI\ToolUI\CheckButtonUI</Filter>
+      <Filter>Engine\GameObject\UI\ToolUI\CheckButtonUI</Filter>
     </ClCompile>
     <ClCompile Include="Foothold.cpp">
       <Filter>Engine\GameObject\MapComponent\Tile\TileCollisionType\Foothold</Filter>
