@@ -266,6 +266,9 @@
     <Filter Include="Engine\GameObject\UI\Base">
       <UniqueIdentifier>{a39f639c-7312-4bd9-ac22-872f3d62036d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\SwordHitEffect">
+      <UniqueIdentifier>{378839fb-9af4-4e55-a573-d5f09ce94fa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -480,6 +483,9 @@
     </ClInclude>
     <ClInclude Include="MonsterAttState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordHitEffect.h">
+      <Filter>Engine\GameObject\Effect\SwordHitEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -699,6 +705,9 @@
     </ClCompile>
     <ClCompile Include="MonsterAttState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
+    </ClCompile>
+    <ClCompile Include="SwordHitEffect.cpp">
+      <Filter>Engine\GameObject\Effect\SwordHitEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

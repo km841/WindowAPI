@@ -91,6 +91,20 @@ void GameObject::Destroy()
 {
 }
 
+void GameObject::SeverRelation(GameObject* _obj, RELATION_TYPE _relType)
+{
+	std::vector<Relation>::iterator iter = mRelations.begin();
+
+	for (; iter != mRelations.end(); ++iter)
+	{
+		if (_obj == iter->mOther && _relType == iter->mRelType)
+		{
+			mRelations.erase(iter);
+			break;
+		}
+	}
+}
+
 void GameObject::CreateComponent(Collider* _collider)
 {
 	assert(nullptr != _collider);

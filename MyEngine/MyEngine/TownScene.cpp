@@ -199,6 +199,7 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
 	DeleteObjGroup(OBJECT_TYPE::WALL);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
+	//DeleteObjGroup(OBJECT_TYPE::EFFECT);
 
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);

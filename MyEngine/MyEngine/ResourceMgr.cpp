@@ -21,7 +21,7 @@ Texture* ResourceMgr::CreateTexture(const std::wstring _key, Vec2 _size)
 	if (iter != mResMap.end())
 	{
 		// 존재하는 키
-		return nullptr;
+		return static_cast<Texture*>(iter->second);
 	}
 
 	Texture* tex = new Texture;

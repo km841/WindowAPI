@@ -19,7 +19,7 @@ public:
     Animation* CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop
                              , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount);
 
-    void AddAnimation(const std::wstring& _animName, Animation* _anim) { mAnimMap.insert(std::make_pair(_animName, _anim)); }
+    void AddAnimation(const std::wstring& _animName, Animation* _anim);
     void RegisterAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop
                             , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount);
 

@@ -70,4 +70,6 @@ constexpr auto AFTER_IMAGE_TOTAL = 4;
 constexpr auto COMMENT_MAX_SIZE = 256;
 constexpr auto TILE_OFFSET = TILE_SIZE / 2.f;
 
+constexpr auto HIT_MAX = 6;
+
 

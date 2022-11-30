@@ -92,8 +92,8 @@ Player::Player()
 	effect->CreateComponent(new Animator);
 	effect->GetAnimator()->SetOwner(effect);
 
-	Animation* dustLeft = GetAnimator()->CreateAnimation(L"PLAYER_DUST_LEFT", dust, Vec2(0.f, 0.f), Vec2(16.f, 16.f), Vec2(16.f, 0.f), 0.05f, 6);
-	Animation* dustRight = GetAnimator()->CreateAnimation(L"PLAYER_DUST_RIGHT", dust, Vec2(0.f, 16.f), Vec2(16.f, 16.f), Vec2(16.f, 0.f), 0.05f, 6);
+	Animation* dustLeft = GetAnimator()->CreateAnimation(L"PLAYER_DUST_LEFT", dust, Vec2(0.f, 0.f), Vec2(48.f, 48.f), Vec2(48.f, 0.f), 0.05f, 6);
+	Animation* dustRight = GetAnimator()->CreateAnimation(L"PLAYER_DUST_RIGHT", dust, Vec2(0.f, 48.f), Vec2(48.f, 48.f), Vec2(48.f, 0.f), 0.05f, 6);
 
 	dustLeft->SetOwner(effect->GetAnimator());
 	dustRight->SetOwner(effect->GetAnimator());
@@ -335,7 +335,7 @@ void Player::MoveUpdate()
 			Vec2 destVelocity = Vec2(velocity.x + 5000.f * DT, velocity.y);
 			Vec2 curVelocity = Math::Lerp(velocity, destVelocity, 0.2f);
 
-			//// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
+			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
 
 			if (velocity.x > mJumpXMaxValue)
 				return;
@@ -525,14 +525,14 @@ void Player::Render()
 	}
 
 	// Debug Info
-	wchar_t isGround[256] = {};
-	wchar_t isGravity[256] = {};
+	wchar_t isGround[COMMENT_MAX_SIZE] = {};
+	wchar_t isGravity[COMMENT_MAX_SIZE] = {};
 	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
 	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
 	TextOut(BACK_BUF_DC, 10, 10, isGround, (int)wcslen(isGround));
 	TextOut(BACK_BUF_DC, 10, 30, isGravity, (int)wcslen(isGravity));
 
-	wchar_t velocity[256] = {};
+	wchar_t velocity[COMMENT_MAX_SIZE] = {};
 	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
 	TextOut(BACK_BUF_DC, 10, 50, velocity, (int)wcslen(velocity));
 }

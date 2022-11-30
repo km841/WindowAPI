@@ -36,16 +36,31 @@ void Animator::Render()
 Animation* Animator::CreateAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop
 							       , Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
 {
-	Animation* anim = FindAnimation(_animName);
-	if (nullptr != anim)
-		return nullptr;
+	//Animation* anim = FindAnimation(_animName);
+	//if (nullptr != anim)
+	//	return nullptr;
 
-	anim = new Animation;
+	Animation* anim = new Animation;
 	anim->mOwner = this;
 	anim->SetName(_animName);
 	
 	anim->Create(_tex, _leftTop, _slice, _offset, _duration, _frmCount);
 	return anim;
+}
+
+void Animator::AddAnimation(const std::wstring& _animName, Animation* _anim)
+{
+	auto res = mAnimMap.insert(std::make_pair(_animName, _anim));
+	
+	if (false == res.second)
+	{
+		// 기존 애니메이션은 지워준다.
+		Animation* anim = mAnimMap[_animName];
+		delete anim;
+
+		mAnimMap.erase(res.first);
+		mAnimMap.insert(std::make_pair(_animName, _anim));
+	}
 }
 
 void Animator::RegisterAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset
@@ -81,15 +96,15 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 	Texture* orgTex = anim->GetTexture();
 	
 	// 신규 DC 초기화
-	static Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(L"RotAnimTex", orgTex->GetSize());
+	Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotAnimTex", orgTex->GetSize());
 	Brush brush(rotTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(rotTex->GetDC(), -5, -5, rotTex->GetWidth() + 5, rotTex->GetHeight() + 5);
 
 	const std::vector<AnimInfo>& animInfo = anim->GetAnimInfo();
 
 	// Slice 크기의 임시 버퍼 생성
-	static Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(L"RotTempTex", animInfo.front().mSlice);
-	static Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(L"RotMaskTex", animInfo.front().mSlice);
+	Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotTempTex", animInfo.front().mSlice);
+	Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotMaskTex", animInfo.front().mSlice);
 
 	Brush tempBrush(tempTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(tempTex->GetDC(), -5, -5, tempTex->GetWidth() + 5, tempTex->GetHeight() + 5);

@@ -11,6 +11,7 @@
 #include "Effect.h"
 #include "Collider.h"
 #include "EventRegisteror.h"
+#include "SwordHitEffect.h"
 
 ShortSword::ShortSword()
 	:mCurDuration(0.f)
@@ -26,14 +27,11 @@ ShortSword::ShortSword()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Effect* effect = new Effect;
+	SwordHitEffect* effect = new SwordHitEffect;
 	effect->SetOwner(Player::GetPlayer());
 	effect->SetSize(Vec2(120.f, 120.f));
 	effect->SetOffset(Vec2(0.f, 40.f));
-	effect->CreateComponent(new Animator);
-	effect->GetAnimator()->SetOwner(effect);
-	effect->CreateComponent(new Collider);
-	effect->GetCollider()->SetOwner(effect);
+
 	effect->GetCollider()->SetSize(Vec2(30, 75));
 	effect->GetCollider()->SetOffset(Vec2(0, -70));
 	effect->GetCollider()->SetEnable(false);
@@ -57,9 +55,11 @@ ShortSword::ShortSword()
 
 ShortSword::~ShortSword()
 {
-	Effect* effect = GetEffect();
+	SwordHitEffect* effect = GetEffect();
 	if (nullptr != effect)
+	{
 		delete effect;
+	}
 }
 
 void ShortSword::Initialize()
@@ -173,6 +173,7 @@ void ShortSword::Update()
 			break;
 		}
 		
+		GetEffect()->SetAngle(angle);
 		GetEffect()->SetOffset(basicOffset + effDirVec * 13.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}

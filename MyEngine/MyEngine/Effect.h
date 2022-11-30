@@ -6,7 +6,7 @@ class Effect :
 {
 public:
 	Effect();
-	~Effect();
+	virtual ~Effect();
 
 public:
 	virtual void Initialize();
@@ -22,7 +22,7 @@ public:
 	inline Vec2 GetOffset() const { return mOffset; }
 
 	inline Texture* GetTexture() const { return mTexture; }
-	inline void SetTexture(Texture* _tex) { mTexture = _tex; }
+	inline void     SetTexture(Texture* _tex) { mTexture = _tex; }
 
 
 private:

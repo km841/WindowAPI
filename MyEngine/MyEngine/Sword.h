@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h"
 
+class SwordHitEffect;
 class Effect;
 class Sword :
     public Item
@@ -29,8 +30,8 @@ public:
     inline float GetYOffset() const { return mYAxisOffset; }
     inline void SetYOffset(float _offset) { mYAxisOffset = _offset; }
 
-    inline void SetEffect(Effect* _effect) { mEffect = _effect; }
-    inline Effect* GetEffect() const { return mEffect; }
+    inline void SetEffect(SwordHitEffect* _effect) { mHitEffect = _effect; }
+    inline SwordHitEffect* GetEffect() const { return mHitEffect; }
 
     inline void SetSwordState(SWORD_STATE _state) { mState = _state; }
     inline SWORD_STATE GetSwordState() const { return mState; }
@@ -57,7 +58,7 @@ private:
     float mDuration;
 
 
-    Effect* mEffect;
+    SwordHitEffect* mHitEffect;
 
     Texture* mTransTexture;
     SWORD_STATE mState;

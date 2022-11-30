@@ -13,22 +13,24 @@ struct Components
 	RigidBody* mRigidBody;
 };
 
-;
 
-struct Relation
-{
-	GameObject* mOther;
-	RELATION_TYPE mRelType;
-
-	bool operator< (const Relation& _other) const 
-	{
-		return mRelType < _other.mRelType;
-	}
-
-};
 
 class GameObject
 {
+public:
+	struct Relation
+	{
+		GameObject* mOther;
+		RELATION_TYPE mRelType;
+
+		bool operator< (const Relation& _other) const
+		{
+			return mOther->GetPos() < _other.mOther->GetPos();
+			//	return mRelType < _other.mRelType;
+		}
+
+	};
+
 public:
 	GameObject();
 	virtual ~GameObject();
@@ -63,9 +65,9 @@ public:
 	inline bool		   GetGround() const { return mGround; }
 	inline void		   SetGround(bool _ground) { mGround = _ground; mGravity = !(_ground); }
 
-	inline std::set<Relation>& GetRelations() { return mRelations; }
-	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.insert(Relation{ _obj, _relType }); }
-	inline void SeverRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.erase(Relation{ _obj, _relType }); }
+	inline std::vector<Relation>& GetRelations() { return mRelations; }
+	inline void AddRelation(GameObject* _obj, RELATION_TYPE _relType) { mRelations.push_back(Relation{ _obj, _relType }); }
+	void SeverRelation(GameObject* _obj, RELATION_TYPE _relType);
 	inline void ClearRelation() { mRelations.clear(); }
 	
 	void CreateComponent(Collider* _collider);
@@ -91,5 +93,5 @@ private:
 	bool				mGravity;
 	bool				mGround;
 
-	std::set<Relation>  mRelations;
+	std::vector<Relation>  mRelations;
 };

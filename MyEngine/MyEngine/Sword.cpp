@@ -15,7 +15,7 @@ Sword::Sword()
 	, mPrevState(SWORD_STATE::UP_STATE)
 	, mAngle(0.f)
 	, mDuration(0.f)
-	, mEffect(nullptr)
+	, mHitEffect(nullptr)
 	, mTransTexture(nullptr)
 	, mXAxisDirOffset{}
 	, mYAxisOffset(0.f)
