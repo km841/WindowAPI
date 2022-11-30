@@ -17,6 +17,10 @@ public:
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
 
+public:
+    virtual void AttackEnter();
+    virtual bool AttackExit();
+
 private:
 
 

@@ -134,8 +134,14 @@ void GiantSkullWarrior::OnCollision(Collider* _other)
 
 void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 {
-	if (OBJECT_TYPE::EFFECT == _other->GetOwner()->GetType())
+	// 데미지를 입을 때 빨간색이 되고, 
+	// 데미지를 입어서 HP가 0이 되면 Dead상태에서 죽는 애니메이션을 실행
+	// 애니메이션이 끝난 후 DeleteObject..
+	// if (isDead() && GetCurAnim()->isFinished())
+	//   -> 소멸
+	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
+		// 무기에서 이펙트에 공격력을 전달?
 		EventRegisteror::GetInstance().DeleteObject(this);
 	}
 
@@ -143,4 +149,39 @@ void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 
 void GiantSkullWarrior::OnCollisionExit(Collider* _other)
 {
+}
+
+void GiantSkullWarrior::AttackEnter()
+{
+	GetCollider()->SetEnable(true);
+}
+
+bool GiantSkullWarrior::AttackExit()
+{
+	// 공격 이펙트가 끝났는지
+	
+	Animation* attAnim = GetAnimator()->GetCurAnimation();
+	std::wstring attAnimName = GetAttAnimName();
+	
+	switch (mDir)
+	{
+	case DIR::LEFT:
+		attAnimName += L"Left";
+		break;
+
+	case DIR::RIGHT:
+		attAnimName += L"Right";
+		break;
+	}
+
+	if (attAnim == GetAnimator()->FindAnimation(attAnimName))
+	{
+		if (attAnim->IsFinished())
+		{
+			GetCollider()->SetEnable(false);
+			return true;
+		}
+	}
+
+	return false;
 }

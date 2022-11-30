@@ -22,7 +22,7 @@ Scene::~Scene()
 {
 	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)
 	{
-		if (OBJECT_TYPE::EFFECT == (OBJECT_TYPE)y)
+		if (OBJECT_TYPE::PLAYER_EFFECT == (OBJECT_TYPE)y)
 		{
 			continue;
 		}

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "CameraMgr.h"
 #include "Monster.h"
+#include "RigidBody.h"
 
 Wall::Wall()
 {
@@ -95,25 +96,44 @@ void Wall::OnCollision(Collider* _other)
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
 	{
-		Monster* monster = static_cast<Monster*>(_other->GetOwner());
-		
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
 
 		Vec2 otherPos = _other->GetPos();
 		Vec2 otherSize = _other->GetSize();
 
-		Vec2 otherObjPos = _other->GetOwner()->GetPos();
-		float diff = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
-		
-		if (diff > 0.f)
-		{
-			otherPos.y -= diff;
-			otherObjPos.y -= diff;
+		Vec2 dirVec = otherPos - pos;
 
-			_other->SetPos(otherPos);
-			_other->GetOwner()->SetPos(otherObjPos);
+		float diff_x = (size.x / 2.f + otherSize.x / 2.f) - abs(pos.x - otherPos.x);
+		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
+
+		Vec2 otherObjPos = _other->GetOwner()->GetPos();
+		if (diff_x < diff_y)
+		{
+			int sign = 1;
+			if (dirVec.x < 0.f)
+			{
+				sign = -sign;
+			}
+
+			otherObjPos.x += (diff_x + 1) * sign;
+			otherPos.x += (diff_x + 1) * sign;
 		}
+
+		else
+		{
+			int sign = 1;
+			if (dirVec.y < 0.f)
+			{
+				sign = -sign;
+			}
+
+			otherObjPos.y += diff_y * sign;
+			otherPos.y += diff_y * sign;
+		}
+
+		_other->GetOwner()->SetPos(otherObjPos);
+		_other->SetPos(otherPos);
 	}
 }
 
@@ -127,11 +147,13 @@ void Wall::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
 	{
+		Monster* monster = static_cast<Monster*>(_other->GetOwner());
+		monster->GetRigidBody()->SetVelocity_Y_Zero();
 		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
+
 	}
 }
 
 void Wall::OnCollisionExit(Collider* _other)
 {
-
 }

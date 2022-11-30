@@ -67,16 +67,11 @@ void Collider::Render()
 
 	Brush brush(BACK_BUF_DC, BRUSH_TYPE::HOLLOW);
 
-
-
-
 	Rectangle(BACK_BUF_DC
 		, (int)(pos.x - (size.x / 2))
 		, (int)(pos.y - (size.y / 2))
 		, (int)(pos.x + (size.x / 2))
 		, (int)(pos.y + (size.y / 2)));
-	
-	
 
 	SelectObject(BACK_BUF_DC, oldPen);
 	DeleteObject(pen);

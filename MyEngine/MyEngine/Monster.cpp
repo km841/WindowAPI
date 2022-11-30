@@ -12,6 +12,11 @@
 #include "AI.h"
 
 Monster::Monster()
+	: mDead(false)
+	, mAI(nullptr)
+	, mInfo()
+	, mDir(DIR::END)
+	, mPrevDir(DIR::END)
 {
 	SetType(OBJECT_TYPE::MONSTER);
 
@@ -23,8 +28,6 @@ Monster::Monster()
 
 	CreateComponent(new RigidBody);
 	GetRigidBody()->SetOwner(this);
-
-
 }
 
 Monster::~Monster()
@@ -71,4 +74,6 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 void Monster::OnCollisionExit(Collider* _other)
 {
+	if (0 == GetCollider()->GetColCnt())
+		SetGround(false);
 }

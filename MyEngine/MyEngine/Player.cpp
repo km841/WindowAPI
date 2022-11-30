@@ -205,13 +205,13 @@ void Player::Update()
 	StateUpdate();
 	AnimationUpdate();
 
-	if (IS_PRESSED(KEY::G))
-	{
-		if (GetGravity())
-			SetGravity(false);
-		else
-			SetGravity(true);
-	}
+	//if (IS_PRESSED(KEY::G))
+	//{
+	//	if (GetGravity())
+	//		SetGravity(false);
+	//	else
+	//		SetGravity(true);
+	//}
 	
 	mPrevState = mState;
 }
@@ -307,7 +307,7 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			Vec2 destVelocity = Vec2(velocity.x - 5000.f * DT, velocity.y);
+			Vec2 destVelocity = Vec2(velocity.x - 300.f, velocity.y);
 			Vec2 curVelocity = Math::Lerp(velocity, destVelocity, 0.2f);
 
 			if (velocity.x < -mJumpXMaxValue)
@@ -332,7 +332,7 @@ void Player::MoveUpdate()
 
 		if (PlayerState::Jump == mState)
 		{
-			Vec2 destVelocity = Vec2(velocity.x + 5000.f * DT, velocity.y);
+			Vec2 destVelocity = Vec2(velocity.x + 300.f, velocity.y);
 			Vec2 curVelocity = Math::Lerp(velocity, destVelocity, 0.2f);
 
 			// 반대쪽으로 힘이 작용하고 있을 때 일정량 보정하고 뒤집어준다
@@ -473,8 +473,6 @@ void Player::AnimationUpdate()
 	if ((mState != mPrevState) || (mDir != mPrevDir))
 		mState->Enter();
 }
-
-
 
 bool Player::IsMove() const
 {

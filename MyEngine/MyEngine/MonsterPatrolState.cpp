@@ -7,6 +7,7 @@
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
 #include "TimeMgr.h"
+#include "RigidBody.h"
 
 
 MonsterPatrolState::MonsterPatrolState()

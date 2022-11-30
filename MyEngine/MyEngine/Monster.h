@@ -33,20 +33,19 @@ public:
     inline void        SetMonsterInfo(MonsterInfo _info) { mInfo = _info; }
     inline MonsterInfo GetMonsterInfo() const { return mInfo; }
 
-    
-
     inline void                SetIdleAnimName(const std::wstring& _idleAnimName) { mIdleAnimName = _idleAnimName; }
     inline const std::wstring& GetIdleAnimName() const { return mIdleAnimName;}
 
-    inline void                SetMoveAnimName(const std::wstring& _walkAnimName) { mWalkAnimName = _walkAnimName; }
-    inline const std::wstring& GetMoveAnimName() const { return mWalkAnimName; }
+    inline void                SetMoveAnimName(const std::wstring& _moveAnimName) { mMoveAnimName = _moveAnimName; }
+    inline const std::wstring& GetMoveAnimName() const { return mMoveAnimName; }
 
     inline void                SetAttAnimName(const std::wstring& _attAnimName) { mAttAnimName = _attAnimName; }
     inline const std::wstring& GetAttAnimName() const { return mAttAnimName; }
 
 
 public:
-    
+    virtual void AttackEnter() {};
+    virtual bool AttackExit() { return true; }
 
 public:
     virtual void OnCollision(Collider* _other);
@@ -59,9 +58,11 @@ protected:
     DIR mDir;
     DIR mPrevDir;
 
+    bool mDead;
+
 private:
     std::wstring mIdleAnimName;
-    std::wstring mWalkAnimName;
+    std::wstring mMoveAnimName;
     std::wstring mAttAnimName;
 
 };

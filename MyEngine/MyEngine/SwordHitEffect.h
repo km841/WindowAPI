@@ -1,7 +1,6 @@
 #pragma once
 #include "Effect.h"
 
-class Animator;
 class GameObject;
 class SwordHitEffect :
     public Effect
@@ -9,7 +8,6 @@ class SwordHitEffect :
 public:
     SwordHitEffect();
     virtual ~SwordHitEffect();
-
 
 public:
     virtual void Update();

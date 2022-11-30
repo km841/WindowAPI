@@ -80,7 +80,7 @@ public:
     void OutGround();
 
     inline State* GetState() const { return mState; }
-    inline void SetState(State* _state) { mState = _state; }
+    inline void   SetState(State* _state) { mState = _state; }
 
     inline bool GetStop() const { return mStop; }
     inline void SetStop(bool _flag);
@@ -92,10 +92,6 @@ public:
 
     void EquipItemUpdate();
     void EquipItemRender();
-
-public:
-    inline void      SetGroundType(TILE_TYPE _tileType) { mGroundType = _tileType; }
-    inline TILE_TYPE GetGroundType() const { return mGroundType; }
     
 public:
     static Player* GetPlayer() { return mPlayer; }

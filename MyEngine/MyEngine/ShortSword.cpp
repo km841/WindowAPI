@@ -17,6 +17,8 @@ ShortSword::ShortSword()
 	:mCurDuration(0.f)
 	,mAttFlag(false)
 {
+	// ShortSword의 공격력은 Player의 공격력의 영향을 받는다.
+
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON);
 	SetLeftDirOffset(8.f);
