@@ -7,6 +7,7 @@
 #include "ResourceMgr.h"
 #include "Animation.h"
 #include "EventRegisteror.h"
+#include "CameraMgr.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
@@ -110,6 +111,16 @@ void GiantSkullWarrior::Initialize()
 void GiantSkullWarrior::Update()
 {
 	Monster::Update();
+	
+	//Vec2 pos = GetPos();
+
+	//wchar_t buf[COMMENT_MAX_SIZE] = {};
+	//swprintf_s(buf, L"x: %f, y:%f", pos.x, pos.y);
+
+	//pos.y -= 100;
+	//Vec2 renderPos = RENDER_POS(pos);
+	//TextOut(BACK_BUF_DC, 100, 500, buf, wcslen(buf));
+
 }
 
 void GiantSkullWarrior::Render()

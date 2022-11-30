@@ -22,6 +22,7 @@ public:
 		{
 			monster = new T;
 			monster->SetPos(_pos);
+			monster->SetGround(false);
 
 			info.mHP = 100;
 			info.mSpeed = 50.f;

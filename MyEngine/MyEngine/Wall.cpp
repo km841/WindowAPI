@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Player.h"
 #include "CameraMgr.h"
+#include "Monster.h"
 
 Wall::Wall()
 {
@@ -37,7 +38,6 @@ void Wall::Update()
 		if (playerTilePos == topTilePos)
 		{
 			mPlayerAbobeMe = true;
-			//player->GetRigidBody()->SetVelocity_Y(player->GetRigidBody()->GetVelocity_Y() * 0.95f);
 		}
 		else
 			mPlayerAbobeMe = false;
@@ -51,8 +51,7 @@ void Wall::Render()
 
 void Wall::OnCollision(Collider* _other)
 {
-	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType() || 
-		OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
@@ -92,9 +91,29 @@ void Wall::OnCollision(Collider* _other)
 
 		_other->GetOwner()->SetPos(otherObjPos);
 		_other->SetPos(otherPos);
-		
-		//static_cast<Player*>(_other->GetOwner())->SetGroundType(TILE_TYPE::WALL);
+	}
 
+	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	{
+		Monster* monster = static_cast<Monster*>(_other->GetOwner());
+		
+		Vec2 pos = GetCollider()->GetPos();
+		Vec2 size = GetCollider()->GetSize();
+
+		Vec2 otherPos = _other->GetPos();
+		Vec2 otherSize = _other->GetSize();
+
+		Vec2 otherObjPos = _other->GetOwner()->GetPos();
+		float diff = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
+		
+		if (diff > 0.f)
+		{
+			otherPos.y -= diff;
+			otherObjPos.y -= diff;
+
+			_other->SetPos(otherPos);
+			_other->GetOwner()->SetPos(otherObjPos);
+		}
 	}
 }
 
@@ -105,10 +124,14 @@ void Wall::OnCollisionEnter(Collider* _other)
 		if (mPlayerAbobeMe)
 			static_cast<Player*>(_other->GetOwner())->InGround();
 	}
+
+	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	{
+		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
+	}
 }
 
 void Wall::OnCollisionExit(Collider* _other)
 {
-	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
-	//	Player::GetPlayer()->OutGround();
+
 }

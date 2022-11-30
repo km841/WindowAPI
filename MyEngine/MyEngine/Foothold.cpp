@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "RigidBody.h"
 #include "CameraMgr.h"
+#include "Monster.h"
 
 Foothold::Foothold()
 {
@@ -22,7 +23,6 @@ Foothold::~Foothold()
 void Foothold::Initialize()
 {
 	GetCollider()->SetPos(GetPos());
-	//GetCollider()->SetOffset(Vec2(0.f, (TILE_SIZE / 2.f)));
 }
 
 void Foothold::Update()
@@ -41,7 +41,6 @@ void Foothold::Update()
 		if (playerTilePos == topTilePos)
 		{
 			mPlayerAbobeMe = true;
-			//player->GetRigidBody()->SetVelocity_Y(player->GetRigidBody()->GetVelocity_Y() * 0.95f);
 		}
 		else
 			mPlayerAbobeMe = false;
@@ -85,6 +84,11 @@ void Foothold::OnCollisionEnter(Collider* _other)
 	{
 		if (mPlayerAbobeMe)
 			static_cast<Player*>(_other->GetOwner())->InGround();
+	}
+
+	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	{
+		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
 	}
 }
 
