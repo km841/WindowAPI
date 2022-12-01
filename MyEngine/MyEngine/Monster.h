@@ -47,8 +47,8 @@ public:
     inline MonsterEffect* GetEffect() const { return mEffect; }
 
 public:
-    virtual void AttackEnter() {};
-    virtual bool AttackExit() { return true; }
+    virtual bool Attack() { return true; }
+    
 
 public:
     virtual void OnCollision(Collider* _other);

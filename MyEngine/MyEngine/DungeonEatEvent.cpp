@@ -13,7 +13,6 @@
 DungeonEatEvent::DungeonEatEvent()
 	:mFixPos{}
 {
-	SetType(OBJECT_TYPE::EVENT_OBJECT);
 
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);

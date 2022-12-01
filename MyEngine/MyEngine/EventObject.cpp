@@ -4,7 +4,7 @@
 
 EventObject::EventObject()
 {
-
+	SetType(OBJECT_TYPE::EVENT_OBJECT);
 }
 
 EventObject::~EventObject()

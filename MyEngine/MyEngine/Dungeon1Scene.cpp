@@ -13,6 +13,7 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "ShortSword.h"
+#include "GiantSkullSpawnEvent.h"
 
 void Dungeon1Scene::Initialize()
 {
@@ -75,16 +76,29 @@ void Dungeon1Scene::Enter()
 		//AddGameObject(sword, sword->GetType());
 	}
 
-	Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 15));
-	Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
-	Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
+	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
+	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 10));
 
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull1, skull1->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull2, skull2->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull3, skull3->GetType());
+	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 20, TILE_SIZE * 20));
+	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 20, TILE_SIZE * 10));
+
+	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 25, TILE_SIZE * 20));
+	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 25, TILE_SIZE * 10));
+
+	//Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 15));
+	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
+	//Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
+
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::MONSTER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
@@ -99,6 +113,7 @@ void Dungeon1Scene::Exit()
 {
 	ShowCursor(true);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);

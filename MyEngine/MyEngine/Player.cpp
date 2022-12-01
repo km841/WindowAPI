@@ -221,14 +221,6 @@ void Player::Update()
 	EffectUpdate();
 	StateUpdate();
 	AnimationUpdate();
-
-	//if (IS_PRESSED(KEY::G))
-	//{
-	//	if (GetGravity())
-	//		SetGravity(false);
-	//	else
-	//		SetGravity(true);
-	//}
 	
 	mPrevState = mState;
 }

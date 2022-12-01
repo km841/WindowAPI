@@ -162,66 +162,54 @@ void GiantSkullWarrior::OnCollisionExit(Collider* _other)
 {
 }
 
-void GiantSkullWarrior::AttackEnter()
-{
-	// Effect의 콜라이더
-	switch (mDir)
-	{
-	case DIR::LEFT:
-		GetEffect()->GetCollider()->SetOffset_X(-80);
-		break;
-
-	case DIR::RIGHT:
-		GetEffect()->GetCollider()->SetOffset_X(80);
-		break;
-	}
-
-	
-	GetEffect()->GetCollider()->SetEnable(true);
-	
-}
-
-bool GiantSkullWarrior::AttackExit()
+bool GiantSkullWarrior::Attack()
 {
 	// 공격 이펙트가 끝났는지
 	// 공격 이펙트가 끝나면 충돌을 끝내야 함
 	// 콜리전매니저에 플레이어와 충돌이 있다면 삭제
-	
+
 	Animation* attAnim = GetAnimator()->GetCurAnimation();
-	std::wstring attAnimName = GetAttAnimName();
-	
-	switch (mDir)
-	{
-	case DIR::LEFT:
-		attAnimName += L"Left";
-		break;
 
-	case DIR::RIGHT:
-		attAnimName += L"Right";
-		break;
+	if (attAnim->IsFinished())
+	{
+		auto& rels = mEffect->GetRelations();
+		for (int i = 0; i < rels.size(); ++i)
+		{
+			if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
+			{
+				CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
+				break;
+			}
+		}
+
+		return false;
 	}
 
-	if (attAnim == GetAnimator()->FindAnimation(attAnimName))
+	else
 	{
-		if (attAnim->IsFinished())
+		switch (mDir)
 		{
-			// Effect의 콜라이더
+		case DIR::LEFT:
+			GetEffect()->GetCollider()->SetOffset_X(-80);
+			break;
+
+		case DIR::RIGHT:
+			GetEffect()->GetCollider()->SetOffset_X(80);
+			break;
+		}
+
+		int curFrame = attAnim->GetCurFrame();
+		switch (curFrame)
+		{
+		case 2:
+			GetEffect()->GetCollider()->SetEnable(true);
+			break;
+
+		case 4:
 			GetEffect()->GetCollider()->SetEnable(false);
-			return true;
+			break;
 		}
+
+		return true;
 	}
-
-	// 충돌 강제 종료
-	auto& rels = mEffect->GetRelations();
-	for (int i = 0; i < rels.size(); ++i)
-	{
-		if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
-		{
-			CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
-		}
-	}
-	
-
-
-	return false;
 }

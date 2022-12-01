@@ -25,6 +25,7 @@ public:
     void CheckGroup(std::vector<GameObject*>& _row, std::vector<GameObject*>& _col);
     bool IsCollision(Collider* _left, Collider* _right);
 
+public:
     void CollisionForceQuit(Collider* _left, Collider* _right);
 
 private:

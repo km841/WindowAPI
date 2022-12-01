@@ -91,6 +91,8 @@ void ShortSword::Update()
 	if (GetDuration() > mCurDuration)
 	{
 		mCurDuration += DT;
+		
+
 	}
 	else
 	{
@@ -101,6 +103,7 @@ void ShortSword::Update()
 			// 애니메이션이 끝났고 다음 애니메이션이 시작될 거라는 것
 			mAttFlag = false;
 			GetEffect()->GetCollider()->SetEnable(false);
+			
 		}
 
 		if (IS_JUST_LBUTTON_CLICKED)
@@ -144,9 +147,9 @@ void ShortSword::Update()
 		float angle = GetAngle();
 		float degree = Math::RadianToDegree(angle);
 
-		wchar_t buf[256] = {};
-		swprintf_s(buf, L"%f", degree);
-		SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+		//wchar_t buf[256] = {};
+		//swprintf_s(buf, L"%f", degree);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
 		if (abs(degree) > 115.f)
 		{

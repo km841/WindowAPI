@@ -152,6 +152,7 @@
     <ClInclude Include="EatState.h" />
     <ClInclude Include="EventObject.h" />
     <ClInclude Include="Foothold.h" />
+    <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="GreatSword.h" />
     <ClInclude Include="InfRepeatBg.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="MonsterFactory.h" />
     <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="MonsterPatrolState.h" />
+    <ClInclude Include="MonsterSpawnEvent.h" />
     <ClInclude Include="MonsterState.h" />
     <ClInclude Include="MonsterSwordEffect.h" />
     <ClInclude Include="MonsterTraceState.h" />
@@ -229,6 +231,7 @@
     <ClCompile Include="EatState.cpp" />
     <ClCompile Include="EventObject.cpp" />
     <ClCompile Include="Foothold.cpp" />
+    <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="GreatSword.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
@@ -253,6 +256,7 @@
     <ClCompile Include="MonsterFactory.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="MonsterPatrolState.cpp" />
+    <ClCompile Include="MonsterSpawnEvent.cpp" />
     <ClCompile Include="MonsterState.cpp" />
     <ClCompile Include="MonsterSwordEffect.cpp" />
     <ClCompile Include="MonsterTraceState.cpp" />

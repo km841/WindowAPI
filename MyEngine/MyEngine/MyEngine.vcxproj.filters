@@ -284,6 +284,15 @@
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect">
       <UniqueIdentifier>{c87d816b-0521-42b0-b935-4682bde44cc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent">
+      <UniqueIdentifier>{5a5e1a52-17a3-4070-b884-b8eefbe4ab46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base">
+      <UniqueIdentifier>{f64daf44-662f-46ec-967e-10110ed57428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent">
+      <UniqueIdentifier>{f286898c-97db-43b8-bfa2-331b870ab7ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -510,6 +519,12 @@
     </ClInclude>
     <ClInclude Include="MonsterSwordEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSpawnEvent.h">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GiantSkullSpawnEvent.h">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -741,6 +756,12 @@
     </ClCompile>
     <ClCompile Include="MonsterSwordEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSpawnEvent.cpp">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="GiantSkullSpawnEvent.cpp">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

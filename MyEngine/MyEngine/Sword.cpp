@@ -73,14 +73,8 @@ void Sword::Update()
 
 		//1. 플레이어와 바라보는 방향간의 벡터
 		//2. 플레이어와 마우스간의 벡터
+		Vec2 mouseRenVector = MOUSE_POS - RENDER_POS(playerPos);
 
-		Vec2 playerDirVec = playerPos + dirVec;
-		Vec2 playerRenVector = playerDirVec - playerPos;
-
-		Vec2 mousePos = MOUSE_POS;
-		Vec2 mouseRenVector = mousePos - RENDER_POS(playerPos);
-
-		float lenMul = mouseRenVector.Len() * playerRenVector.Len();
 		float angle = (float)atan2(mouseRenVector.y, mouseRenVector.x) * times;
 		angle -= PI / 2.f;
 

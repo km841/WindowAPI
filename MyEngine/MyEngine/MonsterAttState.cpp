@@ -30,7 +30,14 @@ void MonsterAttState::Update()
 	// 그냥 for문돌면서 내부에 오브젝트가 어떤상태인지 점검하고 전부 소멸됐으면 true
 
 	// 공격이 끝났는지를 알리는 몬스터쪽에서 제공하는 가상함수
-	if (monster->AttackExit())
+	// monster->AttackEnter에서는 몬스터가 몇 프레임때 무슨 일을 하는지 서술
+	// monster->AttackExit에서는 몬스터의 
+	// 공격시간이 긴 몬스터의 경우는?
+	// 애니메이션이 2회 이상 진행되어야 하는 경우?
+	// bool을 반환하는 Attack이라는 함수를 그냥 두고 그 안에서 끝났는지 유무를 검사한다.
+	// 여기서는 그 유무에 따른 처리를 해준다.
+
+	if (!monster->Attack())
 	{
 		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
 	}
@@ -42,10 +49,6 @@ void MonsterAttState::Update()
 	// 이 처리를 가상함수로 만들면? 제약사항(모든 처리가 공격애니메이션 안에서 다 처리되어야 함)
 	// 아니면 bool 함수를만들고 그 함수가 true가 되면 그 때 상태 변경
 	// 1. 해골전사의 경우: 공격 애니메이션 동안 충돌체를 On 시킨다.
-		
-	
-
-
 	
 	// 몬스터도 이펙트를 가지게 하고,
 	// 몬스터가 AttState일 때 특정 프레임에 충돌체를 Enable하여 플레이어 충돌체와 충돌하도록 함
@@ -58,8 +61,6 @@ void MonsterAttState::Update()
 	// 그러면... std::vector로 가지고있어야한다
 	// Effect의 Update와 Render에서 탄알에 대한 Update와 Render를 진행해주어야 함
 	// 게임오브젝트의 mDead 변수 상태를 활용해서 모든 상태 체크
-
-
 }
 
 void MonsterAttState::Enter()
@@ -78,7 +79,10 @@ void MonsterAttState::Enter()
 		break;
 	}
 
-	monster->AttackEnter();
+	// 특정 애니메이션 프레임에 충돌체가 켜져야 함
+
+	// 특정 프레임일 때 이게 실행돼도 되잖
+	
 	// 공격 개시- 가상함수로 처리
 	
 }
