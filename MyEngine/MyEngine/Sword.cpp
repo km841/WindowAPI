@@ -56,51 +56,50 @@ void Sword::Update()
 		switch (playerDir)
 		{
 		case DIR::LEFT:
-			dirVec = Vec2(-1, 0);
-			times = 2.3f;
+			dirVec = Vec2(-100, 0);
+			//times = 2.3f;
 			break;
 		case DIR::RIGHT:
-			dirVec = Vec2(1, 0);
-			times = 4.f;
+			dirVec = Vec2(100, 0);
+			//times = 4.f;
 			break;
 		}
 
+		// dirVec + 플레이어 위치?
+		// 그 위치를 받아와서 플레이어 위치를 기준으로 마우스 좌표를 계산해줘야 함
+
+		//1. 플레이어 위치를 기준으로 방향벡터를 지정
+		//2. 그거를 플레이어에서 마우스위치의 벡터와 계산
+
+		//1. 플레이어와 바라보는 방향간의 벡터
+		//2. 플레이어와 마우스간의 벡터
+
+		Vec2 playerDirVec = playerPos + dirVec;
+		Vec2 playerRenVector = playerDirVec - playerPos;
 
 		Vec2 mousePos = MOUSE_POS;
-		mousePos.Norm();
+		Vec2 mouseRenVector = mousePos - RENDER_POS(playerPos);
 
-		float angle = (float)acos(dirVec.Dot(mousePos)) * times;
+		float lenMul = mouseRenVector.Len() * playerRenVector.Len();
+		float angle = (float)atan2(mouseRenVector.y, mouseRenVector.x) * times;
+		angle -= PI / 2.f;
 
-		if (DIR::LEFT == playerDir)
-			angle -= PI + (PI / 2.f);
-		
-		//int degree = RadianToDegree(angle);
-		//degree %= 360;
-
+		//float degree = Math::RadianToDegree(angle);
 		//wchar_t buf[256] = {};
-		//swprintf_s(buf, L"%d", degree);
+		//swprintf_s(buf, L"%f", degree);
 		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
-		switch (playerDir)
-		{
-		case DIR::LEFT:
-			mAngle = angle - PI;
-			break;
-		case DIR::RIGHT:
-			mAngle = angle;
-			break;
-		}
+		mAngle = angle + PI;
 
-		
 		if (SWORD_STATE::DOWN_STATE == mState)
 		{
 			switch (playerDir)
 			{
 			case DIR::LEFT:
-				angle += (float)(PI + (PI / 6.0));
+				angle -= (float)(PI - (PI / 6.0));
 				break;
 			case DIR::RIGHT:
-				angle -= (float)(PI + (PI / 6.0));
+				angle += (float)(PI + (PI / 6.0));
 				break;
 			}
 		}
