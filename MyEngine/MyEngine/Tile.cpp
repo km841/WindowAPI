@@ -81,6 +81,11 @@ void Tile::Render()
 
 void Tile::Destroy()
 {
+	if (nullptr != mCollisionComponent)
+	{
+		delete mCollisionComponent;
+		mCollisionComponent = nullptr;
+	}
 }
 
 void Tile::Save(FILE* _fp) const

@@ -18,6 +18,7 @@ public:
     virtual void Initialize() override;
     virtual void Update() override;
     virtual void Render() override;
+    virtual void Destroy() override;
 
 public:
     inline ITEM_TYPE GetItemType() const { return mItemType; }

@@ -18,6 +18,7 @@
 #include "BlackSmithNPC.h"
 #include "DungeonEatEvent.h"
 #include "SceneMgr.h"
+#include "EventMgr.h"
 
 void TownScene::Initialize()
 {
@@ -200,10 +201,11 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::BACKGROUND_LAST);
 	DeleteObjGroup(OBJECT_TYPE::STRUCTURE);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
-	DeleteObjGroup(OBJECT_TYPE::NPC);
-	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
-	DeleteObjGroup(OBJECT_TYPE::WALL);
-	DeleteObjGroup(OBJECT_TYPE::TILE);
+	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
+	//DeleteObjGroup(OBJECT_TYPE::NPC);
+	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+	CleanObjectGroup(OBJECT_TYPE::WALL);
+	//DeleteObjGroup(OBJECT_TYPE::TILE);
 	//DeleteObjGroup(OBJECT_TYPE::EFFECT);
 
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
@@ -214,6 +216,9 @@ void TownScene::Exit()
 	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
 	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
+
+	//임시용 코드
+	//auto evnt = EventMgr::GetInstance().GetEvents();
 
 	ShowCursor(true);
 }

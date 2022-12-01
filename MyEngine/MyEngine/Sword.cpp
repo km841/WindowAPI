@@ -201,6 +201,15 @@ void Sword::Render()
 	}
 }
 
+void Sword::Destroy()
+{
+	if (nullptr != mHitEffect)
+	{
+		delete mHitEffect;
+		mHitEffect = nullptr;
+	}
+}
+
 void Sword::ChangeSwordState()
 {
 	mState = (SWORD_STATE)(((UINT)mState + 1) % 2);

@@ -40,6 +40,7 @@ void SceneMgr::Initialize()
 	
 	for (int i = 0; i < (UINT)SCENE_TYPE::END; ++i)
 	{
+		if (nullptr != mScenes[i])
 		mScenes[i]->Initialize();
 	}
 	mCurScene->Enter();
@@ -59,10 +60,14 @@ void SceneMgr::Render()
 
 void SceneMgr::Destroy()
 {
+	mCurScene->Exit();
+
 	for (int i = 0; i < (UINT)SCENE_TYPE::END; ++i)
 	{
-		mScenes[i]->Destroy();
+		if (nullptr != mScenes[i])
+			mScenes[i]->Destroy();
 	}
+	
 }
 
 void SceneMgr::ChangeScene(SCENE_TYPE _eType)

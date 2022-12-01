@@ -18,9 +18,13 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 
+
 public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
+
+public:
+	void CleanObjectGroup(OBJECT_TYPE _eType) { mObjects[(UINT)_eType].clear(); }
 
 public:
 	inline const std::vector<GameObject*>& GetObjectGroup(OBJECT_TYPE _eType) const { return mObjects[(UINT)_eType]; }

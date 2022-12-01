@@ -154,12 +154,18 @@ Player::~Player()
 		delete PlayerState::Eat;
 
 	if (nullptr != mEffect)
+	{
 		delete mEffect;
+		mEffect = nullptr;
+	}
 
 	for (int i = 0; i < AFTER_IMAGE_TOTAL; ++i)
 	{
 		if (nullptr != mDashEffect[i])
+		{
 			delete mDashEffect[i];
+			mDashEffect[i] = nullptr;
+		}
 	}
 	
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
@@ -558,6 +564,11 @@ void Player::Render()
 
 void Player::Destroy()
 {
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
+	{
+		if (nullptr != mEquipItems[i])
+			mEquipItems[i]->Destroy();
+	}
 }
 
 void Player::OnCollision(Collider* _other)

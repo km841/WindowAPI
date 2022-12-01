@@ -24,7 +24,9 @@ Scene::~Scene()
 	{
 		if (OBJECT_TYPE::PLAYER_EFFECT == (OBJECT_TYPE)y ||
 			OBJECT_TYPE::MONSTER_EFFECT == (OBJECT_TYPE)y ||
-			OBJECT_TYPE::UNIQUE_UI == (OBJECT_TYPE)y)
+			OBJECT_TYPE::UNIQUE_UI == (OBJECT_TYPE)y ||
+			OBJECT_TYPE::FOOTHOLD == (OBJECT_TYPE)y ||
+			OBJECT_TYPE::WALL == (OBJECT_TYPE)y )
 		{
 			continue;
 		}
@@ -84,7 +86,9 @@ void Scene::Destroy()
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
 			if (nullptr != mObjects[y][x])
+			{
 				mObjects[y][x]->Destroy();
+			}
 		}
 	}
 
@@ -101,7 +105,10 @@ void Scene::DeleteObjGroup(OBJECT_TYPE _eType)
 	for (UINT i = 0; i < mObjects[(UINT)_eType].size(); ++i)
 	{
 		if (nullptr != mObjects[(UINT)_eType][i])
+		{
 			delete mObjects[(UINT)_eType][i];
+			mObjects[(UINT)_eType][i] = nullptr;
+		}
 	}
 
 	mObjects[(UINT)_eType].clear();

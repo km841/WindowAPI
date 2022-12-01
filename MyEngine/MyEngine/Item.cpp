@@ -25,3 +25,7 @@ void Item::Update()
 void Item::Render()
 {
 }
+
+void Item::Destroy()
+{
+}

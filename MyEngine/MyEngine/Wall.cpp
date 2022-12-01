@@ -18,6 +18,7 @@ Wall::Wall()
 
 Wall::~Wall()
 {
+
 }
 
 void Wall::Initialize()

@@ -41,8 +41,7 @@ Monster::~Monster()
 
 	// 삭제될 때 씬에서도 지워줘야 함
 
-	
-
+	EventRegisteror::GetInstance().DeleteObject(mEffect);
 	//if (nullptr != mEffect)
 	//{
 	//	delete mEffect;
@@ -73,8 +72,9 @@ void Monster::Render()
 
 void Monster::Destroy()
 {
-	EventRegisteror::GetInstance().DeleteObject(mEffect);
-	mEffect = nullptr;
+	// 씬의 Exit에서 삭제하도록 함
+	//EventRegisteror::GetInstance().DeleteObject(mEffect);
+	//mEffect = nullptr;
 }
 
 void Monster::OnCollision(Collider* _other)

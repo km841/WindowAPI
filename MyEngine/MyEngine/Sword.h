@@ -14,6 +14,7 @@ public:
     virtual void Initialize() override;
     virtual void Update() override;
     virtual void Render() override;
+    virtual void Destroy() override;
 
 public:
     inline void SetTransTexture(Texture* _maskTex) { mTransTexture = _maskTex; }
