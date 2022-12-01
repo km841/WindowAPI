@@ -11,6 +11,7 @@ public:
     virtual void Initialize() override;
     virtual void Update() override;
     virtual void Render() override;
+    virtual void Destroy() override;
 
 public:
     virtual void OnCollision(Collider* _other);

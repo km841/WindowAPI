@@ -23,7 +23,8 @@ Scene::~Scene()
 	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)
 	{
 		if (OBJECT_TYPE::PLAYER_EFFECT == (OBJECT_TYPE)y ||
-			OBJECT_TYPE::MONSTER_EFFECT == (OBJECT_TYPE)y)
+			OBJECT_TYPE::MONSTER_EFFECT == (OBJECT_TYPE)y ||
+			OBJECT_TYPE::UNIQUE_UI == (OBJECT_TYPE)y)
 		{
 			continue;
 		}
@@ -71,6 +72,19 @@ void Scene::Render()
 		{
 			if (nullptr != mObjects[y][x])
 				mObjects[y][x]->Render();
+		}
+	}
+
+}
+
+void Scene::Destroy()
+{
+	for (size_t y = 0; (UINT)OBJECT_TYPE::END > y; ++y)
+	{
+		for (size_t x = 0; mObjects[y].size() > x; ++x)
+		{
+			if (nullptr != mObjects[y][x])
+				mObjects[y][x]->Destroy();
 		}
 	}
 

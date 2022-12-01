@@ -20,6 +20,15 @@ void EventMgr::Update()
 	mEvents.clear();
 }
 
+void EventMgr::Destroy()
+{
+	for (UINT i = 0; i < mEvents.size(); ++i)
+	{
+		Execute(mEvents[i]);
+	}
+	mEvents.clear();
+}
+
 void EventMgr::Execute(Event _event)
 {
 	switch (_event.eType)

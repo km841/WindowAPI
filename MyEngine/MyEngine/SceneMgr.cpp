@@ -57,6 +57,14 @@ void SceneMgr::Render()
 	mCurScene->Render();
 }
 
+void SceneMgr::Destroy()
+{
+	for (int i = 0; i < (UINT)SCENE_TYPE::END; ++i)
+	{
+		mScenes[i]->Destroy();
+	}
+}
+
 void SceneMgr::ChangeScene(SCENE_TYPE _eType)
 {
 	mCurScene->Exit();

@@ -3,7 +3,7 @@
 
 Effect::Effect()
 {
-	SetType(OBJECT_TYPE::PLAYER_EFFECT);
+	//SetType(OBJECT_TYPE::EFFECT);
 
 }
 

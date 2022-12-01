@@ -12,6 +12,7 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
+	void Destroy();
 
 public:
 	inline Scene* GetCurScene() const { return mCurScene; }

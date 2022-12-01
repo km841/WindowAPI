@@ -9,6 +9,9 @@ class EventMgr :
 public:
     void Initialize();
     void Update();
+    void Destroy();
+
+public:
     void Execute(Event _event);
 
 public:

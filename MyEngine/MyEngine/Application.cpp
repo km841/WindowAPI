@@ -110,11 +110,13 @@ void Application::Tick()
 void Application::Render()
 {
 
-
 }
 
 void Application::Destroy()
 {
+	SceneMgr::GetInstance().Destroy();
+	EventMgr::GetInstance().Destroy();
+	UIMgr::GetInstance().Destroy();
 	ClipCursor(NULL);
 	ReleaseDC(mWinData.hWnd, mWinData.hMainDC);
 	DeleteDC(mWinData.hBackBufDC);

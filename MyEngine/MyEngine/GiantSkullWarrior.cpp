@@ -139,6 +139,11 @@ void GiantSkullWarrior::Render()
 	Monster::Render();
 }
 
+void GiantSkullWarrior::Destroy()
+{
+	Monster::Destroy();
+}
+
 void GiantSkullWarrior::OnCollision(Collider* _other)
 {
 }

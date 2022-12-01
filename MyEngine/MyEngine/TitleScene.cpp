@@ -52,6 +52,11 @@ void TitleScene::Render()
 		RGB(255, 0, 255));
 }
 
+void TitleScene::Destroy()
+{
+	Scene::Destroy();
+}
+
 void TitleScene::Enter()
 {
 	ShowCursor(false);

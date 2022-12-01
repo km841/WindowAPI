@@ -60,6 +60,11 @@ void TownScene::Render()
 		RGB(255, 0, 255));
 }
 
+void TownScene::Destroy()
+{
+	Scene::Destroy();
+}
+
 void TownScene::Enter()
 {
 	ShowCursor(false);

@@ -34,6 +34,8 @@ void GiantSkullSpawnEvent::Destroy()
 void GiantSkullSpawnEvent::Spawn()
 {
 	GiantSkullWarrior* monster = static_cast<GiantSkullWarrior*>(MonsterFactory::CreateMonster<GiantSkullWarrior>(mMonsterType, mSpawnPos));
+	monster->Initialize();
+
 	EventRegisteror::GetInstance().CreateObject(monster, monster->GetType());
 }
 

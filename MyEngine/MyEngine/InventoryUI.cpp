@@ -25,7 +25,7 @@ InventoryUI::InventoryUI()
 	}
 
 
-	SetType(OBJECT_TYPE::UI);
+	SetType(OBJECT_TYPE::UNIQUE_UI);
 	SetUIType(UI_TYPE::INVENTORY);
 }
 

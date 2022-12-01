@@ -235,6 +235,11 @@ void ToolScene::Render()
 	
 }
 
+void ToolScene::Destory()
+{
+	Scene::Destroy();
+}
+
 void ToolScene::Enter()
 {
 	// 툴에 사용할 모든 타일을 벡터에 넣음

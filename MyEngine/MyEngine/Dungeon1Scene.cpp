@@ -59,6 +59,11 @@ void Dungeon1Scene::Render()
 		RGB(255, 0, 255));
 }
 
+void Dungeon1Scene::Destroy()
+{
+	Scene::Destroy();
+}
+
 void Dungeon1Scene::Enter()
 {
 	ShowCursor(false);
@@ -77,24 +82,28 @@ void Dungeon1Scene::Enter()
 	}
 
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
-	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 10));
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 20));
+	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 20, TILE_SIZE * 20));
-	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 20, TILE_SIZE * 10));
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 20));
+	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 25, TILE_SIZE * 20));
-	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 25, TILE_SIZE * 10));
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 20));
+	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
-	//Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 15));
-	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
-	//Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
+	Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 15));
+	Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
+	Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
+
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull1, skull1->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull2, skull2->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull3, skull3->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);

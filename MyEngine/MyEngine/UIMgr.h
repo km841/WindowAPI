@@ -11,6 +11,7 @@ public:
 public:
     void Initialize();
     void Update();
+    void Destroy();
 
 public:
     void DisableUI(UI_TYPE _type);
