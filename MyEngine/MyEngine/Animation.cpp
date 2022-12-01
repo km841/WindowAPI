@@ -7,6 +7,7 @@
 #include "CameraMgr.h"
 #include "GameObject.h"
 #include "EventRegisteror.h"
+#include "Player.h"
 
 Animation::Animation()
 	: mFinish(false)
@@ -21,6 +22,11 @@ Animation::Animation()
 	, mDummyObj(nullptr)
 	, mOffset(ZERO_VECTOR)
 {
+	mBlendFunc = {};
+	mBlendFunc.BlendFlags = 0;
+	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
+	mBlendFunc.BlendOp = AC_SRC_OVER;
+	mBlendFunc.SourceConstantAlpha = 255;
 }
 
 Animation::~Animation()
@@ -106,19 +112,71 @@ void Animation::Render()
 		divideY = 2.f;
 	}
 
-    TransparentBlt(
-		BACK_BUF_DC
-		, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
-		, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
-		, (int)(mAnim[mCurFrm].mSlice.x)
-		, (int)(mAnim[mCurFrm].mSlice.y)
-		, mTex->GetDC()
-		, (int)(mAnim[mCurFrm].mLeftTop.x)
-		, (int)(mAnim[mCurFrm].mLeftTop.y)
-		, (int)(mAnim[mCurFrm].mSlice.x)
-		, (int)(mAnim[mCurFrm].mSlice.y)
-		, RGB(255, 0, 255)
-	);
+	// 알파블렌드로 출력하되 투명도만 다르도록
+	// 피격중이면 flag를 통해 알리고 그 flag가 on이면 반투명
+	//mBlendFunc.SourceConstantAlpha = 255;
+	Player* player = Player::GetPlayer();
+	if (mOwner->GetOwner() == player)
+	{
+		if (player->IsHit())
+		{
+			mBlendFunc.SourceConstantAlpha = 127;
+			AlphaBlend(
+				BACK_BUF_DC
+				, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
+				, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mTex->GetDC()
+				, (int)(mAnim[mCurFrm].mLeftTop.x)
+				, (int)(mAnim[mCurFrm].mLeftTop.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mBlendFunc
+			);
+		}
+
+
+		else
+		{
+			mBlendFunc.SourceConstantAlpha = 255;
+			TransparentBlt(
+				BACK_BUF_DC
+				, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
+				, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mTex->GetDC()
+				, (int)(mAnim[mCurFrm].mLeftTop.x)
+				, (int)(mAnim[mCurFrm].mLeftTop.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, RGB(255, 0, 255)
+			);
+		}
+	}
+	
+	else
+	{
+		TransparentBlt(
+   			BACK_BUF_DC
+   			, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
+   			, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+   			, (int)(mAnim[mCurFrm].mSlice.x)
+   			, (int)(mAnim[mCurFrm].mSlice.y)
+   			, mTex->GetDC()
+   			, (int)(mAnim[mCurFrm].mLeftTop.x)
+   			, (int)(mAnim[mCurFrm].mLeftTop.y)
+   			, (int)(mAnim[mCurFrm].mSlice.x)
+   			, (int)(mAnim[mCurFrm].mSlice.y)
+   			, RGB(255, 0, 255)
+		   );
+	}
+
+
+
+
+
 	
 
 	if (nullptr != mDummyObj)

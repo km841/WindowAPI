@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 
-
+class MonsterEffect;
 class Texture;
 class AI;
 class Monster :
@@ -42,6 +42,9 @@ public:
     inline void                SetAttAnimName(const std::wstring& _attAnimName) { mAttAnimName = _attAnimName; }
     inline const std::wstring& GetAttAnimName() const { return mAttAnimName; }
 
+public:
+    inline void           SetEffect(MonsterEffect* _monsterEff) { mEffect = _monsterEff; }
+    inline MonsterEffect* GetEffect() const { return mEffect; }
 
 public:
     virtual void AttackEnter() {};
@@ -59,7 +62,8 @@ protected:
     DIR mPrevDir;
 
     bool mDead;
-
+    
+    MonsterEffect* mEffect;
 private:
     std::wstring mIdleAnimName;
     std::wstring mMoveAnimName;

@@ -147,3 +147,23 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 
 	return false;
 }
+
+void CollisionMgr::CollisionForceQuit(Collider* _left, Collider* _right)
+{
+	COLLISION_ID colID = {};
+	colID.LID = _left->GetID();
+	colID.RID = _right->GetID();
+
+	std::map<ULONGLONG, bool>::iterator iter = mColMap.find(colID.ID);
+	
+	if (mColMap.end() != iter)
+	{
+		_left->OnCollisionExit(_right);
+		_right->OnCollisionExit(_left);
+		
+		_left->GetOwner()->SeverRelation(_right->GetOwner(), RELATION_TYPE::COLLISION);
+		_right->GetOwner()->SeverRelation(_left->GetOwner(), RELATION_TYPE::COLLISION);
+
+		mColMap.erase(iter);
+	}
+}

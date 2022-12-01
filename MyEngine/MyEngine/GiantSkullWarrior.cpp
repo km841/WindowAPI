@@ -8,6 +8,8 @@
 #include "Animation.h"
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
+#include "MonsterSwordEffect.h"
+#include "CollisionMgr.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
@@ -98,6 +100,14 @@ GiantSkullWarrior::GiantSkullWarrior()
 
 
 	GetAnimator()->SelectAnimation(L"GiantSkull_IdleLeft", true);
+
+	MonsterSwordEffect* effect = new MonsterSwordEffect;
+	effect->SetOwner(this);
+	effect->GetCollider()->SetOwner(effect);
+	effect->GetCollider()->SetSize(Vec2(120, 100));
+	effect->GetCollider()->SetOffset_Y(-50);
+	effect->GetCollider()->SetEnable(false);
+	SetEffect(effect);
 }
 
 GiantSkullWarrior::~GiantSkullWarrior()
@@ -106,6 +116,7 @@ GiantSkullWarrior::~GiantSkullWarrior()
 
 void GiantSkullWarrior::Initialize()
 {
+	Monster::Initialize();
 }
 
 void GiantSkullWarrior::Update()
@@ -153,12 +164,28 @@ void GiantSkullWarrior::OnCollisionExit(Collider* _other)
 
 void GiantSkullWarrior::AttackEnter()
 {
-	GetCollider()->SetEnable(true);
+	// Effect의 콜라이더
+	switch (mDir)
+	{
+	case DIR::LEFT:
+		GetEffect()->GetCollider()->SetOffset_X(-80);
+		break;
+
+	case DIR::RIGHT:
+		GetEffect()->GetCollider()->SetOffset_X(80);
+		break;
+	}
+
+	
+	GetEffect()->GetCollider()->SetEnable(true);
+	
 }
 
 bool GiantSkullWarrior::AttackExit()
 {
 	// 공격 이펙트가 끝났는지
+	// 공격 이펙트가 끝나면 충돌을 끝내야 함
+	// 콜리전매니저에 플레이어와 충돌이 있다면 삭제
 	
 	Animation* attAnim = GetAnimator()->GetCurAnimation();
 	std::wstring attAnimName = GetAttAnimName();
@@ -178,10 +205,23 @@ bool GiantSkullWarrior::AttackExit()
 	{
 		if (attAnim->IsFinished())
 		{
-			GetCollider()->SetEnable(false);
+			// Effect의 콜라이더
+			GetEffect()->GetCollider()->SetEnable(false);
 			return true;
 		}
 	}
+
+	// 충돌 강제 종료
+	auto& rels = mEffect->GetRelations();
+	for (int i = 0; i < rels.size(); ++i)
+	{
+		if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
+		{
+			CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
+		}
+	}
+	
+
 
 	return false;
 }

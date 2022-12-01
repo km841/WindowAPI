@@ -163,9 +163,6 @@
     <Filter Include="Engine\Manager\UIMgr">
       <UniqueIdentifier>{83afd7ce-8953-4e3c-9d9c-6328e1cae70a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Effect\DashEffect">
-      <UniqueIdentifier>{5aaeff6d-3d68-4c4f-9c4a-19b3fd5ea472}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Effect\Base">
       <UniqueIdentifier>{7e390d41-e0f5-4189-b930-a27ede90dc8f}</UniqueIdentifier>
     </Filter>
@@ -266,8 +263,26 @@
     <Filter Include="Engine\GameObject\UI\Base">
       <UniqueIdentifier>{a39f639c-7312-4bd9-ac22-872f3d62036d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Effect\SwordHitEffect">
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect">
+      <UniqueIdentifier>{3d15a4e6-3248-4d54-b6f1-1bc6bf22fdfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\Base">
+      <UniqueIdentifier>{d1f63955-ac02-4818-898a-fbfcc64a89dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\DashEffect">
+      <UniqueIdentifier>{5aaeff6d-3d68-4c4f-9c4a-19b3fd5ea472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\PlayerEffect">
+      <UniqueIdentifier>{ec5d345f-1a9a-4663-9e51-c7ff5ac18bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\PlayerEffect\SwordHitEffect">
       <UniqueIdentifier>{378839fb-9af4-4e55-a573-d5f09ce94fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\PlayerEffect\Base">
+      <UniqueIdentifier>{f552797e-6333-4b92-892d-cdcc0ff06547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect">
+      <UniqueIdentifier>{c87d816b-0521-42b0-b935-4682bde44cc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -485,7 +500,16 @@
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
     </ClInclude>
     <ClInclude Include="SwordHitEffect.h">
-      <Filter>Engine\GameObject\Effect\SwordHitEffect</Filter>
+      <Filter>Engine\GameObject\Effect\PlayerEffect\SwordHitEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEffect.h">
+      <Filter>Engine\GameObject\Effect\PlayerEffect\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSwordEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -707,7 +731,16 @@
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
     </ClCompile>
     <ClCompile Include="SwordHitEffect.cpp">
-      <Filter>Engine\GameObject\Effect\SwordHitEffect</Filter>
+      <Filter>Engine\GameObject\Effect\PlayerEffect\SwordHitEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEffect.cpp">
+      <Filter>Engine\GameObject\Effect\PlayerEffect\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSwordEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterSwordEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

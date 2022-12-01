@@ -6,6 +6,7 @@ enum class CAMERA_EFFECT
 {
     FADE_IN,
     FADE_OUT,
+    HIT,
     SHAKE,
     END,
 };
@@ -59,6 +60,7 @@ private:
     BLENDFUNCTION           mBlendFunc;
     float                   mAlphaValue;
     Texture*                mCutton;
+    Texture*                mHitCutton;
 
     std::list<CameraEffect> mCamEffects;
     CameraEffect            mCurEffect;

@@ -49,7 +49,9 @@ Player::Player()
 	,mImgDuration(0.007f)
 	,mCurImgDuration(0.007f)
 	,mStop(false)
-	,mGroundFlag(false)
+	,mHit(false)
+	, mInvinMaxTime(0.5f)
+	, mInvinTime(0.f)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -194,6 +196,21 @@ void Player::Update()
 
 	if (GetRigidBody()->GetVelocity_Y() > 800.f)
 		GetRigidBody()->SetVelocity_Y(800.f);
+
+	if (mHit && (mInvinTime > mInvinMaxTime))
+	{
+		mHit = false;
+		mInvinTime = 0.f;
+	}
+
+	else
+	{
+		if (mHit)
+		{
+			mInvinTime += DT;
+		}
+		
+	}
 	
 	EquipItemUpdate();
 
@@ -558,7 +575,13 @@ void Player::OnCollision(Collider* _other)
 
 void Player::OnCollisionEnter(Collider* _other)
 {
-
+	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType())
+	{
+		//CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, 2.f);
+		// 데미지
+		mHit = true;
+		// 알파블렌딩 효과와 화면 적색신호
+	}
 
 }
 

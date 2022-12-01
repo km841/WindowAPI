@@ -25,6 +25,8 @@ public:
     void CheckGroup(std::vector<GameObject*>& _row, std::vector<GameObject*>& _col);
     bool IsCollision(Collider* _left, Collider* _right);
 
+    void CollisionForceQuit(Collider* _left, Collider* _right);
+
 private:
     std::bitset<(UINT)OBJECT_TYPE::END> mBits[(UINT)OBJECT_TYPE::END];
     std::map<ULONGLONG, bool>           mColMap;

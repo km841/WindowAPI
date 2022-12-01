@@ -10,6 +10,7 @@
 #include "CameraMgr.h"
 #include "RigidBody.h"
 #include "AI.h"
+#include "MonsterEffect.h"
 
 Monster::Monster()
 	: mDead(false)
@@ -37,11 +38,21 @@ Monster::~Monster()
 		delete mAI;
 		mAI = nullptr;
 	}
+
+	// 삭제될 때 씬에서도 지워줘야 함
+
+	EventRegisteror::GetInstance().DeleteObject(mEffect);
+	mEffect = nullptr;
+	//if (nullptr != mEffect)
+	//{
+	//	delete mEffect;
+	//	mEffect = nullptr;
+	//}
 }
 
 void Monster::Initialize()
 {
-
+	EventRegisteror::GetInstance().CreateObject(GetEffect(), GetEffect()->GetType());
 }
 
 void Monster::Update()

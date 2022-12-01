@@ -85,6 +85,8 @@ public:
     inline bool GetStop() const { return mStop; }
     inline void SetStop(bool _flag);
 
+    inline bool IsHit() const { return mHit; }
+
 
 public:
     inline Item* GetEquipItem(EQUIP_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
@@ -110,11 +112,14 @@ private:
 
 
     Vec2       mPrevPos;
-    DIR mPrevDir;
-    DIR mDir;
+    DIR        mPrevDir;
+    DIR        mDir;
 
 private:
     bool       mStop;
+    bool       mHit;
+    float      mInvinMaxTime;
+    float      mInvinTime;
 
 private:
     TILE_TYPE  mGroundType;
@@ -139,8 +144,6 @@ private:
     float      mImgDuration;
     float      mCurImgDuration;
     int        mImgCount;
-
-    bool       mGroundFlag;
 
 };
 

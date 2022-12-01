@@ -93,5 +93,6 @@ private:
 private:
     Event*                mEvent;
     GameObject*           mDummyObj;
+    BLENDFUNCTION         mBlendFunc;
 };
 

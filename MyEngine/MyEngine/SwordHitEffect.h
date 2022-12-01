@@ -1,9 +1,10 @@
 #pragma once
-#include "Effect.h"
+#include "PlayerEffect.h"
 
 class GameObject;
+
 class SwordHitEffect :
-    public Effect
+    public PlayerEffect
 {
 public:
     SwordHitEffect();
