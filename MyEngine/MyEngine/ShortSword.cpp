@@ -34,7 +34,7 @@ ShortSword::ShortSword()
 	effect->SetSize(Vec2(120.f, 120.f));
 	effect->SetOffset(Vec2(0.f, 40.f));
 
-	effect->GetCollider()->SetSize(Vec2(30, 75));
+	effect->GetCollider()->SetSize(Vec2(50, 75));
 	effect->GetCollider()->SetOffset(Vec2(0, -70));
 	effect->GetCollider()->SetEnable(false);
 	
@@ -144,11 +144,11 @@ void ShortSword::Update()
 		float angle = GetAngle();
 		float degree = Math::RadianToDegree(angle);
 
-		//wchar_t buf[256] = {};
-		//swprintf_s(buf, L"%f", degree);
-		//SetWindowText(APP_INSTANCE.GetHwnd(), buf);
+		wchar_t buf[256] = {};
+		swprintf_s(buf, L"%f", degree);
+		SetWindowText(APP_INSTANCE.GetHwnd(), buf);
 
-		if (abs(degree) > 150.f)
+		if (abs(degree) > 115.f)
 		{
 			Vec2 effColOffset = GetEffect()->GetCollider()->GetOffset();
 			GetEffect()->GetCollider()->SetOffset_Y(20.f);
@@ -176,7 +176,7 @@ void ShortSword::Update()
 		}
 		
 		GetEffect()->SetAngle(angle);
-		GetEffect()->SetOffset(basicOffset + effDirVec * 13.f);
+		GetEffect()->SetOffset(basicOffset + effDirVec * 30.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
 	}
 
