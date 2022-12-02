@@ -43,6 +43,8 @@ void EventMgr::Execute(Event _event)
 	case EVENT_TYPE::OBJECT_DELETE:
 	{
 		GameObject* obj = (GameObject*)_event.lParam;
+		// 마지막 정리
+		obj->Destroy();
 		// 나와 연결된 충돌 제거
 		CollisionClear(obj);
 		// 오브젝트 제거
@@ -130,7 +132,7 @@ bool EventMgr::DeleteObject(GameObject* _obj, OBJECT_TYPE _eType)
 	{
 		if (*iter == _obj)
 			break;
-		
+
 		iter++;
 	}
 
@@ -141,6 +143,14 @@ bool EventMgr::DeleteObject(GameObject* _obj, OBJECT_TYPE _eType)
 		_obj = nullptr;
 		return true;
 	}
+
+	if (nullptr != _obj)
+	{
+		delete _obj;
+		_obj = nullptr;
+		return true;
+	}
+
 
 	return false;
 }
