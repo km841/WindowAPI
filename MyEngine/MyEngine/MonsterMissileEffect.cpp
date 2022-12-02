@@ -25,4 +25,5 @@ void MonsterMissileEffect::Render()
 
 bool MonsterMissileEffect::Attack()
 {
+	return true;
 }

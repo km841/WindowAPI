@@ -109,11 +109,12 @@ void RedGiantBat::Render()
 {
 	Monster::Render();
 
+
 	// Update에서 미사일을 만들어내면 그 객체들은 씬에 들어가서 직접적으로 충돌해야 하므로
 	// 그 미사일들을 Update하고 Render해줄 필요가 없다.
 
 	//wchar_t batGravity[COMMENT_MAX_SIZE] = {};
-	//swprintf_s(batGravity, L"Gravity : %s", GetGravity() ? L"O" : L"X");
+	//swprintf_s(batGravity, L"targetVec.x : %f, targetVec.y : %f", mTargetVec.x, mTargetVec.y);
 	//TextOut(BACK_BUF_DC, 10, 130, batGravity, (int)wcslen(batGravity));
 }
 
@@ -203,18 +204,14 @@ bool RedGiantBat::DetectPlayer()
 			if (targetLen < detectLen)
 			{
 
-				targetVec = RENDER_POS(targetVec);
+				//targetVec = RENDER_POS(targetVec);
 				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
 				// 플레이어 위치에서 내 위치를 뺀 벡터
 
 				angle = atan2(targetVec.y, targetVec.x);
 				angle = Math::RadianToDegree(angle);
 
-				wchar_t szBuffer[256] = {};
-				swprintf_s(szBuffer, L"angle : %f", angle);
-				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
-
-				if (-150 >= angle && -180 <= angle)
+				if (180.f >= angle && 90.f <= angle)
 				{
 					return true;
 				}
@@ -234,18 +231,14 @@ bool RedGiantBat::DetectPlayer()
 			float targetLen = targetVec.Len();
 			if (targetLen < detectLen)
 			{
-				targetVec = RENDER_POS(targetVec);
-				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
-				// 플레이어 위치에서 내 위치를 뺀 벡터
-
 				angle = atan2(targetVec.y, targetVec.x);
 				angle = Math::RadianToDegree(angle);
 
-				wchar_t szBuffer[256] = {};
-				swprintf_s(szBuffer, L"angle : %f", angle);
-				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+				//wchar_t szBuffer[256] = {};
+				//swprintf_s(szBuffer, L"angle : %f", angle);
+				//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
-				if (-150 >= angle && -180 <= angle)
+				if (-180.f <= angle && -90.f >= angle)
 				{
 					return true;
 				}
@@ -255,9 +248,6 @@ bool RedGiantBat::DetectPlayer()
 		}
 	}
 
-	//wchar_t szBuffer[256] = {};
-	//swprintf_s(szBuffer, L"angle : %f", angle);
-	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	return false;
 }
 
@@ -286,13 +276,14 @@ bool RedGiantBat::DetectIntoAttRange()
 			Vec2 recogVec = Vec2(monsterPos.x - mInfo.mAttRange, monsterPos.y);
 			Vec2 detectVec = recogVec - monsterPos;
 			Vec2 targetVec = playerPos - monsterPos;
+			mTargetVec = targetVec;
 
 			float detectLen = detectVec.Len();
 			float targetLen = targetVec.Len();
 			if (targetLen < detectLen)
 			{
 
-				targetVec = RENDER_POS(targetVec);
+				//targetVec = RENDER_POS(targetVec);
 				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
 				// 플레이어 위치에서 내 위치를 뺀 벡터
 				
@@ -303,7 +294,7 @@ bool RedGiantBat::DetectIntoAttRange()
 				swprintf_s(szBuffer, L"angle : %f", angle);
 				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
-				if (-150 >= angle && -180 <= angle )
+				if (180.f >= angle && 90.f <= angle)
 				{
 					return true;
 				}
@@ -317,13 +308,17 @@ bool RedGiantBat::DetectIntoAttRange()
 		{
 			Vec2 recogVec = Vec2(monsterPos.x + mInfo.mAttRange, monsterPos.y);
 			Vec2 detectVec = monsterPos - recogVec;
-			Vec2 targetVec = monsterPos - playerPos;
-
+			
+			// 몬스터에서 플레이어를 향하는 벡터
+			Vec2 targetVec = playerPos - monsterPos;
+			mTargetVec = targetVec;
 			float detectLen = detectVec.Len();
+
+			
 			float targetLen = targetVec.Len();
 			if (targetLen < detectLen)
 			{
-				targetVec = RENDER_POS(targetVec);
+				//targetVec = RENDER_POS(targetVec);
 				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
 				// 플레이어 위치에서 내 위치를 뺀 벡터
 
@@ -334,7 +329,7 @@ bool RedGiantBat::DetectIntoAttRange()
 				swprintf_s(szBuffer, L"angle : %f", angle);
 				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
-				if (-150 >= angle && -180 <= angle)
+				if (-180.f <= angle && -90.f >= angle)
 				{
 					return true;
 				}
