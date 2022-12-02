@@ -98,12 +98,12 @@ void CollisionMgr::CheckGroup(std::vector<GameObject*>& _row, std::vector<GameOb
 				// ù �浹
 				else
 				{
+					leftObj->AddRelation(rightObj, RELATION_TYPE::COLLISION);
+					rightObj->AddRelation(leftObj, RELATION_TYPE::COLLISION);
 					leftCol->OnCollisionEnter(rightCol);
 					rightCol->OnCollisionEnter(leftCol);
 					iter->second = true;
 
-					leftObj->AddRelation(rightObj, RELATION_TYPE::COLLISION);
-					rightObj->AddRelation(leftObj, RELATION_TYPE::COLLISION);
 				}
 			}
 
@@ -111,12 +111,12 @@ void CollisionMgr::CheckGroup(std::vector<GameObject*>& _row, std::vector<GameOb
 			{
 				if (iter->second)
 				{
+					leftObj->SeverRelation(rightObj, RELATION_TYPE::COLLISION);
+					rightObj->SeverRelation(leftObj, RELATION_TYPE::COLLISION);
 					leftCol->OnCollisionExit(rightCol);
 					rightCol->OnCollisionExit(leftCol);
 					iter->second = false;
 
-					leftObj->SeverRelation(rightObj, RELATION_TYPE::COLLISION);
-					rightObj->SeverRelation(leftObj, RELATION_TYPE::COLLISION);
 				}
 
 				else

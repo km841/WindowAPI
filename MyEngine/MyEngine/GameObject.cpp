@@ -95,12 +95,15 @@ void GameObject::SeverRelation(GameObject* _obj, RELATION_TYPE _relType)
 {
 	std::vector<Relation>::iterator iter = mRelations.begin();
 
-	for (; iter != mRelations.end(); ++iter)
+	for (; iter != mRelations.end();)
 	{
-		if (_obj == iter->mOther && _relType == iter->mRelType)
+		if (_obj == iter->mOther)
 		{
-			mRelations.erase(iter);
-			break;
+			iter = mRelations.erase(iter);
+		}
+		else
+		{
+			++iter;
 		}
 	}
 }

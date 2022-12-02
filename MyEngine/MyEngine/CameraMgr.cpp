@@ -12,8 +12,8 @@ void CameraMgr::Initialize()
 	mLookPos = resolution / 2.f;
 
 	mCutton = ResourceMgr::GetInstance().CreateTexture(L"Cutton", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
-	mHitCutton = ResourceMgr::GetInstance().Load<Texture>(L"HitCutton", L"Texture\\RedWarningOnHit.bmp");
-
+	mHitCutton = ResourceMgr::GetInstance().Load<Texture>(L"HitCutton", L"Texture\\RedWarningOnHit2.bmp");
+	
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
 	mBlendFunc.AlphaFormat = 0;
@@ -70,17 +70,15 @@ void CameraMgr::Update()
 
 	CameraEffect& mCurEffect = mCamEffects.front();
 
+
 	if (mCurEffect.mDelayTime > mCurEffect.mCurDelayTime)
 	{
 		mCurEffect.mCurDelayTime += DT;
 		return;
 	}
 
-	
 	mCurEffect.mAlphaTime += DT;
 	float ratio = mCurEffect.mAlphaTime / mCurEffect.mEndTime;
-
-
 
 	switch (mCurEffect.mEffect)
 	{
@@ -99,9 +97,8 @@ void CameraMgr::Update()
 		break;
 
 	case CAMERA_EFFECT::HIT:
-		mAlphaValue = ratio;
-		mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
-		mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
+		mAlphaValue = 1.0f - ratio;
+		mBlendFunc.SourceConstantAlpha = (BYTE)(50 * mAlphaValue);
 		break;
 	}
 	
@@ -118,13 +115,17 @@ void CameraMgr::Render()
 		CAMERA_EFFECT::SHAKE == mCamEffects.front().mEffect)
 		return;
 
+	CameraEffect& mCurEffect = mCamEffects.front();
+
 	if (mCurEffect.mDelayTime > mCurEffect.mCurDelayTime)
 	{
 		return;
 	}
 
+
 	if (CAMERA_EFFECT::HIT == mCurEffect.mEffect)
 	{
+		mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 		AlphaBlend(BACK_BUF_DC,
 			0, 0,
 			WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
@@ -134,8 +135,10 @@ void CameraMgr::Render()
 			mHitCutton->GetHeight(),
 			mBlendFunc);
 	}
+
 	else
 	{
+		mBlendFunc.AlphaFormat = 0;
 		AlphaBlend(BACK_BUF_DC,
 			0, 0,
 			WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,

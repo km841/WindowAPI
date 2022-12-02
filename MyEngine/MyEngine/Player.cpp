@@ -224,6 +224,7 @@ void Player::Update()
 		return;
 	
 	MoveUpdate();
+	GroundStateUpdate();
 	EffectUpdate();
 	StateUpdate();
 	AnimationUpdate();
@@ -378,7 +379,6 @@ void Player::MoveUpdate()
 	else
 		mDir = DIR::LEFT;
 
-	
 	SetPos(pos);
 }
 
@@ -489,6 +489,25 @@ void Player::AnimationUpdate()
 		mState->Enter();
 }
 
+void Player::GroundStateUpdate()
+{
+	const std::vector<Relation>& relations = GetRelations();
+	bool isGround = false;
+	for (int i = 0; i < relations.size(); ++i)
+	{
+		if (OBJECT_TYPE::WALL == relations[i].mOther->GetType() ||
+			OBJECT_TYPE::FOOTHOLD == relations[i].mOther->GetType())
+		{
+			isGround = true;
+		}
+	}
+
+	if (!isGround)
+	{
+		SetGround(false);
+	}
+}
+
 bool Player::IsMove() const
 {
 	Vec2 pos = GetPos();
@@ -580,18 +599,16 @@ void Player::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType())
 	{
-		//CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, 2.f);
-		// 데미지
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
 		mHit = true;
-		// 알파블렌딩 효과와 화면 적색신호
 	}
 
 }
 
 void Player::OnCollisionExit(Collider* _other)
 {
-	if (0 == GetCollider()->GetColCnt())
-		OutGround();
+
 }
 
 

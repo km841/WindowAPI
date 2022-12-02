@@ -53,6 +53,7 @@ public:
     void EffectUpdate();
     void StateUpdate();
     void AnimationUpdate();
+    void GroundStateUpdate();
 
     bool IsMove() const;
     bool IsLeftMove() const;
