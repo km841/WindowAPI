@@ -189,3 +189,10 @@ enum class DIR
 	RIGHT,
 	END,
 };
+
+enum class MONSTER_ATTACK_TYPE
+{
+	ROTATE,
+	AIMING,
+	END
+};

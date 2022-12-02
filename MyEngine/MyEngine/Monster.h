@@ -50,6 +50,10 @@ public:
     virtual bool Attack() { return true; }
     virtual bool DetectPlayer() { return false; }
     virtual bool DetectIntoAttRange() { return false; }
+
+public:
+    virtual void RecogLineRender(PEN_TYPE _penType) {};
+    virtual void AttRangeLineRender(PEN_TYPE _penType) {};
     
 
 public:

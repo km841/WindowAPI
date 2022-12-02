@@ -143,7 +143,9 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BatBullet.h" />
     <ClInclude Include="BlackSmithNPC.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashEffect.h" />
@@ -175,9 +177,11 @@
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttState.h" />
+    <ClInclude Include="MonsterBullet.h" />
     <ClInclude Include="MonsterEffect.h" />
     <ClInclude Include="MonsterFactory.h" />
     <ClInclude Include="MonsterIdleState.h" />
+    <ClInclude Include="MonsterMissileEffect.h" />
     <ClInclude Include="MonsterPatrolState.h" />
     <ClInclude Include="MonsterSpawnEvent.h" />
     <ClInclude Include="MonsterState.h" />
@@ -225,7 +229,9 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BatBullet.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashEffect.cpp" />
@@ -256,9 +262,11 @@
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttState.cpp" />
+    <ClCompile Include="MonsterBullet.cpp" />
     <ClCompile Include="MonsterEffect.cpp" />
     <ClCompile Include="MonsterFactory.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />
+    <ClCompile Include="MonsterMissileEffect.cpp" />
     <ClCompile Include="MonsterPatrolState.cpp" />
     <ClCompile Include="MonsterSpawnEvent.cpp" />
     <ClCompile Include="MonsterState.cpp" />

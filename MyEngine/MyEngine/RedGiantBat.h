@@ -22,5 +22,9 @@ public:
     virtual bool Attack();
     virtual bool DetectPlayer();
     virtual bool DetectIntoAttRange();
+
+public:
+    virtual void RecogLineRender(PEN_TYPE _penType);
+    virtual void AttRangeLineRender(PEN_TYPE _penType);
 };
 

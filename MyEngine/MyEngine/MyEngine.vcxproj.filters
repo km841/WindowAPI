@@ -308,6 +308,30 @@
     <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent">
       <UniqueIdentifier>{0a607b95-41e4-45eb-bac2-509602f26404}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect">
+      <UniqueIdentifier>{7db185ec-2e6d-40c1-a3de-64eedbb55a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet">
+      <UniqueIdentifier>{c08406b6-c97c-4bb5-abc0-cc2e6b6d657a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet">
+      <UniqueIdentifier>{c6a5b5ba-b12a-4605-996b-90e876b92cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\PlayerBullet">
+      <UniqueIdentifier>{d36e02b0-8638-434e-97f0-63e42d45afed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\Base">
+      <UniqueIdentifier>{e8e6dc4b-47eb-42ee-b128-162d7bf4d140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet\Base">
+      <UniqueIdentifier>{300abec0-e615-4da2-8016-034fd3e2ae46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet\BatBullet">
+      <UniqueIdentifier>{4a6030f6-79ef-494d-b84b-bebaf031c145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base">
+      <UniqueIdentifier>{18fb3652-b204-4dd9-88af-874d953d923d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -549,6 +573,18 @@
     </ClInclude>
     <ClInclude Include="RedGiantBatSpawnEvent.h">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Engine\GameObject\Bullet\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBullet.h">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BatBullet.h">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BatBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -795,6 +831,18 @@
     </ClCompile>
     <ClCompile Include="RedGiantBatSpawnEvent.cpp">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Engine\GameObject\Bullet\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BatBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BatBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

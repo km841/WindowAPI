@@ -54,8 +54,8 @@ void MonsterTraceState::Update()
 
 		monster->SetPos(monsterPos);
 
-		// 플레이어가 몬스터가 바라보는 방향의 특정 거리, 특정 각도 미만으로 들어왔을 때
-		// Attack State로 변경
+		 //플레이어가 몬스터가 바라보는 방향의 특정 거리, 특정 각도 미만으로 들어왔을 때
+		 //Attack State로 변경
 
 		bool detectFlag = monster->DetectIntoAttRange();
 		
@@ -65,7 +65,7 @@ void MonsterTraceState::Update()
 		}
 
 
-
+		
 
 
 
@@ -101,7 +101,7 @@ void MonsterTraceState::Update()
 
 			}
 
-		}
+}
 		
 void MonsterTraceState::Render()
 {
@@ -109,45 +109,8 @@ void MonsterTraceState::Render()
 
 	if (nullptr != player)
 	{
-		AI* ownerAI = GetOwnerAI();
-		Monster* monster = ownerAI->GetOwnerMonster();
-		Vec2 monsterPos = RENDER_POS(monster->GetPos());
-
-		MonsterInfo info = monster->GetMonsterInfo();
-
-		// 벡터를 회전시킨 후 거리를 곱해서 점 위치를 구한다
-		// 좌/우측에 따라 별도로 처리해야 하므로 방향에 따른 벡터 구하기
-
-		DIR dir = monster->GetDir();
-		Vec2 dirVec = {};
-		Vec2 dirAngleVec = {};
-		switch (dir)
-		{
-		case DIR::LEFT:
-			dirVec = Vec2(-1, 0);
-			dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(10.f));
-			break;
-
-		case DIR::RIGHT:
-			dirVec = Vec2(1, 0);
-			dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(-10.f));
-			break;
-	}
-
-		Pen pen(BACK_BUF_DC, PEN_TYPE::BLUE);
-		dirAngleVec *= info.mAttRange;
-		dirAngleVec = RENDER_POS(dirAngleVec + monster->GetPos());
-
-		dirVec *= info.mAttRange;
-		dirVec = RENDER_POS(dirVec + monster->GetPos());
-
-		float offset = 30.f;
-
-		MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
-		LineTo(BACK_BUF_DC, (int)dirAngleVec.x, (int)(dirAngleVec.y - offset));
-
-		MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
-		LineTo(BACK_BUF_DC, (int)dirVec.x, (int)(dirVec.y - offset));
+		Monster* monster = GetOwnerAI()->GetOwnerMonster();
+		monster->AttRangeLineRender(PEN_TYPE::BLUE);
 	}
 }
 

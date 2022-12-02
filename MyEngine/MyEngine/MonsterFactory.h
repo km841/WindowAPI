@@ -57,7 +57,7 @@ public:
 			break;
 
 
-		case MONSTER_TYPE::GROUND_RANGE:
+		case MONSTER_TYPE::FLY_RANGE:
 		{
 			monster = new T;
 			monster->SetPos(_pos);

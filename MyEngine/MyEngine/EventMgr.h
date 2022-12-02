@@ -16,6 +16,8 @@ public:
 
 public:
     inline void AddEvent(Event _event) { mEvents.push_back(_event); }
+
+    //Debug Function
     const std::vector<Event>& GetEvents() { return mEvents; }
 
 private:

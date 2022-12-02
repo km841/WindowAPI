@@ -357,3 +357,80 @@ bool GiantSkullWarrior::DetectIntoAttRange()
 	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	return false;
 }
+
+void GiantSkullWarrior::RecogLineRender(PEN_TYPE _penType)
+{
+	Vec2 monsterPos = RENDER_POS(GetPos());
+
+
+	// 벡터를 회전시킨 후 거리를 곱해서 점 위치를 구한다
+	// 좌/우측에 따라 별도로 처리해야 하므로 방향에 따른 벡터 구하기
+
+	Vec2 dirVec = {};
+	Vec2 dirAngleVec = {};
+	switch (mDir)
+	{
+	case DIR::LEFT:
+		dirVec = Vec2(-1, 0);
+		dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(10.f));
+		break;
+
+	case DIR::RIGHT:
+		dirVec = Vec2(1, 0);
+		dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(-10.f));
+		break;
+	}
+
+	Pen pen(BACK_BUF_DC, _penType);
+	dirAngleVec *= mInfo.mRecog;
+	dirAngleVec = RENDER_POS(dirAngleVec + GetPos());
+
+	dirVec *= mInfo.mRecog;
+	dirVec = RENDER_POS(dirVec + GetPos());
+
+	float offset = 30.f;
+
+	MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
+	LineTo(BACK_BUF_DC, (int)dirAngleVec.x, (int)(dirAngleVec.y - offset));
+
+	MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
+	LineTo(BACK_BUF_DC, (int)dirVec.x, (int)(dirVec.y - offset));
+}
+
+void GiantSkullWarrior::AttRangeLineRender(PEN_TYPE _penType)
+{
+	Vec2 monsterPos = RENDER_POS(GetPos());
+	// 벡터를 회전시킨 후 거리를 곱해서 점 위치를 구한다
+	// 좌/우측에 따라 별도로 처리해야 하므로 방향에 따른 벡터 구하기
+
+	Vec2 dirVec = {};
+	Vec2 dirAngleVec = {};
+	switch (mDir)
+	{
+	case DIR::LEFT:
+		dirVec = Vec2(-1, 0);
+		dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(10.f));
+		break;
+
+	case DIR::RIGHT:
+		dirVec = Vec2(1, 0);
+		dirAngleVec = Math::RotateVector(dirVec, Math::DegreeToRadian(-10.f));
+		break;
+	}
+
+	Pen pen(BACK_BUF_DC, _penType);
+	dirAngleVec *= mInfo.mAttRange;
+	dirAngleVec = RENDER_POS(dirAngleVec + GetPos());
+
+	dirVec *= mInfo.mAttRange;
+	dirVec = RENDER_POS(dirVec + GetPos());
+
+	float offset = 30.f;
+
+	MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
+	LineTo(BACK_BUF_DC, (int)dirAngleVec.x, (int)(dirAngleVec.y - offset));
+
+	MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
+	LineTo(BACK_BUF_DC, (int)dirVec.x, (int)(dirVec.y - offset));
+}
+
