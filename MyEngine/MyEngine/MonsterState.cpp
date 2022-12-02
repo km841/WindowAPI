@@ -9,7 +9,7 @@ MonsterState::MonsterState(MONSTER_STATE _eState)
 {
 }
 
-bool MonsterState::PlayerCheck(float _angle, float _range)
+bool MonsterState::PlayerCheck(MONSTER_TYPE _type, float _angle, float _range)
 {
 	float angle = 0.f;
 

@@ -14,7 +14,7 @@ public:
 	virtual void Exit() = 0;
 
 public:
-	bool PlayerCheck(float _angle, float _range);
+	bool PlayerCheck(MONSTER_TYPE _type, float _angle, float _range);
 
 public:
 	inline MONSTER_STATE GetMonsterState() const { return mState; }

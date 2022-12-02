@@ -57,7 +57,7 @@ void MonsterTraceState::Update()
 		// 플레이어가 몬스터가 바라보는 방향의 특정 거리, 특정 각도 미만으로 들어왔을 때
 		// Attack State로 변경
 
-		bool detectFlag = PlayerCheck(10.f, info.mAttRange);
+		bool detectFlag = monster->DetectIntoAttRange();
 		
 		if (detectFlag)
 		{

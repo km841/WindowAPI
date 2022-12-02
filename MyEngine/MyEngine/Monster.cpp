@@ -51,7 +51,11 @@ Monster::~Monster()
 
 void Monster::Initialize()
 {
-	EventRegisteror::GetInstance().CreateObject(GetEffect(), GetEffect()->GetType());
+	Effect* effect = GetEffect();
+	if (nullptr != effect)
+	{
+		EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
+	}
 }
 
 void Monster::Update()
@@ -72,7 +76,9 @@ void Monster::Render()
 
 void Monster::Destroy()
 {
-	EventRegisteror::GetInstance().DeleteObject(mEffect);
+	if (nullptr != mEffect)
+		EventRegisteror::GetInstance().DeleteObject(mEffect);
+
 	// 씬의 Exit에서 삭제하도록 함
 	//EventRegisteror::GetInstance().DeleteObject(mEffect);
 	//mEffect = nullptr;
@@ -88,6 +94,5 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 void Monster::OnCollisionExit(Collider* _other)
 {
-	if (0 == GetCollider()->GetColCnt())
-		SetGround(false);
+
 }

@@ -152,6 +152,7 @@
     <ClInclude Include="EatState.h" />
     <ClInclude Include="EventObject.h" />
     <ClInclude Include="Foothold.h" />
+    <ClInclude Include="GiantBat.h" />
     <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="GreatSword.h" />
@@ -185,6 +186,8 @@
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="PlayerEffect.h" />
+    <ClInclude Include="RedGiantBat.h" />
+    <ClInclude Include="RedGiantBatSpawnEvent.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ShortSword.h" />
     <ClInclude Include="State.h" />
@@ -231,6 +234,7 @@
     <ClCompile Include="EatState.cpp" />
     <ClCompile Include="EventObject.cpp" />
     <ClCompile Include="Foothold.cpp" />
+    <ClCompile Include="GiantBat.cpp" />
     <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="GreatSword.cpp" />
@@ -263,6 +267,8 @@
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
+    <ClCompile Include="RedGiantBat.cpp" />
+    <ClCompile Include="RedGiantBatSpawnEvent.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="ShortSword.cpp" />
     <ClCompile Include="State.cpp" />

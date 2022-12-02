@@ -20,6 +20,9 @@ public:
 
 public:
     virtual bool Attack();
+    virtual bool DetectPlayer();
+    virtual bool DetectIntoAttRange();
+    
 
 private:
 

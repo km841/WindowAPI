@@ -5,7 +5,7 @@
 #include "EventRegisteror.h"
 
 GiantSkullSpawnEvent::GiantSkullSpawnEvent()
-	:MonsterSpawnEvent(MONSTER_TYPE::MELEE)
+	:MonsterSpawnEvent(MONSTER_TYPE::GROUND_MELEE)
 {
 }
 

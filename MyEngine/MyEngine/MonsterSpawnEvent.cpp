@@ -11,6 +11,7 @@
 MonsterSpawnEvent::MonsterSpawnEvent(MONSTER_TYPE _monType)
 	:mFlag(false)
 	,mSpawnTiming(4)
+	,mMonsterType(_monType)
 {
 
 	CreateComponent(new Collider);

@@ -114,9 +114,6 @@ void EventMgr::CollisionClear(GameObject* _obj)
 		{
 			if (0 < _obj->GetCollider()->GetColCnt())
 				_obj->GetCollider()->DecreaseColCnt();
-				
-
-			
 		}
 
 	}

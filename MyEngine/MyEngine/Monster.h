@@ -17,13 +17,13 @@ public:
     virtual void Update() override;
     virtual void Render() override;
     virtual void Destroy() override;
-    
+
 public:
     inline void SetAI(AI* _ai) { mAI = _ai; }
-    inline AI*  GetAI() const { return mAI; }
+    inline AI* GetAI() const { return mAI; }
 
-    inline void SetDir(DIR _dir) { mDir = _dir;}
-    inline DIR  GetDir() const   { return mDir; }
+    inline void SetDir(DIR _dir) { mDir = _dir; }
+    inline DIR  GetDir() const { return mDir; }
 
     inline void SetPrevDir(DIR _prevDir) { mPrevDir = _prevDir; }
     inline DIR  GetPrevDir() const { return mPrevDir; }
@@ -34,7 +34,7 @@ public:
     inline MonsterInfo GetMonsterInfo() const { return mInfo; }
 
     inline void                SetIdleAnimName(const std::wstring& _idleAnimName) { mIdleAnimName = _idleAnimName; }
-    inline const std::wstring& GetIdleAnimName() const { return mIdleAnimName;}
+    inline const std::wstring& GetIdleAnimName() const { return mIdleAnimName; }
 
     inline void                SetMoveAnimName(const std::wstring& _moveAnimName) { mMoveAnimName = _moveAnimName; }
     inline const std::wstring& GetMoveAnimName() const { return mMoveAnimName; }
@@ -48,6 +48,8 @@ public:
 
 public:
     virtual bool Attack() { return true; }
+    virtual bool DetectPlayer() { return false; }
+    virtual bool DetectIntoAttRange() { return false; }
     
 
 public:

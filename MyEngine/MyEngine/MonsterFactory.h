@@ -18,7 +18,7 @@ public:
 		
 		switch (_type)
 		{
-		case MONSTER_TYPE::MELEE:
+		case MONSTER_TYPE::GROUND_MELEE:
 		{
 			monster = new T;
 			monster->SetPos(_pos);
@@ -35,6 +35,45 @@ public:
 			
 			monster->SetAI(ai);
 			
+			MonsterIdleState* idleState = new MonsterIdleState;
+			idleState->SetOwnerAI(ai);
+
+			MonsterTraceState* traceState = new MonsterTraceState;
+			traceState->SetOwnerAI(ai);
+
+			MonsterPatrolState* patrolState = new MonsterPatrolState;
+			patrolState->SetOwnerAI(ai);
+
+			MonsterAttState* attState = new MonsterAttState;
+			attState->SetOwnerAI(ai);
+
+			ai->AddState(idleState);
+			ai->AddState(traceState);
+			ai->AddState(patrolState);
+			ai->AddState(attState);
+
+			ai->ChangeState(MONSTER_STATE::PATROL);
+		}
+			break;
+
+
+		case MONSTER_TYPE::GROUND_RANGE:
+		{
+			monster = new T;
+			monster->SetPos(_pos);
+			//monster->SetGround(true);
+
+			info.mHP = 100;
+			info.mSpeed = 100.f;
+			info.mRecog = 400.f;
+			info.mAttRange = 300.f;
+			monster->SetMonsterInfo(info);
+
+			AI* ai = new AI;
+			ai->SetOwnerMonster(monster);
+
+			monster->SetAI(ai);
+
 			MonsterIdleState* idleState = new MonsterIdleState;
 			idleState->SetOwnerAI(ai);
 

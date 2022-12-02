@@ -10,6 +10,7 @@
 #include "CameraMgr.h"
 #include "MonsterSwordEffect.h"
 #include "CollisionMgr.h"
+#include "Player.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
@@ -99,7 +100,7 @@ GiantSkullWarrior::GiantSkullWarrior()
 	GetAnimator()->AddAnimation(attAnimName + L"Right", attAnimRight);
 
 
-	GetAnimator()->SelectAnimation(L"GiantSkull_IdleLeft", true);
+	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);
 
 	MonsterSwordEffect* effect = new MonsterSwordEffect;
 	effect->SetOwner(this);
@@ -165,6 +166,8 @@ void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 
 void GiantSkullWarrior::OnCollisionExit(Collider* _other)
 {
+	if (0 == GetCollider()->GetColCnt())
+		SetGround(false);
 }
 
 bool GiantSkullWarrior::Attack()
@@ -217,4 +220,140 @@ bool GiantSkullWarrior::Attack()
 
 		return true;
 	}
+}
+
+bool GiantSkullWarrior::DetectPlayer()
+{
+	float angle = 0.f;
+
+	// 1. 몬스터에서 몬스터 + 인식범위까지의 벡터
+	// 2. 몬스터에서 플레이어와의 벡터
+	// 두 벡터를 비교해서 2번이 1번보다 각도도 작고 길이도 짧은 경우 인식한 걸로 처리
+	Player* player = Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		Vec2 monsterPos = GetPos();
+		Vec2 playerPos = player->GetPos();
+
+		MonsterInfo info = GetMonsterInfo();
+	
+		switch (mDir)
+		{
+		case DIR::LEFT:
+		{
+			Vec2 recogVec = Vec2(monsterPos.x - mInfo.mRecog, monsterPos.y);
+			Vec2 detectVec = recogVec - monsterPos;
+			Vec2 targetVec = playerPos - monsterPos;
+
+			float detectLen = detectVec.Len();
+			float targetLen = targetVec.Len();
+			if (targetLen < detectLen)
+			{
+				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
+				angle = acos(detectVec.Dot(targetVec) / (detectLen * targetLen));
+				angle = Math::RadianToDegree(angle);
+				if (angle < 10)
+				{
+					return true;
+				}
+			}
+		}
+
+		break;
+		case DIR::RIGHT:
+		{
+			Vec2 recogVec = Vec2(monsterPos.x + mInfo.mRecog, monsterPos.y);
+			Vec2 detectVec = monsterPos - recogVec;
+			Vec2 targetVec = monsterPos - playerPos;
+
+			float detectLen = detectVec.Len();
+			float targetLen = targetVec.Len();
+			if (targetLen < detectLen)
+			{
+				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
+				angle = acos(detectVec.Dot(targetVec) / (detectLen * targetLen));
+				angle = Math::RadianToDegree(angle);
+				if (angle < 10)
+				{
+					return true;
+				}
+			}
+		}
+		break;
+		}
+	}
+
+	//wchar_t szBuffer[256] = {};
+	//swprintf_s(szBuffer, L"angle : %f", angle);
+	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	return false;
+}
+
+bool GiantSkullWarrior::DetectIntoAttRange()
+{
+	float angle = 0.f;
+
+	// 1. 몬스터에서 몬스터 + 인식범위까지의 벡터
+	// 2. 몬스터에서 플레이어와의 벡터
+	// 두 벡터를 비교해서 2번이 1번보다 각도도 작고 길이도 짧은 경우 인식한 걸로 처리
+	Player* player = Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		Vec2 monsterPos = GetPos();
+		Vec2 playerPos = player->GetPos();
+
+		MonsterInfo info = GetMonsterInfo();
+
+		switch (mDir)
+		{
+		case DIR::LEFT:
+		{
+			Vec2 recogVec = Vec2(monsterPos.x - mInfo.mAttRange, monsterPos.y);
+			Vec2 detectVec = recogVec - monsterPos;
+			Vec2 targetVec = playerPos - monsterPos;
+
+			float detectLen = detectVec.Len();
+			float targetLen = targetVec.Len();
+			if (targetLen < detectLen)
+			{
+				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
+				angle = acos(detectVec.Dot(targetVec) / (detectLen * targetLen));
+				angle = Math::RadianToDegree(angle);
+				if (angle < 10)
+				{
+					return true;
+				}
+			}
+		}
+
+		break;
+		case DIR::RIGHT:
+		{
+			Vec2 recogVec = Vec2(monsterPos.x + mInfo.mAttRange, monsterPos.y);
+			Vec2 detectVec = monsterPos - recogVec;
+			Vec2 targetVec = monsterPos - playerPos;
+
+			float detectLen = detectVec.Len();
+			float targetLen = targetVec.Len();
+			if (targetLen < detectLen)
+			{
+				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
+				angle = acos(detectVec.Dot(targetVec) / (detectLen * targetLen));
+				angle = Math::RadianToDegree(angle);
+				if (angle < 10)
+				{
+					return true;
+				}
+			}
+		}
+		break;
+		}
+	}
+
+	//wchar_t szBuffer[256] = {};
+	//swprintf_s(szBuffer, L"angle : %f", angle);
+	//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+	return false;
 }

@@ -45,7 +45,12 @@ void MonsterIdleState::Update()
 		MonsterInfo info = monster->GetMonsterInfo();
 
 		// n초 후 이걸 검사
-		bool detectFlag = PlayerCheck(10.f, info.mRecog);
+		// 플레이어를 체크하는 로직.. 몬스터 타입별로?
+		// 몬스터에서 가상함수로 구현?
+		// 공중은 정면과 아래 각도를 봄
+		// 지상은 지금과 동일
+
+		bool detectFlag = monster->DetectPlayer();
 
 		if (mMaxStayTime > mStayTime)
 		{

@@ -46,7 +46,7 @@ void MonsterPatrolState::Update()
 
 		monster->SetPos(monsterPos);
 
-		bool detectFlag = PlayerCheck(10.f, info.mRecog);
+		bool detectFlag = monster->DetectPlayer();
 		if (detectFlag)
 		{
 			// TRACE의 ENTER에선 초기에 몇 초간 대기
