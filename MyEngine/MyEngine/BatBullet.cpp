@@ -10,7 +10,7 @@
 BatBullet::BatBullet()
 {
 
-	GetCollider()->SetSize(Vec2(30.f, 30.f));
+	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
 	Texture* batBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"BatBulletIdleAnim", L"Texture\\RangeBallBullet.bmp");
@@ -71,7 +71,8 @@ void BatBullet::OnCollision(Collider* _other)
 
 void BatBullet::OnCollisionEnter(Collider* _other)
 {
-	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType() ||
+		OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
 		SetBulletState(true);
