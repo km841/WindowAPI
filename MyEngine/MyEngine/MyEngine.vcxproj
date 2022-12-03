@@ -193,6 +193,7 @@
     <ClInclude Include="RedGiantBat.h" />
     <ClInclude Include="RedGiantBatSpawnEvent.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RotateMissileEffect.h" />
     <ClInclude Include="ShortSword.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
@@ -278,6 +279,7 @@
     <ClCompile Include="RedGiantBat.cpp" />
     <ClCompile Include="RedGiantBatSpawnEvent.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RotateMissileEffect.cpp" />
     <ClCompile Include="ShortSword.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />

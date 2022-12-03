@@ -13,6 +13,7 @@ Effect::~Effect()
 
 void Effect::Initialize()
 {
+	GameObject::Initialize();
 }
 
 void Effect::Update()

@@ -332,6 +332,9 @@
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base">
       <UniqueIdentifier>{18fb3652-b204-4dd9-88af-874d953d923d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect">
+      <UniqueIdentifier>{0c6af008-e57f-4e6b-be64-888ba2437cc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -585,6 +588,9 @@
     </ClInclude>
     <ClInclude Include="MonsterMissileEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -843,6 +849,9 @@
     </ClCompile>
     <ClCompile Include="MonsterMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

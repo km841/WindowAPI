@@ -12,6 +12,9 @@ public:
     virtual void Render() {}
 
 public:
+    virtual bool Attack() { return false; }
+
+public:
     virtual void OnCollision(Collider* _other) {}
     virtual void OnCollisionEnter(Collider* _other) {}
     virtual void OnCollisionExit(Collider* _other) {}

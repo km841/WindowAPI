@@ -8,14 +8,14 @@
 #include "Texture.h"
 #include "CameraMgr.h"
 #include "Player.h"
-#include "MonsterMissileEffect.h"
+#include "RotateMissileEffect.h"
 
 RedGiantBat::RedGiantBat()
 {
 	SetSize(Vec2(192.f, 192.f));
 
 	GetCollider()->SetSize(Vec2(30.f, 30.f));
-	GetCollider()->SetOffset(Vec2(0.f, -15.f));
+	GetCollider()->SetOffset(Vec2(0.f, -50.f));
 
 	GetRigidBody()->SetMass(1.f);
 	SetGravity(false);
@@ -77,7 +77,7 @@ RedGiantBat::RedGiantBat()
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);
 
-	MonsterMissileEffect* effect = new MonsterMissileEffect;
+	RotateMissileEffect* effect = new RotateMissileEffect;
 	effect->SetOwner(this);
 	SetEffect(effect);
 	
@@ -137,6 +137,7 @@ void RedGiantBat::OnCollisionExit(Collider* _other)
 
 bool RedGiantBat::Attack()
 {
+	
 	// 이펙트
 	// 이펙트의 Attack을 통해 뭔가를 실행?
 	// 이펙트의 
@@ -167,10 +168,10 @@ bool RedGiantBat::Attack()
 	// - 회전탄, 조준탄 등 단순한 탄들은 여기서 정의하고 Monster의 Attack안에서 실행됨
 	// - Attack 안에서 특정 프레임에 맞춰서 실행하려면?
 	// - 프레임이 유효하게 작용하려면 애니메이션 프레임 시작시점, 종료시점을 몬스터객체가 별도로 보관해야 함
+	
 
 
-
-	return false;
+	return mEffect->Attack();
 }
 
 bool RedGiantBat::DetectPlayer()
@@ -273,10 +274,9 @@ bool RedGiantBat::DetectIntoAttRange()
 		{
 		case DIR::LEFT:
 		{
-			Vec2 recogVec = Vec2(monsterPos.x - mInfo.mAttRange, monsterPos.y);
-			Vec2 detectVec = recogVec - monsterPos;
+			Vec2 attRangeVec = Vec2(monsterPos.x - mInfo.mAttRange, monsterPos.y);
+			Vec2 detectVec = attRangeVec - monsterPos;
 			Vec2 targetVec = playerPos - monsterPos;
-			mTargetVec = targetVec;
 
 			float detectLen = detectVec.Len();
 			float targetLen = targetVec.Len();
@@ -286,13 +286,9 @@ bool RedGiantBat::DetectIntoAttRange()
 				//targetVec = RENDER_POS(targetVec);
 				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
 				// 플레이어 위치에서 내 위치를 뺀 벡터
-				
+
 				angle = atan2(targetVec.y, targetVec.x);
 				angle = Math::RadianToDegree(angle);
-
-				wchar_t szBuffer[256] = {};
-				swprintf_s(szBuffer, L"angle : %f", angle);
-				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
 				if (180.f >= angle && 90.f <= angle)
 				{
@@ -306,28 +302,20 @@ bool RedGiantBat::DetectIntoAttRange()
 		break;
 		case DIR::RIGHT:
 		{
-			Vec2 recogVec = Vec2(monsterPos.x + mInfo.mAttRange, monsterPos.y);
-			Vec2 detectVec = monsterPos - recogVec;
-			
-			// 몬스터에서 플레이어를 향하는 벡터
-			Vec2 targetVec = playerPos - monsterPos;
-			mTargetVec = targetVec;
-			float detectLen = detectVec.Len();
+			Vec2 attRangeVec = Vec2(monsterPos.x + mInfo.mAttRange, monsterPos.y);
+			Vec2 detectVec = monsterPos - attRangeVec;
+			Vec2 targetVec = monsterPos - playerPos;
 
-			
+			float detectLen = detectVec.Len();
 			float targetLen = targetVec.Len();
 			if (targetLen < detectLen)
 			{
-				//targetVec = RENDER_POS(targetVec);
-				//  angle = arccos ( (a·b) / (|a|*|b|) ) 
-				// 플레이어 위치에서 내 위치를 뺀 벡터
-
 				angle = atan2(targetVec.y, targetVec.x);
 				angle = Math::RadianToDegree(angle);
 
-				wchar_t szBuffer[256] = {};
-				swprintf_s(szBuffer, L"angle : %f", angle);
-				SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+				//wchar_t szBuffer[256] = {};
+				//swprintf_s(szBuffer, L"angle : %f", angle);
+				//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
 				if (-180.f <= angle && -90.f >= angle)
 				{

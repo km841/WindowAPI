@@ -191,8 +191,5 @@ void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime, float _delayTim
 
 void CameraMgr::RemoveEffect()
 {
-	if (!mCamEffects.empty())
-	{
-		mCamEffects.pop_front();
-	}
+	mCamEffects.clear();
 }

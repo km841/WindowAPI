@@ -597,8 +597,10 @@ void Player::OnCollision(Collider* _other)
 
 void Player::OnCollisionEnter(Collider* _other)
 {
-	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType() || 
+		OBJECT_TYPE::MISSILE_FROM_MONSTER == _other->GetOwner()->GetType())
 	{
+		CameraMgr::GetInstance().RemoveEffect();
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
 		mHit = true;

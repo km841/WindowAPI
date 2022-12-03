@@ -54,6 +54,8 @@ void Monster::Initialize()
 	Effect* effect = GetEffect();
 	if (nullptr != effect)
 	{
+		effect->SetPos(GetPos());
+		effect->Initialize();
 		EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
 	}
 }

@@ -1,8 +1,19 @@
 #include "pch.h"
 #include "Bullet.h"
+#include "Collider.h"
+#include "Animator.h"
+#include "Animation.h"
 
 Bullet::Bullet()
+	:mState(true)
 {
+	CreateComponent(new Collider);
+	GetCollider()->SetOwner(this);
+
+	CreateComponent(new Animator);
+	GetAnimator()->SetOwner(this);
+
+
 }
 
 Bullet::~Bullet()

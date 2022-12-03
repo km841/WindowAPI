@@ -178,7 +178,7 @@ bool GiantSkullWarrior::Attack()
 
 	Animation* attAnim = GetAnimator()->GetCurAnimation();
 
-	if (attAnim->IsFinished())
+	if (11 == attAnim->GetCurFrame())
 	{
 		auto& rels = mEffect->GetRelations();
 		for (int i = 0; i < rels.size(); ++i)
