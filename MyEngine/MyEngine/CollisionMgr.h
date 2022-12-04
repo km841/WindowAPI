@@ -25,6 +25,7 @@ public:
     void SetCollision(OBJECT_TYPE _first, OBJECT_TYPE _second);
     void CheckGroup(std::vector<GameObject*>& _row, std::vector<GameObject*>& _col);
     bool IsCollision(Collider* _left, Collider* _right);
+    bool LineToLineCollision(Vec2 _v1, Vec2 _v2, Vec2 _v3, Vec2 _v4);
 
 public:
     void CollisionForceQuit(Collider* _left, Collider* _right);

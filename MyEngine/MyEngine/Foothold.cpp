@@ -70,7 +70,7 @@ void Foothold::OnCollision(Collider* _other)
 	//	Vec2 objectPos = _other->GetOwner()->GetPos();
 	//	if (diff_y > 0.f)
 	//	{
-	//		if (diff_y < 1.f)
+	//		if (diff_y < 3.f)
 	//			return;
 
 	//		objectPos.y -= 1;
@@ -78,11 +78,11 @@ void Foothold::OnCollision(Collider* _other)
 	//	}
 	//}
 
-	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
-	{
-		if (false == _other->GetOwner()->GetGround())
-			static_cast<Player*>(_other->GetOwner())->InGround();
-	}
+	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	//{
+	//	if (false == _other->GetOwner()->GetGround())
+	//		static_cast<Player*>(_other->GetOwner())->InGround();
+	//}
 }
 
 void Foothold::OnCollisionEnter(Collider* _other)
@@ -90,7 +90,17 @@ void Foothold::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 
-			static_cast<Player*>(_other->GetOwner())->InGround();
+		Player* player = Player::GetPlayer();
+		player->InGround();
+		player->SetCollisionType(COLLISION_TYPE::LINE);
+		
+		Vec2 otherPos = _other->GetPos();
+		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
+		Vec2 dirVec = collider->GetRightDotPos() - collider->GetLeftDotPos();
+		dirVec.Norm();
+		player->SetDirectionVector(dirVec);
+			
+		
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
@@ -101,5 +111,9 @@ void Foothold::OnCollisionEnter(Collider* _other)
 
 void Foothold::OnCollisionExit(Collider* _other)
 {
-
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	{
+		//Player::GetPlayer()->SetDirectionVector(ZERO_VECTOR);
+		//Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NONE);
+	}
 }

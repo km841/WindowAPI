@@ -73,7 +73,7 @@ void TownScene::Enter()
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
-	Load(L"..\\Resource\\Map\\map4.map");
+	Load(L"..\\Resource\\Map\\map5.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
 	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
@@ -136,11 +136,6 @@ void TownScene::Enter()
 	Tree01St->SetPos(Vec2(TILE_SIZE * 38, TILE_SIZE * 20));
 	Tree01St->SetTexture(tree01);
 	Tree01St->SetSize(tree01->GetSize());
-	//TestCode
-	Tree01St->CreateComponent(new LineCollider);
-	Tree01St->GetCollider()->SetOwner(Tree01St);
-	Tree01St->GetCollider()->SetSize(Vec2(100, 100));
-
 
 	Structure* Tree02St = new Structure;
 	Tree02St->SetPos(Vec2(TILE_SIZE * 45, TILE_SIZE * 20));
@@ -170,8 +165,7 @@ void TownScene::Enter()
 	DungeonEatEvent* eatEvent = new DungeonEatEvent;
 	eatEvent->SetPos(Vec2(TILE_SIZE * 70, TILE_SIZE * 20));
 
-	InventoryUI* inven = 
-		static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
+	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
@@ -179,14 +173,14 @@ void TownScene::Enter()
 	AddGameObject(townTreeBg, townTreeBg->GetType());
 	AddGameObject(townTreeBg2, townTreeBg2->GetType());
 
-	//AddGameObject(blackSmithSt, blackSmithSt->GetType());
+	AddGameObject(blackSmithSt, blackSmithSt->GetType());
 	AddGameObject(Tree01St, Tree01St->GetType());
-	//AddGameObject(Tree02St, Tree02St->GetType());
+	AddGameObject(Tree02St, Tree02St->GetType());
 
-	//AddGameObject(Grass01St, Grass01St->GetType());
-	//AddGameObject(Grass02St, Grass02St->GetType());
-	//AddGameObject(Grass03St, Grass03St->GetType());
-	//AddGameObject(Grass03St_2, Grass03St_2->GetType());
+	AddGameObject(Grass01St, Grass01St->GetType());
+	AddGameObject(Grass02St, Grass02St->GetType());
+	AddGameObject(Grass03St, Grass03St->GetType());
+	AddGameObject(Grass03St_2, Grass03St_2->GetType());
 
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());

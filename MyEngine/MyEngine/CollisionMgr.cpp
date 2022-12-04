@@ -146,14 +146,14 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 	Vec2 rightSize = _right->GetSize();
 
 
-	const std::wstring& leftColType = _left->GetColliderType();
-	const std::wstring& rightColType = _right->GetColliderType();
+	COLLISION_TYPE leftColType = _left->GetColliderType();
+	COLLISION_TYPE rightColType = _right->GetColliderType();
 
 	//충돌체 사각형의 점 하나라도 들어오면?
 
 	// 충돌체의 상하좌우 모서리를 검사?
 
-	if (L"LINE" == leftColType)
+	if (COLLISION_TYPE::LINE == leftColType)
 	{
 		// 두 점을 가져온다.
 		// 두 점과 나머지 콜라이더의 pos를 비교
@@ -162,36 +162,45 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 		Vec2 leftDot = lineCollider->GetLeftDotPos();
 		Vec2 rightDot = lineCollider->GetRightDotPos();
 
-		float lineLength = (leftDot - rightDot).Len();
+		// 사각형의 네 변에 대한 선충돌
 
-		float leftLength = (leftDot - rightPos).Len();
-		float rightLength = (rightDot - rightPos).Len();
+		Vec2 leftTop = Vec2(leftPos.x - leftSize.x / 2.f, leftPos.y - leftSize.y / 2.f);
+		Vec2 rightTop = Vec2(leftPos.x + leftSize.x / 2.f, leftPos.y - leftSize.y / 2.f);
+		Vec2 leftBottom = Vec2(leftPos.x - leftSize.x / 2.f, leftPos.y + leftSize.y / 2.f);
+		Vec2 rightBottom = Vec2(leftPos.x + leftSize.x / 2.f, leftPos.y + leftSize.y / 2.f);
 
-		debug1 = lineLength;
-		debug2 = leftLength + rightLength;
+		bool isLeft = LineToLineCollision(leftDot, rightDot, leftBottom, leftTop);
+		bool isRight = LineToLineCollision(leftDot, rightDot, rightBottom, rightTop);
+		bool isTop = LineToLineCollision(leftDot, rightDot, leftTop, rightTop);
+		bool isBottom = LineToLineCollision(leftDot, rightDot, leftBottom, rightBottom);
 
-		if (lineLength + 1 >= leftLength + rightLength &&
-			lineLength - 1 <= leftLength + rightLength)
+		if (isLeft || isRight || isTop || isBottom)
 		{
 			return true;
 		}
 
 	}
 
-	else if (L"LINE" == rightColType)
+	else if (COLLISION_TYPE::LINE == rightColType)
 	{
 		LineCollider* lineCollider = static_cast<LineCollider*>(_right);
 
 		Vec2 leftDot = lineCollider->GetLeftDotPos();
 		Vec2 rightDot = lineCollider->GetRightDotPos();
 
-		float lineLength = (leftDot - rightDot).Len();
+		// 사각형의 네 변에 대한 선충돌
 
-		float leftLength = (leftDot - leftPos).Len();
-		float rightLength = (rightDot - leftPos).Len();
+		Vec2 leftTop = Vec2(leftPos.x - leftSize.x / 2.f, leftPos.y - leftSize.y / 2.f);
+		Vec2 rightTop = Vec2(leftPos.x + leftSize.x / 2.f, leftPos.y - leftSize.y / 2.f);
+		Vec2 leftBottom = Vec2(leftPos.x - leftSize.x / 2.f, leftPos.y + leftSize.y / 2.f);
+		Vec2 rightBottom = Vec2(leftPos.x + leftSize.x / 2.f, leftPos.y + leftSize.y / 2.f);
 
-		if (lineLength + 1 >= leftLength + rightLength &&
-			lineLength - 1 <= leftLength + rightLength)
+		bool isLeft = LineToLineCollision(leftDot, rightDot, leftBottom, leftTop);
+		bool isRight = LineToLineCollision(leftDot, rightDot, rightBottom, rightTop);
+		bool isTop = LineToLineCollision(leftDot, rightDot, leftTop, rightTop);
+		bool isBottom = LineToLineCollision(leftDot, rightDot, leftBottom, rightBottom);
+
+		if (isLeft || isRight || isTop || isBottom)
 		{
 			return true;
 		}
@@ -207,6 +216,23 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 	}
 
 	return false;
+}
+
+bool CollisionMgr::LineToLineCollision(Vec2 _v1, Vec2 _v2, Vec2 _v3, Vec2 _v4)
+{
+
+	// calculate the distance to intersection point
+	float det = ((_v4.y - _v3.y) * (_v2.x - _v1.x) - (_v4.x - _v3.x) * (_v2.y - _v1.y));
+	float uA = ((_v4.x - _v3.x) * (_v1.y - _v3.y) - (_v4.y - _v3.y) * (_v1.x - _v3.x)) / det;
+	float uB = ((_v2.x - _v1.x) * (_v1.y - _v3.y) - (_v2.y - _v1.y) * (_v1.x - _v3.x)) / det;
+
+	// if uA and uB are between 0-1, lines are colliding
+	if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) 
+	{
+		return true;
+	}
+	return false;
+
 }
 
 void CollisionMgr::CollisionForceQuit(Collider* _left, Collider* _right)

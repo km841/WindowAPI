@@ -337,8 +337,26 @@ void Player::MoveUpdate()
 		}
 		else
 		{
+		
 			if (NotInDash())
-				GetRigidBody()->SetVelocity(Vec2(-PLAYER_SPEED, velocity.y));
+			{
+				if (COLLISION_TYPE::LINE == GetCollisionType())
+				{
+
+					Vec2 dirVec = GetDirectionVector();
+					if (Vec2(0.f, 0.f) != dirVec)
+					{
+						dirVec *= -PLAYER_SPEED;
+						GetRigidBody()->SetVelocity(dirVec);
+					}
+
+				}
+
+				else
+				{
+					GetRigidBody()->SetVelocity_X(-PLAYER_SPEED);
+				}
+			}
 		}
 	}
 
@@ -365,8 +383,27 @@ void Player::MoveUpdate()
 		}
 		else
 		{
+
 			if (NotInDash())
-				GetRigidBody()->SetVelocity(Vec2(PLAYER_SPEED, velocity.y));
+			{
+				if (COLLISION_TYPE::LINE == GetCollisionType())
+				{
+
+					Vec2 dirVec = GetDirectionVector();
+					if (Vec2(0.f, 0.f) != dirVec)
+					{
+						dirVec *= PLAYER_SPEED;
+						GetRigidBody()->SetVelocity(dirVec);
+					}
+
+				}
+
+				else
+				{
+					GetRigidBody()->SetVelocity_X(PLAYER_SPEED);
+				}
+			}
+
 		}
 	}
 
@@ -579,6 +616,11 @@ void Player::Render()
 	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
 	swprintf_s(playerPos, L"player_x : %f, player_y : %f", playerRenderPos.x, playerRenderPos.y);
 	TextOut(BACK_BUF_DC, 10, 90, playerPos, (int)wcslen(playerPos));
+
+	Vec2 dirVec = GetDirectionVector();
+	wchar_t dirVecComment[COMMENT_MAX_SIZE] = {};
+	swprintf_s(dirVecComment, L"dirv_x : %f, dirv_y : %f", dirVec.x, dirVec.y);
+	TextOut(BACK_BUF_DC, 10, 150, dirVecComment, (int)wcslen(dirVecComment));
 }
 
 void Player::Destroy()

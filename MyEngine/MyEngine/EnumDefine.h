@@ -197,3 +197,11 @@ enum class MONSTER_ATTACK_TYPE
 	AIMING,
 	END
 };
+
+enum class COLLISION_TYPE
+{
+	NONE,
+	NORMAL,
+	LINE,
+	END
+};

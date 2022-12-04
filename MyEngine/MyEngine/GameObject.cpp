@@ -13,6 +13,7 @@ GameObject::GameObject()
 	, mComponents{}
 	, mType()
 	, mRelations()
+	, mCollisionType(COLLISION_TYPE::NONE)
 {
 }
 

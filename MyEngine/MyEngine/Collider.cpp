@@ -10,7 +10,7 @@ Collider::Collider()
 	,mEnable(true)
 {
 	//SetSize(Vec2(30.f, 30.f));
-	mColliderType = L"RECT";
+	mColliderType = COLLISION_TYPE::NORMAL;
 }
 
 Collider::~Collider()

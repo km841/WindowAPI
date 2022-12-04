@@ -77,6 +77,14 @@ public:
 	inline Collider*  GetCollider() const { return mComponents.mCollider; }
 	inline Animator*  GetAnimator() const { return mComponents.mAnimator; }
 	inline RigidBody* GetRigidBody() const { return mComponents.mRigidBody; }
+
+	inline void           SetCollisionType(COLLISION_TYPE _type) { mCollisionType = _type; }
+	inline COLLISION_TYPE GetCollisionType() const { return mCollisionType; }
+
+	inline void SetDirectionVector(Vec2 _dirVec) { mDirectionVec = _dirVec; }
+	inline Vec2 GetDirectionVector() const { return mDirectionVec; }
+
+
 	
 public:
 	virtual void OnCollision(Collider* _other) {};
@@ -92,6 +100,11 @@ private:
 
 	bool				mGravity;
 	bool				mGround;
+
+	Vec2				mDirectionVec;
+
+private:
+	COLLISION_TYPE		mCollisionType;
 
 	std::vector<Relation>  mRelations;
 };

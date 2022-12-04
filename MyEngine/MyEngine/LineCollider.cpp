@@ -5,7 +5,7 @@
 
 LineCollider::LineCollider()
 {
-	mColliderType = L"LINE";
+	mColliderType = COLLISION_TYPE::LINE;
 }
 
 LineCollider::~LineCollider()
@@ -23,13 +23,13 @@ void LineCollider::Update()
 		pos.x - size.x / 2.f,
 		pos.y - size.y / 2.f);
 
-	mRightPos = Vec2(
-	pos.x + size.x / 2.f,
-	pos.y - size.y / 2.f);
-
 	//mRightPos = Vec2(
-	//	pos.x + size.x / 2.f,
-	//	pos.y + size.y / 2.f);
+	//pos.x + size.x / 2.f,
+	//pos.y - size.y / 2.f);
+
+	mRightPos = Vec2(
+		pos.x + size.x / 2.f,
+		pos.y + size.y / 2.f);
 }
 
 
