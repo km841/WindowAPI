@@ -16,6 +16,7 @@
 #include "GiantSkullSpawnEvent.h"
 #include "RedGiantBatSpawnEvent.h"
 #include "EventMgr.h"
+#include "Wall.h"
 
 void Dungeon1Scene::Initialize()
 {
@@ -85,6 +86,8 @@ void Dungeon1Scene::Enter()
 		//AddGameObject(sword, sword->GetType());
 	}
 
+	
+
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 20));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
@@ -101,7 +104,8 @@ void Dungeon1Scene::Enter()
 	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 20));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
-	//Monster* skull1 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 15, TILE_SIZE * 15));
+
+
 	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
 	//Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
 
@@ -110,7 +114,7 @@ void Dungeon1Scene::Enter()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
 
-	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull1, skull1->GetType());
+
 	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull2, skull2->GetType());
 	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull3, skull3->GetType());
 

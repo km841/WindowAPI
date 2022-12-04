@@ -19,6 +19,7 @@
 #include "DungeonEatEvent.h"
 #include "SceneMgr.h"
 #include "EventMgr.h"
+#include "LineCollider.h"
 
 void TownScene::Initialize()
 {
@@ -135,6 +136,11 @@ void TownScene::Enter()
 	Tree01St->SetPos(Vec2(TILE_SIZE * 38, TILE_SIZE * 20));
 	Tree01St->SetTexture(tree01);
 	Tree01St->SetSize(tree01->GetSize());
+	//TestCode
+	Tree01St->CreateComponent(new LineCollider);
+	Tree01St->GetCollider()->SetOwner(Tree01St);
+	Tree01St->GetCollider()->SetSize(Vec2(100, 100));
+
 
 	Structure* Tree02St = new Structure;
 	Tree02St->SetPos(Vec2(TILE_SIZE * 45, TILE_SIZE * 20));
@@ -173,14 +179,14 @@ void TownScene::Enter()
 	AddGameObject(townTreeBg, townTreeBg->GetType());
 	AddGameObject(townTreeBg2, townTreeBg2->GetType());
 
-	AddGameObject(blackSmithSt, blackSmithSt->GetType());
+	//AddGameObject(blackSmithSt, blackSmithSt->GetType());
 	AddGameObject(Tree01St, Tree01St->GetType());
-	AddGameObject(Tree02St, Tree02St->GetType());
+	//AddGameObject(Tree02St, Tree02St->GetType());
 
-	AddGameObject(Grass01St, Grass01St->GetType());
-	AddGameObject(Grass02St, Grass02St->GetType());
-	AddGameObject(Grass03St, Grass03St->GetType());
-	AddGameObject(Grass03St_2, Grass03St_2->GetType());
+	//AddGameObject(Grass01St, Grass01St->GetType());
+	//AddGameObject(Grass02St, Grass02St->GetType());
+	//AddGameObject(Grass03St, Grass03St->GetType());
+	//AddGameObject(Grass03St_2, Grass03St_2->GetType());
 
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
@@ -192,6 +198,7 @@ void TownScene::Enter()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
 }
 
 void TownScene::Exit()

@@ -99,6 +99,7 @@ void Application::Tick()
 	SceneMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
 	CameraMgr::GetInstance().Render();
+	CollisionMgr::GetInstance().Render();
 
 	// Double Buffering
 	BitBlt(MAIN_DC, 0, 0, GetWidth(), GetHeight(), BACK_BUF_DC, 0, 0, SRCCOPY);

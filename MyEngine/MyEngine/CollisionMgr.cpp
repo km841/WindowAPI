@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include "Wall.h"
 #include "Foothold.h"
+#include "LineCollider.h"
 
 
 void CollisionMgr::Initialize()
@@ -30,6 +31,13 @@ void CollisionMgr::Update()
 			}
 		}
 	}
+}
+
+void CollisionMgr::Render()
+{
+	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
+	swprintf_s(playerPos, L"linelength : %f, totallength : %f", debug1, debug2);
+	TextOut(BACK_BUF_DC, 10, 90, playerPos, (int)wcslen(playerPos));
 }
 
 void CollisionMgr::SetCollision(OBJECT_TYPE _first, OBJECT_TYPE _second)
@@ -138,11 +146,64 @@ bool CollisionMgr::IsCollision(Collider* _left, Collider* _right)
 	Vec2 rightSize = _right->GetSize();
 
 
+	const std::wstring& leftColType = _left->GetColliderType();
+	const std::wstring& rightColType = _right->GetColliderType();
 
-	if (abs(leftPos.x - rightPos.x) <= (leftSize.x + rightSize.x) / 2.f &&
-		abs(leftPos.y - rightPos.y) <= (leftSize.y + rightSize.y) / 2.f)
+	//충돌체 사각형의 점 하나라도 들어오면?
+
+	// 충돌체의 상하좌우 모서리를 검사?
+
+	if (L"LINE" == leftColType)
 	{
-		return true;
+		// 두 점을 가져온다.
+		// 두 점과 나머지 콜라이더의 pos를 비교
+		LineCollider* lineCollider = static_cast<LineCollider*>(_left);
+
+		Vec2 leftDot = lineCollider->GetLeftDotPos();
+		Vec2 rightDot = lineCollider->GetRightDotPos();
+
+		float lineLength = (leftDot - rightDot).Len();
+
+		float leftLength = (leftDot - rightPos).Len();
+		float rightLength = (rightDot - rightPos).Len();
+
+		debug1 = lineLength;
+		debug2 = leftLength + rightLength;
+
+		if (lineLength + 1 >= leftLength + rightLength &&
+			lineLength - 1 <= leftLength + rightLength)
+		{
+			return true;
+		}
+
+	}
+
+	else if (L"LINE" == rightColType)
+	{
+		LineCollider* lineCollider = static_cast<LineCollider*>(_right);
+
+		Vec2 leftDot = lineCollider->GetLeftDotPos();
+		Vec2 rightDot = lineCollider->GetRightDotPos();
+
+		float lineLength = (leftDot - rightDot).Len();
+
+		float leftLength = (leftDot - leftPos).Len();
+		float rightLength = (rightDot - leftPos).Len();
+
+		if (lineLength + 1 >= leftLength + rightLength &&
+			lineLength - 1 <= leftLength + rightLength)
+		{
+			return true;
+		}
+	}
+
+	else
+	{
+		if (abs(leftPos.x - rightPos.x) <= (leftSize.x + rightSize.x) / 2.f &&
+			abs(leftPos.y - rightPos.y) <= (leftSize.y + rightSize.y) / 2.f)
+		{
+			return true;
+		}
 	}
 
 	return false;

@@ -6,12 +6,13 @@
 #include "RigidBody.h"
 #include "CameraMgr.h"
 #include "Monster.h"
+#include "LineCollider.h"
 
 Foothold::Foothold()
 {
 	SetType(OBJECT_TYPE::FOOTHOLD);
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
-	CreateComponent(new Collider);
+	CreateComponent(new LineCollider);
 	GetCollider()->SetOwner(this);
 	GetCollider()->SetSize(Vec2(TILE_SIZE, TILE_SIZE));
 }
@@ -57,24 +58,30 @@ void Foothold::OnCollision(Collider* _other)
 {
 	// 플레이어가 이전에 내 위에 있었다면 속도를 낮추고 밀어올림
 	
+	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	//{
+	//	Vec2 pos = GetCollider()->GetPos();
+	//	Vec2 size = GetCollider()->GetSize();
+
+	//	Vec2 otherPos = _other->GetPos();
+	//	Vec2 otherSize = _other->GetSize();
+
+	//	float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
+	//	Vec2 objectPos = _other->GetOwner()->GetPos();
+	//	if (diff_y > 0.f)
+	//	{
+	//		if (diff_y < 1.f)
+	//			return;
+
+	//		objectPos.y -= 1;
+	//		_other->GetOwner()->SetPos(objectPos);
+	//	}
+	//}
+
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-		Vec2 pos = GetCollider()->GetPos();
-		Vec2 size = GetCollider()->GetSize();
-
-		Vec2 otherPos = _other->GetPos();
-		Vec2 otherSize = _other->GetSize();
-
-		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
-		Vec2 objectPos = _other->GetOwner()->GetPos();
-		if (diff_y > 0.f)
-		{
-			if (diff_y < 1.f)
-				return;
-
-			objectPos.y -= 1;
-			_other->GetOwner()->SetPos(objectPos);
-		}
+		if (false == _other->GetOwner()->GetGround())
+			static_cast<Player*>(_other->GetOwner())->InGround();
 	}
 }
 
@@ -82,7 +89,7 @@ void Foothold::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-		if (mPlayerAbobeMe)
+
 			static_cast<Player*>(_other->GetOwner())->InGround();
 	}
 

@@ -19,6 +19,7 @@ class CollisionMgr :
 public:
     void Initialize();
     void Update();
+    void Render();
 
 public:
     void SetCollision(OBJECT_TYPE _first, OBJECT_TYPE _second);
@@ -31,5 +32,9 @@ public:
 private:
     std::bitset<(UINT)OBJECT_TYPE::END> mBits[(UINT)OBJECT_TYPE::END];
     std::map<ULONGLONG, bool>           mColMap;
+
+private:
+    float debug1;
+    float debug2;
 };
 
