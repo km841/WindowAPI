@@ -16,7 +16,6 @@ RotateMissileEffect::RotateMissileEffect()
 	, mReady(false)
 {
 	mCoreBullet = new MonsterBullet;
-	
 }
 
 RotateMissileEffect::~RotateMissileEffect()
@@ -77,7 +76,7 @@ void RotateMissileEffect::Update()
 		{
 			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
 			float bulletAngle = bullet->GetAngle();
-			bulletAngle += 1;
+			bulletAngle += 180.f * DT;
 			bullet->SetAngle(bulletAngle);
 
 			float radian = Math::DegreeToRadian(bulletAngle);
@@ -161,9 +160,8 @@ bool RotateMissileEffect::Attack()
 		{
 			mCurTime += DT;
 		}
-
-		return true;
 	}
+
 	else
 	{
 		if (Vec2(0.f, 0.f) == mPlayerVec)
@@ -177,12 +175,10 @@ bool RotateMissileEffect::Attack()
 			mReady = true;
 			return false;
 		}
-
-		return true;
 	}
 
 
-
+	return true;
 
 	// Bullet n개를 만든다
 	// Bullet n개는 missileEffect를 중심으로 회전

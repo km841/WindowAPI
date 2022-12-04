@@ -12,6 +12,7 @@
 #include "Collider.h"
 #include "EventRegisteror.h"
 #include "SwordHitEffect.h"
+#include "CollisionMgr.h"
 
 ShortSword::ShortSword()
 	:mCurDuration(0.f)
@@ -103,6 +104,18 @@ void ShortSword::Update()
 			// 애니메이션이 끝났고 다음 애니메이션이 시작될 거라는 것
 			mAttFlag = false;
 			GetEffect()->GetCollider()->SetEnable(false);
+			// 몬스터가 있다면 충돌을 해제시킴
+			
+			auto& rels = GetEffect()->GetRelations();
+			for (int i = 0; i < rels.size(); ++i)
+			{
+				if (OBJECT_TYPE::MONSTER == rels[i].mOther->GetType())
+				{
+					CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), GetEffect()->GetCollider());
+					break;
+				}
+			}
+
 			
 		}
 

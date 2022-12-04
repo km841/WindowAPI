@@ -109,6 +109,8 @@ GiantSkullWarrior::GiantSkullWarrior()
 	effect->GetCollider()->SetOffset_Y(-50);
 	effect->GetCollider()->SetEnable(false);
 	SetEffect(effect);
+
+	SetHPBarOffset(Vec2(-5.f, 15.f));
 }
 
 GiantSkullWarrior::~GiantSkullWarrior()
@@ -159,7 +161,17 @@ void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
 		// 무기에서 이펙트에 공격력을 전달?
-		EventRegisteror::GetInstance().DeleteObject(this);
+		
+		float curHP = GetCurHP();
+		if (curHP > 0.f)
+		{
+			curHP -= 5;
+			SetCurHP(curHP);
+		}
+		else
+		{
+			EventRegisteror::GetInstance().DeleteObject(this);
+		}
 	}
 
 }

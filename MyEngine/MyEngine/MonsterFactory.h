@@ -24,7 +24,7 @@ public:
 			monster->SetPos(_pos);
 			monster->SetGround(false);
 
-			info.mHP = 100;
+			info.mMaxHP = 100;
 			info.mSpeed = 50.f;
 			info.mRecog = 300.f;
 			info.mAttRange = 150.f;
@@ -63,10 +63,11 @@ public:
 			monster->SetPos(_pos);
 			//monster->SetGround(true);
 
-			info.mHP = 100;
+			info.mMaxHP = 100;
 			info.mSpeed = 100.f;
 			info.mRecog = 400.f;
 			info.mAttRange = 300.f;
+
 			monster->SetMonsterInfo(info);
 
 			AI* ai = new AI;

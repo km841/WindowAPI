@@ -46,6 +46,16 @@ public:
     inline void           SetEffect(MonsterEffect* _monsterEff) { mEffect = _monsterEff; }
     inline MonsterEffect* GetEffect() const { return mEffect; }
 
+    inline void SetHPBarOffset(Vec2 _hpBarOffset) { mHPBarOffset = _hpBarOffset; }
+    inline Vec2 GetHPBarOffset() const { return mHPBarOffset; }
+
+    inline void  SetCurHP(float _hp) { mInfo.mCurHP = _hp; }
+    inline float GetCurHP() const { return mInfo.mCurHP; }
+
+    inline void  SetMaxHP(float _hp) { mInfo.mMaxHP = _hp; }
+    inline float GetMaxHP() const { return mInfo.mMaxHP; }
+
+
 public:
     virtual bool Attack() { return true; }
     virtual bool DetectPlayer() { return false; }
@@ -70,6 +80,14 @@ protected:
     bool mDead;
     
     MonsterEffect* mEffect;
+
+
+protected:
+    static Texture* mHPBaseTex;
+    static Texture* mHPTex;
+
+    Vec2 mHPBarOffset;
+
 private:
     std::wstring mIdleAnimName;
     std::wstring mMoveAnimName;

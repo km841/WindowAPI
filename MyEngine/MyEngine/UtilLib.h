@@ -3,7 +3,8 @@
 
 struct MonsterInfo
 {
-	int mHP;
+	float mMaxHP;
+	float mCurHP;
 	float mSpeed;
 	float mRecog;
 	float mAttRange;

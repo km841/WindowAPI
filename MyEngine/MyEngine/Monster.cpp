@@ -12,6 +12,9 @@
 #include "AI.h"
 #include "MonsterEffect.h"
 
+Texture* Monster::mHPBaseTex = nullptr;
+Texture* Monster::mHPTex     = nullptr;
+
 Monster::Monster()
 	: mDead(false)
 	, mAI(nullptr)
@@ -29,6 +32,18 @@ Monster::Monster()
 
 	CreateComponent(new RigidBody);
 	GetRigidBody()->SetOwner(this);
+
+	if (nullptr == mHPBaseTex)
+	{
+		mHPBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterHPBaseTex", L"Texture\\MONSTER_HP_BASE.bmp");
+	}
+
+	if (nullptr == mHPTex)
+	{
+		mHPTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterHPTex", L"Texture\\MONSTER_HP.bmp");
+	}
+
+	
 }
 
 Monster::~Monster()
@@ -51,6 +66,8 @@ Monster::~Monster()
 
 void Monster::Initialize()
 {
+	mInfo.mCurHP = mInfo.mMaxHP;
+
 	Effect* effect = GetEffect();
 	if (nullptr != effect)
 	{
@@ -58,6 +75,7 @@ void Monster::Initialize()
 		effect->Initialize();
 		EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
 	}
+	
 }
 
 void Monster::Update()
@@ -73,7 +91,41 @@ void Monster::Render()
 	if (nullptr != mAI)
 		mAI->Render();
 
+	// 몬스터의 체력이 100%가 아니라면 hpbar 위치를 받아서 출력
+
+
 	GameObject::Render();
+	float ratio = mInfo.mCurHP / mInfo.mMaxHP;
+	if (1 > ratio)
+	{
+		Vec2 pos = GetPos();
+		pos += mHPBarOffset;
+		pos = RENDER_POS(pos);
+		Vec2 hpBaseSize = mHPBaseTex->GetSize();
+		Vec2 hpSize = mHPTex->GetSize();
+
+		BitBlt(
+			BACK_BUF_DC,
+			(int)(pos.x - hpBaseSize.x / 2),
+			(int)(pos.y - hpBaseSize.y / 2),
+			(int)hpBaseSize.x,
+			(int)hpBaseSize.y,
+			mHPBaseTex->GetDC(),
+			0, 0,
+			SRCCOPY
+		);
+
+		BitBlt(
+			BACK_BUF_DC,
+			(int)(pos.x - hpSize.x / 2),
+			(int)(pos.y - hpSize.y / 2),
+			(int)(hpSize.x * ratio),
+			(int)hpSize.y,
+			mHPTex->GetDC(),
+			0, 0,
+			SRCCOPY
+		);
+	}
 }
 
 void Monster::Destroy()
