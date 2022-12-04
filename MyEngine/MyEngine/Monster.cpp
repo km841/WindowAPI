@@ -42,7 +42,7 @@ Monster::Monster()
 		Vec2(0.f, 0.f),
 		Vec2(192.f, 192.f),
 		Vec2(192.f, 0.f),
-		0.1f,
+		0.05f,
 		11
 	);
 
@@ -116,7 +116,7 @@ void Monster::Render()
 
 	GameObject::Render();
 	float ratio = mInfo.mCurHP / mInfo.mMaxHP;
-	if (1 > ratio)
+	if (1 > ratio && false == mDead)
 	{
 		Vec2 pos = GetPos();
 		pos += mHPBarOffset;
@@ -177,6 +177,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		else
 		{
 			GetEffect()->Destroy();
+			mDead = true;
 			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 		}
 	}
