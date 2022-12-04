@@ -9,6 +9,7 @@
 #include "CameraMgr.h"
 #include "Player.h"
 #include "RotateMissileEffect.h"
+#include "EventRegisteror.h"
 
 RedGiantBat::RedGiantBat()
 {
@@ -129,6 +130,7 @@ void RedGiantBat::OnCollision(Collider* _other)
 
 void RedGiantBat::OnCollisionEnter(Collider* _other)
 {
+	Monster::OnCollisionEnter(_other);
 }
 
 void RedGiantBat::OnCollisionExit(Collider* _other)

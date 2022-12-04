@@ -178,6 +178,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttState.h" />
     <ClInclude Include="MonsterBullet.h" />
+    <ClInclude Include="MonsterDeadState.h" />
     <ClInclude Include="MonsterEffect.h" />
     <ClInclude Include="MonsterFactory.h" />
     <ClInclude Include="MonsterIdleState.h" />
@@ -264,6 +265,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttState.cpp" />
     <ClCompile Include="MonsterBullet.cpp" />
+    <ClCompile Include="MonsterDeadState.cpp" />
     <ClCompile Include="MonsterEffect.cpp" />
     <ClCompile Include="MonsterFactory.cpp" />
     <ClCompile Include="MonsterIdleState.cpp" />

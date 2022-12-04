@@ -163,6 +163,7 @@ enum class MONSTER_STATE
 	IDLE,
 	TRACE,
 	PATROL,
+	DEAD,
 	ATTACK,
 
 

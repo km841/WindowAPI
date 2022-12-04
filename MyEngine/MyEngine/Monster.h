@@ -55,6 +55,8 @@ public:
     inline void  SetMaxHP(float _hp) { mInfo.mMaxHP = _hp; }
     inline float GetMaxHP() const { return mInfo.mMaxHP; }
 
+    inline bool IsDead() const { return mDead; }
+
 
 public:
     virtual bool Attack() { return true; }

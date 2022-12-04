@@ -158,21 +158,7 @@ void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 	// 애니메이션이 끝난 후 DeleteObject..
 	// if (isDead() && GetCurAnim()->isFinished())
 	//   -> 소멸
-	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
-	{
-		// 무기에서 이펙트에 공격력을 전달?
-		
-		float curHP = GetCurHP();
-		if (curHP > 0.f)
-		{
-			curHP -= 5;
-			SetCurHP(curHP);
-		}
-		else
-		{
-			EventRegisteror::GetInstance().DeleteObject(this);
-		}
-	}
+	Monster::OnCollisionEnter(_other);
 
 }
 

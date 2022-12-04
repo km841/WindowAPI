@@ -136,6 +136,19 @@ void RotateMissileEffect::Render()
 
 }
 
+void RotateMissileEffect::Destroy()
+{
+	for (int i = 0; i < mBullets.size(); ++i)
+	{
+		for (int i = 0; i < mBullets.size(); ++i)
+		{
+			EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
+		}
+		mBullets.clear();
+	}
+
+}
+
 bool RotateMissileEffect::Attack()
 {
 	// 특정 딜레이를 두고 n개를 생성시킨다.

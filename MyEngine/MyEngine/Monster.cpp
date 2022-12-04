@@ -11,6 +11,7 @@
 #include "RigidBody.h"
 #include "AI.h"
 #include "MonsterEffect.h"
+#include "Animation.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -32,6 +33,23 @@ Monster::Monster()
 
 	CreateComponent(new RigidBody);
 	GetRigidBody()->SetOwner(this);
+
+	Texture* monsterDeadTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterDeadTex", L"Texture\\MonsterDeadTex.bmp");
+
+	Animation* deadAnim = GetAnimator()->CreateAnimation(
+		L"MonsterDeadAnim",
+		monsterDeadTex,
+		Vec2(0.f, 0.f),
+		Vec2(192.f, 192.f),
+		Vec2(192.f, 0.f),
+		0.1f,
+		11
+	);
+
+
+	deadAnim->SetOffset(Vec2(0.f, 50.f));
+	
+	GetAnimator()->AddAnimation(L"MonsterDeadAnim", deadAnim);
 
 	if (nullptr == mHPBaseTex)
 	{
@@ -84,6 +102,8 @@ void Monster::Update()
 		mAI->Update();
 
 	GameObject::Update();
+
+
 }
 
 void Monster::Render()
@@ -144,6 +164,22 @@ void Monster::OnCollision(Collider* _other)
 
 void Monster::OnCollisionEnter(Collider* _other)
 {
+	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
+	{
+		// 무기에서 이펙트에 공격력을 전달?
+
+		float curHP = GetCurHP();
+		if (curHP > 0.f)
+		{
+			curHP -= 10;
+			SetCurHP(curHP);
+		}
+		else
+		{
+			GetEffect()->Destroy();
+			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+		}
+	}
 }
 
 void Monster::OnCollisionExit(Collider* _other)

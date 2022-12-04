@@ -4,6 +4,7 @@
 #include "MonsterTraceState.h"
 #include "MonsterPatrolState.h"
 #include "MonsterAttState.h"
+#include "MonsterDeadState.h"
 #include "AI.h"
 
 class MonsterFactory
@@ -47,10 +48,14 @@ public:
 			MonsterAttState* attState = new MonsterAttState;
 			attState->SetOwnerAI(ai);
 
+			MonsterDeadState* deadState = new MonsterDeadState;
+			deadState->SetOwnerAI(ai);
+
 			ai->AddState(idleState);
 			ai->AddState(traceState);
 			ai->AddState(patrolState);
 			ai->AddState(attState);
+			ai->AddState(deadState);
 
 			ai->ChangeState(MONSTER_STATE::PATROL);
 		}
@@ -87,10 +92,14 @@ public:
 			MonsterAttState* attState = new MonsterAttState;
 			attState->SetOwnerAI(ai);
 
+			MonsterDeadState* deadState = new MonsterDeadState;
+			deadState->SetOwnerAI(ai);
+
 			ai->AddState(idleState);
 			ai->AddState(traceState);
 			ai->AddState(patrolState);
 			ai->AddState(attState);
+			ai->AddState(deadState);
 
 			ai->ChangeState(MONSTER_STATE::PATROL);
 		}
