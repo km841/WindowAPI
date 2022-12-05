@@ -143,10 +143,14 @@ void Wall::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-		Player::GetPlayer()->SetDirectionVector(Vec2(1, 0));
-		Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NORMAL);
-		
-		static_cast<Player*>(_other->GetOwner())->InGround();
+		if (mPlayerAbobeMe)
+		{
+			Player::GetPlayer()->SetDirectionVector(Vec2(1, 0));
+			Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NORMAL);
+
+			static_cast<Player*>(_other->GetOwner())->InGround();
+		}
+
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())

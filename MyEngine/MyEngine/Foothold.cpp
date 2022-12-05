@@ -143,11 +143,11 @@ void Foothold::OnCollision(Collider* _other)
 			}
 
 
-			wchar_t distanceComment[COMMENT_MAX_SIZE] = {};
-			swprintf_s(distanceComment, L"distance: %f", distance);
+			//wchar_t distanceComment[COMMENT_MAX_SIZE] = {};
+			//swprintf_s(distanceComment, L"distance: %f", distance);
 			//TextOut(BACK_BUF_DC, 10, 130, distanceComment, (int)wcslen(distanceComment));
 
-			SetWindowText(APP_INSTANCE.GetHwnd(), distanceComment);
+			//SetWindowText(APP_INSTANCE.GetHwnd(), distanceComment);
 
 		}
 			break;
