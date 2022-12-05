@@ -7,6 +7,7 @@
 #include "Foothold.h"
 #include "Collider.h"
 #include "EventRegisteror.h"
+#include "LineCollider.h"
 
 Tile::Tile()
 	: mTileLT{}
@@ -97,6 +98,12 @@ void Tile::Save(FILE* _fp) const
 	fwrite(&pos, sizeof(Vec2), 1, _fp);
 	fwrite(&ltPos, sizeof(Vec2), 1, _fp);
 	fwrite(&tileType, sizeof(TILE_TYPE), 1, _fp);
+
+	if (TILE_TYPE::FOOTHOLD == tileType)
+	{
+		LINE_TYPE lineType = static_cast<LineCollider*>(GetCollisionComponent()->GetCollider())->GetLineType();
+		fwrite(&lineType, sizeof(lineType), 1, _fp);
+	}
 }
 
 void Tile::Load(FILE* _fp)
@@ -104,6 +111,7 @@ void Tile::Load(FILE* _fp)
 	Vec2 pos;
 	Vec2 ltPos;
 	TILE_TYPE tileType;
+	LINE_TYPE lineType;
 
 	fread(&pos, sizeof(Vec2), 1, _fp);
 	fread(&ltPos, sizeof(Vec2), 1, _fp);
@@ -119,7 +127,11 @@ void Tile::Load(FILE* _fp)
 		CreateWall();
 		break;
 	case TILE_TYPE::FOOTHOLD:
+	{
+		fread(&lineType, sizeof(LINE_TYPE), 1, _fp);
 		CreateFoothold();
+		static_cast<LineCollider*>(GetCollisionComponent()->GetCollider())->SetLineType(lineType);
+	}
 		break;
 	}
 

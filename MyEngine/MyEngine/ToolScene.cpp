@@ -15,6 +15,7 @@
 #include "SceneMgr.h"
 #include "GameObject.h"
 #include "CollisionComponent.h"
+#include "LineCollider.h"
 
 void ToolScene::Initialize()
 {
@@ -84,6 +85,8 @@ void ToolScene::Update()
 			// 타일이 있는 자리의 경우
 
 			TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
+
+			// 타일이 가진 컴포넌트가 있다면
 			CollisionComponent* tileComponent = tile->GetCollisionComponent();
 
 			if (nullptr != tileComponent)
@@ -92,9 +95,16 @@ void ToolScene::Update()
 
 				OBJECT_TYPE type = tileComponent->GetType();
 
+				if (OBJECT_TYPE::FOOTHOLD == type && TILE_TYPE::FOOTHOLD == tileType)
+				{
+					static_cast<LineCollider*>(tile->GetCollisionComponent()->GetCollider())->SetNextLineType();
+					return;
+				}
+
 				if (OBJECT_TYPE::FOOTHOLD == type ||
 					OBJECT_TYPE::WALL == type)
 				{
+					//해당 타입에 대한 오브젝트 그룹을 가져옴
 					std::vector<GameObject*>& objects =
 						SceneMgr::GetInstance().GetCurScene()->mObjects[(UINT)type];
 
@@ -105,8 +115,11 @@ void ToolScene::Update()
 						Vec2 tilePos = tile->GetPos();
 						Vec2 objPos = iter.operator*()->GetPos();
 
+						// 위치가 같은 게 있다면
 						if (tilePos == objPos)
 						{
+							//삭제하고 씬에서 제거
+							delete *iter;
 							objects.erase(iter);
 							break;
 						}
@@ -325,7 +338,10 @@ void ToolScene::Enter()
 void ToolScene::Exit()
 {
 	DeleteObjGroup(OBJECT_TYPE::UI);
-	DeleteObjGroup(OBJECT_TYPE::TILE);
+	CleanObjectGroup(OBJECT_TYPE::WALL);
+	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+
+	//DeleteObjGroup(OBJECT_TYPE::TILE);
 }
 
 void ToolScene::RemoveTile(Vec2 _pos)
@@ -339,10 +355,9 @@ void ToolScene::RemoveTile(Vec2 _pos)
 			CollisionComponent* colCom = tile->GetCollisionComponent();
 			if (nullptr != colCom)
 			{
-				EventRegisteror::GetInstance().DeleteObject(colCom);
+				EventRegisteror::GetInstance().DeleteObjectFromScene(colCom);
 			}
 			EventRegisteror::GetInstance().DeleteObject(tile);
-
 			break;
 		}
 	}

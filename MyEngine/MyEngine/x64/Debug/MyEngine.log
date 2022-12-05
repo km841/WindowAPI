@@ -1,6 +1,2 @@
 ﻿  unity_LKOTKYMH0BL9UMPJ.cpp
-C:\WindowsAPI\MyEngine\MyEngine\LineCollider.cpp(54,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\LineCollider.cpp(54,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\LineCollider.cpp(55,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\WindowsAPI\MyEngine\MyEngine\LineCollider.cpp(55,30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\x64\Debug\MyEngine.exe

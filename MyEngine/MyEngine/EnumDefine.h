@@ -70,6 +70,9 @@ enum class EVENT_TYPE
 	OBJECT_DELETE,
 	// lParam : Object Pointer, wParam : No used
 
+	OBJECT_DELETE_FROM_SCENE,
+	// lParam : Object Pointer, wParam : No used
+
 	OBJECT_TRANSFORT,
 	// lParam : Object Pointer, wParam : Scepe Type
 
@@ -204,4 +207,12 @@ enum class COLLISION_TYPE
 	NORMAL,
 	LINE,
 	END
+};
+
+enum class LINE_TYPE
+{
+	PLAT,
+	DEGREE_45,
+	DEGREE_135,
+	END,
 };

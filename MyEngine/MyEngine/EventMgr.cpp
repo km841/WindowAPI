@@ -52,6 +52,16 @@ void EventMgr::Execute(Event _event)
 	}
 		break;
 
+
+	case EVENT_TYPE::OBJECT_DELETE_FROM_SCENE:
+	{
+		GameObject* obj = (GameObject*)_event.lParam;
+		obj->Destroy();
+		CollisionClear(obj);
+		DeleteObjectFromScene(obj, obj->GetType());
+	}
+		break;
+
 	case EVENT_TYPE::SCENE_CHANGE:
 		SceneMgr::GetInstance().ChangeScene((SCENE_TYPE)_event.wParam);
 		break;
@@ -150,4 +160,27 @@ bool EventMgr::DeleteObject(GameObject* _obj, OBJECT_TYPE _eType)
 
 
 	return false;
+}
+
+void EventMgr::DeleteObjectFromScene(GameObject* _obj, OBJECT_TYPE _eType)
+{
+	Scene* scene = SceneMgr::GetInstance().GetCurScene();
+	std::vector<GameObject*>& group = scene->mObjects[(UINT)_eType];
+	std::vector<GameObject*>::iterator iter = group.begin();
+
+	while (iter != group.end())
+	{
+		if (*iter == _obj)
+			break;
+
+		iter++;
+	}
+
+	if (iter != group.end())
+	{
+		group.erase(iter);
+		_obj = nullptr;
+	}
+
+	return;
 }

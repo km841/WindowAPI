@@ -24,6 +24,7 @@ public:
 	inline TILE_TYPE GetTileType() const { return mTileType; }
 
 	inline CollisionComponent* GetCollisionComponent() { return mCollisionComponent; }
+	inline CollisionComponent* GetCollisionComponent() const { return mCollisionComponent; }
 	inline void ClearCollisionComponent() { mCollisionComponent = nullptr; }
 
 	void Save(FILE* _fp) const;

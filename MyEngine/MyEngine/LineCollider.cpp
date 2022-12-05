@@ -4,6 +4,7 @@
 #include "CameraMgr.h"
 
 LineCollider::LineCollider()
+	:mLineType(LINE_TYPE::END)
 {
 	mColliderType = COLLISION_TYPE::LINE;
 }
@@ -19,17 +20,41 @@ void LineCollider::Update()
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
 
-	mLeftPos = Vec2(
-		pos.x - size.x / 2.f,
-		pos.y - size.y / 2.f);
+	switch (mLineType)
+	{
+	case LINE_TYPE::PLAT:
+		mLeftPos = Vec2(
+			pos.x - size.x / 2.f,
+			pos.y - size.y / 2.f);
 
-	//mRightPos = Vec2(
-	//pos.x + size.x / 2.f,
-	//pos.y - size.y / 2.f);
+		mRightPos = Vec2(
+			pos.x + size.x / 2.f,
+			pos.y - size.y / 2.f);
 
-	mRightPos = Vec2(
-		pos.x + size.x / 2.f,
-		pos.y + size.y / 2.f);
+		break;
+
+	case LINE_TYPE::DEGREE_45:
+		mLeftPos = Vec2(
+			pos.x - size.x / 2.f,
+			pos.y + size.y / 2.f);
+
+		mRightPos = Vec2(
+			pos.x + size.x / 2.f,
+			pos.y - size.y / 2.f);
+
+		break;
+
+	case LINE_TYPE::DEGREE_135:
+		mLeftPos = Vec2(
+			pos.x - size.x / 2.f,
+			pos.y - size.y / 2.f);
+
+		mRightPos = Vec2(
+			pos.x + size.x / 2.f,
+			pos.y + size.y / 2.f);
+
+		break;
+	}
 }
 
 
@@ -51,8 +76,8 @@ void LineCollider::Render()
 
 	HPEN oldPen = (HPEN)SelectObject(BACK_BUF_DC, pen);
 
-	MoveToEx(BACK_BUF_DC, leftPos.x, leftPos.y, NULL);
-	LineTo(BACK_BUF_DC, rightPos.x, rightPos.y);
+	MoveToEx(BACK_BUF_DC, (int)leftPos.x, (int)leftPos.y, NULL);
+	LineTo(BACK_BUF_DC, (int)rightPos.x, (int)rightPos.y);
 
 	SelectObject(BACK_BUF_DC, oldPen);
 	DeleteObject(pen);

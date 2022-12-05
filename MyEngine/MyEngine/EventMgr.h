@@ -23,6 +23,7 @@ public:
 private:
     void CollisionClear(GameObject* _obj);
     bool DeleteObject(GameObject* _obj, OBJECT_TYPE _eType);
+    void DeleteObjectFromScene(GameObject* _obj, OBJECT_TYPE _eType);
 
 private:
     std::vector<Event> mEvents;

@@ -73,7 +73,7 @@ void TownScene::Enter()
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
-	Load(L"..\\Resource\\Map\\map5.map");
+	Load(L"..\\Resource\\Map\\map6.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
 	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");

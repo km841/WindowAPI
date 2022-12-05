@@ -22,6 +22,16 @@ void EventRegisteror::DeleteObject(GameObject* _obj)
 	EventMgr::GetInstance().AddEvent(event);
 }
 
+void EventRegisteror::DeleteObjectFromScene(GameObject* _obj)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::OBJECT_DELETE_FROM_SCENE;
+	event.lParam = (DWORD_PTR)_obj;
+	event.wParam = 0;
+
+	EventMgr::GetInstance().AddEvent(event);
+}
+
 void EventRegisteror::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
 {
 	Event event = {};

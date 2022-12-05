@@ -241,4 +241,17 @@ struct Math
 		return Vec2(0.f, 0.f);
 	}
 
+	static float LineToDotDistance(Vec2 _v1_start, Vec2 _v1_end, Vec2 _v)
+	{
+		// 직선의 방정식 구하기
+		// 기울기
+		float slope = (_v1_end.y - _v1_start.y) / (_v1_end.x - _v1_start.x);
+		
+		// y - _v1_first.y = slope (x - _v1_first.x);
+
+		float r = _v1_start.y - (slope * _v1_start.x);
+		
+		return abs(slope * _v.x - _v.y + r) / sqrt(slope * slope + 1);
+	}
+
 };

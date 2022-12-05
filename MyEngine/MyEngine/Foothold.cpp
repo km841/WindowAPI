@@ -52,11 +52,112 @@ void Foothold::Update()
 void Foothold::Render()
 {
 	GameObject::Render();
+
+
+
 }
 
 void Foothold::OnCollision(Collider* _other)
 {
-	// 플레이어가 이전에 내 위에 있었다면 속도를 낮추고 밀어올림
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	{
+		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
+		Vec2 testVec = Vec2(1, 0);
+
+
+
+		switch (collider->GetLineType())
+		{
+		case LINE_TYPE::PLAT:
+		{
+			//if (false == _other->GetOwner()->GetGround())
+			//	static_cast<Player*>(_other->GetOwner())->InGround();
+
+			if (mPlayerAbobeMe)
+			{
+				Vec2 pos = GetCollider()->GetPos();
+				Vec2 size = GetCollider()->GetSize();
+
+				Vec2 otherPos = _other->GetPos();
+				Vec2 otherSize = _other->GetSize();
+
+				float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
+				Vec2 objectPos = _other->GetOwner()->GetPos();
+				if (diff_y > 0.f)
+				{
+					if (diff_y < 3.f)
+						return;
+
+					objectPos.y -= 1;
+					_other->GetOwner()->SetPos(objectPos);
+				}
+			}
+
+		}
+
+			break;
+
+		case LINE_TYPE::DEGREE_45:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+			
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x + otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 5.f)
+			{
+				otherPos.y -= 1;
+				objectPos.y -= 1;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+
+		}
+			break;
+
+		case LINE_TYPE::DEGREE_135:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+
+
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x - otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 5.f)
+			{
+				otherPos.y -= 1;
+				objectPos.y -= 1;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+
+
+			wchar_t distanceComment[COMMENT_MAX_SIZE] = {};
+			swprintf_s(distanceComment, L"distance: %f", distance);
+			//TextOut(BACK_BUF_DC, 10, 130, distanceComment, (int)wcslen(distanceComment));
+
+			SetWindowText(APP_INSTANCE.GetHwnd(), distanceComment);
+
+		}
+			break;
+		}
+
+
+	}
+
+
+	 //플레이어가 이전에 내 위에 있었다면 속도를 낮추고 밀어올림
 	
 	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	//{
@@ -89,18 +190,35 @@ void Foothold::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-
 		Player* player = Player::GetPlayer();
-		player->InGround();
+	/*	player->InGround();*/
 		player->SetCollisionType(COLLISION_TYPE::LINE);
+
+		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
+		Vec2 dirVec = Vec2(1, 0);
+
+		if (player->NotInDash())
+			player->InGround();
+
+		switch (collider->GetLineType())
+		{
+		case LINE_TYPE::PLAT:
+		{
+
+		}
+			break;
+			
+		case LINE_TYPE::DEGREE_45:
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 45.f));
+			break;
+
+		case LINE_TYPE::DEGREE_135:
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(45.f));
+			break;
+		}
 		
 		Vec2 otherPos = _other->GetPos();
-		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
-		Vec2 dirVec = collider->GetRightDotPos() - collider->GetLeftDotPos();
-		dirVec.Norm();
 		player->SetDirectionVector(dirVec);
-			
-		
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())

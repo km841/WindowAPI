@@ -76,8 +76,8 @@ Player::Player()
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
 
-	GetCollider()->SetSize(Vec2(30.f, 30.f));
-	GetCollider()->SetOffset(Vec2(0.f, -15.f));
+	GetCollider()->SetSize(Vec2(30.f, 20.f));
+	GetCollider()->SetOffset(Vec2(0.f, -10.f));
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -344,7 +344,7 @@ void Player::MoveUpdate()
 				{
 
 					Vec2 dirVec = GetDirectionVector();
-					if (Vec2(0.f, 0.f) != dirVec)
+					if (0.f != dirVec.x || 0.f != dirVec.y)
 					{
 						dirVec *= -PLAYER_SPEED;
 						GetRigidBody()->SetVelocity(dirVec);
@@ -390,7 +390,7 @@ void Player::MoveUpdate()
 				{
 
 					Vec2 dirVec = GetDirectionVector();
-					if (Vec2(0.f, 0.f) != dirVec)
+					if (0.f != dirVec.x || 0.f != dirVec.y)
 					{
 						dirVec *= PLAYER_SPEED;
 						GetRigidBody()->SetVelocity(dirVec);
@@ -485,6 +485,11 @@ void Player::StateUpdate()
 				mState->Exit();
 
 			mState = PlayerState::Walk;
+		}
+
+		if (IS_JUST_RELEASED(KEY::A) || IS_JUST_RELEASED(KEY::D))
+		{
+			GetRigidBody()->SetVelocity_Zero();
 		}
 
 		if (IS_RELEASED(KEY::A) && IS_RELEASED(KEY::D))
@@ -663,7 +668,6 @@ void Player::EquipItemUpdate()
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
-
 		if (nullptr != mEquipItems[i])
 		{
 			if (INVENTORY_SLOT::LEFT_SLOT == curSlot)

@@ -35,9 +35,9 @@ void CollisionMgr::Update()
 
 void CollisionMgr::Render()
 {
-	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
-	swprintf_s(playerPos, L"linelength : %f, totallength : %f", debug1, debug2);
-	TextOut(BACK_BUF_DC, 10, 90, playerPos, (int)wcslen(playerPos));
+	//wchar_t playerPos[COMMENT_MAX_SIZE] = {};
+	//swprintf_s(playerPos, L"linelength : %f, totallength : %f", debug1, debug2);
+	//TextOut(BACK_BUF_DC, 10, 90, playerPos, (int)wcslen(playerPos));
 }
 
 void CollisionMgr::SetCollision(OBJECT_TYPE _first, OBJECT_TYPE _second)
