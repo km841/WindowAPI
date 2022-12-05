@@ -152,38 +152,7 @@ void Foothold::OnCollision(Collider* _other)
 		}
 			break;
 		}
-
-
 	}
-
-
-	 //플레이어가 이전에 내 위에 있었다면 속도를 낮추고 밀어올림
-	
-	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
-	//{
-	//	Vec2 pos = GetCollider()->GetPos();
-	//	Vec2 size = GetCollider()->GetSize();
-
-	//	Vec2 otherPos = _other->GetPos();
-	//	Vec2 otherSize = _other->GetSize();
-
-	//	float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
-	//	Vec2 objectPos = _other->GetOwner()->GetPos();
-	//	if (diff_y > 0.f)
-	//	{
-	//		if (diff_y < 3.f)
-	//			return;
-
-	//		objectPos.y -= 1;
-	//		_other->GetOwner()->SetPos(objectPos);
-	//	}
-	//}
-
-	//if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
-	//{
-	//	if (false == _other->GetOwner()->GetGround())
-	//		static_cast<Player*>(_other->GetOwner())->InGround();
-	//}
 }
 
 void Foothold::OnCollisionEnter(Collider* _other)
@@ -202,18 +171,12 @@ void Foothold::OnCollisionEnter(Collider* _other)
 
 		switch (collider->GetLineType())
 		{
-		case LINE_TYPE::PLAT:
-		{
-
-		}
-			break;
-			
 		case LINE_TYPE::DEGREE_45:
-			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 45.f));
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 46.f));
 			break;
 
 		case LINE_TYPE::DEGREE_135:
-			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(45.f));
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(46.f));
 			break;
 		}
 		
