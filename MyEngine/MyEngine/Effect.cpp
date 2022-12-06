@@ -2,6 +2,9 @@
 #include "Effect.h"
 
 Effect::Effect()
+	: mAtt(0.f)
+	, mOwner(nullptr)
+	, mTexture(nullptr)
 {
 	//SetType(OBJECT_TYPE::EFFECT);
 

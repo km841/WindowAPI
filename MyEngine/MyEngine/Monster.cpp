@@ -12,6 +12,10 @@
 #include "AI.h"
 #include "MonsterEffect.h"
 #include "Animation.h"
+#include "PlayerEffect.h"
+#include "MonsterEffect.h"
+#include "Player.h"
+#include "MonsterState.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -20,7 +24,7 @@ Monster::Monster()
 	: mDead(false)
 	, mAI(nullptr)
 	, mInfo()
-	, mDir(DIR::END)
+	, mDir(DIR::LEFT)
 	, mPrevDir(DIR::END)
 {
 	SetType(OBJECT_TYPE::MONSTER);
@@ -116,7 +120,7 @@ void Monster::Render()
 
 	GameObject::Render();
 	float ratio = mInfo.mCurHP / mInfo.mMaxHP;
-	if (1 > ratio && false == mDead)
+	if (1.0f > ratio && false == mDead)
 	{
 		Vec2 pos = GetPos();
 		pos += mHPBarOffset;
@@ -167,12 +171,27 @@ void Monster::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
 		// 무기에서 이펙트에 공격력을 전달?
+		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
+		Player* player = Player::GetPlayer();
+		float att = playerEffect->GetAtt();
+		float playerAtt = player->GetPlayerInfo().mAtt;
+
+		Vec2 pos = GetPos();
+		Vec2 playerPos = player->GetPos();
+		Vec2 dir = pos - playerPos;
+
+		dir.Norm();
+		dir *= 3;
+
+		SetPos(pos + dir);
 
 		float curHP = GetCurHP();
+		curHP -= (att + playerAtt);
+		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
-			curHP -= 10;
-			SetCurHP(curHP);
+			if (MONSTER_STATE::ATTACK != mAI->GetCurState()->GetMonsterState())
+				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::ATTACK);
 		}
 		else
 		{

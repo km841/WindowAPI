@@ -10,6 +10,15 @@ struct MonsterInfo
 	float mAttRange;
 };
 
+struct PlayerInfo
+{
+	float mMaxHP;
+	float mCurHP;
+	float mAtt;
+	float mDashCount;
+	float mSpeed;
+};
+
 struct WindowGDI
 {
 	static HPEN			hPens[(UINT)PEN_TYPE::END];

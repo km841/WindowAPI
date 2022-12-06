@@ -64,6 +64,9 @@ public:
     inline void    SetEffect(Effect* _effect) { mEffect = _effect; }
     inline Effect* GetEffect() const { return mEffect; }
 
+    inline void       SetPlayerInfo(PlayerInfo _info) { mInfo = _info; }
+    inline PlayerInfo GetPlayerInfo() const { return mInfo; }
+
     inline Vec2 GetPrevPos() const { return mPrevPos; }
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
@@ -110,6 +113,7 @@ private:
     Effect*        mEffect;
     DashEffect*    mDashEffect[AFTER_IMAGE_TOTAL];
     Item*          mEquipItems[(UINT)EQUIP_TYPE::END];
+    PlayerInfo     mInfo;
 
 
     Vec2       mPrevPos;

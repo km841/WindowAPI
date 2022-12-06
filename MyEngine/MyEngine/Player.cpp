@@ -52,9 +52,16 @@ Player::Player()
 	, mHit(false)
 	, mInvinMaxTime(0.5f)
 	, mInvinTime(0.f)
+	, mInfo{}
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
+
+	mInfo.mMaxHP = 100.f;
+	mInfo.mCurHP = 100.f;
+	mInfo.mDashCount = 2.f;
+	mInfo.mSpeed = 350.f;
+	mInfo.mAtt = 1.f;
 
 #pragma region PLAYER_STATE_INITIALIZE
 	mPlayer = this;
@@ -268,11 +275,11 @@ void Player::MoveUpdate()
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
 	{
-		if (PlayerState::Jump == mState)
-		{
-			mFall = true;
-		}
-
+		//if (PlayerState::Jump == mState)
+		//{
+		//	
+		//}
+		mFall = true;
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 
 		Vec2 mousePos = MOUSE_POS;

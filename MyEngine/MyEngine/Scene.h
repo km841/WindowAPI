@@ -44,7 +44,7 @@ public:
 public:
 	void Load(const std::wstring& _path);
 
-private:
+protected:
 	std::vector<GameObject*> mObjects[(UINT)OBJECT_TYPE::END];
 
 protected:

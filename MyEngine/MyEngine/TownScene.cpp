@@ -87,13 +87,13 @@ void TownScene::Enter()
 	//Texture* floorPixel = ResourceMgr::GetInstance().Load<Texture>(L"Floor_Pixel", L"Texture\\BlackSmith.bmp");
 
 	Player* player = new Player;
-	player->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
+	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
 	CameraMgr::GetInstance().SetTrackingObject(player);
 	//ShortSword* sword = static_cast<ShortSword*>(player->GetEquipItem(EQUIP_TYPE::WEAPON_1));
 	//AddGameObject(sword, sword->GetType());
 
 	BlackSmithNPC* blackSmithNPC = new BlackSmithNPC;
-	blackSmithNPC->SetPos(Vec2(TILE_SIZE * 30, TILE_SIZE * 20));
+	blackSmithNPC->SetPos(Vec2(TILE_SIZE * 30, GROUND_STANDARD));
 	blackSmithNPC->Initialize();
 
 	InfRepeatBg* townSkyBg = new InfRepeatBg;
@@ -113,7 +113,7 @@ void TownScene::Enter()
 	townTreeBg->SetTexture(treeBG);
 	townTreeBg->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	townTreeBg->SetSize(treeBG->GetSize() * TIMES);
-	townTreeBg->SetPos(Vec2(120, 750));
+	townTreeBg->SetPos(Vec2(120, GROUND_STANDARD - TILE_SIZE * 4));
 	townTreeBg->SetPlayer(player);
 	townTreeBg->SetTimes(TIMES);
 	townTreeBg->SetSpeed(50.f);
@@ -122,48 +122,48 @@ void TownScene::Enter()
 	townTreeBg2->SetTexture(treeBG);
 	townTreeBg2->SetType(OBJECT_TYPE::BACKGROUND_LAST);
 	townTreeBg2->SetSize(treeBG->GetSize() * TIMES);
-	townTreeBg2->SetPos(Vec2(120 + (treeBG->GetSize().x * TIMES / 2.f), 750.f));
+	townTreeBg2->SetPos(Vec2(120 + (treeBG->GetSize().x * TIMES / 2.f), (float)GROUND_STANDARD - TILE_SIZE * 4));
 	townTreeBg2->SetPlayer(player);
 	townTreeBg2->SetTimes(TIMES);
 	townTreeBg2->SetSpeed(50.f);
 
 	Structure* blackSmithSt = new Structure;
-	blackSmithSt->SetPos(Vec2(TILE_SIZE * 30, TILE_SIZE * 20));
+	blackSmithSt->SetPos(Vec2(TILE_SIZE * 30, GROUND_STANDARD));
 	blackSmithSt->SetTexture(blackSmith);
 	blackSmithSt->SetSize(blackSmith->GetSize());
 
 	Structure* Tree01St = new Structure;
-	Tree01St->SetPos(Vec2(TILE_SIZE * 38, TILE_SIZE * 20));
+	Tree01St->SetPos(Vec2(TILE_SIZE * 38, GROUND_STANDARD));
 	Tree01St->SetTexture(tree01);
 	Tree01St->SetSize(tree01->GetSize());
 
 	Structure* Tree02St = new Structure;
-	Tree02St->SetPos(Vec2(TILE_SIZE * 45, TILE_SIZE * 20));
+	Tree02St->SetPos(Vec2(TILE_SIZE * 45, GROUND_STANDARD));
 	Tree02St->SetTexture(tree02);
 	Tree02St->SetSize(tree02->GetSize());
 
 	Structure* Grass01St = new Structure;
-	Grass01St->SetPos(Vec2(TILE_SIZE * 42, TILE_SIZE * 20));
+	Grass01St->SetPos(Vec2(TILE_SIZE * 42, GROUND_STANDARD));
 	Grass01St->SetTexture(grass01);
 	Grass01St->SetSize(grass01->GetSize());
 
 	Structure* Grass02St = new Structure;
-	Grass02St->SetPos(Vec2(TILE_SIZE * 47, TILE_SIZE * 20));
+	Grass02St->SetPos(Vec2(TILE_SIZE * 47, GROUND_STANDARD));
 	Grass02St->SetTexture(grass02);
 	Grass02St->SetSize(grass02->GetSize());
 
 	Structure* Grass03St = new Structure;
-	Grass03St->SetPos(Vec2(TILE_SIZE * 52, TILE_SIZE * 20));
+	Grass03St->SetPos(Vec2(TILE_SIZE * 52, GROUND_STANDARD));
 	Grass03St->SetTexture(grass03);
 	Grass03St->SetSize(grass03->GetSize());
 
 	Structure* Grass03St_2 = new Structure;
-	Grass03St_2->SetPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 20));
+	Grass03St_2->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
 	Grass03St_2->SetTexture(grass03);
 	Grass03St_2->SetSize(grass03->GetSize());
 
 	DungeonEatEvent* eatEvent = new DungeonEatEvent;
-	eatEvent->SetPos(Vec2(TILE_SIZE * 70, TILE_SIZE * 20));
+	eatEvent->SetPos(Vec2(TILE_SIZE * 70, GROUND_STANDARD));
 
 	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 

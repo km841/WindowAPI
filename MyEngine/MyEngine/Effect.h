@@ -24,11 +24,18 @@ public:
 	inline Texture* GetTexture() const { return mTexture; }
 	inline void     SetTexture(Texture* _tex) { mTexture = _tex; }
 
+public:
+	inline void  SetAtt(float _att) { mAtt = _att; }
+	inline float GetAtt() const { return mAtt; }
+
 
 private:
 	GameObject* mOwner;
 	Vec2	    mOffset;
 	Texture*    mTexture;
+
+private:
+	float       mAtt;
 	
 };
 

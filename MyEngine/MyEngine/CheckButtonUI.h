@@ -25,12 +25,25 @@ public:
 	virtual bool OnClicked();
 
 public:
-	static CheckButtonUI* GetCheckButtonUI() { return g_Checked; }
-	static void           SetCheckButtonUI(CheckButtonUI* _checkBtn) { g_Checked = _checkBtn; }
+	inline void SetCheckType(CHECK_TYPE _checkType) { mCheckType = _checkType; }
+	inline CHECK_TYPE GetCheckType() const { return mCheckType; }
+
+
+public:
+	static CheckButtonUI* GetColTypeCheck() { return Checked_ColType; }
+	static void           SetColTypeCheck(CheckButtonUI* _colTypeCheck) { Checked_ColType = _colTypeCheck; }
+
+	static CheckButtonUI* GetTileTypeCheck() { return Checked_TileType; }
+	static void           SetTileTypeCheck(CheckButtonUI* _tileTypeCheck) { Checked_TileType = _tileTypeCheck; }
+
+	
 
 private:
-	static CheckButtonUI* g_Checked;
+	static CheckButtonUI* Checked_ColType;
+	static CheckButtonUI* Checked_TileType;
 	int  mIndex;
+
+	CHECK_TYPE mCheckType;
 
 };
 

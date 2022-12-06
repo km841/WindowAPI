@@ -153,10 +153,27 @@ void Scene::Load(const std::wstring& _path)
 
 	TileInitialize(tileSize);
 
-	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
-	for (const auto& tile : tileGroup)
+	std::vector<GameObject*>& tileGroup = mObjects[(UINT)OBJECT_TYPE::TILE];
+	for (auto& tile : tileGroup)
 	{
 		dynamic_cast<Tile*>(tile)->Load(fp);
+	}
+
+	auto iter = tileGroup.begin();
+	for (; iter != tileGroup.end(); )
+	{
+		Tile* tile = static_cast<Tile*>(*iter);
+		if (TILE_TYPE::NONE == tile->GetTileType())
+		{
+			tile->SetType(OBJECT_TYPE::TILE_BG);
+			mObjects[(UINT)OBJECT_TYPE::TILE_BG].push_back(std::move(*iter));
+			iter = tileGroup.erase(iter);
+		}
+
+		else
+		{
+			iter++;
+		}
 	}
 
 	fclose(fp);

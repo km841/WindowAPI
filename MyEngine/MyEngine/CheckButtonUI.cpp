@@ -3,9 +3,11 @@
 #include "MouseMgr.h"
 #include "Texture.h"
 
-CheckButtonUI* CheckButtonUI::g_Checked = nullptr;
+CheckButtonUI* CheckButtonUI::Checked_ColType = nullptr;
+CheckButtonUI* CheckButtonUI::Checked_TileType = nullptr;
 CheckButtonUI::CheckButtonUI()
 {
+	mCheckType = CHECK_TYPE::NONE;
 }
 
 CheckButtonUI::~CheckButtonUI()
@@ -29,7 +31,18 @@ void CheckButtonUI::Update()
 	{
 		if (mOnClicked)
 		{
-			g_Checked = this;
+			switch (mCheckType)
+			{
+			case CHECK_TYPE::TILE:
+				Checked_TileType = this;
+				break;
+
+
+			case CHECK_TYPE::COLLISION:
+				Checked_ColType = this;
+				break;
+			}
+			
 			//CallEvent();
 		}
 	}
@@ -50,14 +63,33 @@ void CheckButtonUI::Render()
 
 	TextureInfo curInfo = {};
 	
-	if (g_Checked == this)
+	if (CHECK_TYPE::COLLISION == mCheckType)
 	{
-		curInfo = mStates[(UINT)ButtonState::CHECKED];
+		if (Checked_ColType == this)
+		{
+			curInfo = mStates[(UINT)ButtonState::CHECKED];
+		}
+		else
+		{
+			curInfo = mStates[(UINT)ButtonState::NONE];
+		}
 	}
+
+	else if (CHECK_TYPE::TILE == mCheckType)
+	{
+		if (Checked_TileType == this)
+		{
+			curInfo = mStates[(UINT)ButtonState::CHECKED];
+		}
+		else
+		{
+			curInfo = mStates[(UINT)ButtonState::NONE];
+		}
+	}
+
 	else
-	{
-		curInfo = mStates[(UINT)ButtonState::NONE];
-	}
+		return;
+
 
 	TransparentBlt(BACK_BUF_DC,
 		(int)(pos.x - (curInfo.mSize.x / 2.f)),

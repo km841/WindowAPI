@@ -73,14 +73,14 @@ void Dungeon1Scene::Enter()
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
-	Load(L"..\\Resource\\Map\\dungeon1.map");
+	Load(L"..\\Resource\\Map\\dungeon2.map");
 
 	//auto& events = EventMgr::GetInstance().GetEvents();
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
-		player->SetPos(Vec2(TILE_SIZE * 5,  TILE_SIZE * 20));
+		player->SetPos(Vec2(TILE_SIZE * 5,  GROUND_STANDARD));
 		player->SetStop(false);
 		//ShortSword* sword = static_cast<ShortSword*>(player->GetEquipItem(EQUIP_TYPE::WEAPON_1));
 		//AddGameObject(sword, sword->GetType());
@@ -89,24 +89,24 @@ void Dungeon1Scene::Enter()
 	
 
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 20));
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 20));
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 20));
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, GROUND_STANDARD));
 	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
 	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 20));
+	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 
 
-	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 20, TILE_SIZE * 15));
+	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(GROUND_STANDARD, TILE_SIZE * 15));
 	//Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());

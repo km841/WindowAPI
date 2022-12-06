@@ -38,10 +38,17 @@ void ToolScene::Update()
 	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
 
-	if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
+	if (IS_JUST_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
 	{
-		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+		// 여기서 타입에 따라 갈려야 하나?
+
+		CheckButtonUI* tileTypeUI = CheckButtonUI::GetTileTypeCheck();
+		OBJECT_TYPE tileObjType = (OBJECT_TYPE)tileTypeUI->GetIndex();
+
+		const std::vector<GameObject*>& tileGroup = GetObjectGroup(tileObjType);
 		Tile* tile = nullptr;
+
+		// 해당 위치에 타일이 있는지 검사
 		for (int i = 0; i < tileGroup.size(); ++i)
 		{
 			if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
@@ -56,26 +63,35 @@ void ToolScene::Update()
 
 			if (nullptr != selectedUI)
 			{
-				Tile* tile = new Tile;
+				tile = new Tile;
 				tile->SetPos(tilePos + Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
 				tile->SetLTPos(selectedUI->GetLTPos());
 
-				TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
+				TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetColTypeCheck()->GetIndex());
 				switch (tileType)
 				{
 				case TILE_TYPE::WALL:
+				{
 					tile->CreateWall();
+					tile->SetTileType(tileType);
+					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+				}
 					break;
 				case TILE_TYPE::FOOTHOLD:
+				{
 					tile->CreateFoothold();
+					tile->SetTileType(tileType);
+					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+				}
 					break;
 				case TILE_TYPE::NONE:
-				
+					tile->SetTileType(tileType);
+					tile->SetType(OBJECT_TYPE::TILE_BG);
+					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE_BG);
 					break;
 				}
 
-				tile->SetTileType(tileType);
-				EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+				
 			}
 
 		}
@@ -83,15 +99,14 @@ void ToolScene::Update()
 		else
 		{
 			// 타일이 있는 자리의 경우
-
-			TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetCheckButtonUI()->GetIndex());
+			TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetColTypeCheck()->GetIndex());
 
 			// 타일이 가진 컴포넌트가 있다면
 			CollisionComponent* tileComponent = tile->GetCollisionComponent();
 
 			if (nullptr != tileComponent)
 			{
-				// 내 위치와 같은 wall과 foothold를 지워줘야 한다
+				// 내 위치와 같은 Wall과 Foothold를 지워줘야 한다
 
 				OBJECT_TYPE type = tileComponent->GetType();
 
@@ -105,8 +120,7 @@ void ToolScene::Update()
 					OBJECT_TYPE::WALL == type)
 				{
 					//해당 타입에 대한 오브젝트 그룹을 가져옴
-					std::vector<GameObject*>& objects =
-						SceneMgr::GetInstance().GetCurScene()->mObjects[(UINT)type];
+					std::vector<GameObject*>& objects = mObjects[(UINT)type];
 
 					std::vector<GameObject*>::iterator iter = objects.begin();
 
@@ -119,7 +133,7 @@ void ToolScene::Update()
 						if (tilePos == objPos)
 						{
 							//삭제하고 씬에서 제거
-							delete *iter;
+							delete* iter;
 							objects.erase(iter);
 							break;
 						}
@@ -130,22 +144,52 @@ void ToolScene::Update()
 				tile->ClearCollisionComponent();
 			}
 
-			switch (tileType)
+			else
 			{
-			case TILE_TYPE::WALL:
-				tile->CreateWall();
-				break;
-			case TILE_TYPE::FOOTHOLD:
-				tile->CreateFoothold();
-				break;
-			case TILE_TYPE::NONE:
-				break;
+				// 타일컴포넌트가 없다면
+				// 배경 타일임
+				// None으로 
+
+				//std::vector<GameObject*>& objects = mObjects[(UINT)OBJECT_TYPE::TILE_BG];
+
+				//std::vector<GameObject*>::iterator iter = objects.begin();
+
+				//for (; iter != objects.end(); ++iter)
+				//{
+				//	Vec2 tilePos = tile->GetPos();
+				//	Vec2 objPos = iter.operator*()->GetPos();
+
+				//	// 위치가 같은 게 있다면
+				//	if (tilePos == objPos)
+				//	{
+				//		//삭제하고 씬에서 제거
+				//		delete *iter;
+				//		objects.erase(iter);
+				//		break;
+				//	}
+				//}
+
+
 			}
 
-			tile->SetTileType(tileType);
-			
+			if (OBJECT_TYPE::TILE == tileObjType)
+			{
+				switch (tileType)
+				{
+				case TILE_TYPE::WALL:
+					tile->CreateWall();
+					break;
+				case TILE_TYPE::FOOTHOLD:
+					tile->CreateFoothold();
+					break;
+				case TILE_TYPE::NONE:
+					break;
+				}
+
+				tile->SetTileType(tileType);
+			}
+
 		}
-	
 	}
 
 	if (IS_RBUTTON_CLICKED)
@@ -197,6 +241,10 @@ void ToolScene::Render()
 	static wchar_t collisionPage[COMMENT_MAX_SIZE] = L"> 충돌체 타입 선택 UI";
 	TextOut(BACK_BUF_DC, 2, 10, collisionPage, (int)wcslen(collisionPage));
 
+	SetTextColor(BACK_BUF_DC, RGB(0, 0, 0));
+	static wchar_t tileTypePage[COMMENT_MAX_SIZE] = L"> 타일 타입 선택 UI";
+	TextOut(BACK_BUF_DC, 230, 10, tileTypePage, (int)wcslen(tileTypePage));
+
 	SetTextColor(BACK_BUF_DC, RGB(128, 64, 0));
 	static wchar_t tileColType_Wall[COMMENT_MAX_SIZE] = L" 타일 충돌 타입: 벽";
 	static wchar_t tileColType_Foothold[COMMENT_MAX_SIZE] = L" 타일 충돌 타입: 발판";
@@ -205,6 +253,12 @@ void ToolScene::Render()
 	TextOut(BACK_BUF_DC, 50, 40, tileColType_Wall, (int)wcslen(tileColType_Wall));
 	TextOut(BACK_BUF_DC, 50, 80, tileColType_Foothold, (int)wcslen(tileColType_Foothold));
 	TextOut(BACK_BUF_DC, 50, 120, tileColType_None, (int)wcslen(tileColType_None));
+
+	static wchar_t tileType_BG[COMMENT_MAX_SIZE] = L" 타일 타입: 배경";
+	static wchar_t tileType_Outer[COMMENT_MAX_SIZE] = L" 타일 타입: 표면";
+
+	TextOut(BACK_BUF_DC, 280, 40, tileType_BG, (int)wcslen(tileType_BG));
+	TextOut(BACK_BUF_DC, 280, 80, tileType_Outer, (int)wcslen(tileType_Outer));
 
 	SetTextColor(BACK_BUF_DC, RGB(0, 64, 128));
 	static wchar_t nextPage[COMMENT_MAX_SIZE] = L"> 다음 타일 페이지       (Page     Up)";
@@ -259,7 +313,7 @@ void ToolScene::Enter()
 	// 넣고 나서 16열로 출력
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
-	CameraMgr::GetInstance().SetLookPos(Vec2(TILE_SIZE * 15, TILE_SIZE * 20));
+	CameraMgr::GetInstance().SetLookPos(Vec2(TILE_SIZE * 15, GROUND_STANDARD));
 	Vec2 texSize = mDefaultTexture->GetSize();
 
 	ToolUI* toolUI = new ToolUI;
@@ -305,6 +359,7 @@ void ToolScene::Enter()
 		Vec2(checkBtnTex->GetWidth() / 2.f, 0.f),
 		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
 	wallCheckBtnUI->SetIndex((int)TILE_TYPE::WALL);
+	wallCheckBtnUI->SetCheckType(CHECK_TYPE::COLLISION);
 
 	CheckButtonUI* footHoldCheckBtnUI = new CheckButtonUI;
 	footHoldCheckBtnUI->SetTexture(checkBtnTex);
@@ -315,6 +370,7 @@ void ToolScene::Enter()
 		Vec2(checkBtnTex->GetWidth() / 2.f, 0.f),
 		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
 	footHoldCheckBtnUI->SetIndex((int)TILE_TYPE::FOOTHOLD);
+	footHoldCheckBtnUI->SetCheckType(CHECK_TYPE::COLLISION);
 
 	CheckButtonUI* noneCheckBtnUI = new CheckButtonUI;
 	noneCheckBtnUI->SetTexture(checkBtnTex);
@@ -325,14 +381,40 @@ void ToolScene::Enter()
 		Vec2(checkBtnTex->GetWidth() / 2.f, 0.f),
 		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
 	noneCheckBtnUI->SetIndex((int)TILE_TYPE::NONE);
+	noneCheckBtnUI->SetCheckType(CHECK_TYPE::COLLISION);
 
-	CheckButtonUI::SetCheckButtonUI(noneCheckBtnUI);
+	CheckButtonUI::SetColTypeCheck(noneCheckBtnUI);
 
+	CheckButtonUI* bgCheckBtnUI = new CheckButtonUI;
+	bgCheckBtnUI->SetTexture(checkBtnTex);
+	bgCheckBtnUI->SetSize(checkBtnTex->GetSize());
+	bgCheckBtnUI->SetPos(Vec2(250, 50));
+	bgCheckBtnUI->TextureProcessing(
+		Vec2(0.f, 0.f),
+		Vec2(checkBtnTex->GetWidth() / 2.f, 0.f),
+		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
+	bgCheckBtnUI->SetIndex((int)OBJECT_TYPE::TILE_BG);
+	bgCheckBtnUI->SetCheckType(CHECK_TYPE::TILE);
+
+	CheckButtonUI* outerCheckBtnUI = new CheckButtonUI;
+	outerCheckBtnUI->SetTexture(checkBtnTex);
+	outerCheckBtnUI->SetSize(checkBtnTex->GetSize());
+	outerCheckBtnUI->SetPos(Vec2(250, 90));
+	outerCheckBtnUI->TextureProcessing(
+		Vec2(0.f, 0.f),
+		Vec2(checkBtnTex->GetWidth() / 2.f, 0.f),
+		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
+	outerCheckBtnUI->SetIndex((int)OBJECT_TYPE::TILE);
+	outerCheckBtnUI->SetCheckType(CHECK_TYPE::TILE);
+
+	CheckButtonUI::SetTileTypeCheck(outerCheckBtnUI);
 
 	EventRegisteror::GetInstance().CreateObject(toolUI, toolUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(wallCheckBtnUI, wallCheckBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(footHoldCheckBtnUI, footHoldCheckBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(noneCheckBtnUI, noneCheckBtnUI->GetType());
+	EventRegisteror::GetInstance().CreateObject(bgCheckBtnUI, bgCheckBtnUI->GetType());
+	EventRegisteror::GetInstance().CreateObject(outerCheckBtnUI, outerCheckBtnUI->GetType());
 }
 
 void ToolScene::Exit()
@@ -346,7 +428,14 @@ void ToolScene::Exit()
 
 void ToolScene::RemoveTile(Vec2 _pos)
 {
-	const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+	// 누른 녀석의 컴포넌트 상태에 따라 처리
+	
+	CheckButtonUI* tileTypeUI = CheckButtonUI::GetTileTypeCheck();
+	OBJECT_TYPE tileType = (OBJECT_TYPE)tileTypeUI->GetIndex();
+
+	const std::vector<GameObject*>& tileGroup = GetObjectGroup(tileType);
+
+
 	for (int i = 0; i < tileGroup.size(); ++i)
 	{
 		if (tileGroup[i]->GetPos() == _pos + TILE_OFFSET)
@@ -388,7 +477,7 @@ void ToolScene::CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, 
 
 void ToolScene::GuideCircle()
 {
-	Vec2 renderPos(-20, TILE_SIZE * 20 + (TILE_SIZE / 2));
+	Vec2 renderPos(-20, TILE_SIZE * 24 + (TILE_SIZE / 2));
 	renderPos = RENDER_POS(renderPos);
 
 
@@ -417,14 +506,20 @@ void ToolScene::Save()
 			fileName += L".map";
 		}
 
-
 		FILE* fp = nullptr;
 		_wfopen_s(&fp, fileName.c_str(), L"wb");
 
-		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
-		size_t tileSize = tileGroup.size();
-		fwrite(&tileSize, sizeof(size_t), 1, fp);
+		std::vector<GameObject*>& tileGroup = mObjects[(UINT)OBJECT_TYPE::TILE];
+		std::vector<GameObject*>& bgTileGroup = mObjects[(UINT)OBJECT_TYPE::TILE_BG];
 
+		for (int i = 0; i < bgTileGroup.size(); ++i)
+		{
+			tileGroup.push_back(bgTileGroup[i]);
+		}
+		
+		size_t tileSize = tileGroup.size();
+
+		fwrite(&tileSize, sizeof(size_t), 1, fp);
 		
 		for (const auto& tile : tileGroup)
 		{
@@ -453,11 +548,29 @@ void ToolScene::Load()
 		fread(&tileSize, sizeof(size_t), 1, fp);
 		TileInitialize(tileSize);
 
-		const std::vector<GameObject*>& tileGroup = GetObjectGroup(OBJECT_TYPE::TILE);
+		std::vector<GameObject*>& tileGroup = mObjects[(UINT)OBJECT_TYPE::TILE];
 		for (const auto& tile : tileGroup)
 		{
 			static_cast<Tile*>(tile)->Load(fp);
 		}
+
+		auto iter = tileGroup.begin();
+		for (; iter != tileGroup.end(); )
+		{
+			Tile* tile = static_cast<Tile*>(*iter);
+			if (TILE_TYPE::NONE == tile->GetTileType())
+			{
+				tile->SetType(OBJECT_TYPE::TILE_BG);
+				mObjects[(UINT)OBJECT_TYPE::TILE_BG].push_back(std::move(*iter));
+				iter = tileGroup.erase(iter);
+			}
+
+			else
+			{
+				iter++;
+			}
+		}
+
 
 		fclose(fp);
 

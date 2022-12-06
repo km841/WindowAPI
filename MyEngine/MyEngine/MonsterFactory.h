@@ -30,7 +30,7 @@ public:
 			info.mRecog = 300.f;
 			info.mAttRange = 150.f;
 			monster->SetMonsterInfo(info);
-
+			
 			AI* ai = new AI;
 			ai->SetOwnerMonster(monster);
 			
@@ -57,7 +57,7 @@ public:
 			ai->AddState(attState);
 			ai->AddState(deadState);
 
-			ai->ChangeState(MONSTER_STATE::PATROL);
+			ai->ChangeState(MONSTER_STATE::IDLE);
 		}
 			break;
 
@@ -101,7 +101,7 @@ public:
 			ai->AddState(attState);
 			ai->AddState(deadState);
 
-			ai->ChangeState(MONSTER_STATE::PATROL);
+			ai->ChangeState(MONSTER_STATE::IDLE);
 		}
 			break;
 

@@ -4,6 +4,7 @@
 class Texture;
 struct ItemInfo
 {
+    float mAtt;
     //Stat
 };
 
@@ -22,13 +23,16 @@ public:
 
 public:
     inline ITEM_TYPE GetItemType() const { return mItemType; }
-    inline void SetItemType(ITEM_TYPE _itemType) { mItemType = _itemType; }
+    inline void     SetItemType(ITEM_TYPE _itemType) { mItemType = _itemType; }
 
     inline Texture* GetTexture() const { return mTexture; }
-    inline void SetTexture(Texture* _tex) { mTexture = _tex; }
+    inline void     SetTexture(Texture* _tex) { mTexture = _tex; }
 
     inline Texture* GetIconTexture() const { return mTexture; }
-    inline void SetIconTexture(Texture* _tex) { mTexture = _tex; }
+    inline void     SetIconTexture(Texture* _tex) { mTexture = _tex; }
+
+    inline ItemInfo GetItemInfo() const { return mItemInfo; }
+    inline void     SetItemInfo(ItemInfo _info) { mItemInfo = _info; }
 
 private:
     ITEM_TYPE mItemType;
