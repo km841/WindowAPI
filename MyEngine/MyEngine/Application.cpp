@@ -55,6 +55,8 @@ void Application::WindowInit(const WindowData& _winData)
 
 	mWinData.iWidth = rect.right;
 	mWinData.iHeight = rect.bottom;
+
+	srand(static_cast<UINT>(time(nullptr)));
 }
 
 void Application::ConfineMouse()

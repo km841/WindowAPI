@@ -8,6 +8,8 @@
 #include "RigidBody.h"
 
 Wall::Wall()
+	:mPlayerBelowMe(false)
+	,mPlayerAbobeMe(false)
 {
 	SetType(OBJECT_TYPE::WALL);
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
@@ -33,29 +35,44 @@ void Wall::Update()
 
 	if (nullptr != player)
 	{
-		Vec2 playerTilePos = CameraMgr::GetInstance().GetTileCoord(player->GetCollider()->GetPos());
+		Vec2 playerColPos = player->GetCollider()->GetPos();
+		Vec2 playerTilePos = CameraMgr::GetInstance().GetTileCoord(playerColPos);
 		Vec2 myTilePos = CameraMgr::GetInstance().GetTileCoord(GetPos());
 
 		Vec2 topTilePos = Vec2(myTilePos.x, myTilePos.y - TILE_SIZE);
+		Vec2 bottomTilePos = Vec2(myTilePos.x, myTilePos.y + (TILE_SIZE));
 		if (playerTilePos == topTilePos)
 		{
 			mPlayerAbobeMe = true;
 		}
 		else
 			mPlayerAbobeMe = false;
+
+
 	}
 }
 
 void Wall::Render()
 {
 	GameObject::Render();
+
+
+
 }
 
 void Wall::OnCollision(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
-		
+		if (mPlayerAbobeMe)
+		{
+			if (false == Player::GetPlayer()->GetGround())
+			{
+				Player::GetPlayer()->InGround();
+			}
+
+		}
+
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
 
@@ -88,8 +105,8 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.y += diff_y * sign;
-			otherPos.y += diff_y * sign;
+			otherObjPos.y += (diff_y) * sign;
+			otherPos.y += (diff_y) * sign;
 		}
 
 		_other->GetOwner()->SetPos(otherObjPos);
@@ -130,8 +147,8 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.y += diff_y * sign;
-			otherPos.y += diff_y * sign;
+			otherObjPos.y += (diff_y) * sign;
+			otherPos.y += (diff_y) * sign;
 		}
 
 		_other->GetOwner()->SetPos(otherObjPos);
@@ -145,12 +162,15 @@ void Wall::OnCollisionEnter(Collider* _other)
 	{
 		if (mPlayerAbobeMe)
 		{
-			Player::GetPlayer()->SetDirectionVector(Vec2(1, 0));
+			Player::GetPlayer()->SetDirectionVector(Vec2(0, 0));
 			Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NORMAL);
-
-			static_cast<Player*>(_other->GetOwner())->InGround();
+			Player::GetPlayer()->GetRigidBody()->SetVelocity_Y_Zero();
+			
 		}
 
+		// 좌우로 붙은게 아니라면
+		static_cast<Player*>(_other->GetOwner())->InGround();
+		//Player::GetPlayer()->GetRigidBody()->SetVelocity_X_Zero();
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())

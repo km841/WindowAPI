@@ -247,35 +247,32 @@ void Player::MoveUpdate()
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
 	{
-		if (IS_PRESSED(KEY::S))
+		// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
+
+		Vec2 velocity = GetRigidBody()->GetVelocity();
+
+		if (mJumpYValue > mJumpYMinValue)
 		{
-			//TODO
-
-		}
-
-		else
-		{
-			// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
-
-			Vec2 velocity = GetRigidBody()->GetVelocity();
-
-			if (mJumpYValue > mJumpYMinValue)
+			if (!mFall)
 			{
-				if (!mFall)
-				{
-					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-					mJumpYValue -= DT * 1300.f;
-				}
+				GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
+				mJumpYValue -= DT * 1300.f;
 			}
-
-			if (mJumpYValue < mJumpYMinValue)
-				mJumpYValue = mJumpYMinValue;
 		}
+
+		if (mJumpYValue < mJumpYMinValue)
+			mJumpYValue = mJumpYMinValue;
+		
 	}
 	
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
 	{
+		if (PlayerState::Jump == mState)
+		{
+			mFall = true;
+		}
+
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 
 		Vec2 mousePos = MOUSE_POS;
@@ -343,12 +340,16 @@ void Player::MoveUpdate()
 				if (COLLISION_TYPE::LINE == GetCollisionType())
 				{
 
-					Vec2 dirVec = GetDirectionVector();
-					if (0.f != dirVec.x || 0.f != dirVec.y)
+					if (false == (IS_PRESSED(KEY::W)) && false == (IS_PRESSED(KEY::SPACE)))
 					{
-						dirVec *= -PLAYER_SPEED;
-						GetRigidBody()->SetVelocity(dirVec);
+						Vec2 dirVec = GetDirectionVector();
+						if (0.f != dirVec.x || 0.f != dirVec.y)
+						{
+							dirVec *= -PLAYER_SPEED;
+							GetRigidBody()->SetVelocity(dirVec);
+						}
 					}
+
 
 				}
 
@@ -388,12 +389,14 @@ void Player::MoveUpdate()
 			{
 				if (COLLISION_TYPE::LINE == GetCollisionType())
 				{
-
-					Vec2 dirVec = GetDirectionVector();
-					if (0.f != dirVec.x || 0.f != dirVec.y)
+					if (false == (IS_PRESSED(KEY::W)) && false == (IS_PRESSED(KEY::SPACE)))
 					{
-						dirVec *= PLAYER_SPEED;
-						GetRigidBody()->SetVelocity(dirVec);
+						Vec2 dirVec = GetDirectionVector();
+						if (0.f != dirVec.x || 0.f != dirVec.y)
+						{
+							dirVec *= PLAYER_SPEED;
+							GetRigidBody()->SetVelocity(dirVec);
+						}
 					}
 
 				}
@@ -540,7 +543,12 @@ void Player::GroundStateUpdate()
 		if (OBJECT_TYPE::WALL == relations[i].mOther->GetType() ||
 			OBJECT_TYPE::FOOTHOLD == relations[i].mOther->GetType())
 		{
-			isGround = true;
+			// 위에 있는가? 까지 체크
+			Vec2 pos = CameraMgr::GetInstance().GetTileCoord(GetPos());
+			Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(relations[i].mOther->GetPos());
+
+			if (pos == tilePos || COLLISION_TYPE::LINE == relations[i].mOther->GetCollider()->GetColliderType())
+				isGround = true;
 		}
 	}
 
@@ -548,6 +556,10 @@ void Player::GroundStateUpdate()
 	{
 		SetGround(false);
 	}
+
+	// 내가 그 위에 있는게 아니라면까지 체크
+	// 위에있다는건 어떻게 파악?
+	// coord좌표로 파악
 }
 
 bool Player::IsMove() const

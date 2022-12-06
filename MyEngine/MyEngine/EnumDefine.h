@@ -211,7 +211,7 @@ enum class COLLISION_TYPE
 
 enum class LINE_TYPE
 {
-	PLAT,
+	FLAT,
 	DEGREE_45,
 	DEGREE_135,
 	END,

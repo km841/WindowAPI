@@ -68,7 +68,7 @@ void Foothold::OnCollision(Collider* _other)
 
 		switch (collider->GetLineType())
 		{
-		case LINE_TYPE::PLAT:
+		case LINE_TYPE::FLAT:
 		{
 			//if (false == _other->GetOwner()->GetGround())
 			//	static_cast<Player*>(_other->GetOwner())->InGround();
@@ -167,7 +167,17 @@ void Foothold::OnCollisionEnter(Collider* _other)
 		Vec2 dirVec = Vec2(1, 0);
 
 		if (player->NotInDash())
-			player->InGround();
+		{
+			if (LINE_TYPE::FLAT == collider->GetLineType())
+			{
+				if (mPlayerAbobeMe)
+					player->InGround();
+			}
+			else
+			{
+				player->InGround();
+			}
+		}
 
 		switch (collider->GetLineType())
 		{

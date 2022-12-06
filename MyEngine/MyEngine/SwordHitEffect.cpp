@@ -90,11 +90,30 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 			// 더미가 쉬고 있다는걸 어떻게 판별?
 			// 더미의 현재 애니메이션이 끝났는지를 확인하고 끝났다면 쉬는거임
 			// 초기값이 있어야? 처음엔 nullptr이니까..
-			
+
 			Animation* curAnim = mHitDummy[i]->GetAnimator()->GetCurAnimation();
+			int randomOffset = 1 + (rand() % 20);
+			int randomSign = rand() % 2;
+			int randomXY = rand() % 2;
+
+			Vec2 otherPos = _other->GetPos();
+			randomSign = randomSign == 0 ? -1 : 1;
+			randomOffset = randomOffset * randomSign;
+
+			if (randomXY == 0)
+			{
+				otherPos.y += randomOffset;
+			}
+			else
+			{
+				otherPos.x += randomOffset;
+			}
+			
+			
+
 			if (nullptr == curAnim)
 			{
-				mHitDummy[i]->SetPos(_other->GetPos());
+				mHitDummy[i]->SetPos(otherPos);
 				mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
 				break;
 			}
@@ -108,7 +127,7 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 				if (anim->IsFinished())
 				{
 					// 해당 각도에 맞는 애니메이션을 만들고 출력한다
-					mHitDummy[i]->SetPos(_other->GetPos());
+					mHitDummy[i]->SetPos(otherPos);
 					mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
 					break;
 				}	

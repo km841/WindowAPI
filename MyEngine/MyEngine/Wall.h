@@ -23,6 +23,7 @@ public:
 
 private:
     bool mPlayerAbobeMe;
+    bool mPlayerBelowMe;
 
 };
 

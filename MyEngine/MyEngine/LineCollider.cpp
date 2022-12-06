@@ -4,7 +4,7 @@
 #include "CameraMgr.h"
 
 LineCollider::LineCollider()
-	:mLineType(LINE_TYPE::END)
+	:mLineType(LINE_TYPE::FLAT)
 {
 	mColliderType = COLLISION_TYPE::LINE;
 }
@@ -22,7 +22,7 @@ void LineCollider::Update()
 
 	switch (mLineType)
 	{
-	case LINE_TYPE::PLAT:
+	case LINE_TYPE::FLAT:
 		mLeftPos = Vec2(
 			pos.x - size.x / 2.f,
 			pos.y - size.y / 2.f);
