@@ -42,6 +42,8 @@ public:
 
     inline bool IsEffectProgress() { return !mCamEffects.empty(); }
 
+    bool OutOfScreen(Vec2 _pos);
+
 public:
     void WorldToScreenCalc();
     void SetEffect(CAMERA_EFFECT _effect, float _endTime, float _delayTime = 0.f);

@@ -181,7 +181,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		Vec2 dir = pos - playerPos;
 
 		dir.Norm();
-		dir *= 3;
+		dir.x *= 3;
 
 		SetPos(pos + dir);
 

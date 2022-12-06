@@ -166,6 +166,15 @@ Vec2 CameraMgr::GetIconUIPos(Vec2 _uiPos, int _index) const
 	return Vec2(_uiPos.x, _uiPos.y - offset);
 }
 
+bool CameraMgr::OutOfScreen(Vec2 _pos)
+{
+	Vec2 pos = GetRenderPos(_pos);
+	if (pos.x < -50.f || pos.y < -50.f || pos.x > WINDOW_WIDTH_SIZE + 50.f || pos.y > WINDOW_HEIGHT_SIZE + 50.f)
+		return true;
+
+	return false;
+}
+
 void CameraMgr::WorldToScreenCalc()
 {
 	mAccTime += DT;

@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "EventRegisteror.h"
+#include "CameraMgr.h"
 
 BatBullet::BatBullet()
 {
@@ -56,6 +57,12 @@ void BatBullet::Update()
 		{
 			SetBulletState(false);
 			/*EventRegisteror::GetInstance().DeleteObject(this);*/
+		}
+
+		// 화면 밖으로 날아가면 false
+		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
+		{
+			SetBulletState(false);
 		}
 	}
 }

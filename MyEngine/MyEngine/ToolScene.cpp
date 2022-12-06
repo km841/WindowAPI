@@ -38,7 +38,7 @@ void ToolScene::Update()
 	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
 
-	if (IS_JUST_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
+	if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
 	{
 		// 여기서 타입에 따라 갈려야 하나?
 
@@ -98,6 +98,13 @@ void ToolScene::Update()
 
 		else
 		{
+			// LT Pos가 기존에 있는 것과 내가 선택한게 같다면 Return
+			if (nullptr != selectedUI)
+			{
+				if (selectedUI->GetLTPos() == tile->GetLTPos())
+					return;
+			}
+
 			// 타일이 있는 자리의 경우
 			TILE_TYPE tileType = (TILE_TYPE)(CheckButtonUI::GetColTypeCheck()->GetIndex());
 

@@ -213,6 +213,7 @@ void TownScene::Exit()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
 
 	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
 	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
