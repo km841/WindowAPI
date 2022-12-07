@@ -17,7 +17,7 @@ AfterImage::AfterImage()
 	mBlendFunc.BlendFlags = 0;
 	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 	mBlendFunc.BlendOp = AC_SRC_OVER;
-	mBlendFunc.SourceConstantAlpha = mAlpha;
+	mBlendFunc.SourceConstantAlpha = (BYTE)mAlpha;
 }
 
 AfterImage::~AfterImage()
@@ -42,7 +42,7 @@ void AfterImage::Update()
 		mAlpha = (1.f - ratio) * 255.f;
 		if (mAlpha < 1.f)
 			mAlpha = 0.f;
-		mBlendFunc.SourceConstantAlpha = mAlpha;
+		mBlendFunc.SourceConstantAlpha = (BYTE)mAlpha;
 	}
 }
 
@@ -57,15 +57,15 @@ void AfterImage::Render()
 		Vec2 pos = RENDER_POS(GetPos());
 		AlphaBlend(
 			BACK_BUF_DC,
-			pos.x - info.mSlice.x / 2.f,
-			pos.y - info.mSlice.y / 2.f,
-			info.mSlice.x,
-			info.mSlice.y,
+			(int)(pos.x - info.mSlice.x / 2.f),
+			(int)(pos.y - info.mSlice.y / 2.f),
+			(int)(info.mSlice.x),
+			(int)(info.mSlice.y),
 			mTex->GetDC(),
-			info.mLeftTop.x,
-			info.mLeftTop.y,
-			info.mSlice.x,
-			info.mSlice.y,
+			(int)(info.mLeftTop.x),
+			(int)(info.mLeftTop.y),
+			(int)(info.mSlice.x),
+			(int)(info.mSlice.y),
 			mBlendFunc
 		);
 	}

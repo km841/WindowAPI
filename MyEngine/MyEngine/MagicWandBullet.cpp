@@ -12,14 +12,14 @@
 MagicWandBullet::MagicWandBullet()
 	:mTarget(nullptr)
 	,mAngle(0.f)
-	,mMaxDuration(0.05f)
+	,mMaxDuration(0.025f)
 	,mCurDuration(0.f)
 {
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
 	mInfo.mAtt = 10.f;
-	mInfo.mSpeed = 500.f;
+	mInfo.mSpeed = 700.f;
 
 	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
 
