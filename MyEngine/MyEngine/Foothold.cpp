@@ -64,8 +64,6 @@ void Foothold::OnCollision(Collider* _other)
 		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
 		Vec2 testVec = Vec2(1, 0);
 
-
-
 		switch (collider->GetLineType())
 		{
 		case LINE_TYPE::FLAT:

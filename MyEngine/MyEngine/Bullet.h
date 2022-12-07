@@ -13,8 +13,11 @@ public:
     virtual void Render();
 
 public:
-    inline void SetBulletState(bool _flag) { mState = _flag; }
-    inline bool GetBulletState() const { return mState; }
+    inline void         SetBulletState(BULLET_STATE _flag) { mState = _flag; }
+    inline BULLET_STATE GetBulletState() const { return mState; }
+
+    inline void       SetBulletInfo(BulletInfo _info) { mInfo = _info; }
+    inline BulletInfo GetBulletInfo() const { return mInfo; }
 
 public:
     virtual void OnCollision(Collider* _other);
@@ -22,7 +25,10 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 private:
-    bool mState;
+    BULLET_STATE mState;
+
+protected:
+    BulletInfo mInfo;
 
 };
 

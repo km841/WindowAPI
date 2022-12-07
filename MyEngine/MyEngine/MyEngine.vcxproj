@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AfterImage.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="GreatSword.h" />
+    <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
@@ -174,7 +176,9 @@
     <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JumpState.h" />
+    <ClInclude Include="LaraMagicWand.h" />
     <ClInclude Include="LineCollider.h" />
+    <ClInclude Include="MagicWandBullet.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttState.h" />
     <ClInclude Include="MonsterBullet.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="MonsterTraceState.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
     <ClInclude Include="RedGiantBat.h" />
     <ClInclude Include="RedGiantBatSpawnEvent.h" />
@@ -227,6 +232,7 @@
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AfterImage.cpp" />
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
@@ -246,6 +252,7 @@
     <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="GreatSword.cpp" />
+    <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />
@@ -261,7 +268,9 @@
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="JumpState.cpp" />
+    <ClCompile Include="LaraMagicWand.cpp" />
     <ClCompile Include="LineCollider.cpp" />
+    <ClCompile Include="MagicWandBullet.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttState.cpp" />
     <ClCompile Include="MonsterBullet.cpp" />
@@ -277,6 +286,7 @@
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
     <ClCompile Include="RedGiantBat.cpp" />
     <ClCompile Include="RedGiantBatSpawnEvent.cpp" />

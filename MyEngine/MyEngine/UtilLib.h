@@ -1,6 +1,18 @@
 #pragma once
 #include <Windows.h>
 
+struct ItemInfo
+{
+	float mAtt;
+	//Stat
+};
+
+struct BulletInfo
+{
+	float mSpeed;
+	float mAtt;
+};
+
 struct MonsterInfo
 {
 	float mMaxHP;

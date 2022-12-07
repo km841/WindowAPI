@@ -26,6 +26,7 @@
 #include "Scene.h"
 #include "Tile.h"
 #include "Foothold.h"
+#include "LaraMagicWand.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -138,8 +139,9 @@ Player::Player()
 	{
 		mEquipItems[i] = nullptr;
 	}
-	ShortSword* shortSword = new ShortSword;
-	SetEquipItem(shortSword);
+	//ShortSword* shortSword = new ShortSword;
+	LaraMagicWand* magicWand = new LaraMagicWand;
+	SetEquipItem(magicWand);
 
 #pragma endregion
 
@@ -256,20 +258,26 @@ void Player::MoveUpdate()
 	{
 		// value 값을 주고 누르고있으면 떨어지는 구조, 바닥에 착지하면 초기화
 
-		Vec2 velocity = GetRigidBody()->GetVelocity();
-
-		if (mJumpYValue > mJumpYMinValue)
+		if (IS_PRESSED(KEY::S))
 		{
-			if (!mFall)
-			{
-				GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-				mJumpYValue -= DT * 1300.f;
-			}
+			SetGround(false);
 		}
+		else
+		{
+			Vec2 velocity = GetRigidBody()->GetVelocity();
 
-		if (mJumpYValue < mJumpYMinValue)
-			mJumpYValue = mJumpYMinValue;
-		
+			if (mJumpYValue > mJumpYMinValue)
+			{
+				if (!mFall)
+				{
+					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
+					mJumpYValue -= DT * 1300.f;
+				}
+			}
+
+			if (mJumpYValue < mJumpYMinValue)
+				mJumpYValue = mJumpYMinValue;
+		}
 	}
 	
 
@@ -672,6 +680,18 @@ void Player::OnCollisionEnter(Collider* _other)
 		mHit = true;
 	}
 
+	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType())
+	{
+		// 아래가 아니라면 OutGround()
+		Vec2 otherPos = _other->GetPos();
+		Vec2 pos = GetCollider()->GetPos();
+		Vec2 objPos = GetPos();
+
+		otherPos = CameraMgr::GetInstance().GetTileCoord(otherPos);
+		Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(pos);
+
+
+	}
 }
 
 void Player::OnCollisionExit(Collider* _other)

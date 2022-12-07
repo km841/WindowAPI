@@ -2,11 +2,7 @@
 #include "GameObject.h"
 
 class Texture;
-struct ItemInfo
-{
-    float mAtt;
-    //Stat
-};
+
 
 class Item :
     public GameObject

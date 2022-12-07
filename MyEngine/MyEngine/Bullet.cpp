@@ -5,7 +5,7 @@
 #include "Animation.h"
 
 Bullet::Bullet()
-	:mState(true)
+	:mState(BULLET_STATE::ALIVE)
 {
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);

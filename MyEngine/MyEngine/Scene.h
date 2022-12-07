@@ -31,6 +31,8 @@ public:
 
 	void AddGameObject(GameObject* _obj, OBJECT_TYPE _eType);
 	void DeleteObjGroup(OBJECT_TYPE _eType);
+
+	GameObject* GetNearestObject(GameObject* _src, OBJECT_TYPE _findType);
 	
 
 public:

@@ -338,6 +338,21 @@
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState">
       <UniqueIdentifier>{6073918f-68bc-466a-9954-352beaee8096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect">
+      <UniqueIdentifier>{83ae8df3-4d5a-4c3f-a615-83939f0f8019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet">
+      <UniqueIdentifier>{a7646fa9-54ba-43b5-9587-96d8133ba32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\PlayerBullet\Base">
+      <UniqueIdentifier>{59ec85a8-990d-4ed6-bd2b-554b4c795d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Item\Lara%27sMagicWand">
+      <UniqueIdentifier>{ee480281-566b-4bcb-8f1e-90f39130653d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage">
+      <UniqueIdentifier>{9125bf6f-b822-4a5e-8a2e-9213b359925c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -597,6 +612,21 @@
     </ClInclude>
     <ClInclude Include="MonsterDeadState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState</Filter>
+    </ClInclude>
+    <ClInclude Include="HomingMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicWandBullet.h">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="LaraMagicWand.h">
+      <Filter>Engine\GameObject\Item\Lara%27sMagicWand</Filter>
+    </ClInclude>
+    <ClInclude Include="AfterImage.h">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -861,6 +891,21 @@
     </ClCompile>
     <ClCompile Include="MonsterDeadState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState</Filter>
+    </ClCompile>
+    <ClCompile Include="HomingMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicWandBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="LaraMagicWand.cpp">
+      <Filter>Engine\GameObject\Item\Lara%27sMagicWand</Filter>
+    </ClCompile>
+    <ClCompile Include="AfterImage.cpp">
+      <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -37,6 +37,13 @@ void ToolScene::Update()
 	Vec2 mousePos = WORLD_POS(MOUSE_POS);
 	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
+	// 배경 선택되어 있으면 None으로만 되게 끔
+	if (OBJECT_TYPE::TILE_BG == (OBJECT_TYPE)(CheckButtonUI::GetTileTypeCheck()->GetIndex()))
+	{
+		CheckButtonUI::SetColTypeCheck(mNoneCheckBtn);
+	}
+
+
 
 	if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
 	{
@@ -54,6 +61,7 @@ void ToolScene::Update()
 			if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
 			{
 				tile = static_cast<Tile*>(tileGroup[i]);
+				break;
 			}
 		}
 
@@ -389,6 +397,8 @@ void ToolScene::Enter()
 		Vec2(checkBtnTex->GetWidth() / 2.f, (float)checkBtnTex->GetHeight()));
 	noneCheckBtnUI->SetIndex((int)TILE_TYPE::NONE);
 	noneCheckBtnUI->SetCheckType(CHECK_TYPE::COLLISION);
+
+	mNoneCheckBtn = noneCheckBtnUI;
 
 	CheckButtonUI::SetColTypeCheck(noneCheckBtnUI);
 

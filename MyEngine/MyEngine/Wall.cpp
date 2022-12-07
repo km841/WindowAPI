@@ -166,11 +166,12 @@ void Wall::OnCollisionEnter(Collider* _other)
 			Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NORMAL);
 			Player::GetPlayer()->GetRigidBody()->SetVelocity_Y_Zero();
 			
+			
 		}
-
+		if (1 == _other->GetColCnt())
+			static_cast<Player*>(_other->GetOwner())->InGround();
 		// 좌우로 붙은게 아니라면
-		static_cast<Player*>(_other->GetOwner())->InGround();
-		//Player::GetPlayer()->GetRigidBody()->SetVelocity_X_Zero();
+		
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())

@@ -114,6 +114,27 @@ void Scene::DeleteObjGroup(OBJECT_TYPE _eType)
 	mObjects[(UINT)_eType].clear();
 }
 
+GameObject* Scene::GetNearestObject(GameObject* _src, OBJECT_TYPE _findType)
+{
+	GameObject* target = nullptr;
+	float minDistance = 21e8;
+	
+	Vec2 srcPos = _src->GetPos();
+
+	for (int i = 0; i < mObjects[(UINT)_findType].size(); ++i)
+	{
+		Vec2 findTypePos = mObjects[(UINT)_findType][i]->GetPos();
+		float distance = (srcPos - findTypePos).Len();
+		if (minDistance > distance)
+		{
+			target = mObjects[(UINT)_findType][i];
+			minDistance = distance;
+		}
+	}
+
+	return target;
+}
+
 void Scene::TileInitialize(size_t _size)
 {
 	std::vector<GameObject*>& tiles =  mObjects[(UINT)OBJECT_TYPE::TILE];

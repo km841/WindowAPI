@@ -225,3 +225,12 @@ enum class CHECK_TYPE
 	NONE,
 	END,
 };
+
+enum class BULLET_STATE
+{
+	ALIVE,
+	DEAD_ANIM,
+	DEAD,
+	END
+};
+

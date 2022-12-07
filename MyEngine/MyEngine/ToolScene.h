@@ -30,5 +30,6 @@ public:
 
 private:
 	BLENDFUNCTION   mBlendFunc;
+	CheckButtonUI*  mNoneCheckBtn;
 
 };

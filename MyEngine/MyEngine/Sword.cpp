@@ -9,13 +9,14 @@
 #include "Animation.h"
 #include "Animator.h"
 #include "Effect.h"
+#include "PlayerEffect.h"
 
 Sword::Sword()
 	: mState(SWORD_STATE::UP_STATE)
 	, mPrevState(SWORD_STATE::UP_STATE)
 	, mAngle(0.f)
 	, mDuration(0.f)
-	, mHitEffect(nullptr)
+	, mEffect(nullptr)
 	, mTransTexture(nullptr)
 	, mXAxisDirOffset{}
 	, mYAxisOffset(0.f)
@@ -203,10 +204,12 @@ void Sword::Render()
 
 void Sword::Destroy()
 {
-	if (nullptr != mHitEffect)
+	
+	if (nullptr != mEffect)
 	{
-		delete mHitEffect;
-		mHitEffect = nullptr;
+		mEffect->Destroy();
+		delete mEffect;
+		mEffect = nullptr;
 	}
 }
 

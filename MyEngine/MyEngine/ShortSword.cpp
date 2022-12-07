@@ -63,7 +63,7 @@ ShortSword::ShortSword()
 
 ShortSword::~ShortSword()
 {
-	SwordHitEffect* effect = GetEffect();
+	PlayerEffect* effect = GetEffect();
 	if (nullptr != effect)
 	{
 		delete effect;

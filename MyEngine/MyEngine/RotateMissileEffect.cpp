@@ -68,11 +68,10 @@ void RotateMissileEffect::Update()
 
 
 	//총알이 비지 않았다면
-
 	bool mBulletAlive = false;
 	for (int i = 0; i < mBullets.size(); ++i)
 	{
-		if (mBullets[i]->GetBulletState())
+		if (BULLET_STATE::ALIVE == mBullets[i]->GetBulletState())
 		{
 			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
 			float bulletAngle = bullet->GetAngle();

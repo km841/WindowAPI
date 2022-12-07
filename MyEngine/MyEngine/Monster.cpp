@@ -16,6 +16,7 @@
 #include "MonsterEffect.h"
 #include "Player.h"
 #include "MonsterState.h"
+#include "Bullet.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -187,6 +188,30 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 		float curHP = GetCurHP();
 		curHP -= (att + playerAtt);
+		SetCurHP(curHP);
+		if (curHP > 0.f)
+		{
+			if (MONSTER_STATE::ATTACK != mAI->GetCurState()->GetMonsterState())
+				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::ATTACK);
+		}
+		else
+		{
+			GetEffect()->Destroy();
+			mDead = true;
+			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+		}
+	}
+
+	if (OBJECT_TYPE::MISSILE_FROM_PLAYER == _other->GetOwner()->GetType())
+	{
+		Bullet* bullet = static_cast<Bullet*>(_other->GetOwner());
+		BulletInfo info = bullet->GetBulletInfo();
+
+		Player* player = Player::GetPlayer();
+		float playerAtt = player->GetPlayerInfo().mAtt;
+		
+		float curHP = GetCurHP();
+		curHP -= (info.mAtt + playerAtt);
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{

@@ -51,18 +51,17 @@ void BatBullet::Initialize()
 void BatBullet::Update()
 {
 	GameObject::Update();
-	if (GetBulletState())
+	if (BULLET_STATE::DEAD_ANIM == GetBulletState())
 	{
 		if (GetAnimator()->GetCurAnimation()->IsFinished())
 		{
-			SetBulletState(false);
-			/*EventRegisteror::GetInstance().DeleteObject(this);*/
+			SetBulletState(BULLET_STATE::DEAD);
 		}
 
 		// 화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
 		{
-			SetBulletState(false);
+			SetBulletState(BULLET_STATE::DEAD);
 		}
 	}
 }
@@ -82,7 +81,7 @@ void BatBullet::OnCollisionEnter(Collider* _other)
 		OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
-		SetBulletState(true);
+		SetBulletState(BULLET_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"BatBulletHit", false);
 	}
 }
