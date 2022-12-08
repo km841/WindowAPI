@@ -568,7 +568,8 @@ void Player::GroundStateUpdate()
 
 			// Wall인데 플레이어 y보다 더 큰 경우
 			
-			if (GetPos() < relations[i].mOther->GetPos())
+			if (GetPos() < relations[i].mOther->GetPos() && 
+				OBJECT_TYPE::WALL == relations[i].mOther->GetType())
 			{
 				playerUnder = true;
 			}
@@ -703,8 +704,6 @@ void Player::OnCollisionEnter(Collider* _other)
 
 		otherPos = CameraMgr::GetInstance().GetTileCoord(otherPos);
 		Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(pos);
-
-
 	}
 }
 

@@ -41,8 +41,8 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
     for (int i = 0; i < _text.size(); ++i)
     {
         TextInfo info = GetTextInfo(_text[i]);
-        textureWidth += info.mSlice.x;
-        textureHeight = info.mSlice.y;
+        textureWidth += (int)info.mSlice.x;
+        textureHeight = (int)info.mSlice.y;
     }
 
     Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));
@@ -56,20 +56,18 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
     {
         TextInfo info = GetTextInfo(_text[i]);
         // 현재 텍스트 위치
-        TransparentBlt(
+        BitBlt(
             tex->GetDC(),
-            x_pos, 0,
-            info.mSlice.x,
-            info.mSlice.y,
+            (int)x_pos, 0,
+            (int)info.mSlice.x,
+            (int)info.mSlice.y,
             mTex->GetDC(),
-            info.mLTPos.x,
-            info.mLTPos.y,
-            info.mSlice.x,
-            info.mSlice.y,
-            0
+            (int)info.mLTPos.x,
+            (int)info.mLTPos.y,
+            SRCCOPY
         );
 
-        x_pos += info.mSlice.x;
+        x_pos += (int)info.mSlice.x;
     }
     
     return tex;

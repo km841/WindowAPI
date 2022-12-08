@@ -7,7 +7,7 @@ DamageObject::DamageObject()
 {
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
-	mBlendFunc.AlphaFormat = 0;
+	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 	mBlendFunc.BlendOp = AC_SRC_OVER;
 	mBlendFunc.SourceConstantAlpha = (BYTE)255.f;
 }
@@ -55,14 +55,14 @@ void DamageObject::Render()
 
 	AlphaBlend(
 		BACK_BUF_DC,
-		pos.x - size.x / 2.f,
-		pos.y - size.y / 2.f,
-		size.x,
-		size.y,
+		(int)(pos.x - size.x / 2.f),
+		(int)(pos.y - size.y / 2.f),
+		(int)(size.x),
+		(int)(size.y),
 		mTex->GetDC(),
 		0, 0,
-		size.x,
-		size.y,
+		(int)size.x,
+		(int)size.y,
 		mBlendFunc
 	);
 }

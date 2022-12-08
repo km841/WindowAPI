@@ -192,7 +192,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		float damage = (att + playerAtt);
 		curHP -= damage;
 
-		FontMgr::GetInstance().OutputDamage(damage, GetPos());
+		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
@@ -219,7 +219,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		float damage = (info.mAtt + playerAtt);
 		curHP -= damage;
 
-		FontMgr::GetInstance().OutputDamage(damage,GetPos());
+		FontMgr::GetInstance().OutputDamage((int)damage, GetPos());
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
