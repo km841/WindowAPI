@@ -169,7 +169,7 @@ Vec2 CameraMgr::GetIconUIPos(Vec2 _uiPos, int _index) const
 bool CameraMgr::OutOfScreen(Vec2 _pos)
 {
 	Vec2 pos = GetRenderPos(_pos);
-	if (pos.x < -50.f || pos.y < -50.f || pos.x > WINDOW_WIDTH_SIZE + 50.f || pos.y > WINDOW_HEIGHT_SIZE + 50.f)
+	if (pos.x < -100.f || pos.y < -100.f || pos.x > WINDOW_WIDTH_SIZE + 100.f || pos.y > WINDOW_HEIGHT_SIZE + 100.f)
 		return true;
 
 	return false;

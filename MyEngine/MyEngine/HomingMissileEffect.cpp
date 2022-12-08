@@ -12,6 +12,7 @@
 #include "Monster.h"
 #include "Animation.h"
 #include "Animator.h"
+#include "CameraMgr.h"
 
 HomingMissileEffect::HomingMissileEffect()
 {
@@ -28,15 +29,26 @@ void HomingMissileEffect::Update()
 	// 좌클릭이 눌리면 탄환 발사
 	if (IS_JUST_LBUTTON_CLICKED)
 	{
-		// 
-		MagicWandBullet* bullet = new MagicWandBullet;
-		bullet->SetPos(GetPos());
-
 		GameObject* target = 
 			SceneMgr::GetInstance().GetCurScene()->GetNearestObject(Player::GetPlayer(), OBJECT_TYPE::MONSTER);
-		
+
+		// 발사한 방향으로 좀 날아갔다가
+		// 타겟을 향해 돌진
+
+		// 마우스위치 - 플레이어 위치
+
 		if (nullptr != target)
 		{
+			MagicWandBullet* bullet = new MagicWandBullet;
+			bullet->SetPos(GetPos());
+
+			Vec2 mousePos = MOUSE_POS;
+			Vec2 playerPos = RENDER_POS(Player::GetPlayer()->GetPos());
+
+			Vec2 dirVec = mousePos - playerPos;
+			dirVec.Norm();
+
+			bullet->SetInitDirVector(dirVec);
 			bullet->SetTarget(target);
 			mBullets.push_back(bullet);
 			EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
@@ -88,13 +100,84 @@ void HomingMissileEffect::Update()
 		
 		// 타겟의 방향벡터를 구해서 총알의 속도를 더함
 
-		Vec2 bulletPos = iter.operator*()->GetPos();
-		Vec2 targetPos = iter.operator*()->GetTarget()->GetCollider()->GetPos();
-		Vec2 dirVec = targetPos - bulletPos;
-		dirVec.Norm();
+		float initCurDuration = iter.operator*()->GetInitCurDuration();
+		float initMaxDuration = iter.operator*()->GetInitMaxDuration();
 
+		Vec2 bulletPos = iter.operator*()->GetPos();
 		float bulletSpeed = iter.operator*()->GetBulletInfo().mSpeed;
-		bulletPos += dirVec * bulletSpeed * DT;
+
+		if (initCurDuration < initMaxDuration)
+		{
+			// initDir 방향으로 날아가기
+			Vec2 initDir = iter.operator*()->GetInitDirVector();
+
+			iter.operator*()->SetSpeedVector(initDir * bulletSpeed);
+			bulletPos += initDir * bulletSpeed * DT;
+			initCurDuration += DT;
+			iter.operator*()->SetInitCurDuration(initCurDuration);
+		}
+
+		else
+		{
+			// 선회하는 유도탄
+
+			//1. 원래 벡터
+			//2. 반시계방향 상한치 벡터
+			//3. 시계방향 상한치 벡터
+
+			// 각도가 작은 쪽이 투영 길이가 길어진다
+			// 상한 각도 5도
+			Vec2 dir = {};
+
+			Vec2 targetPos = iter.operator*()->GetTarget()->GetCollider()->GetPos();
+			//dirVec = 원래 벡터
+
+			// 원래 벡터
+			// 원래 날아가던 방향.. 있나?
+			// 벡터를 바로 곱하지 말고 가지고 있어야 함
+			Vec2 orgVec = iter.operator*()->GetSpeedVector();
+
+			// 메인 캐릭터방향 속도벡터
+			Vec2 dirVec = targetPos - bulletPos;
+			dirVec.Norm();
+			dirVec *= bulletSpeed;
+
+			float rad = Math::DegreeToRadian(1.f);
+			// 시계방향
+
+			// 시계방향 상한치 
+			Vec2 CW = {};
+			Vec2 CCW = {};
+			CW.x = cos(rad) * dirVec.x - sin(rad) * dirVec.y;
+			CW.y = sin(rad) * dirVec.x - cos(rad) * dirVec.y;
+			
+			if (orgVec.Dot(dirVec) >= orgVec.Dot(CW))
+			{
+				dir = dirVec;
+			}
+
+			else
+			{
+				CCW.x = cos(rad) * dirVec.x + sin(rad) * dirVec.y;
+				CCW.y = -sin(rad) * dirVec.x + cos(rad) * dirVec.y;
+
+				// 탄환에서 Target까지의 위치벡터
+				Vec2 tVec= CCW - targetPos;
+				
+				if (tVec.Dot(CW) >= tVec.Dot(CCW))
+				{
+					dir = CW;
+				}
+				else
+				{
+					dir = CCW;
+				}
+			}
+			
+			iter.operator*()->SetSpeedVector(dir);
+			bulletPos += dir * DT;
+		}
+
 		iter.operator*()->SetPos(bulletPos);
 
 		++iter;
@@ -109,13 +192,13 @@ void HomingMissileEffect::Render()
 
 void HomingMissileEffect::Destroy()
 {
-	for (int i = 0; i < mBullets.size(); ++i)
-	{
-		if (nullptr != mBullets[i])
-		{
-			delete mBullets[i];
-			mBullets[i] = nullptr;
-		}
-	}
+	//for (int i = 0; i < mBullets.size(); ++i)
+	//{
+	//	if (nullptr != mBullets[i])
+	//	{
+	//		//delete mBullets[i];
+	//		mBullets[i] = nullptr;
+	//	}
+	//}
 
 }

@@ -215,8 +215,10 @@ void Monster::OnCollisionEnter(Collider* _other)
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
-			if (MONSTER_STATE::ATTACK != mAI->GetCurState()->GetMonsterState())
-				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::ATTACK);
+			if (MONSTER_STATE::TRACE != mAI->GetCurState()->GetMonsterState())
+			{
+				mAI->ChangeState(MONSTER_STATE::TRACE);
+			}
 		}
 		else
 		{

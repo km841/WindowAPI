@@ -14,6 +14,8 @@ MagicWandBullet::MagicWandBullet()
 	,mAngle(0.f)
 	,mMaxDuration(0.025f)
 	,mCurDuration(0.f)
+	,mInitMaxDuration(0.1f)
+	,mInitCurDuration(0.f)
 {
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
@@ -43,7 +45,6 @@ MagicWandBullet::MagicWandBullet()
 		7
 	);
 
-
 	GetAnimator()->FindAnimation(L"LaraBullet")->SetEffectAnimation(true);
 	GetAnimator()->SelectAnimation(L"LaraBullet", true);
 }
@@ -66,24 +67,20 @@ void MagicWandBullet::Update()
 			{
 				SetBulletState(BULLET_STATE::DEAD);
 			}
-			
-			/*EventRegisteror::GetInstance().DeleteObject(this);*/
-		}
-
-		// 화면 밖으로 날아가면 false
-		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
-		{
-			if (mAfterImages.empty())
-			{
-				SetBulletState(BULLET_STATE::DEAD);
-			}
-			
 		}
 	}
 
 	else
 	{
-		if (mMaxDuration < mCurDuration)
+		 //화면 밖으로 날아가면 false
+		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
+		{
+			SetBulletState(BULLET_STATE::DEAD_ANIM);
+			GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
+		}
+
+		if (mMaxDuration < mCurDuration && 
+			BULLET_STATE::DEAD_ANIM != GetBulletState())
 		{
 			mCurDuration = 0.f;
 
@@ -100,7 +97,7 @@ void MagicWandBullet::Update()
 			
 		}
 
-		else
+		else if (mMaxDuration > mCurDuration)
 		{
 			mCurDuration += DT;
 		}
