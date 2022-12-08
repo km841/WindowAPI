@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "MonsterState.h"
 #include "Bullet.h"
+#include "FontMgr.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -187,7 +188,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 		SetPos(pos + dir);
 
 		float curHP = GetCurHP();
-		curHP -= (att + playerAtt);
+
+		float damage = (att + playerAtt);
+		curHP -= damage;
+
+		FontMgr::GetInstance().OutputDamage(damage, GetPos());
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
@@ -211,7 +216,10 @@ void Monster::OnCollisionEnter(Collider* _other)
 		float playerAtt = player->GetPlayerInfo().mAtt;
 		
 		float curHP = GetCurHP();
-		curHP -= (info.mAtt + playerAtt);
+		float damage = (info.mAtt + playerAtt);
+		curHP -= damage;
+
+		FontMgr::GetInstance().OutputDamage(damage,GetPos());
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{

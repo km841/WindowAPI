@@ -30,8 +30,20 @@ public:
 		return res;
 	}
 
+	Res* FindTexture(const std::wstring& _key)
+	{
+		auto iter = mResMap.find(_key);
+		if (iter != mResMap.end())
+		{
+			return iter->second;
+		}
+		return nullptr;
+	}
+
 	Texture* CreateTexture(const std::wstring _key, Vec2 _size);
 	Texture* CreateTexture(const std::wstring _key, HDC _dc, Vec2 _size);
+
+
 
 
 private:

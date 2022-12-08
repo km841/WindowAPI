@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "TimeMgr.h"
+#include "FontMgr.h"
+#include "Texture.h"
 
 void TimeMgr::Initialize()
 {
@@ -34,4 +36,19 @@ void TimeMgr::Render()
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", mFPS, mDT);
 		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	}
+
+	//Texture* damTex = FontMgr::GetInstance().GetTextTexture(L"damage", L"12G");
+	//Vec2 damSize = damTex->GetSize();
+	//TransparentBlt(
+	//	BACK_BUF_DC,
+	//	300, 300,
+	//	damSize.x,
+	//	damSize.y,
+	//	damTex->GetDC(),
+	//	0, 0,
+	//	damSize.x,
+	//	damSize.y,
+	//	RGB(255, 0, 255)
+	//);
+
 }

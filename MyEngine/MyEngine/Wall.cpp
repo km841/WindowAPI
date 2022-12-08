@@ -40,8 +40,11 @@ void Wall::Update()
 		Vec2 myTilePos = CameraMgr::GetInstance().GetTileCoord(GetPos());
 
 		Vec2 topTilePos = Vec2(myTilePos.x, myTilePos.y - TILE_SIZE);
+		Vec2 leftTopTilePos = Vec2(myTilePos.x - TILE_SIZE, myTilePos.y - TILE_SIZE);
+		Vec2 rightTopTilePos = Vec2(myTilePos.x + TILE_SIZE, myTilePos.y - TILE_SIZE);
+
 		Vec2 bottomTilePos = Vec2(myTilePos.x, myTilePos.y + (TILE_SIZE));
-		if (playerTilePos == topTilePos)
+		if (playerTilePos == topTilePos )
 		{
 			mPlayerAbobeMe = true;
 		}
@@ -168,7 +171,7 @@ void Wall::OnCollisionEnter(Collider* _other)
 			
 			
 		}
-		if (1 == _other->GetColCnt())
+		if (0 == _other->GetColCnt())
 			static_cast<Player*>(_other->GetOwner())->InGround();
 		// 좌우로 붙은게 아니라면
 		

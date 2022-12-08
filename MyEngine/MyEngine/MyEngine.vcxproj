@@ -149,11 +149,13 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="DamageObject.h" />
     <ClInclude Include="DashEffect.h" />
     <ClInclude Include="Dungeon1Scene.h" />
     <ClInclude Include="DungeonEatEvent.h" />
     <ClInclude Include="EatState.h" />
     <ClInclude Include="EventObject.h" />
+    <ClInclude Include="FontMgr.h" />
     <ClInclude Include="Foothold.h" />
     <ClInclude Include="GiantBat.h" />
     <ClInclude Include="GiantSkullSpawnEvent.h" />
@@ -242,11 +244,13 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
     <ClCompile Include="Dungeon1Scene.cpp" />
     <ClCompile Include="DungeonEatEvent.cpp" />
     <ClCompile Include="EatState.cpp" />
     <ClCompile Include="EventObject.cpp" />
+    <ClCompile Include="FontMgr.cpp" />
     <ClCompile Include="Foothold.cpp" />
     <ClCompile Include="GiantBat.cpp" />
     <ClCompile Include="GiantSkullSpawnEvent.cpp" />

@@ -14,6 +14,7 @@
 #include "CollisionMgr.h"
 #include "CameraMgr.h"
 #include "UIMgr.h"
+#include "FontMgr.h"
 
 void Application::Initialize(const WindowData& _winData)
 {
@@ -25,6 +26,7 @@ void Application::Initialize(const WindowData& _winData)
 	CameraMgr::GetInstance().Initialize();
 	SceneMgr::GetInstance().Initialize();
 	UIMgr::GetInstance().Initialize();
+	FontMgr::GetInstance().Initialize();
 	
 }
 
@@ -93,12 +95,14 @@ void Application::Tick()
 	MouseMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
+	FontMgr::GetInstance().Update();
 	UIMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
 	CollisionMgr::GetInstance().Update();
 
 	// Manager Render
 	SceneMgr::GetInstance().Render();
+	FontMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
 	CameraMgr::GetInstance().Render();
 	CollisionMgr::GetInstance().Render();

@@ -1,2 +1,19 @@
-﻿  unity_2B6TY7ECY5QR0NQG.cpp
+﻿  unity_FTADPZLPZC4I628E.cpp
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(65,7): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(64,7): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(61,7): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(60,7): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(59,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\DamageObject.cpp(58,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(44,36): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(45,36): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(68,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(67,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(66,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(65,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(63,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(62,24): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\FontMgr.cpp(72,29): warning C4244: '+=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Monster.cpp(195,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\WindowsAPI\MyEngine\MyEngine\Monster.cpp(222,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   MyEngine.vcxproj -> C:\WindowsAPI\MyEngine\x64\Debug\MyEngine.exe

@@ -142,14 +142,14 @@ void HomingMissileEffect::Update()
 			dirVec.Norm();
 			dirVec *= bulletSpeed;
 
-			float rad = Math::DegreeToRadian(1.f);
+			float rad = Math::DegreeToRadian(5.f);
 			// 시계방향
 
 			// 시계방향 상한치 
 			Vec2 CW = {};
 			Vec2 CCW = {};
 			CW.x = cos(rad) * dirVec.x - sin(rad) * dirVec.y;
-			CW.y = sin(rad) * dirVec.x - cos(rad) * dirVec.y;
+			CW.y = sin(rad) * dirVec.x + cos(rad) * dirVec.y;
 			
 			if (orgVec.Dot(dirVec) >= orgVec.Dot(CW))
 			{
@@ -164,7 +164,7 @@ void HomingMissileEffect::Update()
 				// 탄환에서 Target까지의 위치벡터
 				Vec2 tVec= CCW - targetPos;
 				
-				if (tVec.Dot(CW) >= tVec.Dot(CCW))
+				if (CW.Dot(tVec) >= CCW.Dot(tVec))
 				{
 					dir = CW;
 				}

@@ -203,7 +203,6 @@ void Player::Initialize()
 
 void Player::Update()
 {
-
 	if (!mStop)
 		mPrevPos = GetPos();
 
@@ -553,6 +552,8 @@ void Player::GroundStateUpdate()
 {
 	const std::vector<Relation>& relations = GetRelations();
 	bool isGround = false;
+
+	bool playerUnder = false;
 	for (int i = 0; i < relations.size(); ++i)
 	{
 		if (OBJECT_TYPE::WALL == relations[i].mOther->GetType() ||
@@ -564,6 +565,13 @@ void Player::GroundStateUpdate()
 
 			if (pos == tilePos || COLLISION_TYPE::LINE == relations[i].mOther->GetCollider()->GetColliderType())
 				isGround = true;
+
+			// Wall인데 플레이어 y보다 더 큰 경우
+			
+			if (GetPos() < relations[i].mOther->GetPos())
+			{
+				playerUnder = true;
+			}
 		}
 	}
 
@@ -571,6 +579,12 @@ void Player::GroundStateUpdate()
 	{
 		SetGround(false);
 	}
+
+	if (PlayerState::Jump == mState && playerUnder)
+	{
+		InGround();
+	}
+
 
 	// 내가 그 위에 있는게 아니라면까지 체크
 	// 위에있다는건 어떻게 파악?

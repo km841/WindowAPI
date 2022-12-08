@@ -353,6 +353,12 @@
     <Filter Include="Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage">
       <UniqueIdentifier>{9125bf6f-b822-4a5e-8a2e-9213b359925c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\FontMgr">
+      <UniqueIdentifier>{e0a6e0d3-09d1-4a6b-82db-3a0de51118c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\FontMgr\DamageObject">
+      <UniqueIdentifier>{f0034ee6-a380-4692-982c-158f21dda413}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -627,6 +633,12 @@
     </ClInclude>
     <ClInclude Include="AfterImage.h">
       <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage</Filter>
+    </ClInclude>
+    <ClInclude Include="FontMgr.h">
+      <Filter>Engine\Manager\FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject.h">
+      <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -906,6 +918,12 @@
     </ClCompile>
     <ClCompile Include="AfterImage.cpp">
       <Filter>Engine\GameObject\Bullet\PlayerBullet\MagicWandBullet\AfterImage</Filter>
+    </ClCompile>
+    <ClCompile Include="FontMgr.cpp">
+      <Filter>Engine\Manager\FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject.cpp">
+      <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
