@@ -237,8 +237,8 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos.y -= distance;
-				objectPos.y -= distance;
+				otherPos.y -= 1;
+				objectPos.y -= 1;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}
@@ -283,8 +283,8 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos.y -= distance;
-				objectPos.y -= distance;
+				otherPos.y -= 1;
+				objectPos.y -= 1;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}

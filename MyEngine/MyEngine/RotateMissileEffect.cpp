@@ -145,7 +145,6 @@ void RotateMissileEffect::Destroy()
 		}
 		mBullets.clear();
 	}
-
 }
 
 bool RotateMissileEffect::Attack()

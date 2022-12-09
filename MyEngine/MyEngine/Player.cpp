@@ -55,6 +55,7 @@ Player::Player()
 	, mInvinMaxTime(0.5f)
 	, mInvinTime(0.f)
 	, mInfo{}
+	, mCharacter(PLAYER_CHARACTER::LASLEY)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -77,8 +78,11 @@ Player::Player()
 #pragma region PLAYER_TEXTURE_INITIALIZE
 	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
 	mDashTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
+
+	Texture* lasleyTexture = ResourceMgr::GetInstance().Load<Texture>(L"LASELY_ANIMATION", L"Texture\\lasley_animation.bmp");
 	Texture* dust = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
 	Texture* noneAnim = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_NONE_ANIM", L"Texture\\NoneAnim.bmp");
+	Texture* lasleyNoneAnim = ResourceMgr::GetInstance().Load<Texture>(L"LASLEY_NONE_ANIM", L"Texture\\lasleyNoneAnim.bmp");
 #pragma endregion
 
 #pragma region PLAYER_COMPONENT_INITIALIZE
@@ -133,6 +137,14 @@ Player::Player()
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_LEFT", mDefaultTexture, Vec2(0.f, 384.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"PLAYER_JUMP_RIGHT", mDefaultTexture, Vec2(0.f, 480.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"PLAYER_NONE_ANIM", noneAnim, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
+
+	GetAnimator()->RegisterAnimation(L"LASLEY_IDLE_LEFT", lasleyTexture, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
+	GetAnimator()->RegisterAnimation(L"LASLEY_IDLE_RIGHT", lasleyTexture, Vec2(0.f, 96.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
+	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_LEFT", lasleyTexture, Vec2(0.f, 192.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 6);
+	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_RIGHT", lasleyTexture, Vec2(0.f, 288.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 6);
+	GetAnimator()->RegisterAnimation(L"LASLEY_JUMP_LEFT", lasleyTexture, Vec2(0.f, 384.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"LASLEY_JUMP_RIGHT", lasleyTexture, Vec2(0.f, 480.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
+	GetAnimator()->RegisterAnimation(L"LASLEY_NONE_ANIM", lasleyNoneAnim, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 #pragma endregion
 
 #pragma region PLAYER_EQUIP_ITEM_REGISTER
@@ -283,10 +295,6 @@ void Player::MoveUpdate()
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
 	{
-		//if (PlayerState::Jump == mState)
-		//{
-		//	
-		//}
 		mFall = true;
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 
@@ -314,18 +322,12 @@ void Player::MoveUpdate()
 		{
 			mFall = true;
 		}
-		
-
-		//라인 타입이 
 
 		mAccDash = true;
 		mDashAccTime = 0.f;
 		mImgCount = 0;
 
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
-		
-		
-
 	}
 
 	if (IS_JUST_RELEASED(KEY::W) || IS_JUST_RELEASED(KEY::SPACE))

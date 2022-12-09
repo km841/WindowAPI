@@ -12,16 +12,35 @@ JumpState::JumpState(Player* _obj)
 void JumpState::Enter()
 {
 	Animation* anim = nullptr;
-	switch (mPlayer->mDir)
-	{
-	case DIR::LEFT:
-		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_LEFT");
-		break;
 
-	case DIR::RIGHT:
-		mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_RIGHT");
-		break;
+	if (IS_PLAYER)
+	{
+		switch (mPlayer->mDir)
+		{
+		case DIR::LEFT:
+			mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_LEFT");
+			break;
+
+		case DIR::RIGHT:
+			mPlayer->GetAnimator()->SelectAnimation(L"PLAYER_JUMP_RIGHT");
+			break;
+		}
 	}
+
+	else
+	{
+		switch (mPlayer->mDir)
+		{
+		case DIR::LEFT:
+			mPlayer->GetAnimator()->SelectAnimation(L"LASLEY_JUMP_LEFT");
+			break;
+
+		case DIR::RIGHT:
+			mPlayer->GetAnimator()->SelectAnimation(L"LASLEY_JUMP_RIGHT");
+			break;
+		}
+	}
+
 
 
 	//mPlayer->SetGround(false);

@@ -74,6 +74,9 @@ public:
 
     inline DIR GetPlayerDir() const { return mDir; }
 
+    inline PLAYER_CHARACTER GetCurCharacter() const { return mCharacter; }
+    inline void             SetCurCharacter(PLAYER_CHARACTER _char) { mCharacter = _char; }
+
 
 public:
     void DashEffectReset();
@@ -114,6 +117,8 @@ private:
     DashEffect*    mDashEffect[AFTER_IMAGE_TOTAL];
     Item*          mEquipItems[(UINT)EQUIP_TYPE::END];
     PlayerInfo     mInfo;
+
+    PLAYER_CHARACTER mCharacter;
 
 
     Vec2       mPrevPos;

@@ -38,6 +38,9 @@
 #define MOUSE_POS MouseMgr::GetInstance().GetMousePos()
 #define GET_UI(TYPE) static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(TYPE))
 #define ZERO_VECTOR Math::ZeroVector()
+#define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
+#define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY
+
 
 
 /*KEY CHECK MACRO*/

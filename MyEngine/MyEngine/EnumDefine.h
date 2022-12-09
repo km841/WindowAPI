@@ -237,3 +237,10 @@ enum class BULLET_STATE
 	END
 };
 
+enum class PLAYER_CHARACTER
+{
+	PLAYER,
+	LASLEY,
+	END
+};
+

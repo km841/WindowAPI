@@ -61,7 +61,7 @@ void DashEffect::Render()
 				break;
 
 			case DIR::RIGHT:
-				ltPos = Vec2(0.f, 32.f);
+				ltPos = Vec2(0.f, 96.f);
 				break;
 			}
 
@@ -74,8 +74,8 @@ void DashEffect::Render()
 				tex->GetDC(),
 				(int)ltPos.x,
 				(int)ltPos.y,
-				(int)(size.x / TIMES),
-				(int)(size.y / TIMES),
+				(int)(size.x),
+				(int)(size.y),
 				mBlendFunc
 			);
 		}
