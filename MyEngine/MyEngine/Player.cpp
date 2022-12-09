@@ -299,16 +299,22 @@ void Player::MoveUpdate()
 		GetRigidBody()->SetVelocity(dashDir * PLAYER_DASH_SPEED);
 
 		// 지금 상태가 Ground인데, 대쉬 방향이 하단 좌우 몇도 이하면 해제안함
-
-		mousePos.Norm();
-		float angle = acos(dashDir.Dot(mousePos));
+		float angle = (float)atan2(dashDir.y, dashDir.x);
 		angle = Math::RadianToDegree(angle);
 
-		//if (angle <= 15.f && angle >= 75.f)
-		//{
-		//	SetGround(false);
-		//	mFall = true;
-		//}
+		wchar_t szBuffer[256] = {};
+		swprintf_s(szBuffer, L"angle : %f", angle);
+		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+
+		if (angle >= 0.f && angle <= 180.f)
+		{
+			mFall = false;
+		}
+		else
+		{
+			mFall = true;
+		}
+		
 
 		//라인 타입이 
 
@@ -653,29 +659,32 @@ void Player::Render()
 	// Debug Info
 	wchar_t isGround[COMMENT_MAX_SIZE] = {};
 	wchar_t isGravity[COMMENT_MAX_SIZE] = {};
+	wchar_t isFall[COMMENT_MAX_SIZE] = {};
 	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
 	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
+	swprintf_s(isFall, L"Fall : %s", (mFall ? L"O" : L"X"));
 	TextOut(BACK_BUF_DC, 10, 10, isGround, (int)wcslen(isGround));
 	TextOut(BACK_BUF_DC, 10, 30, isGravity, (int)wcslen(isGravity));
+	TextOut(BACK_BUF_DC, 10, 50, isFall, (int)wcslen(isFall));
 
 	wchar_t velocity[COMMENT_MAX_SIZE] = {};
 	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
-	TextOut(BACK_BUF_DC, 10, 50, velocity, (int)wcslen(velocity));
+	TextOut(BACK_BUF_DC, 10, 70, velocity, (int)wcslen(velocity));
 
 	Vec2 mouserRenderPos = RENDER_POS(MOUSE_POS);
 	wchar_t mousePos[COMMENT_MAX_SIZE] = {};
 	swprintf_s(mousePos, L"mouse_x : %f, mouse_y : %f", MOUSE_POS.x, MOUSE_POS.y);
-	TextOut(BACK_BUF_DC, 10, 70, mousePos, (int)wcslen(mousePos));
+	TextOut(BACK_BUF_DC, 10, 90, mousePos, (int)wcslen(mousePos));
 
 	Vec2 playerRenderPos = RENDER_POS(GetPos());
 	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
 	swprintf_s(playerPos, L"player_x : %f, player_y : %f", playerRenderPos.x, playerRenderPos.y);
-	TextOut(BACK_BUF_DC, 10, 90, playerPos, (int)wcslen(playerPos));
+	TextOut(BACK_BUF_DC, 10, 110, playerPos, (int)wcslen(playerPos));
 
 	Vec2 dirVec = GetDirectionVector();
 	wchar_t dirVecComment[COMMENT_MAX_SIZE] = {};
 	swprintf_s(dirVecComment, L"dirv_x : %f, dirv_y : %f", dirVec.x, dirVec.y);
-	TextOut(BACK_BUF_DC, 10, 150, dirVecComment, (int)wcslen(dirVecComment));
+	TextOut(BACK_BUF_DC, 10, 130, dirVecComment, (int)wcslen(dirVecComment));
 }
 
 void Player::Destroy()
