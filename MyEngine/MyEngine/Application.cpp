@@ -95,17 +95,17 @@ void Application::Tick()
 	MouseMgr::GetInstance().Update();
 	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
-	FontMgr::GetInstance().Update();
 	UIMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
 	CollisionMgr::GetInstance().Update();
+	FontMgr::GetInstance().Update();
 
 	// Manager Render
 	SceneMgr::GetInstance().Render();
-	FontMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
 	CameraMgr::GetInstance().Render();
 	CollisionMgr::GetInstance().Render();
+	FontMgr::GetInstance().Render();
 
 	// Double Buffering
 	BitBlt(MAIN_DC, 0, 0, GetWidth(), GetHeight(), BACK_BUF_DC, 0, 0, SRCCOPY);
@@ -121,6 +121,7 @@ void Application::Render()
 
 void Application::Destroy()
 {
+	FontMgr::GetInstance().Destroy();
 	SceneMgr::GetInstance().Destroy();
 	EventMgr::GetInstance().Destroy();
 	UIMgr::GetInstance().Destroy();

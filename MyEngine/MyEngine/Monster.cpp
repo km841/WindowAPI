@@ -191,7 +191,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 		float damage = (att + playerAtt);
 		curHP -= damage;
-
+		pos.y -= 80;
 		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
 		if (curHP > 0.f)
@@ -219,11 +219,16 @@ void Monster::OnCollisionEnter(Collider* _other)
 		float damage = (info.mAtt + playerAtt);
 		curHP -= damage;
 
-		FontMgr::GetInstance().OutputDamage((int)damage, GetPos());
+		Vec2 pos = GetPos();
+		pos.y -= 80;
+
+		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
-			if (MONSTER_STATE::TRACE != mAI->GetCurState()->GetMonsterState())
+			MONSTER_STATE state = mAI->GetCurState()->GetMonsterState();
+			if (MONSTER_STATE::IDLE == state || 
+				MONSTER_STATE::PATROL == state)
 			{
 				mAI->ChangeState(MONSTER_STATE::TRACE);
 			}

@@ -50,8 +50,6 @@ void Wall::Update()
 		}
 		else
 			mPlayerAbobeMe = false;
-
-
 	}
 }
 

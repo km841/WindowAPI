@@ -2,8 +2,13 @@
 #include "DamageObject.h"
 #include "CameraMgr.h"
 #include "Texture.h"
+#include "TimeMgr.h"
 
 DamageObject::DamageObject()
+	: mMaxDuration(0.3f)
+	, mCurDuration(0.f)
+	, mAlpha(1.f)
+	, mDead(false)
 {
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
@@ -25,8 +30,21 @@ void DamageObject::Update()
 {
 	// 알파값 현재 각도를 135로 나눠서 그 비율로 함
 	// 1-RATIO로 구해서 점점 옅어지는 방향으로
-	float ratio = mAngle / 135.f;
-	mBlendFunc.SourceConstantAlpha = (BYTE)(ratio * 255.f);
+	if (mMaxDuration > mCurDuration)
+	{
+		mCurDuration += DT;
+	}
+	else
+	{
+		mAlpha -= DT;
+		if (0.f >= mAlpha)
+		{
+			mAlpha = 0.f;
+			mDead = true;
+		}
+
+		mBlendFunc.SourceConstantAlpha = (BYTE)(mAlpha * 255.f);
+	}
 }
 
 void DamageObject::Render()

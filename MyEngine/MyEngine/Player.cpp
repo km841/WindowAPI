@@ -27,6 +27,7 @@
 #include "Tile.h"
 #include "Foothold.h"
 #include "LaraMagicWand.h"
+#include "LineCollider.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -303,16 +304,21 @@ void Player::MoveUpdate()
 		float angle = acos(dashDir.Dot(mousePos));
 		angle = Math::RadianToDegree(angle);
 
-		if (angle <= 15.f && angle >= 75.f)
-		{
-			SetGround(false);
-			mFall = true;
-		}
+		//if (angle <= 15.f && angle >= 75.f)
+		//{
+		//	SetGround(false);
+		//	mFall = true;
+		//}
+
+		//라인 타입이 
 
 		mAccDash = true;
 		mDashAccTime = 0.f;
 		mImgCount = 0;
+
 		mDashSpeed = Vec2(dashDir * PLAYER_DASH_SPEED);
+		
+		
 
 	}
 
@@ -563,7 +569,9 @@ void Player::GroundStateUpdate()
 			Vec2 pos = CameraMgr::GetInstance().GetTileCoord(GetPos());
 			Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(relations[i].mOther->GetPos());
 
-			if (pos == tilePos || COLLISION_TYPE::LINE == relations[i].mOther->GetCollider()->GetColliderType())
+
+			COLLISION_TYPE colType = relations[i].mOther->GetCollider()->GetColliderType();
+			if (pos == tilePos || COLLISION_TYPE::LINE == colType)
 				isGround = true;
 
 			// Wall인데 플레이어 y보다 더 큰 경우
@@ -681,7 +689,19 @@ void Player::Destroy()
 
 void Player::OnCollision(Collider* _other)
 {
+	if (OBJECT_TYPE::FOOTHOLD == _other->GetOwner()->GetType())
+	{
+		LineCollider* lineCol = static_cast<LineCollider*>(_other);
 
+		switch (lineCol->GetLineType())
+		{
+		case LINE_TYPE::FLAT_WALL:
+		case LINE_TYPE::DEGREE_45_WALL:
+		case LINE_TYPE::DEGREE_135_WALL:
+			mAccDash = false;
+			break;
+		}
+	}
 }
 
 void Player::OnCollisionEnter(Collider* _other)
@@ -695,21 +715,40 @@ void Player::OnCollisionEnter(Collider* _other)
 		mHit = true;
 	}
 
-	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::FOOTHOLD == _other->GetOwner()->GetType())
 	{
-		// 아래가 아니라면 OutGround()
-		Vec2 otherPos = _other->GetPos();
-		Vec2 pos = GetCollider()->GetPos();
-		Vec2 objPos = GetPos();
+		LineCollider* lineCol = static_cast<LineCollider*>(_other);
 
-		otherPos = CameraMgr::GetInstance().GetTileCoord(otherPos);
-		Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(pos);
+		switch (lineCol->GetLineType())
+		{
+		case LINE_TYPE::FLAT_WALL:
+		case LINE_TYPE::DEGREE_45_WALL:
+		case LINE_TYPE::DEGREE_135_WALL:
+			InGround();
+
+			break;
+		}
 	}
+
+
 }
 
 void Player::OnCollisionExit(Collider* _other)
 {
+	if (OBJECT_TYPE::FOOTHOLD == _other->GetOwner()->GetType())
+	{
+		LineCollider* lineCol = static_cast<LineCollider*>(_other);
 
+		switch (lineCol->GetLineType())
+		{
+		case LINE_TYPE::FLAT_WALL:
+		case LINE_TYPE::DEGREE_45_WALL:
+		case LINE_TYPE::DEGREE_135_WALL:
+			InGround();
+
+			break;
+		}
+	}
 }
 
 

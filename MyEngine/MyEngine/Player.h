@@ -128,7 +128,6 @@ private:
 
 private:
     TILE_TYPE  mGroundType;
-    
 private:
     float      mJumpYValue;
     float      mJumpXValue;

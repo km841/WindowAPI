@@ -129,6 +129,13 @@ public:
 		return ret;
 	}
 
+	Vec2& operator-= (float _f)
+	{
+		x -= _f;
+		y -= _f;
+		return *this;
+	}
+
 	Vec2 operator* (const Vec2& _other)
 	{
 		Vec2 ret = { x, y };

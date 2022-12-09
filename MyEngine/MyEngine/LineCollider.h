@@ -21,7 +21,7 @@ public:
     inline void      SetLineType(LINE_TYPE _type) { mLineType = _type; }
     inline LINE_TYPE GetLineType() const { return mLineType; }
 
-    inline void SetNextLineType() { mLineType = (LINE_TYPE)(((UINT)mLineType + 1) % (UINT)(LINE_TYPE::END)); }
+    inline void SetNextLineType() { mLineType = (LINE_TYPE)(((UINT)mLineType + 1) % (UINT)LINE_TYPE::END); }
 
 public:
     void OnCollision(Collider* _other);

@@ -3,6 +3,7 @@
 #include "ResourceMgr.h"
 #include "Texture.h"
 #include "DamageObject.h"
+#include "TimeMgr.h"
 
 
 void FontMgr::Initialize()
@@ -31,6 +32,20 @@ void FontMgr::Update()
 void FontMgr::Render()
 {
     DamageRender();
+}
+
+void FontMgr::Destroy()
+{
+    for (int i = 0; i < mDamages.size(); ++i)
+    {
+        if (nullptr != mDamages[i])
+        {
+            delete mDamages[i];
+            mDamages[i] = nullptr;
+        }
+    }
+
+    mDamages.clear();
 }
 
 Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _text)
@@ -114,7 +129,7 @@ void FontMgr::OutputDamage(int _damage, Vec2 _pos)
     // 135도만큼 돌려서 거기에 10을 곱한다
 
     Vec2 dir = Vec2(1, 0);
-    float angle = 135.f;
+    float angle = 225.f;
     float radius = 10.f;
     dir = Math::RotateVector(dir, angle);
     dir *= radius;
@@ -137,18 +152,18 @@ void FontMgr::DamageUpdate()
     {
         float angle = iter.operator*()->GetAngle();
  
-        if (0 < angle)
+        if (!(iter.operator*()->IsDead()))
         {
             Vec2 pos = iter.operator*()->GetPos();
             Vec2 center = iter.operator*()->GetCenter();
             float radius = iter.operator*()->GetRadius();
 
-            float omega_x = 1;
-            float omega_y = 0.5;
-            angle -= 1.f;
+            float omega_x = 180.f * (DT / 2.f);
+            float omega_y = 90.f * (DT / 2.f);
+            angle += omega_x;
             
-            float angle_x = Math::DegreeToRadian(angle - omega_x);
-            float angle_y = Math::DegreeToRadian(angle - omega_y);
+            float angle_x = Math::DegreeToRadian(angle + omega_x);
+            float angle_y = Math::DegreeToRadian(angle + omega_y);
             
             pos.x = center.x + radius * cos(angle_x);
             pos.y = center.y + radius * sin(angle_y);
@@ -176,7 +191,8 @@ void FontMgr::DamageRender()
     for (int i = 0; i < mDamages.size(); ++i)
     {
         if (nullptr != mDamages[i])
+        {
             mDamages[i]->Render();
+        }
     }
-
 }

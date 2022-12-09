@@ -25,14 +25,24 @@ public:
     inline void     SetTexture(Texture* _tex) { mTex = _tex; }
     inline Texture* GetTexture() const { return mTex; }
 
+    inline bool IsDead() const { return mDead; }
+
 private:
     float mAngle;
     float mRadius;
-    float mAlpha;
+   
     Vec2  mCenter;
     BLENDFUNCTION mBlendFunc;
 
     Texture* mTex;
+
+    bool mDead;
+
+
+private:
+    float mMaxDuration;
+    float mCurDuration;
+    float mAlpha;
 
 };
 

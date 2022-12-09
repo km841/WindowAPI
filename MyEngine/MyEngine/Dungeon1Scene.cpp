@@ -73,7 +73,7 @@ void Dungeon1Scene::Enter()
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
-	Load(L"..\\Resource\\Map\\dungeon3.map");
+	Load(L"..\\Resource\\Map\\dungeon4.map");
 
 	//auto& events = EventMgr::GetInstance().GetEvents();
 

@@ -17,6 +17,7 @@ public:
     void Initialize();
     void Update();
     void Render();
+    void Destroy();
 
 public:
     // Number

@@ -66,6 +66,7 @@ void Foothold::OnCollision(Collider* _other)
 
 		switch (collider->GetLineType())
 		{
+		case LINE_TYPE::FLAT_WALL:
 		case LINE_TYPE::FLAT:
 		{
 			//if (false == _other->GetOwner()->GetGround())
@@ -95,6 +96,28 @@ void Foothold::OnCollision(Collider* _other)
 
 			break;
 
+		case LINE_TYPE::DEGREE_45_WALL:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x + otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 3.f)
+			{
+				otherPos -=  1.f;
+				objectPos -=  1.f;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+		}
+		break;
 		case LINE_TYPE::DEGREE_45:
 		{
 			Vec2 leftDot = collider->GetLeftDotPos();
@@ -119,6 +142,27 @@ void Foothold::OnCollision(Collider* _other)
 		}
 			break;
 
+		case LINE_TYPE::DEGREE_135_WALL:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x - otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 3.f)
+			{
+				otherPos +=  1.f;
+				objectPos +=  1.f ;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+		}
+		break;
 		case LINE_TYPE::DEGREE_135:
 		{
 			Vec2 leftDot = collider->GetLeftDotPos();
@@ -139,14 +183,6 @@ void Foothold::OnCollision(Collider* _other)
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}
-
-
-			//wchar_t distanceComment[COMMENT_MAX_SIZE] = {};
-			//swprintf_s(distanceComment, L"distance: %f", distance);
-			//TextOut(BACK_BUF_DC, 10, 130, distanceComment, (int)wcslen(distanceComment));
-
-			//SetWindowText(APP_INSTANCE.GetHwnd(), distanceComment);
-
 		}
 			break;
 		}
@@ -157,10 +193,10 @@ void Foothold::OnCollision(Collider* _other)
 		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
 		Vec2 testVec = Vec2(1, 0);
 
-
-
 		switch (collider->GetLineType())
 		{
+
+		case LINE_TYPE::FLAT_WALL:
 		case LINE_TYPE::FLAT:
 		{
 			//if (false == _other->GetOwner()->GetGround())
@@ -186,6 +222,28 @@ void Foothold::OnCollision(Collider* _other)
 
 		break;
 
+		case LINE_TYPE::DEGREE_45_WALL:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x + otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 5.f)
+			{
+				otherPos.y -= distance;
+				objectPos.y -= distance;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+		}
+		break;
 		case LINE_TYPE::DEGREE_45:
 		{
 			Vec2 leftDot = collider->GetLeftDotPos();
@@ -210,6 +268,28 @@ void Foothold::OnCollision(Collider* _other)
 		}
 		break;
 
+		case LINE_TYPE::DEGREE_135_WALL:
+		{
+			Vec2 leftDot = collider->GetLeftDotPos();
+			Vec2 rightDot = collider->GetRightDotPos();
+			float length = (leftDot - rightDot).Len();
+
+
+			Vec2 otherPos = _other->GetPos();
+			Vec2 otherSize = _other->GetSize();
+			Vec2 playerEdge = Vec2(otherPos.x - otherSize.x / 2.f, otherPos.y + otherSize.y / 2.f);
+
+			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
+			Vec2 objectPos = _other->GetOwner()->GetPos();
+			if (distance > 5.f)
+			{
+				otherPos.y -= distance;
+				objectPos.y -= distance;
+				_other->SetPos(otherPos);
+				_other->GetOwner()->SetPos(objectPos);
+			}
+		}
+		break;
 		case LINE_TYPE::DEGREE_135:
 		{
 			Vec2 leftDot = collider->GetLeftDotPos();
@@ -257,7 +337,8 @@ void Foothold::OnCollisionEnter(Collider* _other)
 
 		if (player->NotInDash())
 		{
-			if (LINE_TYPE::FLAT == collider->GetLineType())
+			if (LINE_TYPE::FLAT == collider->GetLineType() ||
+				LINE_TYPE::FLAT_WALL == collider->GetLineType())
 			{
 				if (mPlayerAbobeMe)
 					player->InGround();
@@ -270,10 +351,12 @@ void Foothold::OnCollisionEnter(Collider* _other)
 
 		switch (collider->GetLineType())
 		{
+		case LINE_TYPE::DEGREE_45_WALL:
 		case LINE_TYPE::DEGREE_45:
 			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 46.f));
 			break;
 
+		case LINE_TYPE::DEGREE_135_WALL:
 		case LINE_TYPE::DEGREE_135:
 			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(46.f));
 			break;
