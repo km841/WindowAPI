@@ -649,7 +649,7 @@
     <ClInclude Include="FontMgr.h">
       <Filter>Engine\Manager\FontMgr</Filter>
     </ClInclude>
-    <ClInclude Include="DamageObject.h">
+    <ClInclude Include="FontObject.h">
       <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
     </ClInclude>
     <ClInclude Include="Gold.h">
@@ -657,6 +657,9 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Engine\GameObject\Gold\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldBar.h">
+      <Filter>Engine\GameObject\Gold\GoldBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -940,7 +943,7 @@
     <ClCompile Include="FontMgr.cpp">
       <Filter>Engine\Manager\FontMgr</Filter>
     </ClCompile>
-    <ClCompile Include="DamageObject.cpp">
+    <ClCompile Include="FontObject.cpp">
       <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
     </ClCompile>
     <ClCompile Include="Gold.cpp">
@@ -948,6 +951,9 @@
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>Engine\GameObject\Gold\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="GoldBar.cpp">
+      <Filter>Engine\GameObject\Gold\GoldBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

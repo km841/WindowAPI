@@ -50,22 +50,14 @@ void MonsterSpawnEvent::Initialize()
 void MonsterSpawnEvent::Update()
 {
 	EventObject::Update();
-	Animation* curAnim = GetAnimator()->GetCurAnimation();
 	if (mFlag)
 	{
+		Animation* curAnim = GetAnimator()->GetCurAnimation();
 		int curFrame = curAnim->GetCurFrame();
 
 		if (curFrame == mSpawnTiming)
 		{
 			Spawn();
-			mFlag = false;
-		}
-	}
-
-	else
-	{
-		if (nullptr != curAnim && curAnim->IsFinished())
-		{
 			EventRegisteror::GetInstance().DeleteObject(this);
 		}
 	}

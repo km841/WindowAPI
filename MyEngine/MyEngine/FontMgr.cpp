@@ -2,13 +2,14 @@
 #include "FontMgr.h"
 #include "ResourceMgr.h"
 #include "Texture.h"
-#include "DamageObject.h"
+#include "FontObject.h"
 #include "TimeMgr.h"
 
 
 void FontMgr::Initialize()
 {
     mTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex", L"Texture\\TextTex.bmp");
+    mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\TextTex_Gold.bmp");
     
     wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G";
     size_t textSize = wcslen(buf);
@@ -24,28 +25,28 @@ void FontMgr::Initialize()
 
 void FontMgr::Update()
 {
-    DamageUpdate();
+    FontUpdate();
 
 
 }
 
 void FontMgr::Render()
 {
-    DamageRender();
+    FontRender();
 }
 
 void FontMgr::Destroy()
 {
-    for (int i = 0; i < mDamages.size(); ++i)
+    for (int i = 0; i < mFonts.size(); ++i)
     {
-        if (nullptr != mDamages[i])
+        if (nullptr != mFonts[i])
         {
-            delete mDamages[i];
-            mDamages[i] = nullptr;
+            delete mFonts[i];
+            mFonts[i] = nullptr;
         }
     }
 
-    mDamages.clear();
+    mFonts.clear();
 }
 
 Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _text)
@@ -88,6 +89,48 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
     return tex;
 }
 
+Texture* FontMgr::GetTextTexture_Gold(const std::wstring& _key, const std::wstring& _text)
+{
+    int textureWidth = 0;
+    int textureHeight = 0;
+
+    std::wstring goldText = _text + L"G";
+
+    for (int i = 0; i < goldText.size(); ++i)
+    {
+        TextInfo info = GetTextInfo(goldText[i]);
+        textureWidth += (int)info.mSlice.x;
+        textureHeight = (int)info.mSlice.y;
+    }
+
+    Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));
+    if (nullptr != tex)
+        return tex;
+
+    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight));
+
+    int x_pos = 0;
+    for (int i = 0; i < goldText.size(); ++i)
+    {
+        TextInfo info = GetTextInfo(goldText[i]);
+        // 현재 텍스트 위치
+        BitBlt(
+            tex->GetDC(),
+            (int)x_pos, 0,
+            (int)info.mSlice.x,
+            (int)info.mSlice.y,
+            mGoldTex->GetDC(),
+            (int)info.mLTPos.x,
+            (int)info.mLTPos.y,
+            SRCCOPY
+        );
+
+        x_pos += (int)info.mSlice.x;
+    }
+
+    return tex;
+}
+
 TextInfo FontMgr::GetTextInfo(wchar_t _text)
 {
     std::map<wchar_t, TextInfo>::iterator iter = mTextMap.find(_text);
@@ -118,11 +161,11 @@ void FontMgr::OutputDamage(int _damage, Vec2 _pos)
     // 각도를 더해주면서.....
     // 걍 얘도 fontmgr가 움직이자
 
-    DamageObject* damageObj = new DamageObject;
+    FontObject* fontObj = new FontObject;
 
     wchar_t buff[COMMENT_MAX_SIZE] = {};
     _itow_s(_damage, buff, 10);
-    Texture* damageTex = GetTextTexture(buff, buff);
+    Texture* fontTex = GetTextTexture(buff, buff);
 
     _pos.x += 10.f;
     // 오른쪽을 가리키는 벡터를 만든 후 
@@ -134,21 +177,49 @@ void FontMgr::OutputDamage(int _damage, Vec2 _pos)
     dir = Math::RotateVector(dir, angle);
     dir *= radius;
 
-    damageObj->SetTexture(damageTex);
-    damageObj->SetCenter(_pos);
-    damageObj->SetPos(_pos + dir);
-    damageObj->SetAngle(angle);
-    damageObj->SetRadius(radius);
+    fontObj->SetTexture(fontTex);
+    fontObj->SetCenter(_pos);
+    fontObj->SetPos(_pos + dir);
+    fontObj->SetAngle(angle);
+    fontObj->SetRadius(radius);
     // 각도는 초기값으로 135
 
-    mDamages.push_back(damageObj);
+    mFonts.push_back(fontObj);
 }
 
-void FontMgr::DamageUpdate()
+void FontMgr::OutputGold(int _gold, Vec2 _pos)
 {
-    std::vector<DamageObject*>::iterator iter = mDamages.begin();
+    FontObject* fontObj = new FontObject;
 
-    for (; iter != mDamages.end(); )
+    wchar_t buff[COMMENT_MAX_SIZE] = {};
+    _itow_s(_gold, buff, 10);
+    Texture* fontTex = GetTextTexture_Gold(buff, buff);
+
+    _pos.x += 10.f;
+    // 오른쪽을 가리키는 벡터를 만든 후 
+    // 135도만큼 돌려서 거기에 10을 곱한다
+
+    Vec2 dir = Vec2(1, 0);
+    float angle = 225.f;
+    float radius = 10.f;
+    dir = Math::RotateVector(dir, angle);
+    dir *= radius;
+
+    fontObj->SetTexture(fontTex);
+    fontObj->SetCenter(_pos);
+    fontObj->SetPos(_pos + dir);
+    fontObj->SetAngle(angle);
+    fontObj->SetRadius(radius);
+    // 각도는 초기값으로 135
+
+    mFonts.push_back(fontObj);
+}
+
+void FontMgr::FontUpdate()
+{
+    std::vector<FontObject*>::iterator iter = mFonts.begin();
+
+    for (; iter != mFonts.end(); )
     {
         float angle = iter.operator*()->GetAngle();
  
@@ -178,7 +249,7 @@ void FontMgr::DamageUpdate()
         else
         {
             delete *iter;
-            iter = mDamages.erase(iter);
+            iter = mFonts.erase(iter);
         }
 
        
@@ -186,13 +257,13 @@ void FontMgr::DamageUpdate()
 
 }
 
-void FontMgr::DamageRender()
+void FontMgr::FontRender()
 {
-    for (int i = 0; i < mDamages.size(); ++i)
+    for (int i = 0; i < mFonts.size(); ++i)
     {
-        if (nullptr != mDamages[i])
+        if (nullptr != mFonts[i])
         {
-            mDamages[i]->Render();
+            mFonts[i]->Render();
         }
     }
 }

@@ -8,7 +8,7 @@
 Gold::Gold()
 	: mTexture(nullptr)
 {
-	SetType(OBJECT_TYPE::DROP_ITEM);
+	SetType(OBJECT_TYPE::DROP_GOLD);
 
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);

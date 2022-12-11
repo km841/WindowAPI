@@ -57,6 +57,10 @@ void BatBullet::Update()
 		{
 			SetBulletState(BULLET_STATE::DEAD);
 		}
+	}
+
+	else
+	{
 
 		// 화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))

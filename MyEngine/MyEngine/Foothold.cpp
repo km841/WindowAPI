@@ -7,6 +7,7 @@
 #include "CameraMgr.h"
 #include "Monster.h"
 #include "LineCollider.h"
+#include "Gold.h"
 
 Foothold::Foothold()
 {
@@ -188,7 +189,8 @@ void Foothold::OnCollision(Collider* _other)
 		}
 	}
 
-	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType() ||
+		OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
 	{
 		LineCollider* collider = static_cast<LineCollider*>(GetCollider());
 		Vec2 testVec = Vec2(1, 0);
@@ -369,10 +371,12 @@ void Foothold::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
 	{
 		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
+		_other->GetOwner()->GetRigidBody()->SetVelocity_Zero();
 	}
-	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
 	{
-		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
+		static_cast<Gold*>(_other->GetOwner())->SetGround(true);
+		_other->GetOwner()->GetRigidBody()->SetVelocity_Zero();
 	}
 
 }

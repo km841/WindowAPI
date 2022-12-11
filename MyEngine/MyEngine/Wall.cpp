@@ -156,6 +156,48 @@ void Wall::OnCollision(Collider* _other)
 		_other->GetOwner()->SetPos(otherObjPos);
 		_other->SetPos(otherPos);
 	}
+
+	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
+	{
+		Vec2 pos = GetCollider()->GetPos();
+		Vec2 size = GetCollider()->GetSize();
+
+		Vec2 otherPos = _other->GetPos();
+		Vec2 otherSize = _other->GetSize();
+
+		Vec2 dirVec = otherPos - pos;
+
+		float diff_x = (size.x / 2.f + otherSize.x / 2.f) - abs(pos.x - otherPos.x);
+		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
+
+		Vec2 otherObjPos = _other->GetOwner()->GetPos();
+		if (diff_x < diff_y)
+		{
+			int sign = 1;
+			if (dirVec.x < 0.f)
+			{
+				sign = -sign;
+			}
+
+			otherObjPos.x += (diff_x + 1) * sign;
+			otherPos.x += (diff_x + 1) * sign;
+		}
+
+		else
+		{
+			int sign = 1;
+			if (dirVec.y < 0.f)
+			{
+				sign = -sign;
+			}
+
+			otherObjPos.y += (diff_y)*sign;
+			otherPos.y += (diff_y)*sign;
+		}
+
+		_other->GetOwner()->SetPos(otherObjPos);
+		_other->SetPos(otherPos);
+	}
 }
 
 void Wall::OnCollisionEnter(Collider* _other)
@@ -184,7 +226,7 @@ void Wall::OnCollisionEnter(Collider* _other)
 
 	}
 
-	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
 	{
 		Gold* gold = static_cast<Gold*>(_other->GetOwner());
 		gold->GetRigidBody()->SetVelocity_Zero();

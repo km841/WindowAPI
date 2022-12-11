@@ -20,6 +20,7 @@
 #include "FontMgr.h"
 #include "Gold.h"
 #include "Coin.h"
+#include "GoldBar.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -30,6 +31,7 @@ Monster::Monster()
 	, mInfo()
 	, mDir(DIR::LEFT)
 	, mPrevDir(DIR::END)
+	, mMoney(0)
 {
 	SetType(OBJECT_TYPE::MONSTER);
 
@@ -53,6 +55,8 @@ Monster::Monster()
 		0.05f,
 		11
 	);
+
+	mMoney = 1 + (rand() % 149);
 
 
 	deadAnim->SetOffset(Vec2(0.f, 50.f));
@@ -203,10 +207,28 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			Gold::Drop(new Coin, GetPos(), 10, 260.f);
-			GetEffect()->Destroy();
-			mDead = true;
-			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+			if (!mDead)
+			{
+				int billion = mMoney / 100;
+				int changes = mMoney % 100;
+				int coin = changes / 10;
+
+				for (int i = 0; i < billion; ++i)
+				{
+					int randomAngle = 250 + (rand() % 40);
+					Gold::Drop(new GoldBar, GetPos(), 100, (float)randomAngle);
+				}
+
+				for (int i = 0; i < coin; ++i)
+				{
+					int randomAngle = 250 + (rand() % 40);
+					Gold::Drop(new Coin, GetPos(), 10, (float)randomAngle);
+				}
+
+				GetEffect()->Destroy();
+				mDead = true;
+				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+			}
 		}
 	}
 
@@ -238,10 +260,29 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			Gold::Drop(new Coin, GetPos(), 10, 220.f);
-			GetEffect()->Destroy();
-			mDead = true;
-			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+			if (!mDead)
+			{
+				int billion = mMoney / 100;
+				int changes = mMoney % 100;
+				int coin = changes / 10;
+
+				for (int i = 0; i < billion; ++i)
+				{
+					int randomAngle = 250 + (rand() % 40);
+					Gold::Drop(new GoldBar, GetPos(), 100, (float)randomAngle);
+				}
+
+				for (int i = 0; i < coin; ++i)
+				{
+					int randomAngle = 250 + (rand() % 40);
+					Gold::Drop(new Coin, GetPos(), 10, (float)randomAngle);
+				}
+
+				GetEffect()->Destroy();
+				mDead = true;
+				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+			}
+
 		}
 	}
 }

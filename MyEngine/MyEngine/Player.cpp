@@ -28,6 +28,8 @@
 #include "Foothold.h"
 #include "LaraMagicWand.h"
 #include "LineCollider.h"
+#include "Gold.h"
+#include "FontMgr.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -739,6 +741,17 @@ void Player::OnCollisionEnter(Collider* _other)
 
 			break;
 		}
+	}
+
+	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
+	{
+		Gold* gold = static_cast<Gold*>(_other->GetOwner());
+		int money = gold->GetMoney();
+		Vec2 goldPos = gold->GetPos();
+		goldPos.y -= 30;
+		
+		FontMgr::GetInstance().OutputGold(money, goldPos);
+		EventRegisteror::GetInstance().DeleteObject(gold);
 	}
 
 

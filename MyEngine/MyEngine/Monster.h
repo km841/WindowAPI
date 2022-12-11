@@ -83,6 +83,8 @@ protected:
     
     MonsterEffect* mEffect;
 
+    int mMoney;
+
 
 protected:
     static Texture* mHPBaseTex;
