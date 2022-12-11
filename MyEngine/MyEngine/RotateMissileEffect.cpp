@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
+#include "Collider.h"
 
 RotateMissileEffect::RotateMissileEffect()
 	: mRadius(80.f)
@@ -44,7 +45,14 @@ void RotateMissileEffect::Update()
 	// 총알이 전부 스폰됐다면
 	if (mReady)
 	{
+		// 충돌체 ON
+		// 
 		// 플레이어 방향으로 회전탄 발사
+		for (int i = 0; i < mBullets.size(); ++i)
+		{
+			mBullets[i]->GetCollider()->SetEnable(true);
+		}
+		
 		Vec2 coreBulletPos = mCoreBullet->GetPos();
 		coreBulletPos.x += mPlayerVec.x * 200.f * DT;
 		coreBulletPos.y += mPlayerVec.y * 200.f * DT;
@@ -90,6 +98,7 @@ void RotateMissileEffect::Update()
 		}
 	}
 
+	// 시간이 지나면 초기화되도록 변경
 	if (!mBullets.empty() && !mBulletAlive)
 	{
 		for (int i = 0; i < mBullets.size(); ++i)
@@ -159,6 +168,7 @@ bool RotateMissileEffect::Attack()
 		{
 			mCurTime = 0.f;
 			BatBullet* bullet = new BatBullet;
+			bullet->GetCollider()->SetEnable(false);
 			Vec2 coreBulletPos = mCoreBullet->GetPos();
 			coreBulletPos.y -= mRadius;
 			bullet->SetPos(coreBulletPos);

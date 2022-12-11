@@ -158,8 +158,8 @@ void FontMgr::DamageUpdate()
             Vec2 center = iter.operator*()->GetCenter();
             float radius = iter.operator*()->GetRadius();
 
-            float omega_x = 180.f * (DT / 2.f);
-            float omega_y = 90.f * (DT / 2.f);
+            float omega_x = 180.f * (DT);
+            float omega_y = 90.f * (DT);
             angle += omega_x;
             
             float angle_x = Math::DegreeToRadian(angle + omega_x);

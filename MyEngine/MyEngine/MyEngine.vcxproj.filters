@@ -359,6 +359,18 @@
     <Filter Include="Engine\Manager\FontMgr\DamageObject">
       <UniqueIdentifier>{f0034ee6-a380-4692-982c-158f21dda413}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Gold">
+      <UniqueIdentifier>{b28a167e-92d1-486a-8ebf-e09d56aa2e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Gold\Coin">
+      <UniqueIdentifier>{29699bc2-9ce2-4be6-912a-4ebdda52ef09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Gold\GoldBar">
+      <UniqueIdentifier>{31a0f4d5-6057-46a0-937c-7529801db79d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Gold\Base">
+      <UniqueIdentifier>{2188c395-dfb8-4c1f-9d7f-8c77a05ae137}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -639,6 +651,12 @@
     </ClInclude>
     <ClInclude Include="DamageObject.h">
       <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Gold.h">
+      <Filter>Engine\GameObject\Gold\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Engine\GameObject\Gold\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -924,6 +942,12 @@
     </ClCompile>
     <ClCompile Include="DamageObject.cpp">
       <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Gold.cpp">
+      <Filter>Engine\GameObject\Gold\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Engine\GameObject\Gold\Coin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

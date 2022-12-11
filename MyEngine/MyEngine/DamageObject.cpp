@@ -5,7 +5,7 @@
 #include "TimeMgr.h"
 
 DamageObject::DamageObject()
-	: mMaxDuration(0.3f)
+	: mMaxDuration(0.2f)
 	, mCurDuration(0.f)
 	, mAlpha(1.f)
 	, mDead(false)

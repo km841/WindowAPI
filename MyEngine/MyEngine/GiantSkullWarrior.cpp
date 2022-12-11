@@ -141,9 +141,9 @@ void GiantSkullWarrior::Render()
 {
 	Monster::Render();
 
-	wchar_t hpComment[COMMENT_MAX_SIZE] = {};
-	swprintf_s(hpComment, L"hp: %f", mInfo.mCurHP);
-	TextOut(BACK_BUF_DC, 10, 170, hpComment, (int)wcslen(hpComment));
+	//wchar_t hpComment[COMMENT_MAX_SIZE] = {};
+	//swprintf_s(hpComment, L"hp: %f", mInfo.mCurHP);
+	//TextOut(BACK_BUF_DC, 10, 170, hpComment, (int)wcslen(hpComment));
 
 }
 

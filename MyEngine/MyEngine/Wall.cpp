@@ -6,6 +6,7 @@
 #include "CameraMgr.h"
 #include "Monster.h"
 #include "RigidBody.h"
+#include "Gold.h"
 
 Wall::Wall()
 	:mPlayerBelowMe(false)
@@ -181,6 +182,13 @@ void Wall::OnCollisionEnter(Collider* _other)
 		monster->GetRigidBody()->SetVelocity_Y_Zero();
 		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
 
+	}
+
+	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	{
+		Gold* gold = static_cast<Gold*>(_other->GetOwner());
+		gold->GetRigidBody()->SetVelocity_Zero();
+		static_cast<Gold*>(_other->GetOwner())->SetGround(true);
 	}
 }
 

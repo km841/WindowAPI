@@ -55,7 +55,7 @@ Player::Player()
 	, mInvinMaxTime(0.5f)
 	, mInvinTime(0.f)
 	, mInfo{}
-	, mCharacter(PLAYER_CHARACTER::LASLEY)
+	, mCharacter(PLAYER_CHARACTER::PLAYER)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -140,8 +140,8 @@ Player::Player()
 
 	GetAnimator()->RegisterAnimation(L"LASLEY_IDLE_LEFT", lasleyTexture, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
 	GetAnimator()->RegisterAnimation(L"LASLEY_IDLE_RIGHT", lasleyTexture, Vec2(0.f, 96.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.1f, 5);
-	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_LEFT", lasleyTexture, Vec2(0.f, 192.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 6);
-	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_RIGHT", lasleyTexture, Vec2(0.f, 288.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.05f, 6);
+	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_LEFT", lasleyTexture, Vec2(0.f, 192.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.06f, 6);
+	GetAnimator()->RegisterAnimation(L"LASLEY_WALK_RIGHT", lasleyTexture, Vec2(0.f, 288.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.06f, 6);
 	GetAnimator()->RegisterAnimation(L"LASLEY_JUMP_LEFT", lasleyTexture, Vec2(0.f, 384.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"LASLEY_JUMP_RIGHT", lasleyTexture, Vec2(0.f, 480.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
 	GetAnimator()->RegisterAnimation(L"LASLEY_NONE_ANIM", lasleyNoneAnim, Vec2(0.f, 0.f), Vec2(96.f, 96.f), Vec2(96.f, 0.f), 0.2f, 1);
@@ -152,9 +152,9 @@ Player::Player()
 	{
 		mEquipItems[i] = nullptr;
 	}
-	//ShortSword* shortSword = new ShortSword;
-	LaraMagicWand* magicWand = new LaraMagicWand;
-	SetEquipItem(magicWand);
+	ShortSword* shortSword = new ShortSword;
+	//LaraMagicWand* magicWand = new LaraMagicWand;
+	SetEquipItem(shortSword);
 
 #pragma endregion
 
@@ -310,9 +310,9 @@ void Player::MoveUpdate()
 		float angle = (float)atan2(dashDir.y, dashDir.x);
 		angle = Math::RadianToDegree(angle);
 
-		wchar_t szBuffer[256] = {};
-		swprintf_s(szBuffer, L"angle : %f", angle);
-		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+		//wchar_t szBuffer[256] = {};
+		//swprintf_s(szBuffer, L"angle : %f", angle);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 
 		if (angle >= 0.f && angle <= 180.f)
 		{

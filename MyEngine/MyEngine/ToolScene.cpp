@@ -45,7 +45,7 @@ void ToolScene::Update()
 
 
 
-	if (IS_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
+	if (IS_JUST_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
 	{
 		// 여기서 타입에 따라 갈려야 하나?
 
@@ -125,6 +125,7 @@ void ToolScene::Update()
 
 				OBJECT_TYPE type = tileComponent->GetType();
 
+				
 				if (OBJECT_TYPE::FOOTHOLD == type && TILE_TYPE::FOOTHOLD == tileType)
 				{
 					static_cast<LineCollider*>(tile->GetCollisionComponent()->GetCollider())->SetNextLineType();

@@ -109,7 +109,7 @@ void Foothold::OnCollision(Collider* _other)
 			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
 
 			Vec2 objectPos = _other->GetOwner()->GetPos();
-			if (distance > 3.f)
+			if (distance > 5.f)
 			{
 				otherPos -=  1.f;
 				objectPos -=  1.f;
@@ -154,7 +154,7 @@ void Foothold::OnCollision(Collider* _other)
 
 			float distance = Math::LineToDotDistance(leftDot, rightDot, playerEdge);
 			Vec2 objectPos = _other->GetOwner()->GetPos();
-			if (distance > 3.f)
+			if (distance > 5.f)
 			{
 				otherPos +=  1.f;
 				objectPos +=  1.f ;
@@ -353,12 +353,12 @@ void Foothold::OnCollisionEnter(Collider* _other)
 		{
 		case LINE_TYPE::DEGREE_45_WALL:
 		case LINE_TYPE::DEGREE_45:
-			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 46.f));
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(360.f - 47.f));
 			break;
 
 		case LINE_TYPE::DEGREE_135_WALL:
 		case LINE_TYPE::DEGREE_135:
-			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(46.f));
+			dirVec = Math::RotateVector(dirVec, Math::DegreeToRadian(47.f));
 			break;
 		}
 		
@@ -370,6 +370,11 @@ void Foothold::OnCollisionEnter(Collider* _other)
 	{
 		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
 	}
+	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	{
+		static_cast<Monster*>(_other->GetOwner())->SetGround(true);
+	}
+
 }
 
 void Foothold::OnCollisionExit(Collider* _other)

@@ -120,6 +120,8 @@ void Dungeon1Scene::Enter()
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_ITEM, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_ITEM, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MISSILE_FROM_MONSTER, OBJECT_TYPE::WALL);
@@ -138,6 +140,8 @@ void Dungeon1Scene::Exit()
 {
 	ShowCursor(true);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_ITEM, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_ITEM, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MISSILE_FROM_MONSTER, OBJECT_TYPE::WALL);

@@ -148,6 +148,7 @@
     <ClInclude Include="BlackSmithNPC.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DamageObject.h" />
     <ClInclude Include="DashEffect.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="GiantBat.h" />
     <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
+    <ClInclude Include="Gold.h" />
     <ClInclude Include="GreatSword.h" />
     <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="InfRepeatBg.h" />
@@ -243,6 +245,7 @@
     <ClCompile Include="BlackSmithNPC.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
@@ -255,6 +258,7 @@
     <ClCompile Include="GiantBat.cpp" />
     <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
+    <ClCompile Include="Gold.cpp" />
     <ClCompile Include="GreatSword.cpp" />
     <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />

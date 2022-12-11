@@ -18,6 +18,8 @@
 #include "MonsterState.h"
 #include "Bullet.h"
 #include "FontMgr.h"
+#include "Gold.h"
+#include "Coin.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -201,6 +203,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
+			Gold::Drop(new Coin, GetPos(), 10, 260.f);
 			GetEffect()->Destroy();
 			mDead = true;
 			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
@@ -235,6 +238,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
+			Gold::Drop(new Coin, GetPos(), 10, 220.f);
 			GetEffect()->Destroy();
 			mDead = true;
 			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
