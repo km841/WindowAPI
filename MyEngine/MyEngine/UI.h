@@ -15,10 +15,10 @@ public:
 	friend class UIMgr;
 
 public:
-	virtual void	Initialize();
-	virtual void	Update();
-	virtual void	Render();
-	virtual void	Destroy();
+	virtual void Initialize();
+	virtual void Update();
+	virtual void Render();
+	virtual void Destroy();
 
 public:
 	virtual bool OnMouse() { return false; }

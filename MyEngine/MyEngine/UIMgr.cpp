@@ -5,6 +5,9 @@
 #include "UI.h"
 #include "EventRegisteror.h"
 #include "InventoryUI.h"
+#include "HUD.h"
+#include "HPHUD.h"
+#include "DashCountHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -97,12 +100,6 @@ UI* UIMgr::ActiveUI(UI_TYPE _type)
 	{
 		switch (_type)
 		{
-		case UI_TYPE::HP:
-			break;
-		case UI_TYPE::DASH_GAUGE:
-			break;
-		case UI_TYPE::MINIMAP:
-			break;
 
 		case UI_TYPE::INVENTORY:
 			ui = new InventoryUI;
@@ -124,4 +121,94 @@ bool UIMgr::GetUIState(UI_TYPE _type)
 		return ui->GetState();
 
 	return false;
+}
+
+UI* UIMgr::GetUI(UI_TYPE _type)
+{
+	std::map<UI_TYPE, UI*>::iterator iter = mUIMap.find(_type);
+	if (mUIMap.end() != iter)
+	{
+		return iter->second;
+	}
+	
+	return nullptr;
+}
+
+void UIMgr::DisableHUD(HUD_TYPE _type)
+{
+	HUD* hud = mHUDMap[_type];
+	if (nullptr == hud)
+	{
+		hud = ActiveHUD(_type);
+		hud->SetState(false);
+		mHUDMap[_type] = hud;
+
+	}
+
+	else
+	{
+		hud->SetState(false);
+	}
+}
+
+void UIMgr::EnableHUD(HUD_TYPE _type)
+{
+	HUD* hud = mHUDMap[_type];
+	if (nullptr == hud)
+	{
+		hud = ActiveHUD(_type);
+		hud->SetState(true);
+		mHUDMap[_type] = hud;
+
+	}
+
+	else
+	{
+		hud->SetState(true);
+	}
+}
+
+HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
+{
+	HUD* hud = mHUDMap[_type];
+	if (nullptr == hud)
+	{
+		switch (_type)
+		{
+		case HUD_TYPE::HP:
+			hud = new HPHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
+		case HUD_TYPE::DASH_GAUGE:
+			hud = new DashCountHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
+		case HUD_TYPE::MINIMAP:
+
+			break;
+		}
+	}
+	return hud;
+}
+
+bool UIMgr::GetHUDState(HUD_TYPE _type)
+{
+	HUD* hud = mHUDMap[_type];
+	if (nullptr != hud)
+		return hud->GetState();
+
+	return false;
+}
+
+HUD* UIMgr::GetHUD(HUD_TYPE _type)
+{
+	std::map<HUD_TYPE, HUD*>::iterator iter = mHUDMap.find(_type);
+	if (mHUDMap.end() != iter)
+	{
+		return iter->second;
+	}
+
+	return nullptr;
 }

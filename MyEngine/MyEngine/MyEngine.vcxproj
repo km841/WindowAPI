@@ -150,6 +150,7 @@
     <ClInclude Include="CheckButtonUI.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="DashCountHUD.h" />
     <ClInclude Include="FontObject.h" />
     <ClInclude Include="DashEffect.h" />
     <ClInclude Include="Dungeon1Scene.h" />
@@ -165,6 +166,8 @@
     <ClInclude Include="GoldBar.h" />
     <ClInclude Include="GreatSword.h" />
     <ClInclude Include="HomingMissileEffect.h" />
+    <ClInclude Include="HPHUD.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
@@ -248,6 +251,7 @@
     <ClCompile Include="CheckButtonUI.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="DashCountHUD.cpp" />
     <ClCompile Include="FontObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
     <ClCompile Include="Dungeon1Scene.cpp" />
@@ -263,6 +267,8 @@
     <ClCompile Include="GoldBar.cpp" />
     <ClCompile Include="GreatSword.cpp" />
     <ClCompile Include="HomingMissileEffect.cpp" />
+    <ClCompile Include="HPHUD.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />

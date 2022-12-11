@@ -371,6 +371,18 @@
     <Filter Include="Engine\GameObject\Gold\Base">
       <UniqueIdentifier>{2188c395-dfb8-4c1f-9d7f-8c77a05ae137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\HUD">
+      <UniqueIdentifier>{3cd80381-18d1-4ad6-8fc3-ce23aa65affe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\DashCountHUD">
+      <UniqueIdentifier>{44c884ea-edcb-49f1-b2ec-d73b266665dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\HPHUD">
+      <UniqueIdentifier>{17310a17-9229-4685-a5d2-112ff1f117f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\Base">
+      <UniqueIdentifier>{e90579e3-d4e6-418c-8a28-99f3569cd4f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -660,6 +672,15 @@
     </ClInclude>
     <ClInclude Include="GoldBar.h">
       <Filter>Engine\GameObject\Gold\GoldBar</Filter>
+    </ClInclude>
+    <ClInclude Include="HPHUD.h">
+      <Filter>Engine\GameObject\HUD\HPHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="DashCountHUD.h">
+      <Filter>Engine\GameObject\HUD\DashCountHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Engine\GameObject\HUD\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -954,6 +975,15 @@
     </ClCompile>
     <ClCompile Include="GoldBar.cpp">
       <Filter>Engine\GameObject\Gold\GoldBar</Filter>
+    </ClCompile>
+    <ClCompile Include="HPHUD.cpp">
+      <Filter>Engine\GameObject\HUD\HPHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="DashCountHUD.cpp">
+      <Filter>Engine\GameObject\HUD\DashCountHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\GameObject\HUD\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

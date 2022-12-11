@@ -83,11 +83,8 @@ void Foothold::OnCollision(Collider* _other)
 
 				float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
 				Vec2 objectPos = _other->GetOwner()->GetPos();
-				if (diff_y > 0.f)
+				if (diff_y > 1.1f)
 				{
-					if (diff_y < 3.f)
-						return;
-
 					objectPos.y -= 1;
 					_other->GetOwner()->SetPos(objectPos);
 				}
@@ -212,10 +209,8 @@ void Foothold::OnCollision(Collider* _other)
 
 			float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
 			Vec2 objectPos = _other->GetOwner()->GetPos();
-			if (diff_y > 0.f)
+			if (diff_y > 1.1f)
 			{
-				if (diff_y < 3.f)
-					return;
 
 				objectPos.y -= 1;
 				_other->GetOwner()->SetPos(objectPos);
