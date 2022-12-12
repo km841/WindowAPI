@@ -188,10 +188,10 @@ void Monster::OnCollisionEnter(Collider* _other)
 		Vec2 playerPos = player->GetPos();
 		Vec2 dir = pos - playerPos;
 
-		dir.Norm();
-		dir.x *= 3;
+		//dir.Norm();
+		//dir.x *= 3;
 
-		SetPos(pos + dir);
+		//SetPos(pos + dir);
 
 		float curHP = GetCurHP();
 

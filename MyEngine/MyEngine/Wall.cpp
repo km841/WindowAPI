@@ -95,8 +95,13 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.x += (diff_x + 1) * sign;
-			otherPos.x += (diff_x + 1)* sign;
+			if (2.f < diff_x)
+			{
+				otherObjPos.x += (diff_x + 1) * sign;
+				otherPos.x += (diff_x + 1) * sign;
+			}
+
+
 		}
 
 		else
@@ -107,8 +112,12 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.y += (diff_y) * sign;
-			otherPos.y += (diff_y) * sign;
+			if (2.f < diff_y)
+			{
+				otherObjPos.y += (diff_y)*sign;
+				otherPos.y += (diff_y)*sign;
+			}
+
 		}
 
 		_other->GetOwner()->SetPos(otherObjPos);
@@ -128,17 +137,23 @@ void Wall::OnCollision(Collider* _other)
 		float diff_x = (size.x / 2.f + otherSize.x / 2.f) - abs(pos.x - otherPos.x);
 		float diff_y = (size.y / 2.f + otherSize.y / 2.f) - abs(pos.y - otherPos.y);
 
+
 		Vec2 otherObjPos = _other->GetOwner()->GetPos();
 		if (diff_x < diff_y)
 		{
+
 			int sign = 1;
 			if (dirVec.x < 0.f)
 			{
 				sign = -sign;
 			}
 
-			otherObjPos.x += (diff_x + 1) * sign;
-			otherPos.x += (diff_x + 1) * sign;
+			if (5.f < diff_x)
+			{
+				otherObjPos.x += (diff_x + 1) * sign;
+				otherPos.x += (diff_x + 1) * sign;
+			}
+
 		}
 
 		else
@@ -149,8 +164,11 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.y += (diff_y) * sign;
-			otherPos.y += (diff_y) * sign;
+			if (5.f < diff_y)
+			{
+				otherObjPos.y += (diff_y)*sign;
+				otherPos.y += (diff_y)*sign;
+			}
 		}
 
 		_other->GetOwner()->SetPos(otherObjPos);
@@ -191,8 +209,8 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			otherObjPos.y += (diff_y)*sign;
-			otherPos.y += (diff_y)*sign;
+			otherObjPos.y += (diff_y) * sign;
+			otherPos.y += (diff_y) * sign;
 		}
 
 		_other->GetOwner()->SetPos(otherObjPos);
