@@ -25,6 +25,7 @@ public:
 			monster->SetPos(_pos);
 			monster->SetGround(false);
 
+			info.mAtt = 5;
 			info.mMaxHP = 100;
 			info.mSpeed = 50.f;
 			info.mRecog = 300.f;
@@ -68,6 +69,7 @@ public:
 			monster->SetPos(_pos);
 			//monster->SetGround(true);
 
+			info.mAtt = 1;
 			info.mMaxHP = 100;
 			info.mSpeed = 100.f;
 			info.mRecog = 400.f;

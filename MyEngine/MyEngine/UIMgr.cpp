@@ -21,6 +21,8 @@ UIMgr::~UIMgr()
 void UIMgr::Initialize()
 {
 	DisableUI(UI_TYPE::INVENTORY);
+	EnableHUD(HUD_TYPE::HP);
+	EnableHUD(HUD_TYPE::DASH_GAUGE);
 }
 
 void UIMgr::Update()

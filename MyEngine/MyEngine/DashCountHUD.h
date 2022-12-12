@@ -1,5 +1,7 @@
 #pragma once
 #include "HUD.h"
+
+class Texture;
 class DashCountHUD :
     public HUD
 {
@@ -12,6 +14,10 @@ public:
     virtual void Update() override;
     virtual void Render() override;
     virtual void Destroy() override;
+
+private:
+    Texture* mTex;
+    Texture* mBaseTex;
 
 };
 

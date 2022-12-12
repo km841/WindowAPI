@@ -52,22 +52,10 @@ void DungeonEatEvent::Update()
 	EventObject::Update();
 
 	if (Vec2(0.f, 0.f) != GetFixPos())
-		Player::GetPlayer()->SetPos(GetFixPos());
-}
-
-void DungeonEatEvent::Render()
-{
-	EventObject::Render();
-}
-
-void DungeonEatEvent::Destroy()
-{
-}
-
-void DungeonEatEvent::OnCollision(Collider* _other)
-{
-	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
+		Player::GetPlayer()->SetPos(GetFixPos());
+		Player::GetPlayer()->SetPrevPos(GetFixPos());
+
 		int frame = GetAnimator()->GetCurAnimation()->GetCurFrame();
 
 		if (9 == frame)
@@ -89,6 +77,23 @@ void DungeonEatEvent::OnCollision(Collider* _other)
 				SetFixPos(Vec2(0.f, 0.f));
 			}
 		}
+	}
+}
+
+void DungeonEatEvent::Render()
+{
+	EventObject::Render();
+}
+
+void DungeonEatEvent::Destroy()
+{
+}
+
+void DungeonEatEvent::OnCollision(Collider* _other)
+{
+	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
+	{
+
 	}
 }
 

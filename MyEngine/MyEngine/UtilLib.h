@@ -15,6 +15,7 @@ struct BulletInfo
 
 struct MonsterInfo
 {
+	float mAtt;
 	float mMaxHP;
 	float mCurHP;
 	float mSpeed;

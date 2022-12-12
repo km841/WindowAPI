@@ -36,7 +36,9 @@
 #define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS)
 #define WORLD_POS(POS) CameraMgr::GetInstance().GetWorldPos(POS)
 #define MOUSE_POS MouseMgr::GetInstance().GetMousePos()
-#define GET_UI(TYPE) static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(TYPE))
+#define GET_INVENTORY_UI static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY))
+#define GET_HP_HUD static_cast<HPHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::HP))
+#define GET_DASH_HUD static_cast<DashCountHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::DASH_GAUGE))
 #define ZERO_VECTOR Math::ZeroVector()
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY

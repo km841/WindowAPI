@@ -120,28 +120,7 @@ void RotateMissileEffect::Render()
 	if (nullptr != mCoreBullet)
 	{
 		Vec2 mCorePos = RENDER_POS(mCoreBullet->GetPos());
-		//Pen pen(BACK_BUF_DC, PEN_TYPE::RED);
-		//Ellipse(BACK_BUF_DC,
-		//	mCorePos.x - 15,
-		//	mCorePos.y - 15,
-		//	mCorePos.x + 15,
-		//	mCorePos.y + 15);
-
-		wchar_t bulletPos[COMMENT_MAX_SIZE] = {};
-		swprintf_s(bulletPos, L"mCoreBullet = x : %f, y : %f", mCorePos.x, mCorePos.y);
-		TextOut(BACK_BUF_DC, 10, 110, bulletPos, (int)wcslen(bulletPos));
-
 	}
-
-	//for (int i = 0; i < mBullets.size(); ++i)
-	//{
-	//	Vec2 pos = mBullets[i]->GetPos();
-	//	float angle = static_cast<BatBullet*>(mBullets[i])->GetAngle();
-	//	wchar_t bulletPos[COMMENT_MAX_SIZE] = {};
-	//	swprintf_s(bulletPos, L"mBullet[%d] = x : %f, y : %f, angle : %f", i, pos.x, pos.y, angle);
-	//	TextOut(BACK_BUF_DC, 10, 110 + i * 20, bulletPos, (int)wcslen(bulletPos));
-	//}
-
 }
 
 void RotateMissileEffect::Destroy()

@@ -30,6 +30,9 @@
 #include "LineCollider.h"
 #include "Gold.h"
 #include "FontMgr.h"
+#include "Monster.h"
+#include "MonsterEffect.h"
+#include "MonsterBullet.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -64,7 +67,7 @@ Player::Player()
 
 	mInfo.mMaxHP = 100.f;
 	mInfo.mCurHP = 100.f;
-	mInfo.mDashCount = 2.f;
+	mInfo.mDashCount = 3.f;
 	mInfo.mSpeed = 350.f;
 	mInfo.mAtt = 1.f;
 
@@ -240,6 +243,16 @@ void Player::Update()
 		}
 		
 	}
+
+	if (3.f > mInfo.mDashCount)
+	{
+		mDashDuration += DT;
+		if (1.0f < mDashDuration)
+		{
+			mDashDuration = 0.f;
+			mInfo.mDashCount++;
+		}
+	}
 	
 	EquipItemUpdate();
 
@@ -295,8 +308,10 @@ void Player::MoveUpdate()
 	}
 	
 
-	if (IS_JUST_RBUTTON_CLICKED && NotInDash())
+	if (IS_JUST_RBUTTON_CLICKED && NotInDash() && mInfo.mDashCount > 0.f)
 	{
+		mInfo.mDashCount--;
+
 		mFall = true;
 		Vec2 velocity = GetRigidBody()->GetVelocity();
 
@@ -538,7 +553,7 @@ void Player::StateUpdate()
 		}
 	}
 
-	InventoryUI* invenUI = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* invenUI = GET_INVENTORY_UI;
 
 	if (nullptr != invenUI)
 	{
@@ -658,37 +673,38 @@ void Player::Render()
 			mDashEffect[i]->Render();
 	}
 
-	
+
 
 	// Debug Info
-	wchar_t isGround[COMMENT_MAX_SIZE] = {};
-	wchar_t isGravity[COMMENT_MAX_SIZE] = {};
-	wchar_t isFall[COMMENT_MAX_SIZE] = {};
-	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
-	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
-	swprintf_s(isFall, L"Fall : %s", (mFall ? L"O" : L"X"));
-	TextOut(BACK_BUF_DC, 10, 10, isGround, (int)wcslen(isGround));
-	TextOut(BACK_BUF_DC, 10, 30, isGravity, (int)wcslen(isGravity));
-	TextOut(BACK_BUF_DC, 10, 50, isFall, (int)wcslen(isFall));
-
-	wchar_t velocity[COMMENT_MAX_SIZE] = {};
-	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
-	TextOut(BACK_BUF_DC, 10, 70, velocity, (int)wcslen(velocity));
-
-	Vec2 mouserRenderPos = RENDER_POS(MOUSE_POS);
-	wchar_t mousePos[COMMENT_MAX_SIZE] = {};
-	swprintf_s(mousePos, L"mouse_x : %f, mouse_y : %f", MOUSE_POS.x, MOUSE_POS.y);
-	TextOut(BACK_BUF_DC, 10, 90, mousePos, (int)wcslen(mousePos));
-
-	Vec2 playerRenderPos = RENDER_POS(GetPos());
-	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
-	swprintf_s(playerPos, L"player_x : %f, player_y : %f", playerRenderPos.x, playerRenderPos.y);
-	TextOut(BACK_BUF_DC, 10, 110, playerPos, (int)wcslen(playerPos));
-
-	Vec2 dirVec = GetDirectionVector();
-	wchar_t dirVecComment[COMMENT_MAX_SIZE] = {};
-	swprintf_s(dirVecComment, L"dirv_x : %f, dirv_y : %f", dirVec.x, dirVec.y);
-	TextOut(BACK_BUF_DC, 10, 130, dirVecComment, (int)wcslen(dirVecComment));
+//	wchar_t isGround[COMMENT_MAX_SIZE] = {};
+//	wchar_t isGravity[COMMENT_MAX_SIZE] = {};
+//	wchar_t isFall[COMMENT_MAX_SIZE] = {};
+//	swprintf_s(isGround, L"Ground : %s", (GetGround() ? L"O" : L"X"));
+//	swprintf_s(isGravity, L"Gravity : %s", (GetGravity() ? L"O" : L"X"));
+//	swprintf_s(isFall, L"Fall : %s", (mFall ? L"O" : L"X"));
+//	TextOut(BACK_BUF_DC, 10, 10, isGround, (int)wcslen(isGround));
+//	TextOut(BACK_BUF_DC, 10, 30, isGravity, (int)wcslen(isGravity));
+//	TextOut(BACK_BUF_DC, 10, 50, isFall, (int)wcslen(isFall));
+//
+//	wchar_t velocity[COMMENT_MAX_SIZE] = {};
+//	swprintf_s(velocity, L"velocity_x : %f, velocity_y : %f", GetRigidBody()->GetVelocity_X(), GetRigidBody()->GetVelocity_Y());
+//	TextOut(BACK_BUF_DC, 10, 70, velocity, (int)wcslen(velocity));
+//
+//	Vec2 mouserRenderPos = RENDER_POS(MOUSE_POS);
+//	wchar_t mousePos[COMMENT_MAX_SIZE] = {};
+//	swprintf_s(mousePos, L"mouse_x : %f, mouse_y : %f", MOUSE_POS.x, MOUSE_POS.y);
+//	TextOut(BACK_BUF_DC, 10, 90, mousePos, (int)wcslen(mousePos));
+//
+//	Vec2 playerRenderPos = RENDER_POS(GetPos());
+//	wchar_t playerPos[COMMENT_MAX_SIZE] = {};
+//	swprintf_s(playerPos, L"player_x : %f, player_y : %f", playerRenderPos.x, playerRenderPos.y);
+//	TextOut(BACK_BUF_DC, 10, 110, playerPos, (int)wcslen(playerPos));
+//
+//	Vec2 dirVec = GetDirectionVector();
+//	wchar_t dirVecComment[COMMENT_MAX_SIZE] = {};
+//	swprintf_s(dirVecComment, L"dirv_x : %f, dirv_y : %f", dirVec.x, dirVec.y);
+//	TextOut(BACK_BUF_DC, 10, 130, dirVecComment, (int)wcslen(dirVecComment));
+//}
 }
 
 void Player::Destroy()
@@ -719,12 +735,47 @@ void Player::OnCollision(Collider* _other)
 
 void Player::OnCollisionEnter(Collider* _other)
 {
-	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType() || 
-		OBJECT_TYPE::MISSILE_FROM_MONSTER == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::MONSTER_EFFECT == _other->GetOwner()->GetType())
 	{
 		CameraMgr::GetInstance().RemoveEffect();
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
+
+		float damage = static_cast<MonsterEffect*>(_other->GetOwner())->GetAtt();
+
+		if (damage >= mInfo.mCurHP)
+		{
+			// Dead
+		}
+		else
+		{
+			mInfo.mCurHP -= damage;
+			if (0.f > mInfo.mCurHP)
+				mInfo.mCurHP = 0.f;
+		}
+
+		mHit = true;
+	}
+
+	if (OBJECT_TYPE::MISSILE_FROM_MONSTER == _other->GetOwner()->GetType())
+	{
+		CameraMgr::GetInstance().RemoveEffect();
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
+
+		float damage = static_cast<MonsterBullet*>(_other->GetOwner())->GetBulletInfo().mAtt;
+
+		if (damage >= mInfo.mCurHP)
+		{
+			// Dead
+		}
+		else
+		{
+			mInfo.mCurHP -= damage;
+			if (0.f > mInfo.mCurHP)
+				mInfo.mCurHP = 0.f;
+		}
+
 		mHit = true;
 	}
 
@@ -778,7 +829,7 @@ void Player::OnCollisionExit(Collider* _other)
 
 void Player::EquipItemUpdate()
 {
-	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* inven = GET_INVENTORY_UI;
 	INVENTORY_SLOT curSlot = inven->GetSlot();
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
@@ -810,7 +861,7 @@ void Player::EquipItemUpdate()
 
 void Player::EquipItemRender()
 {
-	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* inven = GET_INVENTORY_UI;
 	INVENTORY_SLOT curSlot = inven->GetSlot();
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
@@ -922,7 +973,7 @@ inline void Player::SetStop(bool _flag)
 void Player::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();
-	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* inven = GET_INVENTORY_UI;
 
 	switch (itemType)
 	{

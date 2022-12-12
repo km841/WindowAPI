@@ -68,6 +68,8 @@ public:
     inline PlayerInfo GetPlayerInfo() const { return mInfo; }
 
     inline Vec2 GetPrevPos() const { return mPrevPos; }
+    inline void SetPrevPos(Vec2 _prevPos) { mPrevPos = _prevPos; }
+
     inline float GetPlayerSpeed() const { return PLAYER_SPEED; }
 
     inline bool NotInDash() const { return (!mAccDash && !mDecDash); }
@@ -87,6 +89,8 @@ public:
     void OutGround();
 
     inline State* GetState() const { return mState; }
+    inline State* GetState() { return mState; }
+    
     inline void   SetState(State* _state) { mState = _state; }
 
     inline bool GetStop() const { return mStop; }
@@ -153,6 +157,9 @@ private:
     float      mImgDuration;
     float      mCurImgDuration;
     int        mImgCount;
+
+private:
+    float      mDashDuration;
 
 };
 

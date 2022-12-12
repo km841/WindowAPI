@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MonsterEffect.h"
+#include "Monster.h"
 
 MonsterEffect::MonsterEffect()
 {
@@ -8,4 +9,11 @@ MonsterEffect::MonsterEffect()
 
 MonsterEffect::~MonsterEffect()
 {
+}
+
+void MonsterEffect::Update()
+{
+	Effect::Update();
+	Monster* monster= static_cast<Monster*>(GetOwner());
+	mAtt = monster->GetMonsterInfo().mAtt;
 }

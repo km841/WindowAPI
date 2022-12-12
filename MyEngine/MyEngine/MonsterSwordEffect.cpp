@@ -24,7 +24,7 @@ void MonsterSwordEffect::Initialize()
 void MonsterSwordEffect::Update()
 {
 	//GameObject::Update();
-	Effect::Update();
+	MonsterEffect::Update();
 }
 
 void MonsterSwordEffect::Render()

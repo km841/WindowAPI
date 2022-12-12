@@ -20,6 +20,8 @@
 #include "SceneMgr.h"
 #include "EventMgr.h"
 #include "LineCollider.h"
+#include "HPHUD.h"
+#include "DashCountHUD.h"
 
 void TownScene::Initialize()
 {
@@ -165,7 +167,14 @@ void TownScene::Enter()
 	DungeonEatEvent* eatEvent = new DungeonEatEvent;
 	eatEvent->SetPos(Vec2(TILE_SIZE * 70, GROUND_STANDARD));
 
-	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* inven = GET_INVENTORY_UI;
+	HPHUD* hpHUD = GET_HP_HUD;
+	DashCountHUD* dashHUD = GET_DASH_HUD;
+
+
+
+
+
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
@@ -185,6 +194,8 @@ void TownScene::Enter()
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
+	AddGameObject(hpHUD, hpHUD->GetType());
+	AddGameObject(dashHUD, dashHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -216,8 +227,14 @@ void TownScene::Exit()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
 
-	InventoryUI* inven = GET_UI(UI_TYPE::INVENTORY);
+	InventoryUI* inven = GET_INVENTORY_UI;
+	HPHUD* hpHUD = GET_HP_HUD;
+	DashCountHUD* dashHUD = GET_DASH_HUD;
+
+
 	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
+	SceneMgr::GetInstance().TransfortObject(hpHUD, SCENE_TYPE::DUNGEON1);
+	SceneMgr::GetInstance().TransfortObject(dashHUD, SCENE_TYPE::DUNGEON1);
 	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
 
 	//임시용 코드
