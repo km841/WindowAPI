@@ -49,9 +49,6 @@ void Dungeon1Scene::Update()
 			}
 		}
 	}
-
-
-	
 }
 
 void Dungeon1Scene::Render()

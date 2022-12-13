@@ -25,10 +25,12 @@ LaraMagicWand::LaraMagicWand()
 	info.mAtt = 10.f;
 	SetItemInfo(info);
 
-	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"ShortSword", L"Texture\\LalaMagicWand.bmp");
-	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"ShortSwordTrans", texture->GetSize());
+	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
+	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"LaraMagicWandTrans", texture->GetSize());
 	SetTexture(texture);
 	SetTransTexture(transTexture);
+
+	mSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraSkillTex", L"Texture\\LaraSkill.bmp");
 
 	HomingMissileEffect* effect = new HomingMissileEffect;
 	effect->SetOwner(Player::GetPlayer());
@@ -114,6 +116,22 @@ void LaraMagicWand::Update()
 void LaraMagicWand::Render()
 {
 	Sword::Render();
+
+	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - 150, WINDOW_HEIGHT_SIZE - 50);
+	Vec2 size = mSkillTex->GetSize();
+	
+	TransparentBlt(
+		BACK_BUF_DC,
+		(int)(pos.x - size.x / 2.f),
+		(int)(pos.y - size.y / 2.f),
+		(int)(size.x),
+		(int)(size.y),
+		mSkillTex->GetDC(),
+		0, 0,
+		(int)size.x,
+		(int)size.y,
+		RGB(255, 0, 255)
+	);
 }
 
 void LaraMagicWand::Destroy()

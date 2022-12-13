@@ -22,6 +22,8 @@ public:
 
 private:
     std::vector<MagicWandBullet*> mBullets;
+    float mTurnDelay;
+    float mAngleLimit;
 
 };
 

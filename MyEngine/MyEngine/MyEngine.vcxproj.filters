@@ -724,9 +724,6 @@
     <ClCompile Include="SceneMgr.cpp">
       <Filter>Engine\Manager\SceneMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="MyEngine.cpp">
       <Filter>Main</Filter>
     </ClCompile>
@@ -1002,6 +999,9 @@
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Engine\GameObject\MapComponent\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Engine\Scene\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

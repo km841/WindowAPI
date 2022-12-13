@@ -157,9 +157,9 @@ Player::Player()
 	{
 		mEquipItems[i] = nullptr;
 	}
-	ShortSword* shortSword = new ShortSword;
-	//LaraMagicWand* magicWand = new LaraMagicWand;
-	SetEquipItem(shortSword);
+	//ShortSword* shortSword = new ShortSword;
+	LaraMagicWand* magicWand = new LaraMagicWand;
+	SetEquipItem(magicWand);
 
 #pragma endregion
 
@@ -623,11 +623,6 @@ void Player::GroundStateUpdate()
 	{
 		InGround();
 	}
-
-
-	// 내가 그 위에 있는게 아니라면까지 체크
-	// 위에있다는건 어떻게 파악?
-	// coord좌표로 파악
 }
 
 bool Player::IsMove() const

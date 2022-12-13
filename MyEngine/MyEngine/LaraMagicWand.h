@@ -14,6 +14,6 @@ public:
     virtual void Destroy() override;
 
 private:
-
+    Texture* mSkillTex;
 };
 

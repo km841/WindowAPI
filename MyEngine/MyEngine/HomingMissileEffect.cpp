@@ -15,6 +15,7 @@
 #include "CameraMgr.h"
 
 HomingMissileEffect::HomingMissileEffect()
+	: mAngleLimit(Math::DegreeToRadian(45.f))
 {
 
 }
@@ -52,6 +53,43 @@ void HomingMissileEffect::Update()
 			bullet->SetTarget(target);
 			mBullets.push_back(bullet);
 			EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+		}
+	}
+
+	if (IS_JUST_PRESSED(KEY::Q))
+	{
+		GameObject* target =
+			SceneMgr::GetInstance().GetCurScene()->GetNearestObject(Player::GetPlayer(), OBJECT_TYPE::MONSTER);
+
+		// 발사한 방향으로 좀 날아갔다가
+		// 타겟을 향해 돌진
+
+		// 마우스위치 - 플레이어 위치
+
+		if (nullptr != target)
+		{
+			// 8방향
+			Vec2 dirArray[8] = {
+				Vec2(-1, -1),
+				Vec2(0, -1),
+				Vec2(1, -1),
+				Vec2(1, 0),
+				Vec2(1, 1),
+				Vec2(0, 1),
+				Vec2(-1, 1),
+				Vec2(-1, 0),
+			};
+
+			for (int i = 0; i < 8; ++i)
+			{
+				MagicWandBullet* bullet = new MagicWandBullet;
+				bullet->SetPos(GetPos());
+				bullet->SetInitDirVector(dirArray[i]);
+				bullet->SetTarget(target);
+				mBullets.push_back(bullet);
+				EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+			}
+
 		}
 	}
 
@@ -106,12 +144,18 @@ void HomingMissileEffect::Update()
 		Vec2 bulletPos = iter.operator*()->GetPos();
 		float bulletSpeed = iter.operator*()->GetBulletInfo().mSpeed;
 
+		Vec2 dir = iter.operator*()->GetSpeedVector();
+		if (Vec2(0.f, 0.f) == dir)
+		{
+			dir = iter.operator*()->GetInitDirVector();
+		}
+
 		if (initCurDuration < initMaxDuration)
 		{
 			// initDir 방향으로 날아가기
 			Vec2 initDir = iter.operator*()->GetInitDirVector();
 
-			iter.operator*()->SetSpeedVector(initDir * bulletSpeed);
+			iter.operator*()->SetSpeedVector(initDir);
 			bulletPos += initDir * bulletSpeed * DT;
 			initCurDuration += DT;
 			iter.operator*()->SetInitCurDuration(initCurDuration);
@@ -119,67 +163,47 @@ void HomingMissileEffect::Update()
 
 		else
 		{
-			// 선회하는 유도탄
-
-			//1. 원래 벡터
-			//2. 반시계방향 상한치 벡터
-			//3. 시계방향 상한치 벡터
-
-			// 각도가 작은 쪽이 투영 길이가 길어진다
-			// 상한 각도 5도
-			Vec2 dir = {};
-
 			Vec2 targetPos = iter.operator*()->GetTarget()->GetCollider()->GetPos();
-			//dirVec = 원래 벡터
 
-			// 원래 벡터
-			// 원래 날아가던 방향.. 있나?
-			// 벡터를 바로 곱하지 말고 가지고 있어야 함
-			Vec2 orgVec = iter.operator*()->GetSpeedVector();
+			Vec2 targetVec = targetPos - bulletPos;
 
-			// 메인 캐릭터방향 속도벡터
-			Vec2 dirVec = targetPos - bulletPos;
-			dirVec.Norm();
-			dirVec *= bulletSpeed;
+			// 각도
+			float curAngle = atan2(dir.y, dir.x);
+			float targetAngle = atan2(targetVec.y, targetVec.x);
 
-			float rad = Math::DegreeToRadian(5.f);
-			// 시계방향
 
-			// 시계방향 상한치 
-			Vec2 CW = {};
-			Vec2 CCW = {};
-			CW.x = cos(rad) * dirVec.x - sin(rad) * dirVec.y;
-			CW.y = sin(rad) * dirVec.x + cos(rad) * dirVec.y;
-			
-			if (orgVec.Dot(dirVec) >= orgVec.Dot(CW))
+
+			if (curAngle > targetAngle)
 			{
-				dir = dirVec;
-			}
-
-			else
-			{
-				CCW.x = cos(rad) * dirVec.x + sin(rad) * dirVec.y;
-				CCW.y = -sin(rad) * dirVec.x + cos(rad) * dirVec.y;
-
-				// 탄환에서 Target까지의 위치벡터
-				Vec2 tVec= CCW - targetPos;
-				
-				if (CW.Dot(tVec) >= CCW.Dot(tVec))
+				if (curAngle - targetAngle > mAngleLimit)
 				{
-					dir = CW;
+					dir = Math::RotateVector(dir, -mAngleLimit);
 				}
+
 				else
 				{
-					dir = CCW;
+					dir = Math::RotateVector(dir, Math::DegreeToRadian(-(curAngle - targetAngle)));
+				}
+
+			}
+			else if (curAngle < targetAngle)
+			{
+				if (curAngle - targetAngle > mAngleLimit)
+				{
+					dir = Math::RotateVector(dir, mAngleLimit);
+				}
+
+				else
+				{
+					dir = Math::RotateVector(dir, Math::DegreeToRadian((curAngle - targetAngle)));
 				}
 			}
 			
-			iter.operator*()->SetSpeedVector(dir);
-			bulletPos += dir * DT;
+			bulletPos += dir * bulletSpeed * DT;
 		}
 
+		iter.operator*()->SetSpeedVector(dir);
 		iter.operator*()->SetPos(bulletPos);
-
 		++iter;
 	}
 	
