@@ -19,6 +19,15 @@
 #include "Wall.h"
 #include "LockedDoor.h"
 
+Dungeon1Scene::Dungeon1Scene()
+	:mEnterFlag(false)
+{
+}
+
+Dungeon1Scene::~Dungeon1Scene()
+{
+}
+
 void Dungeon1Scene::Initialize()
 {
 	Scene::Initialize();
@@ -28,14 +37,19 @@ void Dungeon1Scene::Update()
 {
 	Scene::Update();
 
-	//Player* player = Player::GetPlayer();
-	//if (nullptr != player)
-	//{
+	// 던전 내 몬스터 개수
+	if (mEnterFlag)
+	{
+		if (mObjects[(UINT)OBJECT_TYPE::MONSTER].empty() &&
+			mObjects[(UINT)OBJECT_TYPE::EVENT_OBJECT].empty())
+		{
+			for (int i = 0; i < mObjects[(UINT)OBJECT_TYPE::DUNGEON_OBJECT].size(); ++i)
+			{
+				static_cast<LockedDoor*>(mObjects[(UINT)OBJECT_TYPE::DUNGEON_OBJECT][i])->SetClearFlag(true);
+			}
+		}
+	}
 
-	//	wchar_t szBuffer[256] = {};
-	//	swprintf_s(szBuffer, L"playerX : %f, playerY : %f", player->GetPos().x, player->GetPos().y);
-	//	SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
-	//}
 
 	
 }
@@ -119,7 +133,7 @@ void Dungeon1Scene::Enter()
 
 	LockedDoor* lockDoor4 = new LockedDoor;
 	lockDoor4->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
-	lockDoor4->SetPos(Vec2(TILE_SIZE * 47.5, (float)(GROUND_STANDARD - TILE_SIZE * 6)));
+	lockDoor4->SetPos(Vec2(TILE_SIZE * 47.5, (float)(GROUND_STANDARD - TILE_SIZE * 8)));
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
@@ -150,6 +164,7 @@ void Dungeon1Scene::Enter()
 
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
+	mEnterFlag = true;
 }
 
 void Dungeon1Scene::Exit()

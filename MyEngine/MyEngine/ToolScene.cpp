@@ -202,6 +202,11 @@ void ToolScene::Update()
 		Load();
 	}
 
+	if (IS_PRESSED(KEY::BACKSPACE))
+	{
+		EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TITLE);
+	}
+
 
 	Scene::Update();
 }
@@ -334,6 +339,8 @@ void ToolScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::UI);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+	DeleteObjGroup(OBJECT_TYPE::TILE);
+	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 
 	//DeleteObjGroup(OBJECT_TYPE::TILE);
 }

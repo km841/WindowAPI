@@ -29,6 +29,9 @@ public:
 private:
 	ANGLE_TYPE mAngleType;
 	bool	   mFlag;
-	bool	   mPlayerAbobeMe;
+	Vec2       mDir;
+
+	float	   mDelayTime;
+	
 };
 

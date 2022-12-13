@@ -10,10 +10,15 @@
 #include "Monster.h"
 #include "RigidBody.h"
 #include "Gold.h"
+#include "KeyMgr.h"
+#include "EventRegisteror.h"
+#include "Particle.h"
+#include "TimeMgr.h"
 
 
 LockedDoor::LockedDoor()
 	: mAngleType(ANGLE_TYPE::DEGREE_0_TYPE)
+	, mDelayTime(0.f)
 {
 	SetType(OBJECT_TYPE::DUNGEON_OBJECT);
 
@@ -57,6 +62,10 @@ LockedDoor::LockedDoor()
 		23
 	);
 
+	GetAnimator()->FindAnimation(L"LockedDoor_0Degree")->SetEffectAnimation(true);
+	GetAnimator()->FindAnimation(L"LockedDoor_90Degree")->SetEffectAnimation(true);
+	GetAnimator()->FindAnimation(L"LockedDoor_270Degree")->SetEffectAnimation(true);
+
 
 }
 
@@ -72,11 +81,27 @@ void LockedDoor::Initialize()
 
 void LockedDoor::Update()
 {
+	//if (IS_PRESSED(KEY::G))
+	//{
+	//	mFlag = true;
+	//}
+
 	Animation* curAnim = GetAnimator()->GetCurAnimation();
 	if (nullptr != curAnim)
 	{
 		switch (mAngleType)
 		{
+		case ANGLE_TYPE::DEGREE_180_TYPE:
+		{
+			if (L"LockedDoor_0Degree" == curAnim->GetName())
+			{
+				GetAnimator()->SelectAnimation(L"LockedDoor_0Degree", false);
+				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
+				GetCollider()->SetSize(size);
+
+				mDir = Vec2(0, 1);
+			}
+		}
 		case ANGLE_TYPE::DEGREE_0_TYPE:
 		{
 			if (L"LockedDoor_0Degree" == curAnim->GetName())
@@ -84,7 +109,8 @@ void LockedDoor::Update()
 				GetAnimator()->SelectAnimation(L"LockedDoor_0Degree", false);
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
-				GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+				mDir = Vec2(0, -1);
 			}
 		}
 			break;
@@ -95,7 +121,8 @@ void LockedDoor::Update()
 				GetAnimator()->SelectAnimation(L"LockedDoor_90Degree", false);
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
-				GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+				mDir = Vec2(-1, 0);
 			}
 		}
 			break;
@@ -106,7 +133,8 @@ void LockedDoor::Update()
 				GetAnimator()->SelectAnimation(L"LockedDoor_270Degree", false);
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
-				GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+				mDir = Vec2(1, 0);
 			}
 		}
 			break;
@@ -117,12 +145,22 @@ void LockedDoor::Update()
 	{
 		switch (mAngleType)
 		{
+		case ANGLE_TYPE::DEGREE_180_TYPE:
+		{
+			GetAnimator()->SelectAnimation(L"LockedDoor_0Degree", false);
+			Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
+			GetCollider()->SetSize(size);
+
+			mDir = Vec2(0, 1);
+		}
+		break;
 		case ANGLE_TYPE::DEGREE_0_TYPE:
 		{
 			GetAnimator()->SelectAnimation(L"LockedDoor_0Degree", false);
 			Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 			GetCollider()->SetSize(size);
-			GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+			mDir = Vec2(0, -1);
 		}
 			break;
 		case ANGLE_TYPE::DEGREE_90_TYPE:
@@ -130,7 +168,8 @@ void LockedDoor::Update()
 			GetAnimator()->SelectAnimation(L"LockedDoor_90Degree", false);
 			Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 			GetCollider()->SetSize(size);
-			GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+			mDir = Vec2(-1, 0);
 		}
 			break;
 		case ANGLE_TYPE::DEGREE_270_TYPE:
@@ -138,7 +177,8 @@ void LockedDoor::Update()
 			GetAnimator()->SelectAnimation(L"LockedDoor_270Degree", false);
 			Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 			GetCollider()->SetSize(size);
-			GetCollider()->SetOffset(Vec2(0.f, -(size.y / 2.f)));
+
+			mDir = Vec2(1, 0);
 		}
 			break;
 		}
@@ -156,29 +196,46 @@ void LockedDoor::Update()
 		}
 	}
 
-	Player* player = Player::GetPlayer();
-
-	if (nullptr != player)
+	else
 	{
-		Vec2 playerColPos = player->GetCollider()->GetPos();
-		Vec2 playerTilePos = CameraMgr::GetInstance().GetTileCoord(playerColPos);
-		Vec2 myTilePos = CameraMgr::GetInstance().GetTileCoord(GetPos());
-
-		Vec2 topTilePos = Vec2(myTilePos.x, myTilePos.y - TILE_SIZE);
-		if (playerTilePos == topTilePos)
+		if (GetAnimator()->GetCurAnimation()->IsFinished())
 		{
-			mPlayerAbobeMe = true;
+			GetCollider()->SetEnable(false);
+			// 애니메이션 변경
+			//EventRegisteror::GetInstance().DeleteObject(this);
+		}
+
+		// 범위 n부터 n까지 랜덤으로 파티클 소환
+		// 내 범위와 방향, 속도
+		// 범위
+		if (mDelayTime > 0.05f)
+		{
+			mDelayTime = 0.f;
+			Vec2 pos = GetPos();
+			Vec2 size = GetCollider()->GetSize();
+
+			Vec2 ltPos = pos - size / 2.f;
+			float rand_x = ltPos.x + (rand() % (int)(size.x));
+			float rand_y = ltPos.y + (rand() % (int)(size.y));
+
+			Particle* particle = new Particle;
+			particle->SetPos(Vec2(rand_x, rand_y));
+			particle->SetDir(mDir);
+
+			EventRegisteror::GetInstance().CreateObject(particle, particle->GetType());
 		}
 		else
-			mPlayerAbobeMe = false;
+		{
+			mDelayTime += DT;
+		}
+
 	}
+
 	GameObject::Update();
 }
 
 void LockedDoor::Render()
 {
-	Vec2 pos = RENDER_POS(GetPos());
-
 	GameObject::Render();
 }
 

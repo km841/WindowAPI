@@ -57,6 +57,15 @@ void UIMgr::Destroy()
 			mUIMap[(UI_TYPE)i] = nullptr;
 		}
 	}
+
+	for (int i = 0; i < (UINT)HUD_TYPE::END; ++i)
+	{
+		if (nullptr != mHUDMap[(HUD_TYPE)i])
+		{
+			delete mHUDMap[(HUD_TYPE)i];
+			mHUDMap[(HUD_TYPE)i] = nullptr;
+		}
+	}
 }
 
 

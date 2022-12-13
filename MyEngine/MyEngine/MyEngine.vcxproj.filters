@@ -386,6 +386,9 @@
     <Filter Include="Engine\GameObject\MapComponent\LockedDoor">
       <UniqueIdentifier>{927db868-6f6e-4af5-bd0d-4a2039d4dc05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Particle">
+      <UniqueIdentifier>{3b39ce53-91cf-425d-a604-302e76200748}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -687,6 +690,9 @@
     </ClInclude>
     <ClInclude Include="LockedDoor.h">
       <Filter>Engine\GameObject\MapComponent\LockedDoor</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Engine\GameObject\MapComponent\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -993,6 +999,9 @@
     </ClCompile>
     <ClCompile Include="LockedDoor.cpp">
       <Filter>Engine\GameObject\MapComponent\LockedDoor</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Engine\GameObject\MapComponent\Particle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

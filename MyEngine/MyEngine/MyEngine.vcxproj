@@ -203,6 +203,7 @@
     <ClInclude Include="MonsterTraceState.h" />
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
     <ClInclude Include="RedGiantBat.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
     <ClCompile Include="RedGiantBat.cpp" />

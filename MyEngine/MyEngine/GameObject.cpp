@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "RigidBody.h"
+#include "KeyMgr.h"
 
 GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
@@ -81,8 +82,12 @@ void GameObject::Update()
 void GameObject::Render()
 {
 
-	if (nullptr != GetCollider())
-		GetCollider()->Render();
+	if (IS_PRESSED(KEY::E))
+	{
+		if (nullptr != GetCollider())
+			GetCollider()->Render();
+	}
+
 
 	if (nullptr != GetAnimator())
 		GetAnimator()->Render();

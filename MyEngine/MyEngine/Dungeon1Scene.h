@@ -4,6 +4,10 @@ class Dungeon1Scene :
     public Scene
 {
 public:
+	Dungeon1Scene();
+	virtual ~Dungeon1Scene();
+
+public:
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Render();
@@ -14,6 +18,6 @@ public:
 	virtual void Exit();
 
 private:
-
+	bool mEnterFlag;
 };
 
