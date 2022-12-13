@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "InventoryUI.h"
 #include "UIMgr.h"
+#include "SceneMgr.h"
+#include "ToolScene.h"
 
 #define MAX_LOADSTRING 100
 
@@ -116,6 +118,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -123,6 +127,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
+            int a = 0;
 
             switch (wmId)
             {
@@ -132,6 +137,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+
+            case (int)ID::WALL:
+            {
+                CheckMenuRadioItem(APP_INSTANCE.GetColMenuHandle(), 0, 2, 0, MF_BYPOSITION);
+                static_cast<ToolScene*>(SceneMgr::GetInstance().GetCurScene())->SetTileType(TILE_TYPE::WALL);
+            }
+                break;
+
+            case (int)ID::FOOTHOLD:
+            {
+                CheckMenuRadioItem(APP_INSTANCE.GetColMenuHandle(), 0, 2, 1, MF_BYPOSITION);
+                static_cast<ToolScene*>(SceneMgr::GetInstance().GetCurScene())->SetTileType(TILE_TYPE::FOOTHOLD);
+            }
+                break;
+
+            case (int)ID::EMPTY:
+            {
+                CheckMenuRadioItem(APP_INSTANCE.GetColMenuHandle(), 0, 2, 2, MF_BYPOSITION);
+                static_cast<ToolScene*>(SceneMgr::GetInstance().GetCurScene())->SetTileType(TILE_TYPE::NONE);
+            }
+                break;
+
+            case (int)ID::BACKGROUND:
+            {
+                CheckMenuRadioItem(APP_INSTANCE.GetTypeMenuHandle(), 0, 1, 0, MF_BYPOSITION);
+                static_cast<ToolScene*>(SceneMgr::GetInstance().GetCurScene())->SetObjectType(OBJECT_TYPE::TILE_BG);
+            }
+                break;
+
+            case (int)ID::SURFACE:
+            {
+                CheckMenuRadioItem(APP_INSTANCE.GetTypeMenuHandle(), 0, 1, 1, MF_BYPOSITION);
+                static_cast<ToolScene*>(SceneMgr::GetInstance().GetCurScene())->SetObjectType(OBJECT_TYPE::TILE);
+            }
+                break;
+
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }

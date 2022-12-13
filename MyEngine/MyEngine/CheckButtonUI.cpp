@@ -3,8 +3,6 @@
 #include "MouseMgr.h"
 #include "Texture.h"
 
-CheckButtonUI* CheckButtonUI::Checked_ColType = nullptr;
-CheckButtonUI* CheckButtonUI::Checked_TileType = nullptr;
 CheckButtonUI::CheckButtonUI()
 {
 	mCheckType = CHECK_TYPE::NONE;
@@ -34,12 +32,11 @@ void CheckButtonUI::Update()
 			switch (mCheckType)
 			{
 			case CHECK_TYPE::TILE:
-				Checked_TileType = this;
 				break;
 
 
 			case CHECK_TYPE::COLLISION:
-				Checked_ColType = this;
+
 				break;
 			}
 			
@@ -63,32 +60,32 @@ void CheckButtonUI::Render()
 
 	TextureInfo curInfo = {};
 	
-	if (CHECK_TYPE::COLLISION == mCheckType)
-	{
-		if (Checked_ColType == this)
-		{
-			curInfo = mStates[(UINT)ButtonState::CHECKED];
-		}
-		else
-		{
-			curInfo = mStates[(UINT)ButtonState::NONE];
-		}
-	}
+	//if (CHECK_TYPE::COLLISION == mCheckType)
+	//{
+	//	if (Checked_ColType == this)
+	//	{
+	//		curInfo = mStates[(UINT)ButtonState::CHECKED];
+	//	}
+	//	else
+	//	{
+	//		curInfo = mStates[(UINT)ButtonState::NONE];
+	//	}
+	//}
 
-	else if (CHECK_TYPE::TILE == mCheckType)
-	{
-		if (Checked_TileType == this)
-		{
-			curInfo = mStates[(UINT)ButtonState::CHECKED];
-		}
-		else
-		{
-			curInfo = mStates[(UINT)ButtonState::NONE];
-		}
-	}
+	//else if (CHECK_TYPE::TILE == mCheckType)
+	//{
+	//	if (Checked_TileType == this)
+	//	{
+	//		curInfo = mStates[(UINT)ButtonState::CHECKED];
+	//	}
+	//	else
+	//	{
+	//		curInfo = mStates[(UINT)ButtonState::NONE];
+	//	}
+	//}
 
-	else
-		return;
+	//else
+	//	return;
 
 
 	TransparentBlt(BACK_BUF_DC,

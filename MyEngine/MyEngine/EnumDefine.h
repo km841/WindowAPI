@@ -251,3 +251,14 @@ enum class PLAYER_CHARACTER
 	END
 };
 
+enum class ID
+{
+	WALL,
+	FOOTHOLD,
+	EMPTY,
+	BACKGROUND,
+	SURFACE,
+};
+
+
+

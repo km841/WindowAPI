@@ -72,6 +72,10 @@ struct WindowData
 	HDC			 hMainDC;
 	HDC			 hBackBufDC;
 	HBITMAP		 hBackBufBit;
+
+	HMENU		 hMainMemu;
+	HMENU		 hColMenu;
+	HMENU		 hTypeMenu;
 };
 
 struct Pen

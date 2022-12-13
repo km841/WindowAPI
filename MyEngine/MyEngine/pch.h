@@ -79,4 +79,6 @@ constexpr auto GROUND_STANDARD = TILE_SIZE * 24;
 
 constexpr auto HIT_MAX = 6;
 
+constexpr auto INDEX_OFFSET = 3;
+
 

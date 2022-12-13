@@ -21,6 +21,9 @@ public:
 	inline UINT GetHeight() const { return mWinData.iHeight; }
 	inline Vec2 GetResolution() const { return Vec2((float)(mWinData.iWidth), (float)(mWinData.iHeight)); }
 	inline HWND GetHwnd() const { return mWinData.hWnd; }
+	inline HMENU GetMainMenuHandle() const { return mWinData.hMainMemu; }
+	inline HMENU GetColMenuHandle() const { return mWinData.hColMenu; }
+	inline HMENU GetTypeMenuHandle() const { return mWinData.hTypeMenu; }
 
 private:
 	WindowData mWinData;

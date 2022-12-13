@@ -40,7 +40,28 @@ void Application::WindowInit(const WindowData& _winData)
 	DeleteObject(oldBit);
 
 	RECT rect = { 0, 0, static_cast<LONG>(mWinData.iWidth), static_cast<LONG>(mWinData.iHeight) };
-	
+
+	mWinData.hMainMemu = CreateMenu();
+	HMENU hParentMenu = CreateMenu();
+	mWinData.hColMenu = CreateMenu();
+	mWinData.hTypeMenu = CreateMenu();
+
+	AppendMenu(mWinData.hMainMemu, MF_POPUP, (UINT_PTR)hParentMenu, L"Tool Option");
+
+	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hColMenu, L"Tile Collision");
+	AppendMenu(mWinData.hColMenu,	MFT_RADIOCHECK, (UINT_PTR)ID::WALL, L"Wall");
+	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::FOOTHOLD, L"Foothold");
+	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::EMPTY, L"Empty");
+
+	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hTypeMenu, L"Tile Type");
+	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::BACKGROUND, L"Background");
+	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::SURFACE, L"Surface");
+
+	//SetMenu(mWinData.hWnd, mWinData.hMainMemu);
+	CheckMenuRadioItem(mWinData.hColMenu, 0, 2, 2, MF_BYPOSITION);
+	CheckMenuRadioItem(mWinData.hTypeMenu, 0, 1, 0, MF_BYPOSITION);
+
+
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 	SetWindowPos(mWinData.hWnd, NULL, 0, 0, rect.right, rect.bottom, NULL);
 
@@ -57,6 +78,9 @@ void Application::WindowInit(const WindowData& _winData)
 
 	mWinData.iWidth = rect.right;
 	mWinData.iHeight = rect.bottom;
+
+
+
 
 	srand(static_cast<UINT>(time(nullptr)));
 }

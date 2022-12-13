@@ -7,6 +7,10 @@ class ToolScene :
 	public Scene
 {
 public:
+	ToolScene();
+	virtual ~ToolScene();
+
+public:
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Render();
@@ -22,6 +26,10 @@ public:
 	void    CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount);
 
 public:
+	inline void SetObjectType(OBJECT_TYPE _objType) { mCheckedObjectType = _objType; }
+	inline void SetTileType(TILE_TYPE _tileType) { mCheckedTileType = _tileType; }
+
+public:
 	void GuideCircle();
 
 public:
@@ -31,5 +39,9 @@ public:
 private:
 	BLENDFUNCTION   mBlendFunc;
 	CheckButtonUI*  mNoneCheckBtn;
+
+	OBJECT_TYPE     mCheckedObjectType;
+	TILE_TYPE	    mCheckedTileType;
+
 
 };

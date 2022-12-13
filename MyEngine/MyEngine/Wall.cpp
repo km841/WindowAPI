@@ -95,13 +95,8 @@ void Wall::OnCollision(Collider* _other)
 				sign = -sign;
 			}
 
-			if (2.f < diff_x)
-			{
-				otherObjPos.x += (diff_x + 1) * sign;
-				otherPos.x += (diff_x + 1) * sign;
-			}
-
-
+			otherObjPos.x += (diff_x + 1) * sign;
+			otherPos.x += (diff_x + 1) * sign;
 		}
 
 		else
