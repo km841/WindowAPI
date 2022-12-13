@@ -49,6 +49,7 @@ enum class OBJECT_TYPE
 	TILE,
 	NPC,
 	DROP_GOLD,
+	DUNGEON_OBJECT,
 	EVENT_OBJECT,
 	MONSTER,
 	PLAYER,
@@ -260,5 +261,10 @@ enum class ID
 	SURFACE,
 };
 
-
+enum class ANGLE_TYPE
+{
+	DEGREE_0_TYPE,
+	DEGREE_90_TYPE,
+	DEGREE_270_TYPE,
+};
 

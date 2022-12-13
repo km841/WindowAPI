@@ -10,6 +10,8 @@ public:
 	Tile();
 	virtual ~Tile();
 
+	Tile(Tile&& _other);
+
 public:
 	virtual void Initialize();
 	virtual void Update();

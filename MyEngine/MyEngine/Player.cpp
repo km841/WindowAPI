@@ -604,8 +604,13 @@ void Player::GroundStateUpdate()
 			if (GetPos() < relations[i].mOther->GetPos() && 
 				OBJECT_TYPE::WALL == relations[i].mOther->GetType())
 			{
-				playerUnder = true;
+				//playerUnder = true;
 			}
+		}
+
+		if (OBJECT_TYPE::DUNGEON_OBJECT == relations[i].mOther->GetType())
+		{
+			isGround = true;
 		}
 	}
 

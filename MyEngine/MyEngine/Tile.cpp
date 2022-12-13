@@ -30,6 +30,16 @@ Tile::~Tile()
 
 }
 
+Tile::Tile(Tile&& _other)
+	: mCollisionComponent(_other.mCollisionComponent)
+	, mTileType(_other.mTileType)
+	, mTileLT(_other.mTileLT)
+	, GameObject(std::move(_other))
+{
+	_other.mCollisionComponent = nullptr;
+	
+}
+
 void Tile::Initialize()
 {
 	//GetCollider()->SetPos(GetPos());

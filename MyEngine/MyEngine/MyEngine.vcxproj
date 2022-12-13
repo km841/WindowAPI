@@ -186,6 +186,7 @@
     <ClInclude Include="JumpState.h" />
     <ClInclude Include="LaraMagicWand.h" />
     <ClInclude Include="LineCollider.h" />
+    <ClInclude Include="LockedDoor.h" />
     <ClInclude Include="MagicWandBullet.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttState.h" />
@@ -286,6 +287,7 @@
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="LaraMagicWand.cpp" />
     <ClCompile Include="LineCollider.cpp" />
+    <ClCompile Include="LockedDoor.cpp" />
     <ClCompile Include="MagicWandBullet.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttState.cpp" />

@@ -383,6 +383,9 @@
     <Filter Include="Engine\GameObject\HUD\Base">
       <UniqueIdentifier>{e90579e3-d4e6-418c-8a28-99f3569cd4f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\LockedDoor">
+      <UniqueIdentifier>{927db868-6f6e-4af5-bd0d-4a2039d4dc05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -681,6 +684,9 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Engine\GameObject\HUD\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LockedDoor.h">
+      <Filter>Engine\GameObject\MapComponent\LockedDoor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -984,6 +990,9 @@
     </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Engine\GameObject\HUD\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LockedDoor.cpp">
+      <Filter>Engine\GameObject\MapComponent\LockedDoor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

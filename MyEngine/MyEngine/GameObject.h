@@ -36,9 +36,11 @@ public:
 	virtual ~GameObject();
 
 	GameObject(const GameObject& _other);
+	GameObject(GameObject&& _other) = default;
 	
 public:
 	GameObject& operator= (const GameObject& _other);
+
 
 public:
 	virtual void Initialize();

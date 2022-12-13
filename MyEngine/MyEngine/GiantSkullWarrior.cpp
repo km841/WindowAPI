@@ -124,16 +124,8 @@ void GiantSkullWarrior::Initialize()
 
 void GiantSkullWarrior::Update()
 {
+	GroundStateUpdate();
 	Monster::Update();
-	
-	//Vec2 pos = GetPos();
-
-	//wchar_t buf[COMMENT_MAX_SIZE] = {};
-	//swprintf_s(buf, L"x: %f, y:%f", pos.x, pos.y);
-
-	//pos.y -= 100;
-	//Vec2 renderPos = RENDER_POS(pos);
-	//TextOut(BACK_BUF_DC, 100, 500, buf, wcslen(buf));
 
 }
 
@@ -141,15 +133,53 @@ void GiantSkullWarrior::Render()
 {
 	Monster::Render();
 
-	//wchar_t hpComment[COMMENT_MAX_SIZE] = {};
-	//swprintf_s(hpComment, L"hp: %f", mInfo.mCurHP);
-	//TextOut(BACK_BUF_DC, 10, 170, hpComment, (int)wcslen(hpComment));
-
 }
 
 void GiantSkullWarrior::Destroy()
 {
 	Monster::Destroy();
+}
+
+void GiantSkullWarrior::GroundStateUpdate()
+{
+	const std::vector<Relation>& relations = GetRelations();
+	bool isGround = false;
+
+	bool playerUnder = false;
+	for (int i = 0; i < relations.size(); ++i)
+	{
+		if (OBJECT_TYPE::WALL == relations[i].mOther->GetType() ||
+			OBJECT_TYPE::FOOTHOLD == relations[i].mOther->GetType())
+		{
+			// 위에 있는가? 까지 체크
+			Vec2 pos = CameraMgr::GetInstance().GetTileCoord(GetPos());
+			Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(relations[i].mOther->GetPos());
+
+
+			COLLISION_TYPE colType = relations[i].mOther->GetCollider()->GetColliderType();
+			if (pos == tilePos || COLLISION_TYPE::LINE == colType)
+				isGround = true;
+
+			// Wall인데 플레이어 y보다 더 큰 경우
+
+			if (GetPos() < relations[i].mOther->GetPos() &&
+				OBJECT_TYPE::WALL == relations[i].mOther->GetType())
+			{
+				//playerUnder = true;
+			}
+		}
+
+		if (OBJECT_TYPE::DUNGEON_OBJECT == relations[i].mOther->GetType())
+		{
+			isGround = true;
+		}
+	}
+
+	if (!isGround)
+	{
+		SetGround(false);
+	}
+
 }
 
 void GiantSkullWarrior::OnCollision(Collider* _other)

@@ -225,9 +225,8 @@ void Wall::OnCollisionEnter(Collider* _other)
 			
 			
 		}
-		if (0 == _other->GetColCnt())
-			static_cast<Player*>(_other->GetOwner())->InGround();
-		// 좌우로 붙은게 아니라면
+		//if (0 == _other->GetColCnt())
+		//	static_cast<Player*>(_other->GetOwner())->InGround();
 		
 	}
 

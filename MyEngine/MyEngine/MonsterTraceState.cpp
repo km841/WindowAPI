@@ -64,14 +64,6 @@ void MonsterTraceState::Update()
 			EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::ATTACK);
 		}
 
-
-		
-
-
-
-
-
-
 		dir = monster->GetDir();
 
 		if (monster->GetPrevDir() != dir)

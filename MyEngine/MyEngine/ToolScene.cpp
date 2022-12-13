@@ -422,16 +422,16 @@ void ToolScene::Save()
 		std::vector<GameObject*>& tileGroup = mObjects[(UINT)OBJECT_TYPE::TILE];
 		std::vector<GameObject*>& bgTileGroup = mObjects[(UINT)OBJECT_TYPE::TILE_BG];
 
-		for (int i = 0; i < bgTileGroup.size(); ++i)
-		{
-			tileGroup.push_back(bgTileGroup[i]);
-		}
+		std::vector<GameObject*> tileTotalGroup;
+		tileTotalGroup.reserve(tileGroup.size() + bgTileGroup.size());
+		tileTotalGroup.insert(tileTotalGroup.end(), tileGroup.begin(), tileGroup.end());
+		tileTotalGroup.insert(tileTotalGroup.end(), bgTileGroup.begin(), bgTileGroup.end());
 		
-		size_t tileSize = tileGroup.size();
+		size_t tileSize = tileTotalGroup.size();
 
 		fwrite(&tileSize, sizeof(size_t), 1, fp);
 		
-		for (const auto& tile : tileGroup)
+		for (const auto& tile : tileTotalGroup)
 		{
 			static_cast<Tile*>(tile)->Save(fp);
 		}

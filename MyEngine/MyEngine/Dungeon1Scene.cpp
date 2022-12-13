@@ -17,6 +17,7 @@
 #include "RedGiantBatSpawnEvent.h"
 #include "EventMgr.h"
 #include "Wall.h"
+#include "LockedDoor.h"
 
 void Dungeon1Scene::Initialize()
 {
@@ -104,25 +105,39 @@ void Dungeon1Scene::Enter()
 	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD-TILE_SIZE * 6));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
+	LockedDoor* lockDoor1 = new LockedDoor;
+	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
+	lockDoor1->SetPos(Vec2(TILE_SIZE * 18, GROUND_STANDARD + (TILE_SIZE * 2)));
 
+	LockedDoor* lockDoor2 = new LockedDoor;
+	lockDoor2->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
+	lockDoor2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD + (TILE_SIZE * 2)));
 
-	//Monster* skull2 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(GROUND_STANDARD, TILE_SIZE * 15));
-	//Monster* skull3 = MonsterFactory::CreateMonster<GiantSkullWarrior>(MONSTER_TYPE::MELEE, Vec2(TILE_SIZE * 25, TILE_SIZE * 15));
+	LockedDoor* lockDoor3 = new LockedDoor;
+	lockDoor3->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
+	lockDoor3->SetPos(Vec2(TILE_SIZE * 26, GROUND_STANDARD + (TILE_SIZE * 2)));
+
+	LockedDoor* lockDoor4 = new LockedDoor;
+	lockDoor4->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
+	lockDoor4->SetPos(Vec2(TILE_SIZE * 47.5, (float)(GROUND_STANDARD - TILE_SIZE * 6)));
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
-
-
-	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull2, skull2->GetType());
-	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(skull3, skull3->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor3, lockDoor3->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor4, lockDoor4->GetType());
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DUNGEON_OBJECT);
+
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_GOLD, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_GOLD, OBJECT_TYPE::FOOTHOLD);
+
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MISSILE_FROM_MONSTER, OBJECT_TYPE::WALL);
@@ -142,6 +157,7 @@ void Dungeon1Scene::Exit()
 	ShowCursor(true);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DUNGEON_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_GOLD, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DROP_GOLD, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
