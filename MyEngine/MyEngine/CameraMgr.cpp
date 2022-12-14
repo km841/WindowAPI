@@ -22,6 +22,13 @@ void CameraMgr::Initialize()
 
 	mCurEffect = {};
 	mCurEffect.mEffect = CAMERA_EFFECT::END;
+
+	mCamLimitRect.left = 0;
+	mCamLimitRect.top = 0;
+	mCamLimitRect.right = WINDOW_WIDTH_SIZE * 10;
+	mCamLimitRect.bottom = WINDOW_HEIGHT_SIZE * 10;
+
+	mBottomLimit = TILE_SIZE * 27;
 }
 
 void CameraMgr::Update()
@@ -58,11 +65,14 @@ void CameraMgr::Update()
 		if (mLookPos.x - WINDOW_WIDTH_SIZE / 2.f < 0.f)
 			mLookPos.x = WINDOW_WIDTH_SIZE / 2.f;
 
+		if (mLookPos.x + WINDOW_WIDTH_SIZE / 2.f > mCamLimitRect.right)
+			mLookPos.x = mCamLimitRect.right - WINDOW_WIDTH_SIZE /2.f;
+
 		if (mLookPos.y - WINDOW_HEIGHT_SIZE / 2.f < 0.f)
 			mLookPos.y = WINDOW_HEIGHT_SIZE / 2.f;
 
-		if (mLookPos.y + WINDOW_HEIGHT_SIZE / 2.f > BOTTOM_LIMIT)
-			mLookPos.y = BOTTOM_LIMIT - (WINDOW_HEIGHT_SIZE / 2.f);
+		if (mLookPos.y + WINDOW_HEIGHT_SIZE / 2.f > mCamLimitRect.bottom)
+			mLookPos.y = mCamLimitRect.bottom - WINDOW_HEIGHT_SIZE / 2.f;
 	}
 
 	if (mCamEffects.empty())
@@ -169,7 +179,10 @@ Vec2 CameraMgr::GetIconUIPos(Vec2 _uiPos, int _index) const
 bool CameraMgr::OutOfScreen(Vec2 _pos)
 {
 	Vec2 pos = GetRenderPos(_pos);
-	if (pos.x < -100.f || pos.y < -100.f || pos.x > WINDOW_WIDTH_SIZE + 100.f || pos.y > WINDOW_HEIGHT_SIZE + 100.f)
+	if (pos.x < -100.f ||
+		pos.y < -100.f ||
+		pos.x > mCamLimitRect.right + 100.f || 
+		pos.y > mCamLimitRect.bottom + 100.f)
 		return true;
 
 	return false;

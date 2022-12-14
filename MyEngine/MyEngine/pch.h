@@ -42,6 +42,7 @@
 #define ZERO_VECTOR Math::ZeroVector()
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY
+#define BOTTOM_LIMIT CameraMgr::GetInstance().GetBottomLimit()
 
 
 
@@ -70,7 +71,6 @@ constexpr auto IMAGE_TILE_SIZE_X = 16;
 constexpr auto IMAGE_TILE_SIZE_Y = 16;
 constexpr auto TILE_SIZE = 48;
 constexpr auto TIMES = 3.f;
-constexpr auto BOTTOM_LIMIT = TILE_SIZE * 27;
 constexpr auto AFTER_IMAGE_TOTAL = 4;
 constexpr auto COMMENT_MAX_SIZE = 256;
 constexpr auto TILE_OFFSET = TILE_SIZE / 2.f;

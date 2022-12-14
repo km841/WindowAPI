@@ -598,14 +598,6 @@ void Player::GroundStateUpdate()
 			COLLISION_TYPE colType = relations[i].mOther->GetCollider()->GetColliderType();
 			if (pos == tilePos || COLLISION_TYPE::LINE == colType)
 				isGround = true;
-
-			// Wall인데 플레이어 y보다 더 큰 경우
-			
-			if (GetPos() < relations[i].mOther->GetPos() && 
-				OBJECT_TYPE::WALL == relations[i].mOther->GetType())
-			{
-				//playerUnder = true;
-			}
 		}
 
 		if (OBJECT_TYPE::DUNGEON_OBJECT == relations[i].mOther->GetType())
@@ -618,12 +610,8 @@ void Player::GroundStateUpdate()
 	{
 		SetGround(false);
 	}
-
-	if (PlayerState::Jump == mState && playerUnder)
-	{
-		InGround();
-	}
 }
+
 
 bool Player::IsMove() const
 {

@@ -40,9 +40,16 @@ public:
     Vec2 GetTileCoord(Vec2 _tilePos) const;
     Vec2 GetIconUIPos(Vec2 _uiPos, int _index) const;
 
+    inline void SetCameraLimitRect(RECT _rect) { mCamLimitRect = _rect; }
+    inline RECT GetCameraLimitRect() const { return mCamLimitRect; }
+
+
     inline bool IsEffectProgress() { return !mCamEffects.empty(); }
 
     bool OutOfScreen(Vec2 _pos);
+
+    inline void SetBottomLimit(int _limit) { mBottomLimit = _limit; }
+    inline int GetBottomLimit() const { return mBottomLimit; }
 
 public:
     void WorldToScreenCalc();
@@ -56,6 +63,7 @@ private:
     Vec2                    mDistance;   
     float                   mAccTime;
     GameObject*             mObject;
+    RECT                    mCamLimitRect;
 
 
 private:
@@ -66,5 +74,7 @@ private:
 
     std::list<CameraEffect> mCamEffects;
     CameraEffect            mCurEffect;
+
+    int                   mBottomLimit;
 };
 

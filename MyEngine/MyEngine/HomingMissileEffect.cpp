@@ -15,7 +15,7 @@
 #include "CameraMgr.h"
 
 HomingMissileEffect::HomingMissileEffect()
-	: mAngleLimit(Math::DegreeToRadian(45.f))
+	: mAngleLimit(Math::DegreeToRadian(3.f))
 {
 
 }
@@ -166,38 +166,54 @@ void HomingMissileEffect::Update()
 			Vec2 targetPos = iter.operator*()->GetTarget()->GetCollider()->GetPos();
 
 			Vec2 targetVec = targetPos - bulletPos;
+			
 
 			// °¢µµ
 			float curAngle = atan2(dir.y, dir.x);
 			float targetAngle = atan2(targetVec.y, targetVec.x);
+			float distance = targetVec.Len();
 
+			float limit = mAngleLimit;
 
-
-			if (curAngle > targetAngle)
+			if (distance > WINDOW_WIDTH_SIZE * 0.75f)
 			{
-				if (curAngle - targetAngle > mAngleLimit)
+				targetVec.Norm();
+				dir = targetVec;
+			}
+
+			else if (curAngle > targetAngle)
+			{
+				if (curAngle - targetAngle > limit)
 				{
-					dir = Math::RotateVector(dir, -mAngleLimit);
+					dir = Math::RotateVector(dir, -limit);
 				}
 
 				else
 				{
-					dir = Math::RotateVector(dir, Math::DegreeToRadian(-(curAngle - targetAngle)));
+					dir = Math::RotateVector(dir, -(curAngle - targetAngle));
 				}
 
 			}
 			else if (curAngle < targetAngle)
 			{
-				if (curAngle - targetAngle > mAngleLimit)
+				if (targetAngle - curAngle > limit)
 				{
-					dir = Math::RotateVector(dir, mAngleLimit);
+					dir = Math::RotateVector(dir, limit);
 				}
 
 				else
 				{
-					dir = Math::RotateVector(dir, Math::DegreeToRadian((curAngle - targetAngle)));
+					dir = Math::RotateVector(dir, (targetAngle - curAngle));
 				}
 			}
+
+
+		
+
+
+			
+
+
 			
 			bulletPos += dir * bulletSpeed * DT;
 		}

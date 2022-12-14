@@ -71,9 +71,11 @@ void TownScene::Destroy()
 
 void TownScene::Enter()
 {
+
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
+	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 100, BOTTOM_LIMIT });
 
 	Load(L"..\\Resource\\Map\\map6.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");

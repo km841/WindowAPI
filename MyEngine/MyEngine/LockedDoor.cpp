@@ -14,6 +14,7 @@
 #include "EventRegisteror.h"
 #include "Particle.h"
 #include "TimeMgr.h"
+#include "CollisionMgr.h"
 
 
 LockedDoor::LockedDoor()
@@ -201,32 +202,41 @@ void LockedDoor::Update()
 		if (GetAnimator()->GetCurAnimation()->IsFinished())
 		{
 			GetCollider()->SetEnable(false);
+			// 충돌 해제
+			// 
+
+			const std::vector<Relation> rels = GetRelations();
+			for (auto& rel : rels)
+			{
+				CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), rel.mOther->GetCollider());
+				if (OBJECT_TYPE::PLAYER == rel.mOther->GetType())
+				{
+					Player::GetPlayer()->OutGround();
+				}
+			}
+
+			if (mDelayTime > 0.05f)
+			{
+				mDelayTime = 0.f;
+				Vec2 pos = GetPos();
+				Vec2 size = GetCollider()->GetSize();
+
+				Vec2 ltPos = pos - size / 2.f;
+				float rand_x = ltPos.x + (rand() % (int)(size.x));
+				float rand_y = ltPos.y + (rand() % (int)(size.y));
+
+				Particle* particle = new Particle;
+				particle->SetPos(Vec2(rand_x, rand_y));
+				particle->SetDir(mDir);
+
+				EventRegisteror::GetInstance().CreateObject(particle, particle->GetType());
+			}
+			else
+			{
+				mDelayTime += DT;
+			}
 			// 애니메이션 변경
 			//EventRegisteror::GetInstance().DeleteObject(this);
-		}
-
-		// 범위 n부터 n까지 랜덤으로 파티클 소환
-		// 내 범위와 방향, 속도
-		// 범위
-		if (mDelayTime > 0.05f)
-		{
-			mDelayTime = 0.f;
-			Vec2 pos = GetPos();
-			Vec2 size = GetCollider()->GetSize();
-
-			Vec2 ltPos = pos - size / 2.f;
-			float rand_x = ltPos.x + (rand() % (int)(size.x));
-			float rand_y = ltPos.y + (rand() % (int)(size.y));
-
-			Particle* particle = new Particle;
-			particle->SetPos(Vec2(rand_x, rand_y));
-			particle->SetDir(mDir);
-
-			EventRegisteror::GetInstance().CreateObject(particle, particle->GetType());
-		}
-		else
-		{
-			mDelayTime += DT;
 		}
 
 	}
