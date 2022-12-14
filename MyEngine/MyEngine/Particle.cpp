@@ -27,6 +27,9 @@ Particle::Particle()
 	mParticles.push_back(size_3_particle);
 	mParticles.push_back(size_5_particle);
 	mParticles.push_back(size_7_particle);
+
+	int randomValue = rand() % mParticles.size();
+	mCurTex = mParticles[randomValue];
 }
 
 Particle::~Particle()
@@ -35,6 +38,7 @@ Particle::~Particle()
 
 void Particle::Initialize()
 {
+
 	GameObject::Initialize();
 }
 
@@ -51,7 +55,7 @@ void Particle::Update()
 		float ratio = mCurDuration / mMaxDuration;
 		mBlendFunc.SourceConstantAlpha = (BYTE)((1.f - ratio) * 255.f);
 
-		int randValue = 100 + (rand() % 200);
+		int randValue = 1 + (rand() % 100);
 
 		Vec2 pos = GetPos();
 		pos += mDir * (float)randValue * DT;
@@ -64,10 +68,9 @@ void Particle::Render()
 	if (mCurDuration < mMaxDuration)
 	{
 		// 그려주기
-		int randomValue = rand() % mParticles.size();
-		Texture* tex = mParticles[randomValue];
+		
 		Vec2 pos = RENDER_POS(GetPos());
-		Vec2 size = tex->GetSize();
+		Vec2 size = mCurTex->GetSize();
 
 		AlphaBlend(
 			BACK_BUF_DC,
@@ -75,7 +78,7 @@ void Particle::Render()
 			(int)(pos.y - size.y / 2.f),
 			(int)(size.x),
 			(int)(size.y),
-			tex->GetDC(),
+			mCurTex->GetDC(),
 			0, 0,
 			(int)size.x,
 			(int)size.y,

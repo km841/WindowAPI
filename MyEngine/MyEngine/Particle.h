@@ -23,6 +23,7 @@ private:
 	BLENDFUNCTION mBlendFunc;
 	float mCurDuration;
 	float mMaxDuration;
+	Texture* mCurTex;
 	
 	Vec2  mDir;
 

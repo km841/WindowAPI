@@ -12,6 +12,7 @@ public:
 
 public:
 	void WindowInit(const WindowData& _winData);
+	void SetWindowSize(bool _isMenu);
 	void ConfineMouse();
 
 public:

@@ -55,136 +55,279 @@ void ToolScene::Update()
 	Vec2 tilePos = CameraMgr::GetInstance().GetTileCoord(mousePos);
 
 
-	if (IS_JUST_LBUTTON_CLICKED && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)))
+	if ((tilePos.y >= 0.f && tilePos.x >= 0.f) && (MOUSE_POS.y < WINDOW_HEIGHT_SIZE - (TILE_SIZE * 3)) &&
+		(MOUSE_POS.x > 50.f && MOUSE_POS.y > 50.f))
 	{
-		// 여기서 타입에 따라 갈려야 하나?
-		OBJECT_TYPE tileObjType = mCheckedObjectType;
-
-		const std::vector<GameObject*>& tileGroup = GetObjectGroup(tileObjType);
-		Tile* tile = nullptr;
-
-		// 해당 위치에 타일이 있는지 검사
-		for (int i = 0; i < tileGroup.size(); ++i)
+		if (CheckButtonUI::GetCheckedButton()->GetIndex())
 		{
-			if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
+			if (IS_JUST_LBUTTON_CLICKED)
 			{
-				tile = static_cast<Tile*>(tileGroup[i]);
-				break;
-			}
-		}
+				// 여기서 타입에 따라 갈려야 하나?
+				OBJECT_TYPE tileObjType = mCheckedObjectType;
 
-		if (nullptr == tile)
-		{
-			// 타일이 없는 자리의 경우
+				const std::vector<GameObject*>& tileGroup = GetObjectGroup(tileObjType);
+				Tile* tile = nullptr;
 
-			if (nullptr != selectedUI)
-			{
-				tile = new Tile;
-				tile->SetPos(tilePos + Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
-				tile->SetLTPos(selectedUI->GetLTPos());
-
-				TILE_TYPE tileType = mCheckedTileType;
-				switch (tileType)
+				// 해당 위치에 타일이 있는지 검사
+				for (int i = 0; i < tileGroup.size(); ++i)
 				{
-				case TILE_TYPE::WALL:
-				{
-					tile->CreateWall();
-					tile->SetTileType(tileType);
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
-				}
-					break;
-				case TILE_TYPE::FOOTHOLD:
-				{
-					tile->CreateFoothold();
-					tile->SetTileType(tileType);
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
-				}
-					break;
-				case TILE_TYPE::NONE:
-					tile->SetTileType(tileType);
-					tile->SetType(OBJECT_TYPE::TILE_BG);
-					EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE_BG);
-					break;
-				}
-
-				
-			}
-
-		}
-
-		else
-		{
-			// LT Pos가 기존에 있는 것과 내가 선택한게 같다면 Return
-			if (nullptr != selectedUI)
-			{
-				if (selectedUI->GetLTPos() == tile->GetLTPos())
-					return;
-			}
-
-			// 타일이 있는 자리의 경우
-
-			// 타일이 가진 컴포넌트가 있다면
-			CollisionComponent* tileComponent = tile->GetCollisionComponent();
-
-			if (nullptr != tileComponent)
-			{
-				// 내 위치와 같은 Wall과 Foothold를 지워줘야 한다
-
-				OBJECT_TYPE type = tileComponent->GetType();
-
-				
-				if (OBJECT_TYPE::FOOTHOLD == type && TILE_TYPE::FOOTHOLD == mCheckedTileType ||
-					nullptr != selectedUI && TILE_TYPE::FOOTHOLD == mCheckedTileType)
-				{
-					static_cast<LineCollider*>(tile->GetCollisionComponent()->GetCollider())->SetNextLineType();
-					return;
-				}
-
-				if (OBJECT_TYPE::FOOTHOLD == type ||
-					OBJECT_TYPE::WALL == type)
-				{
-					//해당 타입에 대한 오브젝트 그룹을 가져옴
-					std::vector<GameObject*>& objects = mObjects[(UINT)type];
-
-					std::vector<GameObject*>::iterator iter = objects.begin();
-
-					for (; iter != objects.end(); ++iter)
+					if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
 					{
-						Vec2 tilePos = tile->GetPos();
-						Vec2 objPos = iter.operator*()->GetPos();
+						tile = static_cast<Tile*>(tileGroup[i]);
+						break;
+					}
+				}
 
-						// 위치가 같은 게 있다면
-						if (tilePos == objPos)
+				if (nullptr == tile)
+				{
+					// 타일이 없는 자리의 경우
+
+					if (nullptr != selectedUI)
+					{
+						tile = new Tile;
+						tile->SetPos(tilePos + Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
+						tile->SetLTPos(selectedUI->GetLTPos());
+
+						TILE_TYPE tileType = mCheckedTileType;
+						switch (tileType)
 						{
-							//삭제하고 씬에서 제거
-							delete* iter;
-							objects.erase(iter);
+						case TILE_TYPE::WALL:
+						{
+							tile->CreateWall();
+							tile->SetTileType(tileType);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+						}
+						break;
+						case TILE_TYPE::FOOTHOLD:
+						{
+							tile->CreateFoothold();
+							tile->SetTileType(tileType);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+						}
+						break;
+						case TILE_TYPE::NONE:
+							tile->SetTileType(tileType);
+							tile->SetType(OBJECT_TYPE::TILE_BG);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE_BG);
 							break;
 						}
+
+
 					}
 
 				}
 
-				tile->ClearCollisionComponent();
-			}
-
-			if (OBJECT_TYPE::TILE == tileObjType)
-			{
-				switch (mCheckedTileType)
+				else
 				{
-				case TILE_TYPE::WALL:
-					tile->CreateWall();
-					break;
-				case TILE_TYPE::FOOTHOLD:
-					tile->CreateFoothold();
-					break;
-				case TILE_TYPE::NONE:
-					break;
+					// LT Pos가 기존에 있는 것과 내가 선택한게 같다면 Return
+					if (nullptr != selectedUI)
+					{
+						if (selectedUI->GetLTPos() == tile->GetLTPos())
+							return;
+					}
+
+					// 타일이 있는 자리의 경우
+
+					// 타일이 가진 컴포넌트가 있다면
+					CollisionComponent* tileComponent = tile->GetCollisionComponent();
+
+					if (nullptr != tileComponent)
+					{
+						// 내 위치와 같은 Wall과 Foothold를 지워줘야 한다
+
+						OBJECT_TYPE type = tileComponent->GetType();
+
+
+						if (OBJECT_TYPE::FOOTHOLD == type && TILE_TYPE::FOOTHOLD == mCheckedTileType ||
+							nullptr != selectedUI && TILE_TYPE::FOOTHOLD == mCheckedTileType)
+						{
+							static_cast<LineCollider*>(tile->GetCollisionComponent()->GetCollider())->SetNextLineType();
+							return;
+						}
+
+						if (OBJECT_TYPE::FOOTHOLD == type ||
+							OBJECT_TYPE::WALL == type)
+						{
+							//해당 타입에 대한 오브젝트 그룹을 가져옴
+							std::vector<GameObject*>& objects = mObjects[(UINT)type];
+
+							std::vector<GameObject*>::iterator iter = objects.begin();
+
+							for (; iter != objects.end(); ++iter)
+							{
+								Vec2 tilePos = tile->GetPos();
+								Vec2 objPos = iter.operator*()->GetPos();
+
+								// 위치가 같은 게 있다면
+								if (tilePos == objPos)
+								{
+									//삭제하고 씬에서 제거
+									delete* iter;
+									objects.erase(iter);
+									break;
+								}
+							}
+
+						}
+
+						tile->ClearCollisionComponent();
+					}
+
+					if (OBJECT_TYPE::TILE == tileObjType)
+					{
+						switch (mCheckedTileType)
+						{
+						case TILE_TYPE::WALL:
+							tile->CreateWall();
+							break;
+						case TILE_TYPE::FOOTHOLD:
+							tile->CreateFoothold();
+							break;
+						case TILE_TYPE::NONE:
+							break;
+						}
+
+						tile->SetTileType(mCheckedTileType);
+					}
+
+				}
+			}
+		}
+
+		else
+		{
+			if (IS_LBUTTON_CLICKED)
+			{
+				// 여기서 타입에 따라 갈려야 하나?
+				OBJECT_TYPE tileObjType = mCheckedObjectType;
+
+				const std::vector<GameObject*>& tileGroup = GetObjectGroup(tileObjType);
+				Tile* tile = nullptr;
+
+				// 해당 위치에 타일이 있는지 검사
+				for (int i = 0; i < tileGroup.size(); ++i)
+				{
+					if (tileGroup[i]->GetPos() == tilePos + TILE_OFFSET)
+					{
+						tile = static_cast<Tile*>(tileGroup[i]);
+						break;
+					}
 				}
 
-				tile->SetTileType(mCheckedTileType);
-			}
+				if (nullptr == tile)
+				{
+					// 타일이 없는 자리의 경우
 
+					if (nullptr != selectedUI)
+					{
+						tile = new Tile;
+						tile->SetPos(tilePos + Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
+						tile->SetLTPos(selectedUI->GetLTPos());
+
+						TILE_TYPE tileType = mCheckedTileType;
+						switch (tileType)
+						{
+						case TILE_TYPE::WALL:
+						{
+							tile->CreateWall();
+							tile->SetTileType(tileType);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+						}
+						break;
+						case TILE_TYPE::FOOTHOLD:
+						{
+							tile->CreateFoothold();
+							tile->SetTileType(tileType);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+						}
+						break;
+						case TILE_TYPE::NONE:
+							tile->SetTileType(tileType);
+							tile->SetType(OBJECT_TYPE::TILE_BG);
+							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE_BG);
+							break;
+						}
+
+
+					}
+
+				}
+
+				else
+				{
+					// LT Pos가 기존에 있는 것과 내가 선택한게 같다면 Return
+					if (nullptr != selectedUI)
+					{
+						if (selectedUI->GetLTPos() == tile->GetLTPos())
+							return;
+					}
+
+					// 타일이 있는 자리의 경우
+
+					// 타일이 가진 컴포넌트가 있다면
+					CollisionComponent* tileComponent = tile->GetCollisionComponent();
+
+					if (nullptr != tileComponent)
+					{
+						// 내 위치와 같은 Wall과 Foothold를 지워줘야 한다
+
+						OBJECT_TYPE type = tileComponent->GetType();
+
+
+						if (OBJECT_TYPE::FOOTHOLD == type && TILE_TYPE::FOOTHOLD == mCheckedTileType ||
+							nullptr != selectedUI && TILE_TYPE::FOOTHOLD == mCheckedTileType)
+						{
+							static_cast<LineCollider*>(tile->GetCollisionComponent()->GetCollider())->SetNextLineType();
+							return;
+						}
+
+						if (OBJECT_TYPE::FOOTHOLD == type ||
+							OBJECT_TYPE::WALL == type)
+						{
+							//해당 타입에 대한 오브젝트 그룹을 가져옴
+							std::vector<GameObject*>& objects = mObjects[(UINT)type];
+
+							std::vector<GameObject*>::iterator iter = objects.begin();
+
+							for (; iter != objects.end(); ++iter)
+							{
+								Vec2 tilePos = tile->GetPos();
+								Vec2 objPos = iter.operator*()->GetPos();
+
+								// 위치가 같은 게 있다면
+								if (tilePos == objPos)
+								{
+									//삭제하고 씬에서 제거
+									delete* iter;
+									objects.erase(iter);
+									break;
+								}
+							}
+
+						}
+
+						tile->ClearCollisionComponent();
+					}
+
+					if (OBJECT_TYPE::TILE == tileObjType)
+					{
+						switch (mCheckedTileType)
+						{
+						case TILE_TYPE::WALL:
+							tile->CreateWall();
+							break;
+						case TILE_TYPE::FOOTHOLD:
+							tile->CreateFoothold();
+							break;
+						case TILE_TYPE::NONE:
+							break;
+						}
+
+						tile->SetTileType(mCheckedTileType);
+					}
+
+				}
+			}
 		}
 	}
 
@@ -237,7 +380,15 @@ void ToolScene::Render()
 	
 
 	Scene::Render();
-	
+
+
+	static wchar_t pressedType[COMMENT_MAX_SIZE] = L"> 하나씩 출력";
+	static wchar_t singlyType[COMMENT_MAX_SIZE] = L"> 연속 출력";
+	TextOut(BACK_BUF_DC, 60, 20, pressedType, (int)wcslen(pressedType));
+	TextOut(BACK_BUF_DC, 60, 60, singlyType, (int)wcslen(singlyType));
+
+
+
 	SetTextColor(BACK_BUF_DC, RGB(0, 64, 128));
 	static wchar_t nextPage[COMMENT_MAX_SIZE] = L"> 다음 타일 페이지       (Page     Up)";
 	static wchar_t prevPage[COMMENT_MAX_SIZE] = L"> 이전 타일 페이지       (Page Down)";
@@ -288,6 +439,7 @@ void ToolScene::Destory()
 void ToolScene::Enter()
 {
 	SetMenu(APP_INSTANCE.GetHwnd(), APP_INSTANCE.GetMainMenuHandle());
+	APP_INSTANCE.SetWindowSize(true);
 	// 툴에 사용할 모든 타일을 벡터에 넣음
 	// 넣고 나서 16열로 출력
 	CameraMgr::GetInstance().RemoveEffect();
@@ -328,17 +480,46 @@ void ToolScene::Enter()
 			}
 		}
 	}
+
 	Texture* checkBtnTex = ResourceMgr::GetInstance().Load<Texture>(L"checkBtn", L"Texture\\CheckButton.bmp");
-	EventRegisteror::GetInstance().CreateObject(toolUI, toolUI->GetType());
+	Vec2 checkTexSize = checkBtnTex->GetSize();
+	CheckButtonUI* pressedCheckBtnUI = new CheckButtonUI;
+	pressedCheckBtnUI->SetTexture(checkBtnTex);
+	pressedCheckBtnUI->SetPos(Vec2(30, 30));
+	pressedCheckBtnUI->SetSize(checkTexSize);
+	pressedCheckBtnUI->SetIndex(true);
+	pressedCheckBtnUI->TextureProcessing(
+		Vec2(0, 0),
+		Vec2(checkTexSize.x / 2.f, 0.f),
+		Vec2(checkTexSize.x / 2.f, checkTexSize.y));
+
+	CheckButtonUI* singlyCheckBtnUI = new CheckButtonUI;
+	singlyCheckBtnUI->SetTexture(checkBtnTex);
+	singlyCheckBtnUI->SetPos(Vec2(30, 70));
+	singlyCheckBtnUI->SetSize(checkTexSize);
+	singlyCheckBtnUI->SetIndex(false);
+	singlyCheckBtnUI->TextureProcessing(
+		Vec2(0, 0),
+		Vec2(checkTexSize.x / 2.f, 0.f),
+		Vec2(checkTexSize.x / 2.f, checkTexSize.y));
+
+	CheckButtonUI::SetCheckedButton(pressedCheckBtnUI);
+
+
+
+	AddGameObject(pressedCheckBtnUI, pressedCheckBtnUI->GetType());
+	AddGameObject(singlyCheckBtnUI, singlyCheckBtnUI->GetType());
+	AddGameObject(toolUI, toolUI->GetType());
 
 }
 
 void ToolScene::Exit()
 {
 	SetMenu(APP_INSTANCE.GetHwnd(), NULL);
+	APP_INSTANCE.SetWindowSize(false);
 	DeleteObjGroup(OBJECT_TYPE::UI);
-	CleanObjectGroup(OBJECT_TYPE::WALL);
-	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+	DeleteObjGroup(OBJECT_TYPE::WALL);
+	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 

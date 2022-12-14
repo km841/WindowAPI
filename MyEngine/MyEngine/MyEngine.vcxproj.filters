@@ -1001,7 +1001,7 @@
       <Filter>Engine\GameObject\MapComponent\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Engine\Scene\TitleScene</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

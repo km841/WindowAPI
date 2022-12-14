@@ -39,34 +39,38 @@ void Application::WindowInit(const WindowData& _winData)
 	HBITMAP oldBit = (HBITMAP)SelectObject(mWinData.hBackBufDC, mWinData.hBackBufBit);
 	DeleteObject(oldBit);
 
-	RECT rect = { 0, 0, static_cast<LONG>(mWinData.iWidth), static_cast<LONG>(mWinData.iHeight) };
-
 	mWinData.hMainMemu = CreateMenu();
 	HMENU hParentMenu = CreateMenu();
 	mWinData.hColMenu = CreateMenu();
 	mWinData.hTypeMenu = CreateMenu();
 
-	AppendMenu(mWinData.hMainMemu, MF_POPUP, (UINT_PTR)hParentMenu, L"Tool Option");
+	AppendMenu(mWinData.hMainMemu, MF_POPUP, (UINT_PTR)hParentMenu, L"툴 옵션");
 
-	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hColMenu, L"Tile Collision");
-	AppendMenu(mWinData.hColMenu,	MFT_RADIOCHECK, (UINT_PTR)ID::WALL, L"Wall");
-	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::FOOTHOLD, L"Foothold");
-	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::EMPTY, L"Empty");
+	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hColMenu, L"타일 충돌 옵션");
+	AppendMenu(mWinData.hColMenu,	MFT_RADIOCHECK, (UINT_PTR)ID::WALL, L"Wall (사각 충돌체)");
+	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::FOOTHOLD, L"Foothold (라인 충돌체)");
+	AppendMenu(mWinData.hColMenu, MFT_RADIOCHECK, (UINT_PTR)ID::EMPTY, L"None (충돌체 없음)");
 
-	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hTypeMenu, L"Tile Type");
-	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::BACKGROUND, L"Background");
-	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::SURFACE, L"Surface");
+	AppendMenu(hParentMenu, MF_POPUP, (UINT_PTR)mWinData.hTypeMenu, L"타일 타입");
+	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::BACKGROUND, L"배경 타일");
+	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::SURFACE, L"표면 타일");
 
 	//SetMenu(mWinData.hWnd, mWinData.hMainMemu);
 	CheckMenuRadioItem(mWinData.hColMenu, 0, 2, 2, MF_BYPOSITION);
 	CheckMenuRadioItem(mWinData.hTypeMenu, 0, 1, 0, MF_BYPOSITION);
 
+	SetWindowSize(false);
+	srand(static_cast<UINT>(time(nullptr)));
+}
 
-	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+void Application::SetWindowSize(bool _isMenu)
+{
+	RECT rect = { 0, 0, static_cast<LONG>(mWinData.iWidth), static_cast<LONG>(mWinData.iHeight) };
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, _isMenu);
 	SetWindowPos(mWinData.hWnd, NULL, 0, 0, rect.right, rect.bottom, NULL);
 
 	RECT clientRect = {};
-	GetClientRect(_winData.hWnd, &clientRect);
+	GetClientRect(mWinData.hWnd, &clientRect);
 
 	UINT rightDiff = WINDOW_WIDTH_SIZE - clientRect.right;
 	UINT bottomDiff = WINDOW_HEIGHT_SIZE - clientRect.bottom;
@@ -78,11 +82,6 @@ void Application::WindowInit(const WindowData& _winData)
 
 	mWinData.iWidth = rect.right;
 	mWinData.iHeight = rect.bottom;
-
-
-
-
-	srand(static_cast<UINT>(time(nullptr)));
 }
 
 void Application::ConfineMouse()

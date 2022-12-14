@@ -82,7 +82,7 @@ void GameObject::Update()
 void GameObject::Render()
 {
 
-	if (IS_PRESSED(KEY::E))
+	if (IS_PRESSED(KEY::C))
 	{
 		if (nullptr != GetCollider())
 			GetCollider()->Render();

@@ -3,6 +3,9 @@
 #include "MouseMgr.h"
 #include "Texture.h"
 
+
+CheckButtonUI* CheckButtonUI::Checked = nullptr;
+
 CheckButtonUI::CheckButtonUI()
 {
 	mCheckType = CHECK_TYPE::NONE;
@@ -29,18 +32,7 @@ void CheckButtonUI::Update()
 	{
 		if (mOnClicked)
 		{
-			switch (mCheckType)
-			{
-			case CHECK_TYPE::TILE:
-				break;
-
-
-			case CHECK_TYPE::COLLISION:
-
-				break;
-			}
-			
-			//CallEvent();
+			Checked = this;
 		}
 	}
 }
@@ -59,34 +51,15 @@ void CheckButtonUI::Render()
 	}
 
 	TextureInfo curInfo = {};
-	
-	//if (CHECK_TYPE::COLLISION == mCheckType)
-	//{
-	//	if (Checked_ColType == this)
-	//	{
-	//		curInfo = mStates[(UINT)ButtonState::CHECKED];
-	//	}
-	//	else
-	//	{
-	//		curInfo = mStates[(UINT)ButtonState::NONE];
-	//	}
-	//}
 
-	//else if (CHECK_TYPE::TILE == mCheckType)
-	//{
-	//	if (Checked_TileType == this)
-	//	{
-	//		curInfo = mStates[(UINT)ButtonState::CHECKED];
-	//	}
-	//	else
-	//	{
-	//		curInfo = mStates[(UINT)ButtonState::NONE];
-	//	}
-	//}
-
-	//else
-	//	return;
-
+	if (Checked == this)
+	{
+		curInfo = mStates[(UINT)ButtonState::CHECKED];
+	}
+	else
+	{
+		curInfo = mStates[(UINT)ButtonState::NONE];
+	}
 
 	TransparentBlt(BACK_BUF_DC,
 		(int)(pos.x - (curInfo.mSize.x / 2.f)),
