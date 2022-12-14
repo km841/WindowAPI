@@ -5,6 +5,7 @@
 #include "PlayScene.h"
 #include "TownScene.h"
 #include "Dungeon1Scene.h"
+#include "Dungeon2Scene.h"
 #include "GameObject.h"
 #include "Scene.h"
 #include "Collider.h"
@@ -35,6 +36,7 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::PLAY] = new PlayScene;
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
 	mScenes[(UINT)SCENE_TYPE::DUNGEON1] = new Dungeon1Scene;
+	mScenes[(UINT)SCENE_TYPE::DUNGEON2] = new Dungeon2Scene;
 
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];
 	
@@ -77,7 +79,7 @@ void SceneMgr::ChangeScene(SCENE_TYPE _eType)
 	mCurScene->Enter();
 }
 
-void SceneMgr::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
+void SceneMgr::TransfortObject(SCENE_TYPE _eType, GameObject* _obj)
 {
 	mScenes[(UINT)_eType]->AddGameObject(_obj, _obj->GetType());
 
@@ -97,3 +99,4 @@ void SceneMgr::TransfortObject(GameObject* _obj, SCENE_TYPE _eType)
 		}
 	}
 }
+

@@ -34,6 +34,7 @@ enum class SCENE_TYPE
 	PLAY,
 	TOWN,
 	DUNGEON1,
+	DUNGEON2,
 
 	END,
 };

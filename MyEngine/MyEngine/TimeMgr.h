@@ -14,7 +14,7 @@ public:
 private:
     LARGE_INTEGER mPrevCount;
     LARGE_INTEGER mCurCount;
-    LARGE_INTEGER mPrequency;
+    LARGE_INTEGER mFrequency;
 
     float mDT;
     double mAcc;

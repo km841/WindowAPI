@@ -151,6 +151,8 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashCountHUD.h" />
+    <ClInclude Include="Dungeon2Scene.h" />
+    <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="FontObject.h" />
     <ClInclude Include="DashEffect.h" />
     <ClInclude Include="Dungeon1Scene.h" />
@@ -254,6 +256,8 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashCountHUD.cpp" />
+    <ClCompile Include="Dungeon2Scene.cpp" />
+    <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="FontObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
     <ClCompile Include="Dungeon1Scene.cpp" />

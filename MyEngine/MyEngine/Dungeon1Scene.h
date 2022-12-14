@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene.h"
+#include "DungeonScene.h"
 class Dungeon1Scene :
-    public Scene
+    public DungeonScene
 {
 public:
 	Dungeon1Scene();
@@ -16,8 +16,5 @@ public:
 public:
 	virtual void Enter();
 	virtual void Exit();
-
-private:
-	bool mEnterFlag;
 };
 

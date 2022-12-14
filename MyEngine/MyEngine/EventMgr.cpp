@@ -79,7 +79,7 @@ void EventMgr::Execute(Event _event)
 		GameObject* obj = (GameObject*)_event.lParam;
 		// 나와 연결된 충돌 제거
 		obj->ClearRelation();
-		SceneMgr::GetInstance().TransfortObject(obj, (SCENE_TYPE)_event.wParam);
+		SceneMgr::GetInstance().TransfortObject((SCENE_TYPE)_event.wParam, obj);
 	}
 		break;
 

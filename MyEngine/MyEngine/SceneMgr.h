@@ -18,7 +18,13 @@ public:
 	inline Scene* GetCurScene() const { return mCurScene; }
 	void ChangeScene(SCENE_TYPE _eType);
 
-	void TransfortObject(GameObject* _obj, SCENE_TYPE _eType);
+	void TransfortObject(SCENE_TYPE _eType, GameObject* _obj);
+
+	template<typename ... T>
+	void TransfortObjects(SCENE_TYPE _eType, T ... _args)
+	{
+		int unreferenced[] = { 0, (TransfortObject(_eType, _args), 0)... };
+	}
 
 private:
 	Scene* mScenes[(UINT)SCENE_TYPE::END];

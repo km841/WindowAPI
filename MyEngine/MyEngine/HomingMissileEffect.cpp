@@ -206,19 +206,6 @@ void HomingMissileEffect::Update()
 					dir = Math::RotateVector(dir, (targetAngle - curAngle));
 				}
 			}
-
-			float diff = Math::RadianToDegree(targetAngle - curAngle);
-			
-			wchar_t szBuffer[256] = {};
-			swprintf_s(szBuffer, L"diff : %f", diff);
-			SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
-		
-
-
-			
-
-
-			
 			bulletPos += dir * bulletSpeed * DT;
 		}
 

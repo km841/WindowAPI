@@ -389,6 +389,12 @@
     <Filter Include="Engine\GameObject\MapComponent\Particle">
       <UniqueIdentifier>{3b39ce53-91cf-425d-a604-302e76200748}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Dungeon2">
+      <UniqueIdentifier>{607a3188-735b-43f3-92ec-75a55219155f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Base">
+      <UniqueIdentifier>{49b8fd2c-01cc-4721-a542-a4d9e507a35f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -693,6 +699,12 @@
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Engine\GameObject\MapComponent\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon2Scene.h">
+      <Filter>Engine\Scene\DungeonScene\Dungeon2</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonScene.h">
+      <Filter>Engine\Scene\DungeonScene\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1002,6 +1014,12 @@
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon2Scene.cpp">
+      <Filter>Engine\Scene\DungeonScene\Dungeon2</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonScene.cpp">
+      <Filter>Engine\Scene\DungeonScene\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

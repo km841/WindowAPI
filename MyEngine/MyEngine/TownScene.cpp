@@ -71,13 +71,12 @@ void TownScene::Destroy()
 
 void TownScene::Enter()
 {
-
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 100, BOTTOM_LIMIT });
 
-	Load(L"..\\Resource\\Map\\map6.map");
+	Load(L"..\\Resource\\Map\\town.map");
 	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
 	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
 	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
@@ -173,11 +172,6 @@ void TownScene::Enter()
 	HPHUD* hpHUD = GET_HP_HUD;
 	DashCountHUD* dashHUD = GET_DASH_HUD;
 
-
-
-
-
-
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
 
@@ -229,18 +223,11 @@ void TownScene::Exit()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
 
-	InventoryUI* inven = GET_INVENTORY_UI;
-	HPHUD* hpHUD = GET_HP_HUD;
-	DashCountHUD* dashHUD = GET_DASH_HUD;
-
-
-	SceneMgr::GetInstance().TransfortObject(inven, SCENE_TYPE::DUNGEON1);
-	SceneMgr::GetInstance().TransfortObject(hpHUD, SCENE_TYPE::DUNGEON1);
-	SceneMgr::GetInstance().TransfortObject(dashHUD, SCENE_TYPE::DUNGEON1);
-	SceneMgr::GetInstance().TransfortObject(Player::GetPlayer(), SCENE_TYPE::DUNGEON1);
-
-	//임시용 코드
-	//auto evnt = EventMgr::GetInstance().GetEvents();
+	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1, 
+															GET_INVENTORY_UI, 
+															GET_HP_HUD, 
+															GET_DASH_HUD, 
+															Player::GetPlayer());
 
 	ShowCursor(true);
 }
