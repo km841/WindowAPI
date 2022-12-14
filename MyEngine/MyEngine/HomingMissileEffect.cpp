@@ -177,8 +177,8 @@ void HomingMissileEffect::Update()
 
 			if (distance > WINDOW_WIDTH_SIZE * 0.75f)
 			{
-				targetVec.Norm();
-				dir = targetVec;
+				dir += targetVec;
+				dir.Norm();
 			}
 
 			else if (curAngle > targetAngle)
@@ -207,7 +207,11 @@ void HomingMissileEffect::Update()
 				}
 			}
 
-
+			float diff = Math::RadianToDegree(targetAngle - curAngle);
+			
+			wchar_t szBuffer[256] = {};
+			swprintf_s(szBuffer, L"diff : %f", diff);
+			SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 		
 
 
