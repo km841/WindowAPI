@@ -96,6 +96,9 @@ void RotateMissileEffect::Update()
 
 			mBulletAlive = true;
 		}
+
+		else if (BULLET_STATE::DEAD_ANIM == mBullets[i]->GetBulletState())
+			mBulletAlive = true;
 	}
 
 	// 시간이 지나면 초기화되도록 변경
@@ -116,11 +119,6 @@ void RotateMissileEffect::Update()
 void RotateMissileEffect::Render()
 {
 	mCoreBullet->Render();
-
-	if (nullptr != mCoreBullet)
-	{
-		Vec2 mCorePos = RENDER_POS(mCoreBullet->GetPos());
-	}
 }
 
 void RotateMissileEffect::Destroy()

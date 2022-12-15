@@ -22,6 +22,8 @@
 #include "InventoryUI.h"
 #include "HPHUD.h"
 #include "DashCountHUD.h"
+#include "GiantBat.h"
+#include "GiantBatSpawnEvent.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -99,6 +101,11 @@ void Dungeon1Scene::Enter()
 	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD-TILE_SIZE * 6));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
+	GiantBatSpawnEvent* spawnEvent5 = new GiantBatSpawnEvent;
+	spawnEvent5->SetPos(Vec2(TILE_SIZE * 37, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
+
+
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
 	lockDoor1->SetPos(Vec2(TILE_SIZE * 18, GROUND_STANDARD + (int)(TILE_SIZE * 1.5)));
@@ -119,6 +126,7 @@ void Dungeon1Scene::Enter()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent5, spawnEvent5->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor3, lockDoor3->GetType());

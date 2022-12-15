@@ -162,6 +162,7 @@
     <ClInclude Include="FontMgr.h" />
     <ClInclude Include="Foothold.h" />
     <ClInclude Include="GiantBat.h" />
+    <ClInclude Include="GiantBatSpawnEvent.h" />
     <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="Gold.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="MonsterSwordEffect.h" />
     <ClInclude Include="MonsterTraceState.h" />
     <ClInclude Include="MouseMgr.h" />
+    <ClInclude Include="MultipleMissileEffect.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerBullet.h" />
@@ -267,6 +269,7 @@
     <ClCompile Include="FontMgr.cpp" />
     <ClCompile Include="Foothold.cpp" />
     <ClCompile Include="GiantBat.cpp" />
+    <ClCompile Include="GiantBatSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="Gold.cpp" />
@@ -308,6 +311,7 @@
     <ClCompile Include="MonsterSwordEffect.cpp" />
     <ClCompile Include="MonsterTraceState.cpp" />
     <ClCompile Include="MouseMgr.cpp" />
+    <ClCompile Include="MultipleMissileEffect.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />

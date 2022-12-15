@@ -39,7 +39,7 @@ LockedDoor::LockedDoor()
 		Vec2(0, 0),
 		Vec2(198, 60),
 		Vec2(198, 0),
-		0.1f,
+		0.05f,
 		23
 	);
 
@@ -49,7 +49,7 @@ LockedDoor::LockedDoor()
 		Vec2(0, 0),
 		Vec2(60, 198),
 		Vec2(60, 0),
-		0.1f,
+		0.05f,
 		23
 	);
 
@@ -59,7 +59,7 @@ LockedDoor::LockedDoor()
 		Vec2(0, 0),
 		Vec2(60, 198),
 		Vec2(60, 0),
-		0.1f,
+		0.05f,
 		23
 	);
 
@@ -82,11 +82,6 @@ void LockedDoor::Initialize()
 
 void LockedDoor::Update()
 {
-	//if (IS_PRESSED(KEY::G))
-	//{
-	//	mFlag = true;
-	//}
-
 	Animation* curAnim = GetAnimator()->GetCurAnimation();
 	if (nullptr != curAnim)
 	{
@@ -235,8 +230,6 @@ void LockedDoor::Update()
 			{
 				mDelayTime += DT;
 			}
-			// 애니메이션 변경
-			//EventRegisteror::GetInstance().DeleteObject(this);
 		}
 
 	}

@@ -27408,3 +27408,11 @@
 2022-12-15_11:36:28 : PlayerFall State : false
 2022-12-15_11:36:28 : PlayerFall State : false
 2022-12-15_11:37:31 : Dungeon2 Enter
+2022-12-15_13:30:28 : Dungeon2 Enter
+2022-12-15_13:32:31 : Dungeon2 Enter
+2022-12-15_13:38:0 : Dungeon2 Enter
+2022-12-15_14:18:53 : Dungeon2 Enter
+2022-12-15_14:32:30 : Dungeon2 Enter
+2022-12-15_14:47:43 : Dungeon2 Enter
+2022-12-15_15:51:3 : Dungeon2 Enter
+2022-12-15_15:55:54 : Dungeon2 Enter

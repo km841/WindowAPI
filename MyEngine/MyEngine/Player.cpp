@@ -298,7 +298,7 @@ void Player::MoveUpdate()
 				if (!mFall)
 				{
 					GetRigidBody()->SetVelocity(Vec2(velocity.x, -mJumpYValue));
-					mJumpYValue -= 1000.f;
+					mJumpYValue -= 10.f;
 				}
 			}
 

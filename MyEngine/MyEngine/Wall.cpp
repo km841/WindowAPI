@@ -59,17 +59,6 @@ void Wall::Update()
 void Wall::Render()
 {
 	GameObject::Render();
-
-	if (mPlayerAbobeMe)
-	{
-		Vec2 pos = RENDER_POS(GetPos());
-		Rectangle(BACK_BUF_DC,
-			pos.x - 15,
-			pos.y - 15,
-			pos.x + 15,
-			pos.y + 15);
-	}
-
 }
 
 void Wall::OnCollision(Collider* _other)

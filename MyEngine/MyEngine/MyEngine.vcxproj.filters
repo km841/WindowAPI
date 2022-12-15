@@ -395,6 +395,12 @@
     <Filter Include="Engine\Scene\DungeonScene\Base">
       <UniqueIdentifier>{49b8fd2c-01cc-4721-a542-a4d9e507a35f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect">
+      <UniqueIdentifier>{1147110a-2e42-4416-8633-ca4428cf7744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent">
+      <UniqueIdentifier>{5cbf798a-69a0-4323-84c9-401317f5679b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -705,6 +711,12 @@
     </ClInclude>
     <ClInclude Include="DungeonScene.h">
       <Filter>Engine\Scene\DungeonScene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GiantBatSpawnEvent.h">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1020,6 +1032,12 @@
     </ClCompile>
     <ClCompile Include="DungeonScene.cpp">
       <Filter>Engine\Scene\DungeonScene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MultipleMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GiantBatSpawnEvent.cpp">
+      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
