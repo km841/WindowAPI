@@ -87,6 +87,8 @@ public:
 
     void InGround();
     void OutGround();
+    inline void SetFall(bool _flag) { mFall = _flag; }
+    inline bool GetFall() const { return mFall;}
 
     inline State* GetState() const { return mState; }
     inline State* GetState() { return mState; }

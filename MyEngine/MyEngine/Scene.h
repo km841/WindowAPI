@@ -33,6 +33,7 @@ public:
 	void DeleteObjGroup(OBJECT_TYPE _eType);
 
 	GameObject* GetNearestObject(GameObject* _src, OBJECT_TYPE _findType);
+	void FrameCorrection();
 	
 
 public:

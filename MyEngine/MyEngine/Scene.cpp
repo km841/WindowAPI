@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Tile.h"
+#include "ResourceMgr.h"
+#include "Texture.h"
 
 Scene::Scene()
 	: mOFN{}
@@ -134,6 +136,23 @@ GameObject* Scene::GetNearestObject(GameObject* _src, OBJECT_TYPE _findType)
 	}
 
 	return target;
+}
+
+void Scene::FrameCorrection()
+{
+	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Collection", L"Texture\\CorrectionBmp.bmp");
+	Vec2 size = tex->GetSize();
+	TransparentBlt(
+		BACK_BUF_DC,
+		0, 0,
+		(int)size.x,
+		(int)size.y,
+		tex->GetDC(),
+		0, 0,
+		(int)size.x,
+		(int)size.y,
+		RGB(255, 0, 255)
+	);
 }
 
 void Scene::TileInitialize(size_t _size)

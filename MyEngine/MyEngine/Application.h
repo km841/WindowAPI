@@ -25,10 +25,15 @@ public:
 	inline HMENU GetMainMenuHandle() const { return mWinData.hMainMemu; }
 	inline HMENU GetColMenuHandle() const { return mWinData.hColMenu; }
 	inline HMENU GetTypeMenuHandle() const { return mWinData.hTypeMenu; }
+	inline const std::wofstream& GetOutputFileStream() const { return mFST; }
+
+public:
+	void WriteLog(const std::wstring& _comment);
 
 private:
 	WindowData mWinData;
 	WindowGDI  mWinGDI;
+	std::wofstream mFST;
 
 };
 

@@ -1,3 +1,5 @@
+
+
 #include "pch.h"
 #include "TimeMgr.h"
 #include "FontMgr.h"
@@ -19,6 +21,9 @@ void TimeMgr::Update()
 
 	if (mDT > (1.f / 60.f))
 		mDT = (1.f / 60.f);
+
+	//if (mDT < (1.f / 100.f))
+	//	mDT = (1.f / 100.f);
 }
 
 void TimeMgr::Render()
@@ -38,4 +43,22 @@ void TimeMgr::Render()
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", mFPS, mDT);
 		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	}
+}
+
+std::wstring TimeMgr::GetCurTime()
+{
+	time_t timer = time(NULL);
+	tm* t = localtime(&timer);
+
+	int year = t->tm_year + 1900;
+	int month = t->tm_mon + 1;
+	int day = t->tm_mday;
+	int hour = t->tm_hour;
+	int min = t->tm_min;
+	int sec = t->tm_sec;
+
+	wchar_t buff[COMMENT_MAX_SIZE] = {};
+	swprintf_s(buff, L"%d-%d-%d_%d:%d:%d", year, month, day, hour, min, sec);
+
+	return std::wstring(buff);
 }

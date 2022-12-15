@@ -1,5 +1,5 @@
 #pragma once
-
+#define _CRT_SECURE_NO_WARNINGS
 /*STL*/
 #include <iostream>
 #include <vector>
@@ -17,6 +17,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include <assert.h>
+#include <time.h>
 
 /*USER DEFINE LIBRARY*/
 #include "MathLib.h"

@@ -19,7 +19,8 @@
 void Application::Initialize(const WindowData& _winData)
 {
 	WindowInit(_winData);
-	
+	mFST.open(L"..\\Resource\\Log\\log.txt", std::ios::out | std::ios::app);
+
 	// Manager Initialize
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
@@ -105,6 +106,12 @@ void Application::ConfineMouse()
 	ClipCursor(&rect);
 }
 
+void Application::WriteLog(const std::wstring& _comment)
+{
+	const std::wstring& curTime = TimeMgr::GetInstance().GetCurTime();
+	mFST << curTime << L" : " << _comment << L"\n";
+}
+
 void Application::Tick()
 {
 	// Mouse inside the screen
@@ -114,9 +121,9 @@ void Application::Tick()
 	Rectangle(BACK_BUF_DC, 0, 0, GetWidth(), GetHeight());
 
 	// Manager Update
+	TimeMgr::GetInstance().Update();
 	KeyMgr::GetInstance().Update();
 	MouseMgr::GetInstance().Update();
-	TimeMgr::GetInstance().Update();
 	SceneMgr::GetInstance().Update();
 	UIMgr::GetInstance().Update();
 	CameraMgr::GetInstance().Update();
@@ -124,8 +131,8 @@ void Application::Tick()
 	FontMgr::GetInstance().Update();
 
 	// Manager Render
-	SceneMgr::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
+	SceneMgr::GetInstance().Render();
 	CameraMgr::GetInstance().Render();
 	CollisionMgr::GetInstance().Render();
 	FontMgr::GetInstance().Render();
@@ -144,6 +151,7 @@ void Application::Render()
 
 void Application::Destroy()
 {
+	mFST.close();
 	FontMgr::GetInstance().Destroy();
 	SceneMgr::GetInstance().Destroy();
 	EventMgr::GetInstance().Destroy();

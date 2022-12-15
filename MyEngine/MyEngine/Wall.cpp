@@ -44,8 +44,10 @@ void Wall::Update()
 		Vec2 leftTopTilePos = Vec2(myTilePos.x - TILE_SIZE, myTilePos.y - TILE_SIZE);
 		Vec2 rightTopTilePos = Vec2(myTilePos.x + TILE_SIZE, myTilePos.y - TILE_SIZE);
 
-		Vec2 bottomTilePos = Vec2(myTilePos.x, myTilePos.y + (TILE_SIZE));
-		if (playerTilePos == topTilePos )
+		if (playerTilePos == topTilePos || 
+			playerTilePos == leftTopTilePos || 
+			playerTilePos == rightTopTilePos || 
+			playerTilePos == myTilePos)
 		{
 			mPlayerAbobeMe = true;
 		}
@@ -58,7 +60,15 @@ void Wall::Render()
 {
 	GameObject::Render();
 
-
+	if (mPlayerAbobeMe)
+	{
+		Vec2 pos = RENDER_POS(GetPos());
+		Rectangle(BACK_BUF_DC,
+			pos.x - 15,
+			pos.y - 15,
+			pos.x + 15,
+			pos.y + 15);
+	}
 
 }
 
@@ -66,13 +76,14 @@ void Wall::OnCollision(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
+		// 나랑 같은 타일에 있는데 ~라면
 		if (mPlayerAbobeMe)
 		{
 			if (false == Player::GetPlayer()->GetGround())
 			{
+				
 				Player::GetPlayer()->InGround();
 			}
-
 		}
 
 		Vec2 pos = GetCollider()->GetPos();
@@ -225,12 +236,7 @@ void Wall::OnCollisionEnter(Collider* _other)
 			Player::GetPlayer()->SetDirectionVector(Vec2(0, 0));
 			Player::GetPlayer()->SetCollisionType(COLLISION_TYPE::NORMAL);
 			Player::GetPlayer()->GetRigidBody()->SetVelocity_Y_Zero();
-			
-			
 		}
-		//if (0 == _other->GetColCnt())
-		//	static_cast<Player*>(_other->GetOwner())->InGround();
-		
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())

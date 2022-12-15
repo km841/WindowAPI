@@ -39,8 +39,6 @@ void Dungeon2Scene::Update()
 
 void Dungeon2Scene::Render()
 {
-
-
 	DungeonScene::Render();
 }
 
@@ -51,12 +49,13 @@ void Dungeon2Scene::Destroy()
 
 void Dungeon2Scene::Enter()
 {
+	APP_INSTANCE.WriteLog(L"Dungeon2 Enter");
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
-	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 22, BOTTOM_LIMIT });
+	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 23, BOTTOM_LIMIT });
 
-	Load(L"..\\Resource\\Map\\dungeon3.map");
+	Load(L"..\\Resource\\Map\\dungeon2.map");
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
@@ -83,11 +82,11 @@ void Dungeon2Scene::Enter()
 
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
-	lockDoor1->SetPos(Vec2(TILE_SIZE * 47.f, (float)(GROUND_STANDARD - TILE_SIZE * 8)));
+	lockDoor1->SetPos(Vec2(TILE_SIZE * 48.5f, (float)(GROUND_STANDARD - TILE_SIZE * 2)));
 
 	LockedDoor* lockDoor2 = new LockedDoor;
-	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_270_TYPE);
-	lockDoor1->SetPos(Vec2(TILE_SIZE * 20.f, (float)(GROUND_STANDARD - TILE_SIZE * 8)));
+	lockDoor2->SetAngleType(ANGLE_TYPE::DEGREE_270_TYPE);
+	lockDoor2->SetPos(Vec2(TILE_SIZE * 1.5f, (float)(GROUND_STANDARD - TILE_SIZE * 2)));
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
@@ -95,12 +94,13 @@ void Dungeon2Scene::Enter()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
 
 	Initialize();
+
 }
 
 void Dungeon2Scene::Exit()
 {
-
 
 }

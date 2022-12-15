@@ -46,7 +46,6 @@ void Dungeon1Scene::Update()
 
 	if (pos.x > TILE_SIZE * 47.f)
 	{
-		Exit();
 		EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::DUNGEON2);
 	}
 
@@ -150,14 +149,12 @@ void Dungeon1Scene::Enter()
 void Dungeon1Scene::Exit()
 {
 	ShowCursor(true);
-	//DeleteObjGroup(OBJECT_TYPE::PLAYER);
 	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
 	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	DeleteObjGroup(OBJECT_TYPE::NPC);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
-	//DeleteObjGroup(OBJECT_TYPE::TILE);
 
 	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON2,
 		GET_INVENTORY_UI,

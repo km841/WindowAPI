@@ -9,6 +9,7 @@ public:
 
 public:
     inline float GetDT() const { return mDT; };
+    std::wstring GetCurTime();
 
 
 private:
@@ -20,5 +21,7 @@ private:
     double mAcc;
     UINT mCallCount;
     UINT mFPS;
+
+
 };
 
