@@ -47,7 +47,7 @@ void MultipleMissileEffect::Update()
 		}
 	}
 
-	if (!mBullets.empty() && !bulletAlive && mStayDuration > mMaxStayDuration)
+	if (!mBullets.empty() && !bulletAlive)
 	{
 		for (int i = 0; i < mBullets.size(); ++i)
 		{
@@ -143,17 +143,6 @@ bool MultipleMissileEffect::Attack()
 
 	else
 	{
-		if (mStayDuration > mMaxStayDuration)
-		{
-			mStayDuration = 0.f;
-			return false;
-		}
-
-		else
-		{
-			mStayDuration += DT;
-			return true;
-		}
-		
+		return false;
 	}
 }

@@ -30,6 +30,9 @@ GiantBat::GiantBat()
 	std::wstring attAnimName = L"GiantBat_Att";
 	SetAttAnimName(attAnimName);
 
+	std::wstring attAfterAnimName = L"GiantBat_Move";
+	SetAttAfterAnimName(attAfterAnimName);
+
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantBatAnimTex", L"Texture\\giant_bat_animation.bmp");
 
 	GetAnimator()->RegisterAnimation(

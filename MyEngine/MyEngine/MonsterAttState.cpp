@@ -43,7 +43,7 @@ void MonsterAttState::Update()
 	MonsterInfo& monInfo = monster->GetMonsterInfo();
 	if (!monster->Attack())
 	{
-		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
+		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::ATTACK_AFTER);
 	}
 
 	

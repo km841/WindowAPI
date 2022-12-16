@@ -187,6 +187,7 @@ enum class MONSTER_STATE
 	PATROL,
 	DEAD,
 	ATTACK,
+	ATTACK_AFTER,
 
 
 	END,

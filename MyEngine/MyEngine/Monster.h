@@ -42,6 +42,11 @@ public:
     inline void                SetAttAnimName(const std::wstring& _attAnimName) { mAttAnimName = _attAnimName; }
     inline const std::wstring& GetAttAnimName() const { return mAttAnimName; }
 
+    inline void                SetAttAfterAnimName(const std::wstring& _attAfterAnimName) { mAttAfterAnimName = _attAfterAnimName; }
+    inline const std::wstring& GetAttAfterAnimName() const { return mAttAfterAnimName; }
+
+   
+
 public:
     inline void           SetEffect(MonsterEffect* _monsterEff) { mEffect = _monsterEff; }
     inline MonsterEffect* GetEffect() const { return mEffect; }
@@ -106,6 +111,7 @@ private:
     std::wstring mIdleAnimName;
     std::wstring mMoveAnimName;
     std::wstring mAttAnimName;
+    std::wstring mAttAfterAnimName;
 
 };
 

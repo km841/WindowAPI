@@ -10,7 +10,7 @@
 
 MonsterIdleState::MonsterIdleState()
 	: MonsterState(MONSTER_STATE::IDLE)
-	, mMaxStayTime(1.5f)
+	, mMaxStayTime(.5f)
 	, mStayTime(0.f)
 {
 }

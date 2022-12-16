@@ -31,6 +31,9 @@ RedGiantBat::RedGiantBat()
 	std::wstring attAnimName = L"RedGiantBat_Att";
 	SetAttAnimName(attAnimName);
 
+	std::wstring attAfterAnimName = L"RedGiantBat_Move";
+	SetAttAfterAnimName(attAfterAnimName);
+
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"RedGiantBatAnimTex", L"Texture\\red_giant_bat_animation.bmp");
 
 	GetAnimator()->RegisterAnimation(
