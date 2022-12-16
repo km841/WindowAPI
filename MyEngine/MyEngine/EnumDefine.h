@@ -90,6 +90,13 @@ enum class EVENT_TYPE
 	DISABLE_UI,
 	// lParam : No used, wParam : UI Type
 
+	ENABLE_HUD,
+	// lParam : No used, wParam : HUD Type
+
+	DISABLE_HUD,
+	// lParam : No used, wParam : HUD Type
+
+
 	MONSTER_STATE_CHANGE,
 	// lParam : AI Pointer, wParam : Monster State Type
 
@@ -157,6 +164,7 @@ enum class HUD_TYPE
 	HP,
 	DASH_GAUGE,
 	MINIMAP,
+	NPC_LINE,
 	END,
 };
 

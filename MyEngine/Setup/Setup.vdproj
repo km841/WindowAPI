@@ -73,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -89,6 +105,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -287,7 +311,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{641E1855-5DF6-4359-9021-14573CD10586}"
-        "PackageCode" = "8:{56BD0CA2-EBD0-434D-81F0-0749ED036F42}"
+        "PackageCode" = "8:{921F9C13-0F42-41F5-A486-D18B818EC3EE}"
         "UpgradeCode" = "8:{07D660FB-FFC4-406E-A167-A1609169CC0D}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -409,7 +433,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_69024803CF0446A3BEEC437410F40E05"
             {
-            "Name" = "8:Shortcut to 기본 출력 from MyEngine (Active)"
+            "Name" = "8:MyEngine"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -822,7 +846,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_64E93804F7784927912DFFFE4DA786C9"
             {
-            "SourcePath" = "8:..\\x64\\Release\\MyEngine.exe"
+            "SourcePath" = "8:..\\x64\\Debug\\MyEngine.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA91AC2ACB63404B977C6ED33157CA5A"

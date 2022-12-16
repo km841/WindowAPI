@@ -6,13 +6,18 @@ class FontObject;
 
 struct TextInfo
 {
-    Vec2 mLTPos;
-    Vec2 mSlice;
+    Vec2  mLTPos;
+    Vec2  mSlice;
+    float mDuration;
 };
 
 class FontMgr :
     public Singleton< FontMgr >
 {
+public:
+    FontMgr();
+    ~FontMgr();
+
 public:
     void Initialize();
     void Update();
@@ -22,6 +27,7 @@ public:
 public:
     // Number
     Texture* GetTextTexture(const std::wstring& _key, const std::wstring& _text);
+    Texture* GetTextTexture(const std::wstring& _key, wchar_t _text);
     Texture* GetTextTexture_Gold(const std::wstring& _key, const std::wstring& _text);
     TextInfo GetTextInfo(wchar_t _text);
 
@@ -34,14 +40,24 @@ public:
     void FontUpdate();
     void FontRender();
 
+    // Output NPC Line
+    void OutputNPCLine(const std::wstring& _text, Vec2 _pos);
+    void NPCLineUpdate();
+    void NPCLineRender();
+    void NPCLineClear();
+
 private:
     // 문자에 대한 좌표를 던져준다.
     std::map<wchar_t, TextInfo> mTextMap;
     Texture* mTex;
     Texture* mGoldTex;
+    Texture* mBlackSmithLineTex;
+
+    int mNPCLineIdx;
 
     // 데미지 오브젝트는 타원운동을 함
     // 알파블렌딩으로 희미해지며..
     std::vector<FontObject*> mFonts;
+    std::vector<FontObject*> mNPCLines;
 };
 

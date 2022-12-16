@@ -6,10 +6,23 @@
 #include "TimeMgr.h"
 
 
+FontMgr::FontMgr()
+   : mTex(nullptr)
+   , mGoldTex(nullptr)
+   , mBlackSmithLineTex(nullptr)
+   , mNPCLineIdx(0)
+{
+}
+
+FontMgr::~FontMgr()
+{
+}
+
 void FontMgr::Initialize()
 {
     mTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex", L"Texture\\TextTex.bmp");
     mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\TextTex_Gold.bmp");
+    mBlackSmithLineTex = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
     
     wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G";
     size_t textSize = wcslen(buf);
@@ -21,18 +34,41 @@ void FontMgr::Initialize()
 
         mTextMap.insert(std::make_pair(buf[i], info));
     }
+
+    int space[] = { 2, 5, 9, 15, 19 };
+    Vec2 spaceSlice = Vec2(10.5, 27);
+    Vec2 otherSlice = Vec2(21, 27);
+    std::wstring blackSmithLine = L"그리 좋은 물건은 아니지만. 보탬은 될걸세!";
+
+    int ltOffset = 0;
+    for (int i = 0; i < blackSmithLine.size(); ++i)
+    {   
+        TextInfo info = {};
+        auto iter = std::find(std::begin(space), std::end(space), i);
+        if (iter == std::end(space))
+             info.mSlice = otherSlice;
+
+        else
+            info.mSlice = spaceSlice;
+
+        info.mLTPos = Vec2(ltOffset, 22);
+        ltOffset += info.mSlice.x;
+
+        mTextMap.insert(std::make_pair(blackSmithLine[i], info));
+    }
 }
 
 void FontMgr::Update()
 {
     FontUpdate();
-
+    NPCLineUpdate();
 
 }
 
 void FontMgr::Render()
 {
     FontRender();
+    NPCLineRender();
 }
 
 void FontMgr::Destroy()
@@ -86,6 +122,34 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
         x_pos += (int)info.mSlice.x;
     }
     
+    return tex;
+}
+
+Texture* FontMgr::GetTextTexture(const std::wstring& _key, wchar_t _text)
+{
+    TextInfo info = GetTextInfo(_text);
+    int textureWidth = info.mSlice.x;
+    int textureHeight = info.mSlice.y;
+
+
+    Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));
+    if (nullptr != tex)
+        return tex;
+
+    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight));
+
+    // 현재 텍스트 위치
+    BitBlt(
+        tex->GetDC(),
+        0, 0,
+        (int)info.mSlice.x,
+        (int)info.mSlice.y,
+        mTex->GetDC(),
+        (int)info.mLTPos.x,
+        (int)info.mLTPos.y,
+        SRCCOPY
+    );
+
     return tex;
 }
 
@@ -266,4 +330,87 @@ void FontMgr::FontRender()
             mFonts[i]->Render();
         }
     }
+}
+
+void FontMgr::OutputNPCLine(const std::wstring& _text, Vec2 _pos)
+{
+    for (int i = 0; i < _text.size(); ++i)
+    {
+        TextInfo info = GetTextInfo(_text[i]);
+        info.mDuration = 0.f;
+
+        FontObject* font = new FontObject;
+
+        font->SetPos(_pos);
+        _pos.x += info.mSlice.x;
+        font->SetTextInfo(info);
+
+        std::wstring temp(1, _text[i]);
+        font->SetTexture(GetTextTexture(temp, _text[i]));
+        mNPCLines.push_back(font);
+    }
+}
+
+void FontMgr::NPCLineUpdate()
+{
+    for (int i = 0; i < mNPCLines.size(); ++i)
+    {
+        if (mNPCLines.size() > mNPCLineIdx && 
+            i == mNPCLineIdx)
+        {
+            TextInfo& info = mNPCLines[i]->GetTextInfo();
+            if (0.1f < info.mDuration)
+            {
+                ++mNPCLineIdx;
+                info.mDuration = 0.f;
+                break;
+            }
+
+            else
+            {
+                info.mDuration += DT;
+            }
+        }
+    }
+}
+
+void FontMgr::NPCLineRender()
+{
+    for (int i = 0; i < mNPCLines.size(); ++i)
+    {
+        if (i <= mNPCLineIdx)
+        {
+            Texture* curTex = mNPCLines[i]->GetTexture();
+            Vec2 pos = mNPCLines[i]->GetPos();
+            Vec2 size = curTex->GetSize();
+
+            TransparentBlt(
+                BACK_BUF_DC,
+                (int)pos.x,
+                (int)pos.y,
+                (int)size.x,
+                (int)size.y,
+                curTex->GetDC(),
+                0, 0,
+                (int)size.x,
+                (int)size.y,
+                RGB(255, 0, 255)
+            );
+        }
+    }
+}
+
+void FontMgr::NPCLineClear()
+{
+    mNPCLineIdx = 0;
+    for (int i = 0; i < mNPCLines.size(); ++i)
+    {
+        if (nullptr != mNPCLines[i])
+        {
+            delete mNPCLines[i];
+            mNPCLines[i] = nullptr;
+        }
+    }
+
+    mNPCLines.clear();
 }

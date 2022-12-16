@@ -207,6 +207,7 @@
     <ClInclude Include="MouseMgr.h" />
     <ClInclude Include="MultipleMissileEffect.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="NPCLineHUD.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
@@ -313,6 +314,7 @@
     <ClCompile Include="MouseMgr.cpp" />
     <ClCompile Include="MultipleMissileEffect.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NPCLineHUD.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />

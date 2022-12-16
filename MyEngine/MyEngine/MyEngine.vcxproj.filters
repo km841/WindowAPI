@@ -356,9 +356,6 @@
     <Filter Include="Engine\Manager\FontMgr">
       <UniqueIdentifier>{e0a6e0d3-09d1-4a6b-82db-3a0de51118c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Manager\FontMgr\DamageObject">
-      <UniqueIdentifier>{f0034ee6-a380-4692-982c-158f21dda413}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Gold">
       <UniqueIdentifier>{b28a167e-92d1-486a-8ebf-e09d56aa2e2d}</UniqueIdentifier>
     </Filter>
@@ -400,6 +397,12 @@
     </Filter>
     <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent">
       <UniqueIdentifier>{5cbf798a-69a0-4323-84c9-401317f5679b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\FontMgr\FontObject">
+      <UniqueIdentifier>{f0034ee6-a380-4692-982c-158f21dda413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\NPCLineHUD">
+      <UniqueIdentifier>{2935b6f8-6420-4392-8a56-c9d21707edf0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -680,7 +683,7 @@
       <Filter>Engine\Manager\FontMgr</Filter>
     </ClInclude>
     <ClInclude Include="FontObject.h">
-      <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
+      <Filter>Engine\Manager\FontMgr\FontObject</Filter>
     </ClInclude>
     <ClInclude Include="Gold.h">
       <Filter>Engine\GameObject\Gold\Base</Filter>
@@ -717,6 +720,9 @@
     </ClInclude>
     <ClInclude Include="GiantBatSpawnEvent.h">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCLineHUD.h">
+      <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -998,7 +1004,7 @@
       <Filter>Engine\Manager\FontMgr</Filter>
     </ClCompile>
     <ClCompile Include="FontObject.cpp">
-      <Filter>Engine\Manager\FontMgr\DamageObject</Filter>
+      <Filter>Engine\Manager\FontMgr\FontObject</Filter>
     </ClCompile>
     <ClCompile Include="Gold.cpp">
       <Filter>Engine\GameObject\Gold\Base</Filter>
@@ -1038,6 +1044,9 @@
     </ClCompile>
     <ClCompile Include="GiantBatSpawnEvent.cpp">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCLineHUD.cpp">
+      <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

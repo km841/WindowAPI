@@ -81,3 +81,23 @@ void EventRegisteror::DisableUI(UI_TYPE _eType)
 
 	EventMgr::GetInstance().AddEvent(event);
 }
+
+void EventRegisteror::EnableHUD(HUD_TYPE _eType)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::ENABLE_HUD;
+	event.wParam = (DWORD_PTR)_eType;
+	event.lParam = 0;
+
+	EventMgr::GetInstance().AddEvent(event);
+}
+
+void EventRegisteror::DisableHUD(HUD_TYPE _eType)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::DISABLE_HUD;
+	event.wParam = (DWORD_PTR)_eType;
+	event.lParam = 0;
+
+	EventMgr::GetInstance().AddEvent(event);
+}

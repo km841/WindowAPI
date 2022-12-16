@@ -17,6 +17,9 @@ public:
 	void EnableUI(UI_TYPE _eType);
 	void DisableUI(UI_TYPE _eType);
 
+	void EnableHUD(HUD_TYPE _eType);
+	void DisableHUD(HUD_TYPE _eType);
+
 private:
 
 };

@@ -28,7 +28,6 @@ void Application::Initialize(const WindowData& _winData)
 	SceneMgr::GetInstance().Initialize();
 	UIMgr::GetInstance().Initialize();
 	FontMgr::GetInstance().Initialize();
-	
 }
 
 void Application::WindowInit(const WindowData& _winData)

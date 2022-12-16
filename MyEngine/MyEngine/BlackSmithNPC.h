@@ -22,5 +22,7 @@ public:
 
 private:
     Texture* mDefaultTexture;
+    bool mConversation;
+
 };
 

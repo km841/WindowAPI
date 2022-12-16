@@ -22,6 +22,7 @@
 #include "LineCollider.h"
 #include "HPHUD.h"
 #include "DashCountHUD.h"
+#include "NPCLineHUD.h"
 
 void TownScene::Initialize()
 {
@@ -171,6 +172,8 @@ void TownScene::Enter()
 	InventoryUI* inven = GET_INVENTORY_UI;
 	HPHUD* hpHUD = GET_HP_HUD;
 	DashCountHUD* dashHUD = GET_DASH_HUD;
+	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
+	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
 	AddGameObject(townForestBg, townForestBg->GetType());
@@ -192,6 +195,7 @@ void TownScene::Enter()
 	AddGameObject(inven, inven->GetType());
 	AddGameObject(hpHUD, hpHUD->GetType());
 	AddGameObject(dashHUD, dashHUD->GetType());
+	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -226,7 +230,8 @@ void TownScene::Exit()
 	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1, 
 															GET_INVENTORY_UI, 
 															GET_HP_HUD, 
-															GET_DASH_HUD, 
+															GET_DASH_HUD,
+															GET_NPCLINE_HUD,
 															Player::GetPlayer());
 
 	ShowCursor(true);

@@ -24,6 +24,7 @@
 #include "DashCountHUD.h"
 #include "GiantBat.h"
 #include "GiantBatSpawnEvent.h"
+#include "NPCLineHUD.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -164,9 +165,10 @@ void Dungeon1Scene::Exit()
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
 
-	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON2,
+	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1,
 		GET_INVENTORY_UI,
 		GET_HP_HUD,
 		GET_DASH_HUD,
+		GET_NPCLINE_HUD,
 		Player::GetPlayer());
 }

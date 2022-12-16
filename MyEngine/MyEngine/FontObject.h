@@ -4,7 +4,7 @@ class FontObject :
     public GameObject
 {
 public:
-    FontObject();
+    FontObject(bool _trans = true);
     virtual ~FontObject();
 
 public:
@@ -27,6 +27,9 @@ public:
 
     inline bool IsDead() const { return mDead; }
 
+    inline void SetTextInfo(TextInfo _info) { mInfo = _info; }
+    inline TextInfo& GetTextInfo() { return mInfo; }
+
 private:
     float mAngle;
     float mRadius;
@@ -36,8 +39,10 @@ private:
 
     Texture* mTex;
 
-    bool mDead;
+    TextInfo mInfo;
 
+    bool mDead;
+    bool mTrans;
 
 private:
     float mMaxDuration;

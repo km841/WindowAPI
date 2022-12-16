@@ -7,8 +7,13 @@
 #include "Collider.h"
 #include "Player.h"
 #include "CameraMgr.h"
+#include "KeyMgr.h"
+#include "FontMgr.h"
+#include "UIMgr.h"
+#include "EventRegisteror.h"
 
 BlackSmithNPC::BlackSmithNPC()
+	:mConversation(false)
 {
 	SetType(OBJECT_TYPE::NPC);
 	CreateComponent(new Animator);
@@ -54,6 +59,22 @@ void BlackSmithNPC::Initialize()
 void BlackSmithNPC::Update()
 {
 	GameObject::Update();
+
+	if (mConversation && IS_JUST_PRESSED(KEY::F))
+	{
+		FontMgr::GetInstance().NPCLineClear();
+		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::NPC_LINE);
+		mConversation = false;
+	}
+
+	if (mCollision && IS_JUST_PRESSED(KEY::F) && false == UIMgr::GetInstance().GetHUDState(HUD_TYPE::NPC_LINE))
+	{
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::NPC_LINE);
+		FontMgr::GetInstance().OutputNPCLine(L"그리 좋은 물건은 아니지만. 보탬은 될걸세!", Vec2(30, 680));
+		mConversation = true;
+	}
+
+
 }
 
 void BlackSmithNPC::Render()

@@ -74,6 +74,14 @@ void EventMgr::Execute(Event _event)
 		UIMgr::GetInstance().DisableUI((UI_TYPE)_event.wParam);
 		break;
 
+	case EVENT_TYPE::ENABLE_HUD:
+		UIMgr::GetInstance().EnableHUD((HUD_TYPE)_event.wParam);
+		break;
+
+	case EVENT_TYPE::DISABLE_HUD:
+		UIMgr::GetInstance().DisableHUD((HUD_TYPE)_event.wParam);
+		break;
+
 	case EVENT_TYPE::OBJECT_TRANSFORT:
 	{
 		GameObject* obj = (GameObject*)_event.lParam;
