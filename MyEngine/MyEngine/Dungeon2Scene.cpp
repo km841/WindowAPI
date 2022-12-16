@@ -101,5 +101,10 @@ void Dungeon2Scene::Enter()
 
 void Dungeon2Scene::Exit()
 {
-
+	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
+	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
+	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
+	DeleteObjGroup(OBJECT_TYPE::NPC);
+	CleanObjectGroup(OBJECT_TYPE::WALL);
+	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
 }

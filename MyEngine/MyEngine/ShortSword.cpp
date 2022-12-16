@@ -70,6 +70,7 @@ ShortSword::~ShortSword()
 	if (nullptr != effect)
 	{
 		delete effect;
+		effect = nullptr;
 	}
 }
 
