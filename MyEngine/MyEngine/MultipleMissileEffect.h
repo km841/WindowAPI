@@ -24,6 +24,9 @@ private:
     float mCurDuration;
     float mAttCount;
 
+    float mStayDuration;
+    float mMaxStayDuration;
+
     Vec2  mDirs[MULTIPLE_BULLET_1TIMES];
 };
 

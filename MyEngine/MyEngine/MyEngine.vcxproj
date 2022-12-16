@@ -245,6 +245,7 @@
     <ClInclude Include="UtilLib.h" />
     <ClInclude Include="WalkState.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="EquipedHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AfterImage.cpp" />
@@ -359,6 +360,7 @@
     <ClCompile Include="UtilLib.cpp" />
     <ClCompile Include="WalkState.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="EquipedHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc" />

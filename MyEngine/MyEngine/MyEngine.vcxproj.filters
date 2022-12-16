@@ -404,6 +404,9 @@
     <Filter Include="Engine\GameObject\HUD\NPCLineHUD">
       <UniqueIdentifier>{2935b6f8-6420-4392-8a56-c9d21707edf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\HUD\EquipedHUD">
+      <UniqueIdentifier>{f58d840f-1d07-467d-ac5f-7166b6a05105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -723,6 +726,9 @@
     </ClInclude>
     <ClInclude Include="NPCLineHUD.h">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipedHUD.h">
+      <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1047,6 +1053,9 @@
     </ClCompile>
     <ClCompile Include="NPCLineHUD.cpp">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipedHUD.cpp">
+      <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

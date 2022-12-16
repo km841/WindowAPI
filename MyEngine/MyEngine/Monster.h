@@ -31,7 +31,7 @@ public:
     inline void ChangeDir() { mDir = (DIR)(((UINT)mDir + 1) % 2); }
 
     inline void        SetMonsterInfo(MonsterInfo _info) { mInfo = _info; }
-    inline MonsterInfo GetMonsterInfo() const { return mInfo; }
+    inline MonsterInfo& GetMonsterInfo() { return mInfo; }
 
     inline void                SetIdleAnimName(const std::wstring& _idleAnimName) { mIdleAnimName = _idleAnimName; }
     inline const std::wstring& GetIdleAnimName() const { return mIdleAnimName; }
@@ -55,6 +55,12 @@ public:
     inline void  SetMaxHP(float _hp) { mInfo.mMaxHP = _hp; }
     inline float GetMaxHP() const { return mInfo.mMaxHP; }
 
+    inline void SetAttFixFrame(int _frame) { mAttFixFrame = _frame; }
+    inline int  GetAttFixFrame() const { return mAttFixFrame; }
+
+    inline void         SetMonsterType(MONSTER_TYPE _eType) { mMonType = _eType; }
+    inline MONSTER_TYPE GetMonsterType() const { return mMonType; }
+
     inline bool IsDead() const { return mDead; }
 
 
@@ -66,6 +72,8 @@ public:
 public:
     virtual void RecogLineRender(PEN_TYPE _penType) {};
     virtual void AttRangeLineRender(PEN_TYPE _penType) {};
+
+
     
 
 public:
@@ -82,9 +90,11 @@ protected:
     bool mDead;
     
     MonsterEffect* mEffect;
+    MONSTER_TYPE mMonType;
 
     int mMoney;
-
+    int mAttFixFrame;
+    
 
 protected:
     static Texture* mHPBaseTex;

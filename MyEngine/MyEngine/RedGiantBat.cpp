@@ -13,6 +13,7 @@
 
 RedGiantBat::RedGiantBat()
 {
+	mMonType = MONSTER_TYPE::FLY_RANGE;
 	SetSize(Vec2(192.f, 192.f));
 
 	GetCollider()->SetSize(Vec2(30.f, 30.f));
@@ -81,6 +82,7 @@ RedGiantBat::RedGiantBat()
 	RotateMissileEffect* effect = new RotateMissileEffect;
 	effect->SetOwner(this);
 	SetEffect(effect);
+	SetAttFixFrame(3);
 	
 }
 
@@ -100,10 +102,6 @@ void RedGiantBat::Update()
 	{
 		mEffect->Update();
 	}
-
-
-
-
 }
 
 void RedGiantBat::Render()

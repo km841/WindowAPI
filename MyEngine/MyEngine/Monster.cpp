@@ -32,6 +32,7 @@ Monster::Monster()
 	, mDir(DIR::LEFT)
 	, mPrevDir(DIR::END)
 	, mMoney(0)
+	, mAttFixFrame(0)
 {
 	SetType(OBJECT_TYPE::MONSTER);
 

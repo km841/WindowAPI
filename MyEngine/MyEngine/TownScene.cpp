@@ -23,6 +23,7 @@
 #include "HPHUD.h"
 #include "DashCountHUD.h"
 #include "NPCLineHUD.h"
+#include "EquipedHUD.h"
 
 void TownScene::Initialize()
 {
@@ -173,6 +174,7 @@ void TownScene::Enter()
 	HPHUD* hpHUD = GET_HP_HUD;
 	DashCountHUD* dashHUD = GET_DASH_HUD;
 	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
+	EquipedHUD* equipedHUD = GET_EQUIPED_HUD;
 	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
@@ -196,6 +198,7 @@ void TownScene::Enter()
 	AddGameObject(hpHUD, hpHUD->GetType());
 	AddGameObject(dashHUD, dashHUD->GetType());
 	AddGameObject(npcLineHUD, npcLineHUD->GetType());
+	AddGameObject(equipedHUD, equipedHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -232,6 +235,7 @@ void TownScene::Exit()
 															GET_HP_HUD, 
 															GET_DASH_HUD,
 															GET_NPCLINE_HUD,
+															GET_EQUIPED_HUD,
 															Player::GetPlayer());
 
 	ShowCursor(true);

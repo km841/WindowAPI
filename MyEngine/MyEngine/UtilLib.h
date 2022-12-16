@@ -21,6 +21,9 @@ struct MonsterInfo
 	float mSpeed;
 	float mRecog;
 	float mAttRange;
+	float mAttDelay;
+	float mCurDelay;
+	bool mAttFinFlag;
 };
 
 struct PlayerInfo

@@ -18,6 +18,9 @@ public:
     virtual void Destroy() override;
 
 public:
+    virtual void Change() {}
+
+public:
     inline ITEM_TYPE GetItemType() const { return mItemType; }
     inline void     SetItemType(ITEM_TYPE _itemType) { mItemType = _itemType; }
 
@@ -27,13 +30,21 @@ public:
     inline Texture* GetIconTexture() const { return mTexture; }
     inline void     SetIconTexture(Texture* _tex) { mTexture = _tex; }
 
+    inline Texture* GetEquipedTexture() const { return mEquipedTex; }
+    inline void     SetEquipedTexture(Texture* _tex) { mEquipedTex = _tex; }
+
     inline ItemInfo GetItemInfo() const { return mItemInfo; }
     inline void     SetItemInfo(ItemInfo _info) { mItemInfo = _info; }
+
+
+
+
 
 private:
     ITEM_TYPE mItemType;
     ItemInfo  mItemInfo;
     Texture*  mTexture;
     Texture*  mIconTexture;
+    Texture*  mEquipedTex;
 };
 

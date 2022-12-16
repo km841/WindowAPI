@@ -15,6 +15,9 @@ public:
     virtual void Exit();
 
 private:
+    float mStayDuration;
+    float mMaxStayDuration;
 
+    bool mAttFinFlag;
 };
 

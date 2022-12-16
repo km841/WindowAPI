@@ -6,6 +6,7 @@ Item::Item()
 	, mItemInfo{}
 	, mTexture(nullptr)
 	, mIconTexture(nullptr)
+	, mEquipedTex(nullptr)
 {
 }
 

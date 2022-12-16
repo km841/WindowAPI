@@ -33,14 +33,14 @@ void NPCLineHUD::Render()
 		Vec2 pos = GetPos();
 		TransparentBlt(
 			BACK_BUF_DC,
-			pos.x,
-			pos.y,
-			size.x,
-			size.y,
+			(int)pos.x,
+			(int)pos.y,
+			(int)size.x,
+			(int)size.y,
 			mTex->GetDC(),
 			0, 0,
-			size.x,
-			size.y,
+			(int)size.x,
+			(int)size.y,
 			RGB(255, 0, 255)
 		);
 

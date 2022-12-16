@@ -26,9 +26,11 @@ LaraMagicWand::LaraMagicWand()
 	SetItemInfo(info);
 
 	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
+	Texture* equipedTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandEquipTex", L"Texture\\LalaMagicWandEquip.bmp");
 	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"LaraMagicWandTrans", texture->GetSize());
 	SetTexture(texture);
 	SetTransTexture(transTexture);
+	SetEquipedTexture(equipedTex);
 
 	mSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraSkillTex", L"Texture\\LaraSkill.bmp");
 
@@ -117,7 +119,7 @@ void LaraMagicWand::Render()
 {
 	Sword::Render();
 
-	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - 150, WINDOW_HEIGHT_SIZE - 50);
+	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - 200, WINDOW_HEIGHT_SIZE - 50);
 	Vec2 size = mSkillTex->GetSize();
 	
 	TransparentBlt(
@@ -137,4 +139,9 @@ void LaraMagicWand::Render()
 void LaraMagicWand::Destroy()
 {
 	Sword::Destroy();
+}
+
+void LaraMagicWand::Change()
+{
+	mEffect->Change();
 }

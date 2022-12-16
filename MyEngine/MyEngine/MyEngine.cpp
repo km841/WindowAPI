@@ -5,6 +5,7 @@
 #include "UIMgr.h"
 #include "SceneMgr.h"
 #include "ToolScene.h"
+#include "EquipedHUD.h"
 
 #define MAX_LOADSTRING 100
 
@@ -182,13 +183,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEWHEEL:
     {
         Player* player = Player::GetPlayer();
-
-
         if (nullptr != player)
         {
             InventoryUI* inventory = 
                 static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY));
-            inventory->ChangeSlot();
+            
+            EquipedHUD* equipedHUD = GET_EQUIPED_HUD;
+
+            switch (equipedHUD->GetChangingState())
+            {
+            case EQUIPED_CHANGING_STATE::NONE:
+                equipedHUD->SetChangingState(EQUIPED_CHANGING_STATE::CHANGING);
+                break;
+
+            case EQUIPED_CHANGING_STATE::COMPLETE:
+                
+                equipedHUD->SetChangingState(EQUIPED_CHANGING_STATE::NONE);
+                equipedHUD->ChangeDirSign();
+                break;
+        
+            }
         }
     }
     break;

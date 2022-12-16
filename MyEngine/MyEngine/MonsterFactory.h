@@ -30,6 +30,9 @@ public:
 			info.mSpeed = 50.f;
 			info.mRecog = 300.f;
 			info.mAttRange = 150.f;
+			info.mAttDelay = 2.f;
+			info.mCurDelay = 0.f;
+
 			monster->SetMonsterInfo(info);
 			
 			AI* ai = new AI;
@@ -74,6 +77,8 @@ public:
 			info.mSpeed = 100.f;
 			info.mRecog = 400.f;
 			info.mAttRange = 300.f;
+			info.mAttDelay = 2.f;
+			info.mCurDelay = 0.f;
 
 			monster->SetMonsterInfo(info);
 

@@ -72,6 +72,11 @@ public:
 		return (x != _other.x) && (y != _other.y);
 	}
 
+	Vec2 operator-()
+	{
+		return Vec2(-x, -y);
+	}
+
 	Vec2& operator= (const Vec2& _other)
 	{
 		x = _other.x;
@@ -127,6 +132,13 @@ public:
 		ret.y -= _other.y;
 
 		return ret;
+	}
+
+	Vec2& operator-= (const Vec2& _other)
+	{
+		x -= _other.x;
+		y -= _other.y;
+		return *this;
 	}
 
 	Vec2& operator-= (float _f)

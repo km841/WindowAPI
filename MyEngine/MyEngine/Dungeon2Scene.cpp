@@ -49,7 +49,6 @@ void Dungeon2Scene::Destroy()
 
 void Dungeon2Scene::Enter()
 {
-	APP_INSTANCE.WriteLog(L"Dungeon2 Enter");
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);

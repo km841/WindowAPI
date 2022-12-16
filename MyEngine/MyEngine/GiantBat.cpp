@@ -12,6 +12,7 @@
 
 GiantBat::GiantBat()
 {
+	mMonType = MONSTER_TYPE::FLY_RANGE;
 	SetSize(Vec2(99.f, 90.f));
 
 	GetCollider()->SetSize(Vec2(30.f, 30.f));
@@ -79,6 +80,8 @@ GiantBat::GiantBat()
 	MultipleMissileEffect* effect = new MultipleMissileEffect;
 	effect->SetOwner(this);
 	SetEffect(effect);
+
+	SetAttFixFrame(3);
 }
 
 GiantBat::~GiantBat()

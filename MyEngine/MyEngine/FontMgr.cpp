@@ -36,7 +36,7 @@ void FontMgr::Initialize()
     }
 
     int space[] = { 2, 5, 9, 15, 19 };
-    Vec2 spaceSlice = Vec2(10.5, 27);
+    Vec2 spaceSlice = Vec2(10.5f, 27.f);
     Vec2 otherSlice = Vec2(21, 27);
     std::wstring blackSmithLine = L"그리 좋은 물건은 아니지만. 보탬은 될걸세!";
 
@@ -52,7 +52,7 @@ void FontMgr::Initialize()
             info.mSlice = spaceSlice;
 
         info.mLTPos = Vec2(ltOffset, 22);
-        ltOffset += info.mSlice.x;
+        ltOffset += (int)info.mSlice.x;
 
         mTextMap.insert(std::make_pair(blackSmithLine[i], info));
     }
@@ -128,8 +128,8 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
 Texture* FontMgr::GetTextTexture(const std::wstring& _key, wchar_t _text)
 {
     TextInfo info = GetTextInfo(_text);
-    int textureWidth = info.mSlice.x;
-    int textureHeight = info.mSlice.y;
+    float textureWidth = info.mSlice.x;
+    float textureHeight = info.mSlice.y;
 
 
     Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));

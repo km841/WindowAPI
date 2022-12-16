@@ -13,6 +13,9 @@ public:
     virtual void Render() override;
     virtual void Destroy() override;
 
+public:
+    virtual void Change() override;
+
 private:
     Texture* mSkillTex;
 };

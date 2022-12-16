@@ -6,6 +6,9 @@
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
 #include "Collider.h"
+#include "Monster.h"
+#include "Animation.h"
+#include "Animator.h"
 
 RotateMissileEffect::RotateMissileEffect()
 	: mRadius(80.f)
@@ -158,6 +161,8 @@ bool RotateMissileEffect::Attack()
 		{
 			mCurTime += DT;
 		}
+
+
 	}
 
 	else

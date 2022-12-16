@@ -47,6 +47,8 @@ ShortSword::ShortSword()
 
 	Texture* swordTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSword", L"Texture\\ShortSword3.bmp");
 	Texture* swordEffectTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEff", L"Texture\\ShortSword_Effect.bmp");
+	Texture* swordEquipTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEquip", L"Texture\\ShortSwordEquip.bmp");
+	
 
 	Animation* swordEffect = 
 		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(120.f, 120.f), Vec2(120.f, 0.f), 0.075f, 3);
@@ -59,6 +61,7 @@ ShortSword::ShortSword()
 	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"ShortSwordTrans", texture->GetSize());
 	SetTexture(texture);
 	SetTransTexture(transTexture);
+	SetEquipedTexture(swordEquipTex);
 }
 
 ShortSword::~ShortSword()
@@ -97,8 +100,6 @@ void ShortSword::Update()
 	if (GetDuration() > mCurDuration)
 	{
 		mCurDuration += DT;
-		
-
 	}
 	else
 	{
@@ -227,4 +228,22 @@ void ShortSword::Render()
 
 	//	effect->Render();
 	//}
+}
+
+void ShortSword::Change()
+{
+	mAttFlag = false;
+	GetEffect()->GetCollider()->SetEnable(false);
+	// 몬스터가 있다면 충돌을 해제시킴
+
+	auto& rels = GetEffect()->GetRelations();
+	for (int i = 0; i < rels.size(); ++i)
+	{
+		if (OBJECT_TYPE::MONSTER == rels[i].mOther->GetType())
+		{
+			CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), GetEffect()->GetCollider());
+			break;
+		}
+	}
+
 }

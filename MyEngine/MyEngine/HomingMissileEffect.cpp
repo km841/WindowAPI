@@ -137,7 +137,6 @@ void HomingMissileEffect::Update()
 		}
 		
 		// 타겟의 방향벡터를 구해서 총알의 속도를 더함
-
 		float initCurDuration = iter.operator*()->GetInitCurDuration();
 		float initMaxDuration = iter.operator*()->GetInitMaxDuration();
 
@@ -164,9 +163,7 @@ void HomingMissileEffect::Update()
 		else
 		{
 			Vec2 targetPos = iter.operator*()->GetTarget()->GetCollider()->GetPos();
-
 			Vec2 targetVec = targetPos - bulletPos;
-			
 
 			// 각도
 			float curAngle = atan2(dir.y, dir.x);
@@ -206,6 +203,7 @@ void HomingMissileEffect::Update()
 					dir = Math::RotateVector(dir, (targetAngle - curAngle));
 				}
 			}
+
 			bulletPos += dir * bulletSpeed * DT;
 		}
 
@@ -223,13 +221,17 @@ void HomingMissileEffect::Render()
 
 void HomingMissileEffect::Destroy()
 {
-	//for (int i = 0; i < mBullets.size(); ++i)
-	//{
-	//	if (nullptr != mBullets[i])
-	//	{
-	//		//delete mBullets[i];
-	//		mBullets[i] = nullptr;
-	//	}
-	//}
+}
 
+void HomingMissileEffect::Change()
+{
+	std::vector<MagicWandBullet*>::iterator iter = mBullets.begin();
+
+	for (; iter != mBullets.end();)
+	{
+		EventRegisteror::GetInstance().DeleteObject(*iter);
+		iter = mBullets.erase(iter);
+	}
+
+	mBullets.clear();
 }

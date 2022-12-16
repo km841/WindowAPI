@@ -157,9 +157,10 @@ Player::Player()
 	{
 		mEquipItems[i] = nullptr;
 	}
-	//ShortSword* shortSword = new ShortSword;
+	ShortSword* shortSword = new ShortSword;
 	LaraMagicWand* magicWand = new LaraMagicWand;
 	SetEquipItem(magicWand);
+	SetEquipItem(shortSword);
 
 #pragma endregion
 
@@ -826,19 +827,19 @@ void Player::EquipItemUpdate()
 		{
 			if (INVENTORY_SLOT::LEFT_SLOT == curSlot)
 			{
-				if ((UINT)EQUIP_TYPE::WEAPON_2 == i)
+				if ((UINT)EQUIP_TYPE::WEAPON_RIGHT == i)
 					continue;
 
-				if ((UINT)EQUIP_TYPE::SHIELD_2 == i)
+				if ((UINT)EQUIP_TYPE::SHIELD_RIGHT == i)
 					continue;
 			}
 
 			else if (INVENTORY_SLOT::RIGHT_SLOT == curSlot)
 			{
-				if ((UINT)EQUIP_TYPE::WEAPON_1 == i)
+				if ((UINT)EQUIP_TYPE::WEAPON_LEFT == i)
 					continue;
 
-				if ((UINT)EQUIP_TYPE::SHIELD_1 == i)
+				if ((UINT)EQUIP_TYPE::SHIELD_LEFT == i)
 					continue;
 			}
 
@@ -858,19 +859,19 @@ void Player::EquipItemRender()
 		{
 			if (INVENTORY_SLOT::LEFT_SLOT == curSlot)
 			{
-				if ((UINT)EQUIP_TYPE::WEAPON_2 == i)
+				if ((UINT)EQUIP_TYPE::WEAPON_RIGHT == i)
 					continue;
 
-				if ((UINT)EQUIP_TYPE::SHIELD_2 == i)
+				if ((UINT)EQUIP_TYPE::SHIELD_RIGHT == i)
 					continue;
 			}
 
 			else if (INVENTORY_SLOT::RIGHT_SLOT == curSlot)
 			{
-				if ((UINT)EQUIP_TYPE::WEAPON_1 == i)
+				if ((UINT)EQUIP_TYPE::WEAPON_LEFT == i)
 					continue;
 
-				if ((UINT)EQUIP_TYPE::SHIELD_1 == i)
+				if ((UINT)EQUIP_TYPE::SHIELD_LEFT == i)
 					continue;
 			}
 
@@ -967,16 +968,11 @@ void Player::SetEquipItem(Item* _item)
 	{
 	case ITEM_TYPE::WEAPON:
 	{
-		INVENTORY_SLOT curSlot = inven->GetSlot();
-		switch (curSlot)
-		{
-		case INVENTORY_SLOT::LEFT_SLOT:
-			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_1] = _item;
-			break;
-		case INVENTORY_SLOT::RIGHT_SLOT:
-			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_2] = _item;
-			break;
-		}
+		if (nullptr == mEquipItems[(UINT)EQUIP_TYPE::WEAPON_LEFT])
+			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_LEFT] = _item;
+		
+		else
+			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_RIGHT] = _item;
 	}
 
 		break;
@@ -985,6 +981,5 @@ void Player::SetEquipItem(Item* _item)
 	case ITEM_TYPE::ACCESSORIES:
 		break;
 	}
-	mEquipItems[(UINT)itemType] = _item;
 }
 

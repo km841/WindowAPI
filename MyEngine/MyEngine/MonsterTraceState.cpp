@@ -36,21 +36,68 @@ void MonsterTraceState::Update()
 		// 방향 전환은? 플레이어 위치 - 내 위치 의 부호에 따라 변환
 
 		Vec2 dirVec = monsterPos - playerPos;
+		dirVec.Norm();
 		DIR dir = monster->GetDir();
 
-		if ( 0 > dirVec.x )
+		switch (monster->GetMonsterType())
 		{
-			monsterPos.x += info.mSpeed * DT;
+		case MONSTER_TYPE::GROUND_MELEE:
+		{
 			monster->SetPrevDir(dir);
-			monster->SetDir(DIR::RIGHT);
+
+			if (0 > dirVec.x)
+			{
+				monsterPos.x += info.mSpeed * DT;
+				monster->SetDir(DIR::RIGHT);
+			}
+
+			else
+			{
+				monsterPos.x -= info.mSpeed * DT;
+				monster->SetDir(DIR::LEFT);
+			}
+		}
+			break;
+
+		case MONSTER_TYPE::FLY_RANGE:
+		{
+			monster->SetPrevDir(dir);
+
+			if (abs(playerPos.x - monsterPos.x) < info.mAttRange &&
+				(playerPos - monsterPos).Len() > info.mAttRange)
+			{
+				if (0 > dirVec.x)
+				{
+					monster->SetDir(DIR::RIGHT);
+				}
+
+				else
+				{
+					monster->SetDir(DIR::LEFT);
+				}
+				
+				monsterPos -= dirVec * info.mSpeed * DT;
+			}
+
+			else
+			{
+				if (0 > dirVec.x)
+				{
+					monsterPos.x += info.mSpeed * DT;
+					monster->SetDir(DIR::RIGHT);
+				}
+
+				else
+				{
+					monsterPos.x -= info.mSpeed * DT;
+					monster->SetDir(DIR::LEFT);
+				}
+			}
+		}
+			break;
 		}
 
-		else
-		{
-			monsterPos.x -= info.mSpeed * DT;
-			monster->SetPrevDir(dir);
-			monster->SetDir(DIR::LEFT);
-		}
+
 
 		monster->SetPos(monsterPos);
 

@@ -6,9 +6,13 @@
 #include "Player.h"
 #include "Animation.h"
 #include "EventRegisteror.h"
+#include "TimeMgr.h"
 
 MonsterAttState::MonsterAttState()
 	:MonsterState(MONSTER_STATE::ATTACK)
+	, mMaxStayDuration(2.f)
+	, mStayDuration(0.f)
+	, mAttFinFlag(false)
 {
 
 }
@@ -36,11 +40,13 @@ void MonsterAttState::Update()
 	// 애니메이션이 2회 이상 진행되어야 하는 경우?
 	// bool을 반환하는 Attack이라는 함수를 그냥 두고 그 안에서 끝났는지 유무를 검사한다.
 	// 여기서는 그 유무에 따른 처리를 해준다.
-
+	MonsterInfo& monInfo = monster->GetMonsterInfo();
 	if (!monster->Attack())
 	{
 		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
 	}
+
+	
 
 	// reset 하고 trace로
 	

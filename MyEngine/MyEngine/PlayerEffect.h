@@ -12,6 +12,9 @@ public:
     virtual void Render() {};
 
 public:
+    virtual void Change() {}
+
+public:
     inline void  SetAngle(float _angle) { mAngle = _angle; }
     inline float GetAngle() const { return mAngle; }
 
