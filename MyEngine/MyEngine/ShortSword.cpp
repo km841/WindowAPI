@@ -36,6 +36,7 @@ ShortSword::ShortSword()
 
 	SwordHitEffect* effect = new SwordHitEffect;
 	effect->SetOwner(Player::GetPlayer());
+	effect->SetOwnerItem(this);
 	effect->SetSize(Vec2(120.f, 120.f));
 	effect->SetOffset(Vec2(0.f, 40.f));
 
@@ -53,6 +54,7 @@ ShortSword::ShortSword()
 	Animation* swordEffect = 
 		effect->GetAnimator()->CreateAnimation(L"ShortSwordEffect", swordEffectTex, Vec2(0.f, 0.f), Vec2(120.f, 120.f), Vec2(120.f, 0.f), 0.075f, 3);
 	swordEffect->SetOwner(effect->GetAnimator());
+	
 
 	effect->GetAnimator()->AddAnimation(L"ShortSwordEffect", swordEffect);
 	SetEffect(effect);

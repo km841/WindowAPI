@@ -28,5 +28,20 @@ private:
     float mTurnDelay;
     float mAngleLimit;
 
+    bool mReload;
+    bool mAnimStart;
+
+    float mReloadMaxDelay;
+    float mReloadDelay;
+
+    float mVelocity;
+
+    Texture* mReloadTex;
+    Texture* mReloadBaseTex;
+
+    Vec2 mOffset;
+    float mAcc;
+
+
 };
 

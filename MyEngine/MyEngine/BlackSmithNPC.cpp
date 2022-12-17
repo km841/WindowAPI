@@ -67,14 +67,13 @@ void BlackSmithNPC::Update()
 		mConversation = false;
 	}
 
-	if (mCollision && IS_JUST_PRESSED(KEY::F) && false == UIMgr::GetInstance().GetHUDState(HUD_TYPE::NPC_LINE))
+	if (mCollision && IS_JUST_PRESSED(KEY::F) && 
+		false == UIMgr::GetInstance().GetHUDState(HUD_TYPE::NPC_LINE))
 	{
 		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::NPC_LINE);
 		FontMgr::GetInstance().OutputNPCLine(L"그리 좋은 물건은 아니지만. 보탬은 될걸세!", Vec2(30, 680));
 		mConversation = true;
 	}
-
-
 }
 
 void BlackSmithNPC::Render()

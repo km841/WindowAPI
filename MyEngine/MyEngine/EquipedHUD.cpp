@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "TimeMgr.h"
 #include "InventoryUI.h"
+#include "FontMgr.h"
 
 EquipedHUD::EquipedHUD()
 	: mChangingState(EQUIPED_CHANGING_STATE::NONE)
@@ -15,7 +16,7 @@ EquipedHUD::EquipedHUD()
 	, mMaxDuration(0.25f)
 	, mCurDuration(0.f)
 	, mDistance(0.f)
-	, mChanged(false)
+	, mVelocity(0.f)
 {
 	mTex = ResourceMgr::GetInstance().Load<Texture>(L"EquipedBaseTex", L"Texture\\EquippedWeaponBase.bmp");
 	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - mTex->GetWidth(), WINDOW_HEIGHT_SIZE - mTex->GetHeight());
@@ -47,7 +48,8 @@ EquipedHUD::EquipedHUD()
 	mDir = mFrontSlotPos - mBackSlotPos;
 	mDir.Norm();
 
-	mDistance = (mFrontSlotPos - mBackSlotPos).Len() * 4.f;
+	mDistance = (mFrontSlotPos - mBackSlotPos).Len();
+	mVelocity = mDistance / mMaxDuration;
 }
 
 EquipedHUD::~EquipedHUD()
@@ -68,37 +70,35 @@ void EquipedHUD::Update()
 		if (mMaxDuration < mCurDuration)
 		{
 			mChangingState = EQUIPED_CHANGING_STATE::COMPLETE;
-			mChanged = false;
+
+
+			Player* player = Player::GetPlayer();
+			if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT))
+			{
+				player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT)->Change();
+			}
+
+			if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT))
+			{
+				player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT)->Change();
+			}
+
+			GET_INVENTORY_UI->ChangeSlot();
 			mCurDuration = 0.f;
+
+			mFrontSlotCurPos = mFrontSlotPos;
+			mBackSlotCurPos = mBackSlotPos;
+			mDir = -mDir;
 		}
 
 		else
 		{
 			mCurDuration += DT;
 
-			mFrontSlotCurPos += -mDir * (mDistance * DT);
-			mBackSlotCurPos += mDir * (mDistance * DT);
+			mFrontSlotCurPos += -mDir * (mVelocity * DT);
+			mBackSlotCurPos += mDir * (mVelocity * DT);
 
-			if (mFrontSlotCurPos.x - mBackSlotCurPos.x < 1.f && 
-				mFrontSlotCurPos.y - mBackSlotCurPos.y < 1.f &&
-				false == mChanged)
-			{
-				Player* player = Player::GetPlayer();
-				if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT))
-				{
-					player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT)->Change();
-				}
-
-				if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT))
-				{
-					player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT)->Change();
-				}
-
-				GET_INVENTORY_UI->ChangeSlot();
-				mChanged = true;
-			}
-
-			// n초간 n의 거리를 이동
+			// n초간 n의 거리를 이
 			// 내가 어디 있어야 하는가?
 			// 도착 위치 - 현재 위치
 		}
@@ -115,16 +115,40 @@ void EquipedHUD::Render()
 		Texture* frontSlotTex = nullptr;
 		Texture* backSlotTex = nullptr;
 
+		Item* leftItem = player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT);
+		Item* rightItem = player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT);
+
+		Item* frontSlotItem = nullptr;
+		Item* backSlotItem = nullptr;
+
 		if (INVENTORY_SLOT::LEFT_SLOT == inven->GetSlot())
 		{
-			frontSlotTex = player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT)->GetEquipedTexture();
-			backSlotTex = player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT)->GetEquipedTexture();
+			if (nullptr != leftItem)
+			{
+				frontSlotTex = leftItem->GetEquipedTexture();
+				frontSlotItem = leftItem;
+			}
+
+			if (nullptr != rightItem)
+			{
+				backSlotTex = rightItem->GetEquipedTexture();
+				backSlotItem = rightItem;
+			}
 		}
 
 		else
 		{
-			frontSlotTex = player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT)->GetEquipedTexture();
-			backSlotTex = player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT)->GetEquipedTexture();
+			if (nullptr != rightItem)
+			{
+				frontSlotTex = rightItem->GetEquipedTexture();
+				frontSlotItem = rightItem;
+			}
+
+			if (nullptr != leftItem)
+			{
+				backSlotTex = leftItem->GetEquipedTexture();
+				backSlotItem = rightItem;
+			}
 		}
 
 
@@ -141,7 +165,7 @@ void EquipedHUD::Render()
 			(int)size.y,
 			RGB(255, 0, 255)
 		);
-		// 현재 슬롯 무기
+		// 백 슬롯 무기
 
 		if (nullptr != backSlotTex)
 		{
@@ -174,7 +198,7 @@ void EquipedHUD::Render()
 			RGB(255, 0, 255)
 		);
 
-		// 다음 슬롯 무기
+		// 현재 슬롯 무기
 		if (nullptr != frontSlotTex)
 		{
 			Vec2 weaponSize = frontSlotTex->GetSize();
@@ -190,6 +214,31 @@ void EquipedHUD::Render()
 				(int)weaponSize.y,
 				RGB(255, 0, 255)
 			);
+
+			if (frontSlotItem->GetItemInfo().mMaxAmmo)
+			{
+				ItemInfo& info = leftItem->GetItemInfo();
+				std::wstring curAmmo = std::to_wstring((int)info.mAmmo);
+				std::wstring maxAmmo = std::to_wstring((int)info.mMaxAmmo);
+				std::wstring result = curAmmo + L"/" + maxAmmo;
+
+				Texture* tex = FontMgr::GetInstance().GetTextTexture(result, result);
+				
+				Vec2 texSize = tex->GetSize();
+				TransparentBlt(
+					BACK_BUF_DC,
+					(int)((mFrontSlotCurPos.x + (size.x / 2.f)) - (texSize.x / 2.f)),
+					(int)((mFrontSlotCurPos.y + (size.y / 2.f)) - (texSize.y / 2.f) + 23.f),
+					(int)((texSize.x / 3.f) * 2.f),
+					(int)((texSize.y / 3.f) * 2.f),
+					tex->GetDC(),
+					0, 0,
+					(int)texSize.x,
+					(int)texSize.y,
+					RGB(255, 0, 255)
+				);
+
+			}
 		}
 
 	}

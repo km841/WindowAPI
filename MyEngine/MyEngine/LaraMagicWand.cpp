@@ -13,6 +13,8 @@
 #include "HomingMissileEffect.h"
 
 LaraMagicWand::LaraMagicWand()
+	: mSkillCoolDown(3.f)
+	, mCurCoolDown(0.f)
 {
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON);
@@ -23,6 +25,8 @@ LaraMagicWand::LaraMagicWand()
 
 	ItemInfo info = {};
 	info.mAtt = 10.f;
+	info.mMaxAmmo = 12.f;
+	info.mAmmo = info.mMaxAmmo;
 	SetItemInfo(info);
 
 	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
@@ -33,12 +37,15 @@ LaraMagicWand::LaraMagicWand()
 	SetEquipedTexture(equipedTex);
 
 	mSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraSkillTex", L"Texture\\LaraSkill.bmp");
+	mCoolSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraCoolSkillTex", L"Texture\\LaraSkillDisable.bmp");
 
 	HomingMissileEffect* effect = new HomingMissileEffect;
 	effect->SetOwner(Player::GetPlayer());
 	effect->SetAtt(info.mAtt);
+	effect->SetOwnerItem(this);
 	SetEffect(effect);
 	
+	mSkillCoolDown = 3.f;
 }
 
 LaraMagicWand::~LaraMagicWand()
@@ -121,19 +128,45 @@ void LaraMagicWand::Render()
 
 	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - 200, WINDOW_HEIGHT_SIZE - 50);
 	Vec2 size = mSkillTex->GetSize();
-	
-	TransparentBlt(
-		BACK_BUF_DC,
-		(int)(pos.x - size.x / 2.f),
-		(int)(pos.y - size.y / 2.f),
-		(int)(size.x),
-		(int)(size.y),
-		mSkillTex->GetDC(),
-		0, 0,
-		(int)size.x,
-		(int)size.y,
-		RGB(255, 0, 255)
-	);
+
+	if (mCoolDown)
+	{
+		TransparentBlt(
+			BACK_BUF_DC,
+			(int)(pos.x - size.x / 2.f),
+			(int)(pos.y - size.y / 2.f),
+			(int)(size.x),
+			(int)(size.y),
+			mCoolSkillTex->GetDC(),
+			0, 0,
+			(int)size.x,
+			(int)size.y,
+			RGB(255, 0, 255)
+		);
+	}
+
+	else
+	{
+		TransparentBlt(
+			BACK_BUF_DC,
+			(int)(pos.x - size.x / 2.f),
+			(int)(pos.y - size.y / 2.f),
+			(int)(size.x),
+			(int)(size.y),
+			mSkillTex->GetDC(),
+			0, 0,
+			(int)size.x,
+			(int)size.y,
+			RGB(255, 0, 255)
+		);
+	}
+
+
+	if (nullptr != mEffect)
+	{
+
+		mEffect->Render();
+	}
 }
 
 void LaraMagicWand::Destroy()

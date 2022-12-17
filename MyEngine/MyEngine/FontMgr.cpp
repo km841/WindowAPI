@@ -24,7 +24,7 @@ void FontMgr::Initialize()
     mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\TextTex_Gold.bmp");
     mBlackSmithLineTex = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
     
-    wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G";
+    wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G/";
     size_t textSize = wcslen(buf);
     for (int i = 0; i < textSize; ++i)
     {

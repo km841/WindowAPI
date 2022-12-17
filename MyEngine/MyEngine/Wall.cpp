@@ -45,8 +45,6 @@ void Wall::Update()
 		Vec2 rightTopTilePos = Vec2(myTilePos.x + TILE_SIZE, myTilePos.y - TILE_SIZE);
 
 		if (playerTilePos == topTilePos || 
-			playerTilePos == leftTopTilePos || 
-			playerTilePos == rightTopTilePos || 
 			playerTilePos == myTilePos)
 		{
 			mPlayerAbobeMe = true;

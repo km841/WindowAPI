@@ -33,8 +33,10 @@ public:
     inline Texture* GetEquipedTexture() const { return mEquipedTex; }
     inline void     SetEquipedTexture(Texture* _tex) { mEquipedTex = _tex; }
 
-    inline ItemInfo GetItemInfo() const { return mItemInfo; }
-    inline void     SetItemInfo(ItemInfo _info) { mItemInfo = _info; }
+    inline ItemInfo& GetItemInfo() { return mItemInfo; }
+    inline void      SetItemInfo(ItemInfo _info) { mItemInfo = _info; }
+
+    inline void Reload() { mItemInfo.mAmmo = mItemInfo.mMaxAmmo; }
 
 
 

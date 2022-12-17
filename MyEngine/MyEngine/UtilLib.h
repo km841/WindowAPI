@@ -3,18 +3,40 @@
 
 struct ItemInfo
 {
+	ItemInfo()
+		: mAtt(0.f)
+		, mAmmo(0.f)
+		, mMaxAmmo(0.f)
+	{}
 	float mAtt;
+	float mAmmo;
+	float mMaxAmmo;
 	//Stat
 };
 
 struct BulletInfo
 {
+	BulletInfo()
+		: mSpeed(0.f)
+		, mAtt(0.f)
+	{}
 	float mSpeed;
 	float mAtt;
 };
 
 struct MonsterInfo
 {
+	MonsterInfo()
+		: mAtt(0.f)
+		, mMaxHP(0.f)
+		, mCurHP(0.f)
+		, mSpeed(0.f)
+		, mRecog(0.f)
+		, mAttRange(0.f)
+		, mAttDelay(0.f)
+		, mCurDelay(0.f)
+		, mAttFinFlag(false)
+	{}
 	float mAtt;
 	float mMaxHP;
 	float mCurHP;
@@ -28,6 +50,13 @@ struct MonsterInfo
 
 struct PlayerInfo
 {
+	PlayerInfo()
+		:mMaxHP(0.f)
+		,mCurHP(0.f)
+		,mAtt(0.f)
+		,mDashCount(0.f)
+		,mSpeed(0.f)
+	{}
 	float mMaxHP;
 	float mCurHP;
 	float mAtt;

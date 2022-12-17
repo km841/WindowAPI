@@ -35,9 +35,8 @@ private:
     float mCurDuration;
 
     float mDistance;
+    float mVelocity;
     Vec2  mDir;
-
-    bool mChanged;
 
 };
 

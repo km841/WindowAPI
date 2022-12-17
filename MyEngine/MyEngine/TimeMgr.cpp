@@ -21,9 +21,6 @@ void TimeMgr::Update()
 
 	if (mDT > (1.f / 60.f))
 		mDT = (1.f / 60.f);
-
-	//if (mDT < (1.f / 100.f))
-	//	mDT = (1.f / 100.f);
 }
 
 void TimeMgr::Render()

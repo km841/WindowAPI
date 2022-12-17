@@ -18,6 +18,9 @@ public:
 	inline void		   SetOwner(GameObject* _obj) { mOwner = _obj; }
 	inline GameObject* GetOwner() { return mOwner; }
 
+	inline void		   SetOwnerItem(GameObject* _obj) { mOwnerItem = _obj; }
+	inline GameObject* GetOwnerItem() { return mOwnerItem; }
+
 	inline void SetOffset(Vec2 _offset) { mOffset = _offset; }
 	inline Vec2 GetOffset() const { return mOffset; }
 
@@ -31,6 +34,7 @@ public:
 
 private:
 	GameObject* mOwner;
+	GameObject* mOwnerItem;
 	Vec2	    mOffset;
 	Texture*    mTexture;
 
