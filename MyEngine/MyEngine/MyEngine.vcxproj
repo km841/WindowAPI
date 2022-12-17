@@ -186,6 +186,7 @@
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="InventoryUI.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemGetHUD.h" />
     <ClInclude Include="JumpState.h" />
     <ClInclude Include="LaraMagicWand.h" />
     <ClInclude Include="LineCollider.h" />
@@ -295,6 +296,7 @@
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="InventoryUI.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemGetHUD.cpp" />
     <ClCompile Include="JumpState.cpp" />
     <ClCompile Include="LaraMagicWand.cpp" />
     <ClCompile Include="LineCollider.cpp" />

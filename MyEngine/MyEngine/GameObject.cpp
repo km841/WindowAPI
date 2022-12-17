@@ -82,11 +82,11 @@ void GameObject::Update()
 void GameObject::Render()
 {
 
-
-	if (nullptr != GetCollider())
-		GetCollider()->Render();
-	
-
+	if (IS_PRESSED(KEY::C))
+	{
+		if (nullptr != GetCollider())
+			GetCollider()->Render();
+	}
 
 	if (nullptr != GetAnimator())
 		GetAnimator()->Render();

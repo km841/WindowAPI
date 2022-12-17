@@ -410,6 +410,9 @@
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState">
       <UniqueIdentifier>{dbe59478-8510-4a08-baae-2c68c9a03deb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\HUD\ItemGetHUD">
+      <UniqueIdentifier>{9dce3fe9-b668-4837-bb83-ca4661615e98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -735,6 +738,9 @@
     </ClInclude>
     <ClInclude Include="MonsterAttAfterState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemGetHUD.h">
+      <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1065,6 +1071,9 @@
     </ClCompile>
     <ClCompile Include="MonsterAttAfterState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemGetHUD.cpp">
+      <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

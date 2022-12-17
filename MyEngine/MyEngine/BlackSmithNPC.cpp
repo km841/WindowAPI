@@ -13,7 +13,8 @@
 #include "EventRegisteror.h"
 
 BlackSmithNPC::BlackSmithNPC()
-	:mConversation(false)
+	: mConversation(false)
+	, mFirst(true)
 {
 	SetType(OBJECT_TYPE::NPC);
 	CreateComponent(new Animator);
@@ -71,7 +72,21 @@ void BlackSmithNPC::Update()
 		false == UIMgr::GetInstance().GetHUDState(HUD_TYPE::NPC_LINE))
 	{
 		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::NPC_LINE);
-		FontMgr::GetInstance().OutputNPCLine(L"그리 좋은 물건은 아니지만. 보탬은 될걸세!", Vec2(30, 680));
+
+		if (mFirst)
+		{
+			FontMgr::GetInstance().OutputNPCLine(L"그리 좋은 물건은 아니지만. 보탬은 될걸세!", Vec2(30, 680));
+			mFirst = false;
+
+			// 라라의 요술봉 떨구기
+
+		}
+
+		else
+		{
+			FontMgr::GetInstance().OutputNPCLine(L"오늘 만든 건 그게 끝이라네. 다음에 다시 오게나.", Vec2(30, 680));
+		}
+		
 		mConversation = true;
 	}
 }

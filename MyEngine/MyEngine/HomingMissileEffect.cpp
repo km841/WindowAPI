@@ -342,9 +342,6 @@ void HomingMissileEffect::Render()
 			0, 0,
 			SRCCOPY
 		);
-
-		
-		
 	}
 
 }

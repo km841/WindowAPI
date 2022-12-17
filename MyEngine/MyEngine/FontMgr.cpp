@@ -56,6 +56,19 @@ void FontMgr::Initialize()
 
         mTextMap.insert(std::make_pair(blackSmithLine[i], info));
     }
+
+    blackSmithLine = L"오늘만든건그게끝이라네다음에다시오게나";
+
+    for (int i = 0; i < blackSmithLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 49);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(blackSmithLine[i], info));
+    }
+
+
 }
 
 void FontMgr::Update()

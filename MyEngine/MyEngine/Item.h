@@ -38,7 +38,8 @@ public:
 
     inline void Reload() { mItemInfo.mAmmo = mItemInfo.mMaxAmmo; }
 
-
+    inline void SetFallen(bool _flag) { mHasFallen = _flag; }
+    inline bool GetFallen() const { return mHasFallen; }
 
 
 
@@ -48,5 +49,8 @@ private:
     Texture*  mTexture;
     Texture*  mIconTexture;
     Texture*  mEquipedTex;
+
+protected:
+    bool      mHasFallen;
 };
 
