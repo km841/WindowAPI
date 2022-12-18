@@ -21,6 +21,7 @@
 
 Dungeon2Scene::Dungeon2Scene()
 {
+	mSceneType = SCENE_TYPE::DUNGEON2;
 }
 
 Dungeon2Scene::~Dungeon2Scene()

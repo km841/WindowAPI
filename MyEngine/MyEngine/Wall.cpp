@@ -171,7 +171,8 @@ void Wall::OnCollision(Collider* _other)
 		_other->SetPos(otherPos);
 	}
 
-	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
+	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType() || 
+		OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
 	{
 		Vec2 pos = GetCollider()->GetPos();
 		Vec2 size = GetCollider()->GetSize();
@@ -236,9 +237,14 @@ void Wall::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::DROP_GOLD == _other->GetOwner()->GetType())
 	{
-		Gold* gold = static_cast<Gold*>(_other->GetOwner());
-		gold->GetRigidBody()->SetVelocity_Zero();
-		static_cast<Gold*>(_other->GetOwner())->SetGround(true);
+		_other->GetOwner()->GetRigidBody()->SetVelocity_Zero();
+		_other->GetOwner()->SetGround(true);
+	}
+
+	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	{
+		_other->GetOwner()->GetRigidBody()->SetVelocity_Zero();
+		_other->GetOwner()->SetGround(true);
 	}
 }
 

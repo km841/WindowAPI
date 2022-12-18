@@ -11,6 +11,7 @@
 #include "FontMgr.h"
 #include "UIMgr.h"
 #include "EventRegisteror.h"
+#include "LaraMagicWand.h"
 
 BlackSmithNPC::BlackSmithNPC()
 	: mConversation(false)
@@ -79,7 +80,10 @@ void BlackSmithNPC::Update()
 			mFirst = false;
 
 			// ¶ó¶óÀÇ ¿ä¼úºÀ ¶³±¸±â
-
+			LaraMagicWand* wand = new LaraMagicWand;
+			Vec2 pos = GetPos();
+			pos.y -= 30.f;
+			wand->Drop(pos);
 		}
 
 		else

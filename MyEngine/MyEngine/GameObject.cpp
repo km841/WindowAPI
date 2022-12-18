@@ -4,6 +4,8 @@
 #include "Animator.h"
 #include "RigidBody.h"
 #include "KeyMgr.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 
 GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
@@ -68,7 +70,6 @@ void GameObject::Initialize()
 
 void GameObject::Update()
 {
-
 	if (nullptr != GetAnimator())
 		GetAnimator()->Update();
 
@@ -81,8 +82,8 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-
-	if (IS_PRESSED(KEY::C))
+	if (IS_PRESSED(KEY::C) || 
+		SCENE_TYPE::TOOL == SceneMgr::GetInstance().GetCurScene()->GetSceneType())
 	{
 		if (nullptr != GetCollider())
 			GetCollider()->Render();

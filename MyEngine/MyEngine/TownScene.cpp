@@ -25,6 +25,15 @@
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
 
+TownScene::TownScene()
+{
+	mSceneType = SCENE_TYPE::TOWN;
+}
+
+TownScene::~TownScene()
+{
+}
+
 void TownScene::Initialize()
 {
 	Scene::Initialize();
@@ -89,13 +98,14 @@ void TownScene::Enter()
 	Texture* grass02 = ResourceMgr::GetInstance().Load<Texture>(L"Grass02", L"Texture\\Grass02.bmp");
 	Texture* grass03 = ResourceMgr::GetInstance().Load<Texture>(L"Grass03", L"Texture\\Grass03.bmp");
 
-	//Texture* floorPixel = ResourceMgr::GetInstance().Load<Texture>(L"Floor_Pixel", L"Texture\\BlackSmith.bmp");
+	Texture* townFloorTex = ResourceMgr::GetInstance().Load<Texture>(L"TownFloor", L"Texture\\Town_Floor.bmp");
+
+
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
 	CameraMgr::GetInstance().SetTrackingObject(player);
-	//ShortSword* sword = static_cast<ShortSword*>(player->GetEquipItem(EQUIP_TYPE::WEAPON_1));
-	//AddGameObject(sword, sword->GetType());
+
 
 	BlackSmithNPC* blackSmithNPC = new BlackSmithNPC;
 	blackSmithNPC->SetPos(Vec2(TILE_SIZE * 30, GROUND_STANDARD));
@@ -167,6 +177,12 @@ void TownScene::Enter()
 	Grass03St_2->SetTexture(grass03);
 	Grass03St_2->SetSize(grass03->GetSize());
 
+	Structure* TownFloor = new Structure;
+	TownFloor->SetPos(Vec2((TILE_SIZE * 80) - 10, GROUND_STANDARD));
+	TownFloor->SetTexture(townFloorTex);
+	TownFloor->SetSize(townFloorTex->GetSize());
+
+
 	DungeonEatEvent* eatEvent = new DungeonEatEvent;
 	eatEvent->SetPos(Vec2(TILE_SIZE * 70, GROUND_STANDARD));
 
@@ -192,6 +208,8 @@ void TownScene::Enter()
 	AddGameObject(Grass03St, Grass03St->GetType());
 	AddGameObject(Grass03St_2, Grass03St_2->GetType());
 
+	AddGameObject(TownFloor, TownFloor->GetType());
+
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
@@ -203,6 +221,10 @@ void TownScene::Enter()
 
 	Initialize();
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
@@ -217,7 +239,6 @@ void TownScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::STRUCTURE);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
-	//DeleteObjGroup(OBJECT_TYPE::NPC);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	
@@ -225,6 +246,10 @@ void TownScene::Exit()
 	//DeleteObjGroup(OBJECT_TYPE::EFFECT);
 
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);

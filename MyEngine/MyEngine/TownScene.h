@@ -5,6 +5,10 @@ class TownScene :
     public Scene
 {
 public:
+	TownScene();
+	virtual ~TownScene();
+
+public:
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Render();

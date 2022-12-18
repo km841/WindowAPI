@@ -19,7 +19,7 @@
 void Application::Initialize(const WindowData& _winData)
 {
 	WindowInit(_winData);
-	mFST.open(L"..\\Resource\\Log\\log.txt", std::ios::out | std::ios::app);
+	//mFST.open(L"..\\Resource\\Log\\log.txt", std::ios::out | std::ios::app);
 
 	// Manager Initialize
 	KeyMgr::GetInstance().Initialize();
@@ -150,7 +150,7 @@ void Application::Render()
 
 void Application::Destroy()
 {
-	mFST.close();
+	//mFST.close();
 	FontMgr::GetInstance().Destroy();
 	SceneMgr::GetInstance().Destroy();
 	EventMgr::GetInstance().Destroy();

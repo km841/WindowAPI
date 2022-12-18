@@ -147,7 +147,7 @@ void EquipedHUD::Render()
 			if (nullptr != leftItem)
 			{
 				backSlotTex = leftItem->GetEquipedTexture();
-				backSlotItem = rightItem;
+				backSlotItem = leftItem;
 			}
 		}
 
@@ -217,7 +217,7 @@ void EquipedHUD::Render()
 
 			if (frontSlotItem->GetItemInfo().mMaxAmmo)
 			{
-				ItemInfo& info = leftItem->GetItemInfo();
+				ItemInfo& info = frontSlotItem->GetItemInfo();
 				std::wstring curAmmo = std::to_wstring((int)info.mAmmo);
 				std::wstring maxAmmo = std::to_wstring((int)info.mMaxAmmo);
 				std::wstring result = curAmmo + L"/" + maxAmmo;

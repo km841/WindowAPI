@@ -21,7 +21,7 @@ ToolScene::ToolScene()
 	: mCheckedObjectType(OBJECT_TYPE::TILE_BG)
 	, mCheckedTileType(TILE_TYPE::NONE)
 {
-	
+	mSceneType = SCENE_TYPE::TOOL;
 }
 
 ToolScene::~ToolScene()
@@ -634,10 +634,13 @@ void ToolScene::Load()
 	{
 		std::wstring fileName = GetFileName();
 		
-
 		FILE* fp = nullptr;
-		_wfopen_s(&fp, fileName.c_str(), L"rb");
+		errno_t err =_wfopen_s(&fp, fileName.c_str(), L"rb");
 
+		if (0 != err)
+		{
+			assert(nullptr);
+		}
 		
 		DeleteObjGroup(OBJECT_TYPE::TILE);
 
@@ -669,9 +672,7 @@ void ToolScene::Load()
 			}
 		}
 
-
-		fclose(fp);
-
+		err =  fclose(fp);
 	}
 }
 

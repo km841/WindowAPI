@@ -158,9 +158,9 @@ Player::Player()
 		mEquipItems[i] = nullptr;
 	}
 	ShortSword* shortSword = new ShortSword;
-	LaraMagicWand* magicWand = new LaraMagicWand;
-	SetEquipItem(magicWand);
 	SetEquipItem(shortSword);
+	//LaraMagicWand* magicWand = new LaraMagicWand;
+	//SetEquipItem(magicWand);
 
 #pragma endregion
 
@@ -792,6 +792,15 @@ void Player::OnCollisionEnter(Collider* _other)
 		
 		FontMgr::GetInstance().OutputGold(money, goldPos);
 		EventRegisteror::GetInstance().DeleteObject(gold);
+	}
+
+	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())
+	{
+		Item* item = static_cast<Item*>(_other->GetOwner());
+		EventRegisteror::GetInstance().DeleteObjectFromScene(item);
+		item->SetFallen(false);
+		SetEquipItem(item);
+		item->Initialize();
 	}
 
 

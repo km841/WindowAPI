@@ -39,7 +39,9 @@ public:
     inline void Reload() { mItemInfo.mAmmo = mItemInfo.mMaxAmmo; }
 
     inline void SetFallen(bool _flag) { mHasFallen = _flag; }
-    inline bool GetFallen() const { return mHasFallen; }
+    inline bool HasFallen() const { return mHasFallen; }
+
+    void Drop(Vec2 _pos);
 
 
 

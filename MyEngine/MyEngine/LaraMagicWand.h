@@ -26,6 +26,7 @@ public:
 private:
     Texture* mSkillTex;
     Texture* mCoolSkillTex;
+    Texture* mEquipTex;
     float    mSkillCoolDown;
     float    mCurCoolDown;
     bool     mCoolDown;

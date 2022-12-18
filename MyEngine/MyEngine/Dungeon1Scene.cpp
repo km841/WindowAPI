@@ -29,6 +29,7 @@
 
 Dungeon1Scene::Dungeon1Scene()
 {
+	mSceneType = SCENE_TYPE::DUNGEON1;
 }
 
 Dungeon1Scene::~Dungeon1Scene()
@@ -74,15 +75,11 @@ void Dungeon1Scene::Enter()
 
 	Load(L"..\\Resource\\Map\\dungeon1.map");
 
-	//auto& events = EventMgr::GetInstance().GetEvents();
-
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
 		player->SetPos(Vec2(TILE_SIZE * 5,  GROUND_STANDARD));
 		player->SetStop(false);
-		//ShortSword* sword = static_cast<ShortSword*>(player->GetEquipItem(EQUIP_TYPE::WEAPON_1));
-		//AddGameObject(sword, sword->GetType());
 	}
 
 	

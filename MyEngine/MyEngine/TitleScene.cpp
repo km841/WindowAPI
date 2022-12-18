@@ -12,6 +12,15 @@
 #include "UIMgr.h"
 #include "InventoryUI.h"
 
+TitleScene::TitleScene()
+{
+	mSceneType = SCENE_TYPE::TITLE;
+}
+
+TitleScene::~TitleScene()
+{
+}
+
 void TitleScene::Initialize()
 {
 	Scene::Initialize();

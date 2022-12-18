@@ -40,6 +40,8 @@ public:
 	inline std::wstring GetFileName() const { return mFileName; }
 	void TileInitialize(size_t _size);
 
+	inline SCENE_TYPE GetSceneType() const { return mSceneType; }
+
 public:
 	void Background_Black();
 	void Background_White();
@@ -55,6 +57,7 @@ protected:
 
 	OPENFILENAME mOFN;
 	wchar_t mFileName[FILENAME_MAX_SIZE];
+	SCENE_TYPE	mSceneType;
 
 };
 

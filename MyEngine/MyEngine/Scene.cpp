@@ -185,7 +185,12 @@ void Scene::Background_White()
 void Scene::Load(const std::wstring& _path)
 {
 	FILE* fp = nullptr;
-	_wfopen_s(&fp, _path.c_str(), L"rb");
+	errno_t error = _wfopen_s(&fp, _path.c_str(), L"rb");
+
+	if (0 != error)
+	{
+		assert(nullptr);
+	}
 
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 
