@@ -20,6 +20,7 @@
 #include "LockedDoor.h"
 
 DungeonScene::DungeonScene()
+	:mClear(false)
 {
 }
 

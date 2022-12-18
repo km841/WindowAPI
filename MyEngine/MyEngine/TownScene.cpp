@@ -215,15 +215,7 @@ void TownScene::Enter()
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
+	SetCollisionFlag();
 }
 
 void TownScene::Exit()
@@ -240,15 +232,8 @@ void TownScene::Exit()
 	//DeleteObjGroup(OBJECT_TYPE::TILE);
 	//DeleteObjGroup(OBJECT_TYPE::EFFECT);
 
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
+
+	SetCollisionFlag();
 
 	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1, 
 															GET_INVENTORY_UI, 
@@ -259,5 +244,19 @@ void TownScene::Exit()
 															GET_ITEMGET_HUD,
 															Player::GetPlayer());
 
+	Player::GetPlayer()->SetPrevScene(GetSceneType());
 	ShowCursor(true);
+}
+
+void TownScene::SetCollisionFlag()
+{
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::STRUCTURE);
 }

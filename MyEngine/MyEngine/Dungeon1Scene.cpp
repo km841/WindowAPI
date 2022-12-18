@@ -19,11 +19,11 @@
 #include "Wall.h"
 #include "LockedDoor.h"
 #include "UIMgr.h"
+#include "GiantBat.h"
+#include "GiantBatSpawnEvent.h"
 #include "InventoryUI.h"
 #include "HPHUD.h"
 #include "DashCountHUD.h"
-#include "GiantBat.h"
-#include "GiantBatSpawnEvent.h"
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
@@ -79,26 +79,70 @@ void Dungeon1Scene::Enter()
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
-		player->SetPos(Vec2(TILE_SIZE * 5,  GROUND_STANDARD));
+		switch (player->GetPrevScene())
+		{
+		case SCENE_TYPE::TOWN:
+			player->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+			break;
+
+		case SCENE_TYPE::DUNGEON2:
+			player->SetPos(Vec2(TILE_SIZE * 46.f, (float)(GROUND_STANDARD - TILE_SIZE * 6)));
+			break;
+		}
+		
 		player->SetStop(false);
 	}
 
-	
+	if (false == mClear)
+	{
+		Regen();
+	}
 
+	Initialize();
+	SetCollisionFlag();
+}
+
+void Dungeon1Scene::Exit()
+{
+	ShowCursor(true);
+	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
+	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
+	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
+	DeleteObjGroup(OBJECT_TYPE::NPC);
+	CleanObjectGroup(OBJECT_TYPE::WALL);
+	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+
+	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON2,
+		GET_INVENTORY_UI,
+		GET_HP_HUD,
+		GET_DASH_HUD,
+		GET_NPCLINE_HUD,
+		GET_EQUIPED_HUD,
+		GET_ITEMGET_HUD,
+		Player::GetPlayer());
+
+
+	SetCollisionFlag();
+	Player::GetPlayer()->SetPrevScene(GetSceneType());
+	mClear = true;
+}
+
+void Dungeon1Scene::Regen()
+{
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, GROUND_STANDARD - TILE_SIZE  * 6));
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, GROUND_STANDARD - TILE_SIZE * 6));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD-TILE_SIZE * 6));
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD - TILE_SIZE * 6));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, GROUND_STANDARD-TILE_SIZE * 6));
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, GROUND_STANDARD - TILE_SIZE * 6));
 	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
 	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD-TILE_SIZE * 6));
+	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD - TILE_SIZE * 6));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 	GiantBatSpawnEvent* spawnEvent5 = new GiantBatSpawnEvent;
@@ -131,12 +175,15 @@ void Dungeon1Scene::Enter()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor3, lockDoor3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor4, lockDoor4->GetType());
+	
+}
 
-	Initialize();
+void Dungeon1Scene::SetCollisionFlag()
+{
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_GOLD);
-	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DUNGEON_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::EVENT_OBJECT);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DUNGEON_OBJECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::MONSTER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::FOOTHOLD);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::NPC);
@@ -152,24 +199,4 @@ void Dungeon1Scene::Enter()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
-}
-
-void Dungeon1Scene::Exit()
-{
-	ShowCursor(true);
-	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
-	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
-	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
-	DeleteObjGroup(OBJECT_TYPE::NPC);
-	CleanObjectGroup(OBJECT_TYPE::WALL);
-	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
-
-	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON2,
-		GET_INVENTORY_UI,
-		GET_HP_HUD,
-		GET_DASH_HUD,
-		GET_NPCLINE_HUD,
-		GET_EQUIPED_HUD,
-		GET_ITEMGET_HUD,
-		Player::GetPlayer());
 }

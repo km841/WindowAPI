@@ -42,6 +42,8 @@ public:
 
 	inline SCENE_TYPE GetSceneType() const { return mSceneType; }
 
+	virtual void SetCollisionFlag() {};
+
 public:
 	void Background_Black();
 	void Background_White();

@@ -16,5 +16,7 @@ public:
 public:
 	virtual void Enter();
 	virtual void Exit();
+	virtual void Regen();
+	virtual void SetCollisionFlag();
 };
 

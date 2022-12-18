@@ -16,5 +16,10 @@ public:
 public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
+
+	virtual void Regen() = 0;
+
+protected:
+	bool mClear;
 };
 

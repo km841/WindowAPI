@@ -100,6 +100,8 @@ public:
 
     inline bool IsHit() const { return mHit; }
 
+    inline void SetPrevScene(SCENE_TYPE _type) { mPrevScene = _type; }
+    inline SCENE_TYPE GetPrevScene() const { return mPrevScene; }
 
 public:
     inline Item* GetEquipItem(EQUIP_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
@@ -126,6 +128,7 @@ private:
 
     PLAYER_CHARACTER mCharacter;
 
+    SCENE_TYPE mPrevScene;
 
     Vec2       mPrevPos;
     DIR        mPrevDir;

@@ -17,6 +17,7 @@ public:
 public:
 	virtual void Enter();
 	virtual void Exit();
+	virtual void SetCollisionFlag();
 
 private:
 
