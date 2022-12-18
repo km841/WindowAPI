@@ -89,13 +89,11 @@ void Dungeon2Scene::Enter()
 
 	if (false == mClear)
 	{
-		Regen();
-		
+		Regen();	
 	}
 
 	Initialize();
 	SetCollisionFlag();
-
 }
 
 void Dungeon2Scene::Exit()
@@ -121,19 +119,19 @@ void Dungeon2Scene::Exit()
 void Dungeon2Scene::Regen()
 {
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, GROUND_STANDARD));
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 15));
 
 	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD));
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 15));
 
 	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, GROUND_STANDARD));
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
 	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 15));
 
 	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD));
+	spawnEvent4->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 	LockedDoor* lockDoor1 = new LockedDoor;

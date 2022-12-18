@@ -185,7 +185,6 @@ void Scene::Background_White()
 
 void Scene::Load(const std::wstring& _path)
 {
-	// ToolScene의 fp가 해제되지 않고 있음
 	FILE* fp = nullptr;
 	_wchdir(APP_INSTANCE.GetBaseAddress().c_str());
 	errno_t error = _wfopen_s(&fp, _path.c_str(), L"rb");

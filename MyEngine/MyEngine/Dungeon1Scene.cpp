@@ -135,23 +135,23 @@ void Dungeon1Scene::Exit()
 void Dungeon1Scene::Regen()
 {
 	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 17, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent1->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 22, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent2->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
 	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 27, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent3->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
 	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
 	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(TILE_SIZE * 32, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent4->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 	GiantBatSpawnEvent* spawnEvent5 = new GiantBatSpawnEvent;
-	spawnEvent5->SetPos(Vec2(TILE_SIZE * 37, GROUND_STANDARD - TILE_SIZE * 6));
+	spawnEvent5->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
 	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
 
 
