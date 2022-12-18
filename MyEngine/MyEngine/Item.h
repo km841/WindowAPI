@@ -41,6 +41,10 @@ public:
     inline void SetFallen(bool _flag) { mHasFallen = _flag; }
     inline bool HasFallen() const { return mHasFallen; }
 
+    inline void SetItemName(const std::wstring& _name) { mItemName = _name; }
+    inline const std::wstring& GetItemName() const { return mItemName; }
+    
+
     void Drop(Vec2 _pos);
 
 
@@ -51,6 +55,8 @@ private:
     Texture*  mTexture;
     Texture*  mIconTexture;
     Texture*  mEquipedTex;
+
+    std::wstring mItemName;
 
 protected:
     bool      mHasFallen;

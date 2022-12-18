@@ -26,6 +26,7 @@
 #include "GiantBatSpawnEvent.h"
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
+#include "ItemGetHUD.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -169,5 +170,6 @@ void Dungeon1Scene::Exit()
 		GET_DASH_HUD,
 		GET_NPCLINE_HUD,
 		GET_EQUIPED_HUD,
+		GET_ITEMGET_HUD,
 		Player::GetPlayer());
 }

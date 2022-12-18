@@ -24,6 +24,7 @@
 #include "DashCountHUD.h"
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
+#include "ItemGetHUD.h"
 
 TownScene::TownScene()
 {
@@ -98,7 +99,7 @@ void TownScene::Enter()
 	Texture* grass02 = ResourceMgr::GetInstance().Load<Texture>(L"Grass02", L"Texture\\Grass02.bmp");
 	Texture* grass03 = ResourceMgr::GetInstance().Load<Texture>(L"Grass03", L"Texture\\Grass03.bmp");
 
-	Texture* townFloorTex = ResourceMgr::GetInstance().Load<Texture>(L"TownFloor", L"Texture\\Town_Floor.bmp");
+	//Texture* townFloorTex = ResourceMgr::GetInstance().Load<Texture>(L"TownFloor", L"Texture\\Town_Floor.bmp");
 
 
 
@@ -177,12 +178,6 @@ void TownScene::Enter()
 	Grass03St_2->SetTexture(grass03);
 	Grass03St_2->SetSize(grass03->GetSize());
 
-	Structure* TownFloor = new Structure;
-	TownFloor->SetPos(Vec2((TILE_SIZE * 80) - 10, GROUND_STANDARD));
-	TownFloor->SetTexture(townFloorTex);
-	TownFloor->SetSize(townFloorTex->GetSize());
-
-
 	DungeonEatEvent* eatEvent = new DungeonEatEvent;
 	eatEvent->SetPos(Vec2(TILE_SIZE * 70, GROUND_STANDARD));
 
@@ -191,6 +186,7 @@ void TownScene::Enter()
 	DashCountHUD* dashHUD = GET_DASH_HUD;
 	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
 	EquipedHUD* equipedHUD = GET_EQUIPED_HUD;
+	ItemGetHUD* itemGetHUD = GET_ITEMGET_HUD;
 	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
@@ -208,8 +204,6 @@ void TownScene::Enter()
 	AddGameObject(Grass03St, Grass03St->GetType());
 	AddGameObject(Grass03St_2, Grass03St_2->GetType());
 
-	AddGameObject(TownFloor, TownFloor->GetType());
-
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
@@ -217,6 +211,7 @@ void TownScene::Enter()
 	AddGameObject(dashHUD, dashHUD->GetType());
 	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(equipedHUD, equipedHUD->GetType());
+	AddGameObject(itemGetHUD, itemGetHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -261,6 +256,7 @@ void TownScene::Exit()
 															GET_DASH_HUD,
 															GET_NPCLINE_HUD,
 															GET_EQUIPED_HUD,
+															GET_ITEMGET_HUD,
 															Player::GetPlayer());
 
 	ShowCursor(true);

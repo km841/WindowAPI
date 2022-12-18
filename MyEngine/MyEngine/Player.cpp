@@ -33,6 +33,7 @@
 #include "Monster.h"
 #include "MonsterEffect.h"
 #include "MonsterBullet.h"
+#include "ItemGetHUD.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -801,6 +802,9 @@ void Player::OnCollisionEnter(Collider* _other)
 		item->SetFallen(false);
 		SetEquipItem(item);
 		item->Initialize();
+
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_GET);
+		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemName(), RARITY::UNIQUE);
 	}
 
 

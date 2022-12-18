@@ -84,15 +84,6 @@ Monster::~Monster()
 		delete mAI;
 		mAI = nullptr;
 	}
-
-	// 삭제될 때 씬에서도 지워줘야 함
-	
-	
-	//if (nullptr != mEffect)
-	//{
-	//	delete mEffect;
-	//	mEffect = nullptr;
-	//}
 }
 
 void Monster::Initialize()
@@ -165,10 +156,6 @@ void Monster::Destroy()
 {
 	if (nullptr != mEffect)
 		EventRegisteror::GetInstance().DeleteObject(mEffect);
-
-	// 씬의 Exit에서 삭제하도록 함
-	//EventRegisteror::GetInstance().DeleteObject(mEffect);
-	//mEffect = nullptr;
 }
 
 void Monster::OnCollision(Collider* _other)
@@ -188,11 +175,6 @@ void Monster::OnCollisionEnter(Collider* _other)
 		Vec2 pos = GetPos();
 		Vec2 playerPos = player->GetPos();
 		Vec2 dir = pos - playerPos;
-
-		//dir.Norm();
-		//dir.x *= 3;
-
-		//SetPos(pos + dir);
 
 		float curHP = GetCurHP();
 

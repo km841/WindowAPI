@@ -10,6 +10,7 @@
 #include "DashCountHUD.h"
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
+#include "ItemGetHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -27,6 +28,7 @@ void UIMgr::Initialize()
 	EnableHUD(HUD_TYPE::DASH_GAUGE);
 	EnableHUD(HUD_TYPE::EQUIPED);
 	DisableHUD(HUD_TYPE::NPC_LINE);
+	DisableHUD(HUD_TYPE::ITEM_GET);
 }
 
 void UIMgr::Update()
@@ -214,8 +216,14 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 			hud->SetState(true);
 			break;
 
-		case HUD_TYPE::MINIMAP:
+		case HUD_TYPE::ITEM_GET:
+			hud = new ItemGetHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
 
+		case HUD_TYPE::MINIMAP:
+			
 			break;
 		}
 	}

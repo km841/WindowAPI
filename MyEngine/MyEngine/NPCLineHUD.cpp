@@ -43,7 +43,6 @@ void NPCLineHUD::Render()
 			(int)size.y,
 			RGB(255, 0, 255)
 		);
-
 	}
 
 }

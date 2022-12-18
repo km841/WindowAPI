@@ -28,6 +28,8 @@ LaraMagicWand::LaraMagicWand()
 	SetYOffset(8.f);
 	SetDuration(0.225f);
 
+	SetItemName(L"라라의 요술봉");
+
 	ItemInfo info = {};
 	info.mAtt = 10.f;
 	info.mMaxAmmo = 12.f;
@@ -151,14 +153,14 @@ void LaraMagicWand::Render()
 		
 		TransparentBlt(
 			BACK_BUF_DC,
-			pos.x - size.x / 2.f,
-			pos.y - size.y / 2.f,
-			size.x,
-			size.y,
+			(int)(pos.x - size.x / 2.f),
+			(int)(pos.y - size.y / 2.f),
+			(int)(size.x),
+			(int)(size.y),
 			mEquipTex->GetDC(),
 			0, 0,
-			size.x,
-			size.y,
+			(int)size.x,
+			(int)size.y,
 			RGB(255, 0, 255)
 		);
 

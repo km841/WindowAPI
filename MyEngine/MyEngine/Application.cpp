@@ -55,6 +55,8 @@ void Application::WindowInit(const WindowData& _winData)
 	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::BACKGROUND, L"배경 타일");
 	AppendMenu(mWinData.hTypeMenu, MFT_RADIOCHECK, (UINT_PTR)ID::SURFACE, L"표면 타일");
 
+	_wgetcwd(mWinData.szFileAddr, FILENAME_MAX_SIZE);
+
 	//SetMenu(mWinData.hWnd, mWinData.hMainMemu);
 	CheckMenuRadioItem(mWinData.hColMenu, 0, 2, 2, MF_BYPOSITION);
 	CheckMenuRadioItem(mWinData.hTypeMenu, 0, 1, 0, MF_BYPOSITION);

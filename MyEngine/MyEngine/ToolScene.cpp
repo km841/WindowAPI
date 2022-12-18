@@ -672,7 +672,7 @@ void ToolScene::Load()
 			}
 		}
 
-		err =  fclose(fp);
+		err = fclose(fp);
 	}
 }
 

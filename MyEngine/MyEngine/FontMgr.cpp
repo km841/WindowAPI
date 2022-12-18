@@ -12,18 +12,10 @@ FontMgr::FontMgr()
    , mBlackSmithLineTex(nullptr)
    , mNPCLineIdx(0)
 {
-}
-
-FontMgr::~FontMgr()
-{
-}
-
-void FontMgr::Initialize()
-{
     mTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex", L"Texture\\TextTex.bmp");
     mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\TextTex_Gold.bmp");
     mBlackSmithLineTex = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
-    
+
     wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G/";
     size_t textSize = wcslen(buf);
     for (int i = 0; i < textSize; ++i)
@@ -42,11 +34,11 @@ void FontMgr::Initialize()
 
     int ltOffset = 0;
     for (int i = 0; i < blackSmithLine.size(); ++i)
-    {   
+    {
         TextInfo info = {};
         auto iter = std::find(std::begin(space), std::end(space), i);
         if (iter == std::end(space))
-             info.mSlice = otherSlice;
+            info.mSlice = otherSlice;
 
         else
             info.mSlice = spaceSlice;
@@ -67,6 +59,26 @@ void FontMgr::Initialize()
 
         mTextMap.insert(std::make_pair(blackSmithLine[i], info));
     }
+
+    std::wstring itemGetHUDLine = L"ÀÇ¿ä¼úºÀÅÛÈ¹µæ";
+
+    for (int i = 0; i < itemGetHUDLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 76);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(itemGetHUDLine[i], info));
+    }
+}
+
+FontMgr::~FontMgr()
+{
+}
+
+void FontMgr::Initialize()
+{
+
 
 
 }

@@ -14,6 +14,18 @@ public:
     virtual void Render() override;
     virtual void Destroy() override;
 
+public:
+    void SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, RARITY _rarity);
+
 private:
+    Texture* mTex;
+    Texture* mTextTex;
+    BLENDFUNCTION mBlendFunc;
+
+    Texture* mSetupItemTex;
+    Texture* mItemNameTex;
+
+    float mMaxDuration;
+    float mCurDuration;
 };
 

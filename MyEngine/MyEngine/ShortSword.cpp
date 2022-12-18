@@ -27,6 +27,8 @@ ShortSword::ShortSword()
 	SetYOffset(8.f);
 	SetDuration(0.225f);
 
+	SetItemName(L"Ότ ΌÒµε");
+
 	ItemInfo info = {};
 	info.mAtt = 10.f;
 	SetItemInfo(info);

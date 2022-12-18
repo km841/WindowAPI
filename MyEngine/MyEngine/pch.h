@@ -18,6 +18,7 @@
 #include <tchar.h>
 #include <assert.h>
 #include <time.h>
+#include <direct.h>
 
 /*USER DEFINE LIBRARY*/
 #include "MathLib.h"
@@ -42,6 +43,7 @@
 #define GET_DASH_HUD static_cast<DashCountHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::DASH_GAUGE))
 #define GET_NPCLINE_HUD static_cast<NPCLineHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::NPC_LINE))
 #define GET_EQUIPED_HUD static_cast<EquipedHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::EQUIPED))
+#define GET_ITEMGET_HUD static_cast<ItemGetHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::ITEM_GET))
 #define ZERO_VECTOR Math::ZeroVector()
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY

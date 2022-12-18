@@ -108,6 +108,7 @@ struct WindowData
 	HMENU		 hMainMemu;
 	HMENU		 hColMenu;
 	HMENU		 hTypeMenu;
+	wchar_t      szFileAddr[512];
 };
 
 struct Pen

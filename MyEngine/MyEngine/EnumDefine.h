@@ -167,6 +167,7 @@ enum class HUD_TYPE
 	MINIMAP,
 	NPC_LINE,
 	EQUIPED,
+	ITEM_GET,
 	END,
 };
 
@@ -281,10 +282,18 @@ enum class ANGLE_TYPE
 	DEGREE_270_TYPE,
 };
 
-enum EQUIPED_CHANGING_STATE
+enum class EQUIPED_CHANGING_STATE
 {
 	NONE,
 	CHANGING,
 	COMPLETE,
+};
+
+enum class RARITY
+{
+	NORMAL,
+	RARE,
+	UNIQUE,
+	END,
 };
 

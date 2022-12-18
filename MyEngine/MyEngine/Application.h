@@ -26,6 +26,8 @@ public:
 	inline HMENU GetColMenuHandle() const { return mWinData.hColMenu; }
 	inline HMENU GetTypeMenuHandle() const { return mWinData.hTypeMenu; }
 	inline const std::wofstream& GetOutputFileStream() const { return mFST; }
+	inline std::wstring GetBaseAddress() { return mWinData.szFileAddr; }
+	
 
 public:
 	void WriteLog(const std::wstring& _comment);
