@@ -109,6 +109,7 @@ void Scene::DeleteObjGroup(OBJECT_TYPE _eType)
 	{
 		if (nullptr != mObjects[(UINT)_eType][i])
 		{
+			mObjects[(UINT)_eType][i]->Destroy();
 			delete mObjects[(UINT)_eType][i];
 			mObjects[(UINT)_eType][i] = nullptr;
 		}

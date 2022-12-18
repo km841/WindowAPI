@@ -104,8 +104,13 @@ void Dungeon2Scene::Exit()
 	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	DeleteObjGroup(OBJECT_TYPE::NPC);
+	DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_MONSTER);
+	DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_PLAYER);
+	DeleteObjGroup(OBJECT_TYPE::PARTICLE);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+	DeleteObjGroup(OBJECT_TYPE::TILE);
+	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 
 	SetCollisionFlag();
 

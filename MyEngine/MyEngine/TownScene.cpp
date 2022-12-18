@@ -228,6 +228,8 @@ void TownScene::Exit()
 	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
+	DeleteObjGroup(OBJECT_TYPE::TILE);
+	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 	
 	//DeleteObjGroup(OBJECT_TYPE::TILE);
 	//DeleteObjGroup(OBJECT_TYPE::EFFECT);

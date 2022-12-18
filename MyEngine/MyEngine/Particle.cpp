@@ -10,7 +10,7 @@ Particle::Particle()
 	:mCurDuration(0.f)
 	,mMaxDuration(.5f)
 {
-	SetType(OBJECT_TYPE::DUNGEON_OBJECT);
+	SetType(OBJECT_TYPE::PARTICLE);
 
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
@@ -47,7 +47,7 @@ void Particle::Update()
 	if (mCurDuration > mMaxDuration)
 	{
 		mCurDuration = mMaxDuration;
-		EventRegisteror::GetInstance().DeleteObject(this);
+		//EventRegisteror::GetInstance().DeleteObject(this);
 	}
 	else
 	{
