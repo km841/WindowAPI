@@ -156,7 +156,6 @@ void Tile::CreateWall()
 {
 	mCollisionComponent = new Wall;
 	mCollisionComponent->SetPos(GetPos());
-	EventRegisteror::GetInstance().CreateObject(mCollisionComponent, mCollisionComponent->GetType());
 	//mCollisionComponent->SetOwner(this);
 }
 
@@ -164,7 +163,6 @@ void Tile::CreateFoothold()
 {
 	mCollisionComponent = new Foothold;
 	mCollisionComponent->SetPos(GetPos());
-	EventRegisteror::GetInstance().CreateObject(mCollisionComponent, mCollisionComponent->GetType());
 	//mCollisionComponent->SetOwner(this);
 }
 
