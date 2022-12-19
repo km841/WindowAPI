@@ -209,9 +209,9 @@ void TownScene::Enter()
 	AddGameObject(inven, inven->GetType());
 	AddGameObject(hpHUD, hpHUD->GetType());
 	AddGameObject(dashHUD, dashHUD->GetType());
-	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(equipedHUD, equipedHUD->GetType());
 	AddGameObject(itemGetHUD, itemGetHUD->GetType());
+	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -241,8 +241,8 @@ void TownScene::Exit()
 															GET_INVENTORY_UI, 
 															GET_HP_HUD, 
 															GET_DASH_HUD,
-															GET_NPCLINE_HUD,
 															GET_EQUIPED_HUD,
+															GET_NPCLINE_HUD,
 															GET_ITEMGET_HUD,
 															Player::GetPlayer());
 

@@ -51,6 +51,10 @@ void UIMgr::Update()
 		else				 
 			ui->mOnClicked = false;
 	}
+
+
+
+
 }
 
 void UIMgr::Destroy()
@@ -208,7 +212,6 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 			hud->Initialize();
 			hud->SetState(true);
 			break;
-
 
 		case HUD_TYPE::EQUIPED:
 			hud = new EquipedHUD;
