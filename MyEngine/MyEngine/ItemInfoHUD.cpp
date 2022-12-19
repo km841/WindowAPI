@@ -87,18 +87,54 @@ void ItemInfoHUD::Render()
 			);
 		}
 
+		if (nullptr != mItemNameTex)
+		{
+			Vec2 itemNameTexSize = mItemNameTex->GetSize();
+			TransparentBlt(
+				BACK_BUF_DC,
+				(int)(pos.x - baseSize.x / 2.f - itemNameTexSize.x / 2.f),
+				(int)(pos.y - itemNameTexSize.y / 2.f + 20.f),
+				(int)itemNameTexSize.x,
+				(int)itemNameTexSize.y,
+				mItemNameTex->GetDC(),
+				0, 0,
+				itemNameTexSize.x,
+				itemNameTexSize.y,
+				RGB(255, 0, 255)
+			);
+		}
+
+		if (nullptr != mItemCommentTex)
+		{
+			Vec2 itemCommentTexOrgSize = mItemCommentTex->GetSize();
+			Vec2 itemCommentTexSize = (itemCommentTexOrgSize / 5.f) * 4.f;
+			TransparentBlt(
+				BACK_BUF_DC,
+				(int)(pos.x - baseSize.x / 2.f - itemCommentTexSize.x / 2.f),
+				(int)(pos.y - itemCommentTexSize.y / 2.f + 250.f),
+				(int)itemCommentTexSize.x,
+				(int)itemCommentTexSize.y,
+				mItemCommentTex->GetDC(),
+				0, 0,
+				mItemCommentTex->GetWidth(),
+				mItemCommentTex->GetHeight(),
+				RGB(255, 0, 255)
+			);
+		}
+
 		SetState(false);
 	}
 }
 
-void ItemInfoHUD::SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, RARITY _rarity)
+void ItemInfoHUD::SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, const std::wstring& _itemComment, RARITY _rarity)
 {
 	mSetupItemTex = _itemTex;
 	mItemNameTex = FontMgr::GetInstance().GetTextTexture(_itemName, _itemName);
+	mItemCommentTex = FontMgr::GetInstance().GetTextTexture(_itemComment, _itemComment);
 
 	if (nullptr != mItemNameTex)
 	{
-		COLORREF color = RGB(0, 0, 0);
+		COLORREF color = RGB(255, 255, 255);
 		switch (_rarity)
 		{
 		case RARITY::NORMAL:

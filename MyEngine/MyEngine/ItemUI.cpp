@@ -32,7 +32,7 @@ void ItemUI::Update()
 			if (nullptr != mItem)
 			{
 				GET_ITEMINFO_HUD->SetPos(MOUSE_POS);
-				GET_ITEMINFO_HUD->SetupItemInfo(mItem->GetEquipedTexture(), mItem->GetItemName(), mItem->GetRarity());
+				GET_ITEMINFO_HUD->SetupItemInfo(mItem->GetEquipedTexture(), mItem->GetItemName(), mItem->GetItemComment(), mItem->GetRarity());
 				EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_INFO);
 
 				if (OnClicked())

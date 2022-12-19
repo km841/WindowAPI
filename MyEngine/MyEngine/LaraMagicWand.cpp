@@ -29,6 +29,7 @@ LaraMagicWand::LaraMagicWand()
 	SetDuration(0.225f);
 
 	SetItemName(L"라라의 요술봉");
+	SetItemComment(L"'마법 소녀 라라가 잃어버린 요술봉'");
 	SetRarity(RARITY::UNIQUE);
 
 	ItemInfo info = {};

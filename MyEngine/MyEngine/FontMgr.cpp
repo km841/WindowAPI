@@ -70,6 +70,40 @@ FontMgr::FontMgr()
 
         mTextMap.insert(std::make_pair(itemGetHUDLine[i], info));
     }
+
+    std::wstring itemInfoHUDLine = L"¼ô¼Òµå";
+
+    for (int i = 0; i < itemInfoHUDLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 103);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(itemInfoHUDLine[i], info));
+    }
+
+    itemInfoHUDLine = L"°¡°Ë°Ý°í°ø±â³à´Ù´çµÎ·Â¸£¸°¸¶¹«¹ö¹ýº±¼Õ¼ö¾îÀÒÁÖÃÊÆíÇÑÈ½ÈÖ():'";
+    ltOffset = 0;
+    for (int i = 0; i < itemInfoHUDLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(ltOffset, 130);
+
+        if (i >= itemInfoHUDLine.size() - 4)
+        {
+            info.mSlice = Vec2(11, 27);
+            ltOffset += 11;
+        }
+
+        else
+        {
+            info.mSlice = otherSlice;
+            ltOffset += 21;
+        }
+
+        mTextMap.insert(std::make_pair(itemInfoHUDLine[i], info));
+    }
+    
 }
 
 FontMgr::~FontMgr()

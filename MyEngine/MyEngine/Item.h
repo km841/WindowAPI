@@ -43,6 +43,9 @@ public:
 
     inline void SetItemName(const std::wstring& _name) { mItemName = _name; }
     inline const std::wstring& GetItemName() const { return mItemName; }
+
+    inline void SetItemComment(const std::wstring& _comment) { mItemComment = _comment; }
+    inline const std::wstring& GetItemComment() const { return mItemComment; }
     
     inline void   SetRarity(RARITY _rarity) { mRarity = _rarity; }
     inline RARITY GetRarity() const { return mRarity; }
@@ -62,6 +65,7 @@ private:
     RARITY    mRarity;
 
     std::wstring mItemName;
+    std::wstring mItemComment;
 
 protected:
     bool      mHasFallen;

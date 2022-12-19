@@ -6,6 +6,7 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 #include "Scene.h"
+#include "CollisionMgr.h"
 
 GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
@@ -139,5 +140,11 @@ void GameObject::SetObjState(OBJECT_STATE _state)
 	if (OBJECT_STATE::ALIVE != _state && nullptr != GetCollider())
 	{
 		GetCollider()->SetEnable(false);
+		//std::vector<Relation>& rels = GetRelations();
+
+		//for (auto& rel : rels)
+		//{
+		//	CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), rel.mOther->GetCollider());
+		//}
 	}
 }

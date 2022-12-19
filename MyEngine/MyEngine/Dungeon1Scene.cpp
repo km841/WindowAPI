@@ -150,7 +150,7 @@ void Dungeon1Scene::Regen()
 	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 	GiantBatSpawnEvent* spawnEvent5 = new GiantBatSpawnEvent;
-	spawnEvent5->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
+	spawnEvent5->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
 
 

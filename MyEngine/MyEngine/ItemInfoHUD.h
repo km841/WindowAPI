@@ -16,7 +16,7 @@ public:
     virtual void Destroy() override;
 
 public:
-    void SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, RARITY _rarity);
+    void SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, const std::wstring& _itemComment, RARITY _rarity);
 
 private:
     Texture* mTex;
@@ -26,5 +26,6 @@ private:
 
     Texture* mSetupItemTex;
     Texture* mItemNameTex;
+    Texture* mItemCommentTex;
 };
 

@@ -28,6 +28,7 @@ ShortSword::ShortSword()
 	SetDuration(0.225f);
 
 	SetItemName(L"ºÙ º“µÂ");
+	SetItemComment(L"'∞°∫±∞Ì »÷µŒ∏£±‚ ∆Ì«— ∞À'");
 	SetRarity(RARITY::NORMAL);
 
 	ItemInfo info = {};

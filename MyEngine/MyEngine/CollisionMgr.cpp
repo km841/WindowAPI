@@ -237,6 +237,7 @@ bool CollisionMgr::LineToLineCollision(Vec2 _v1, Vec2 _v2, Vec2 _v3, Vec2 _v4)
 
 void CollisionMgr::CollisionForceQuit(Collider* _left, Collider* _right)
 {
+
 	COLLISION_ID colID = {};
 	colID.LID = _left->GetID();
 	colID.RID = _right->GetID();
