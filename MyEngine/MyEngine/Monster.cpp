@@ -26,8 +26,7 @@ Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
 
 Monster::Monster()
-	: mDead(false)
-	, mAI(nullptr)
+	: mAI(nullptr)
 	, mInfo()
 	, mDir(DIR::LEFT)
 	, mPrevDir(DIR::END)
@@ -120,7 +119,7 @@ void Monster::Render()
 
 	GameObject::Render();
 	float ratio = mInfo.mCurHP / mInfo.mMaxHP;
-	if (1.0f > ratio && false == mDead)
+	if (1.0f > ratio && false == IsDead())
 	{
 		Vec2 pos = GetPos();
 		pos += mHPBarOffset;
@@ -190,7 +189,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			if (!mDead)
+			if (!IsDead())
 			{
 				int billion = mMoney / 100;
 				int changes = mMoney % 100;
@@ -209,7 +208,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
-				mDead = true;
+				SetDead(true);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 		}
@@ -243,7 +242,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			if (!mDead)
+			if (!IsDead())
 			{
 				int billion = mMoney / 100;
 				int changes = mMoney % 100;
@@ -262,7 +261,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
-				mDead = true;
+				SetDead(true);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 

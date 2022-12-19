@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "ResourceMgr.h"
 #include "Texture.h"
+#include "Monster.h"
 
 Scene::Scene()
 	: mOFN{}
@@ -63,6 +64,12 @@ void Scene::Update()
 	{
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
+			if ((UINT)OBJECT_TYPE::MONSTER == y)
+			{
+				if (mObjects[y][x]->IsDead())
+					continue;
+			}
+
 			if (nullptr != mObjects[y][x])
 				mObjects[y][x]->Update();
 		}
@@ -75,6 +82,12 @@ void Scene::Render()
 	{
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
+			if ((UINT)OBJECT_TYPE::MONSTER == y)
+			{
+				if (mObjects[y][x]->IsDead())
+					continue;
+			}
+
 			if (nullptr != mObjects[y][x])
 				mObjects[y][x]->Render();
 		}
@@ -127,6 +140,9 @@ GameObject* Scene::GetNearestObject(GameObject* _src, OBJECT_TYPE _findType)
 
 	for (int i = 0; i < mObjects[(UINT)_findType].size(); ++i)
 	{
+		if (mObjects[(UINT)_findType][i]->IsDead())
+			continue;
+
 		Vec2 findTypePos = mObjects[(UINT)_findType][i]->GetPos();
 		float distance = (srcPos - findTypePos).Len();
 		if (minDistance > distance)
@@ -154,6 +170,19 @@ void Scene::FrameCorrection()
 		(int)size.y,
 		RGB(255, 0, 255)
 	);
+}
+
+bool Scene::AreAllObjectsDead(OBJECT_TYPE _eType)
+{
+	bool allDeadFlag = true;
+
+	for (int i = 0; i < mObjects[(UINT)_eType].size(); ++i)
+	{
+		if (false == mObjects[(UINT)_eType][i]->IsDead())
+			allDeadFlag = false;
+	}
+
+	return allDeadFlag;
 }
 
 void Scene::TileInitialize(size_t _size)

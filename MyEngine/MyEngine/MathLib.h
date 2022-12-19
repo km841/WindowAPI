@@ -25,6 +25,11 @@ public:
 		, y(_other.y)
 	{ }
 
+	bool IsZero()
+	{
+		return x == 0.f && y == 0.f;
+	}
+
 	bool operator< (const Vec2& _other) const
 	{
 		if (x < _other.x &&

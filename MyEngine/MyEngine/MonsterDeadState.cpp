@@ -20,7 +20,8 @@ void MonsterDeadState::Update()
 	Monster* monster = GetOwnerAI()->GetOwnerMonster();
 	if (monster->GetAnimator()->GetCurAnimation()->IsFinished())
 	{
-		EventRegisteror::GetInstance().DeleteObject(monster);
+		//EventRegisteror::GetInstance().DeleteObject(monster);
+		monster->SetDead(true);
 	}
 }
 

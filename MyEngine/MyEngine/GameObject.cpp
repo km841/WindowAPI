@@ -11,6 +11,7 @@ GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
 	, mGround(true)
 	, mGravity(false)
+	, mDead(false)
 	, mPos{}
 	, mSize{}
 	, mComponents{}
@@ -130,4 +131,13 @@ void GameObject::CreateComponent(RigidBody* _rigidBody)
 {
 	assert(nullptr != _rigidBody);
 	mComponents.mRigidBody = _rigidBody;
+}
+
+void GameObject::SetDead(bool _flag)
+{
+	mDead = _flag;
+	if (nullptr != GetCollider())
+	{
+		GetCollider()->SetEnable(false);
+	}
 }

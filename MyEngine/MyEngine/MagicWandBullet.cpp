@@ -8,6 +8,11 @@
 #include "CameraMgr.h"
 #include "AfterImage.h"
 #include "TimeMgr.h"
+#include "SceneMgr.h"
+#include "Scene.h"
+#include "Player.h"
+#include "Monster.h"
+#include "EventRegisteror.h"
 
 MagicWandBullet::MagicWandBullet()
 	:mTarget(nullptr)
@@ -16,12 +21,13 @@ MagicWandBullet::MagicWandBullet()
 	,mCurDuration(0.f)
 	,mInitMaxDuration(0.1f)
 	,mInitCurDuration(0.f)
+	,mAngleLimit(Math::DegreeToRadian(2.f))
 {
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
 	mInfo.mAtt = 10.f;
-	mInfo.mSpeed = 500.f;
+	mInfo.mSpeed = 750.f;
 
 	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
 
@@ -66,20 +72,21 @@ void MagicWandBullet::Update()
 			if (mAfterImages.empty())
 			{
 				SetBulletState(BULLET_STATE::DEAD);
+				EventRegisteror::GetInstance().DeleteObject(this);
 			}
 		}
 	}
 
 	else
 	{
-		 //화면 밖으로 날아가면 false
+		//화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
 		{
 			SetBulletState(BULLET_STATE::DEAD_ANIM);
 			GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
 		}
 
-		if (mMaxDuration < mCurDuration && 
+		if (mMaxDuration < mCurDuration &&
 			BULLET_STATE::DEAD_ANIM != GetBulletState())
 		{
 			mCurDuration = 0.f;
@@ -94,17 +101,19 @@ void MagicWandBullet::Update()
 			afterImg->SetPos(GetPos());
 
 			mAfterImages.push_back(afterImg);
-			
 		}
 
-		else if (mMaxDuration > mCurDuration)
+		else
 		{
 			mCurDuration += DT;
+			Vec2 bulletPos = GetPos();
+			Vec2 dir = GetMissileVec();
+
+			bulletPos += dir * mInfo.mSpeed * DT;
+			mSpeedVector = dir;
+			SetPos(bulletPos);
 		}
-		// n초에 한번씩
-
 	}
-
 	// dead 잔상 지워주기
 
 	std::vector<AfterImage*>::iterator iter = mAfterImages.begin();
@@ -166,3 +175,97 @@ void MagicWandBullet::OnCollisionEnter(Collider* _other)
 void MagicWandBullet::OnCollisionExit(Collider* _other)
 {
 }
+
+Vec2 MagicWandBullet::GetMissileVec()
+{
+	Vec2 dir = mSpeedVector;
+	if (dir.IsZero())
+	{
+		dir = mInitDir;
+	}
+
+	Vec2 bulletPos = GetPos();
+
+	if (mMaxDuration > mCurDuration)
+	{
+		mCurDuration += DT;
+		mSpeedVector = mInitDir;
+	}
+
+	if (nullptr == mTarget)
+	{
+		GameObject* target =
+			SceneMgr::GetInstance().GetCurScene()->GetNearestObject(Player::GetPlayer(), OBJECT_TYPE::MONSTER);
+
+		if (nullptr != target)
+		{
+			mTarget = target;
+		}
+	}
+
+	else
+	{
+		if (mTarget->IsDead())
+		{
+			GameObject* target =
+				SceneMgr::GetInstance().GetCurScene()->GetNearestObject(Player::GetPlayer(), OBJECT_TYPE::MONSTER);
+
+			if (nullptr != target)
+			{
+				mTarget = target;
+			}
+
+			else
+			{
+				return dir;
+			}
+		}
+
+		else
+		{
+			Vec2 targetPos = mTarget->GetCollider()->GetPos();
+			Vec2 targetVec = targetPos - bulletPos;
+
+			float curAngle = atan2(dir.y, dir.x);
+			float targetAngle = atan2(targetVec.y, targetVec.x);
+			float distance = targetVec.Len();
+
+			if (distance > WINDOW_WIDTH_SIZE * 0.75f)
+			{
+				dir += targetVec;
+				dir.Norm();
+			}
+
+			else if (curAngle > targetAngle)
+			{
+				if (curAngle - targetAngle > mAngleLimit)
+				{
+					dir = Math::RotateVector(dir, -mAngleLimit);
+				}
+
+				else
+				{
+					dir = Math::RotateVector(dir, -(curAngle - targetAngle));
+				}
+			}
+
+			else if (curAngle < targetAngle)
+			{
+				if (targetAngle - curAngle > mAngleLimit)
+				{
+					dir = Math::RotateVector(dir, mAngleLimit);
+				}
+
+				else
+				{
+					dir = Math::RotateVector(dir, (targetAngle - curAngle));
+				}
+			}
+		}
+
+	}
+
+
+	return dir;
+}
+

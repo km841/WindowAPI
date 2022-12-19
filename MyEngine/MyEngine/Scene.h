@@ -34,6 +34,8 @@ public:
 
 	GameObject* GetNearestObject(GameObject* _src, OBJECT_TYPE _findType);
 	void FrameCorrection();
+
+	bool AreAllObjectsDead(OBJECT_TYPE _eType);
 	
 
 public:

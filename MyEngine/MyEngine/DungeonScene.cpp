@@ -39,7 +39,7 @@ void DungeonScene::Update()
 
 	// 던전 내 몬스터 개수
 
-	if (mObjects[(UINT)OBJECT_TYPE::MONSTER].empty() &&
+	if (AreAllObjectsDead(OBJECT_TYPE::MONSTER) &&
 		mObjects[(UINT)OBJECT_TYPE::EVENT_OBJECT].empty())
 	{
 		for (int i = 0; i < mObjects[(UINT)OBJECT_TYPE::DUNGEON_OBJECT].size(); ++i)

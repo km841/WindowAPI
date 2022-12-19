@@ -12,6 +12,7 @@ public:
     Monster();
     virtual ~Monster();
 
+    friend class MonsterDeadState;
 public:
     virtual void Initialize() override;
     virtual void Update() override;
@@ -66,8 +67,6 @@ public:
     inline void         SetMonsterType(MONSTER_TYPE _eType) { mMonType = _eType; }
     inline MONSTER_TYPE GetMonsterType() const { return mMonType; }
 
-    inline bool IsDead() const { return mDead; }
-
 
 public:
     virtual bool Attack() { return true; }
@@ -91,8 +90,6 @@ protected:
     MonsterInfo mInfo;
     DIR mDir;
     DIR mPrevDir;
-
-    bool mDead;
     
     MonsterEffect* mEffect;
     MONSTER_TYPE mMonType;

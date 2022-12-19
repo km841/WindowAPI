@@ -38,6 +38,8 @@ public:
     inline void SetSpeedVector(Vec2 _v) { mSpeedVector = _v; }
     inline Vec2 GetSpeedVector() const { return mSpeedVector; }
 
+    Vec2 GetMissileVec();
+
 private:
     float mAngle;
     GameObject* mTarget;
@@ -50,6 +52,8 @@ private:
 
     float mMaxDuration;
     float mCurDuration;
+
+    float mAngleLimit;
 
     Vec2 mSpeedVector;
     
