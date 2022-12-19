@@ -22,6 +22,11 @@ public:
     virtual void OnCollisionEnter(Collider* _other) {};
     virtual void OnCollisionExit(Collider* _other) {};
 
+public:
+    void CoolDownUpdate();
+    void ShotBullet();
+    void SkillActivation();
+
 
 private:
     std::vector<MagicWandBullet*> mBullets;

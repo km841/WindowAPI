@@ -5,6 +5,7 @@
 #include "TimeMgr.h"
 #include "CameraMgr.h"
 #include "Animation.h"
+#include "EventRegisteror.h"
 
 AfterImage::AfterImage()
 	: mAlpha(255.f)

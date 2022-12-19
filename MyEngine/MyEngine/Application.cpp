@@ -116,7 +116,7 @@ void Application::WriteLog(const std::wstring& _comment)
 void Application::Tick()
 {
 	// Mouse inside the screen
-	// ConfineMouse();
+	//ConfineMouse();
 
 	// Buffer Initialize
 	Rectangle(BACK_BUF_DC, 0, 0, GetWidth(), GetHeight());

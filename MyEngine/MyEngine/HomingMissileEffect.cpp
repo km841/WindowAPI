@@ -61,21 +61,7 @@ void HomingMissileEffect::Update()
 	// 좌클릭이 눌리면 탄환 발사
 
 	LaraMagicWand* ownerItem = static_cast<LaraMagicWand*>(GetOwnerItem());
-	if (ownerItem->GetCoolDownFlag())
-	{
-		float& curCoolDown = ownerItem->GetCurCoolDown();
-
-		if (ownerItem->GetMaxCoolDown() < curCoolDown)
-		{
-			curCoolDown = 0.f;
-			ownerItem->SetCoolDownFlag(false);
-
-		}
-		else
-		{
-			curCoolDown += DT;
-		}
-	}
+	CoolDownUpdate();
 
 	if (true == mAnimStart)
 	{
@@ -109,68 +95,12 @@ void HomingMissileEffect::Update()
 
 	if (IS_JUST_LBUTTON_CLICKED && false == mReload)
 	{
-
-		Item* owner = static_cast<Item*>(GetOwnerItem());
-		ItemInfo& info = owner->GetItemInfo();
-
-		if (0.f < info.mAmmo)
-		{
-			info.mAmmo--;
-
-			MagicWandBullet* bullet = new MagicWandBullet;
-			bullet->SetPos(GetPos());
-
-			Vec2 mousePos = MOUSE_POS;
-			Vec2 playerPos = RENDER_POS(Player::GetPlayer()->GetPos());
-
-			Vec2 dirVec = mousePos - playerPos;
-			dirVec.Norm();
-
-			bullet->SetInitDirVector(dirVec);
-			EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
-		}
-
-		else if (0.f == info.mAmmo)
-		{
-			mReload = true;
-		}			
+		ShotBullet();
 	}
 
 	if (IS_JUST_PRESSED(KEY::Q) && false == ownerItem->GetCoolDownFlag())
 	{
-		GameObject* target =
-			SceneMgr::GetInstance().GetCurScene()->GetNearestObject(Player::GetPlayer(), OBJECT_TYPE::MONSTER);
-
-		// 발사한 방향으로 좀 날아갔다가
-		// 타겟을 향해 돌진
-
-		// 마우스위치 - 플레이어 위치
-
-		if (nullptr != target)
-		{
-			ownerItem->SetCoolDownFlag(true);
-			// 8방향
-			Vec2 dirArray[] = {
-				Vec2(-1, -1),
-				Vec2(0, -1),
-				Vec2(1, -1),
-				Vec2(1, 0),
-				Vec2(1, 1),
-				Vec2(0, 1),
-				Vec2(-1, 1),
-				Vec2(-1, 0),
-			};
-
-			for (int i = 0; i < std::size(dirArray); ++i)
-			{
-				MagicWandBullet* bullet = new MagicWandBullet;
-				bullet->SetPos(GetPos());
-				bullet->SetInitDirVector(dirArray[i]);
-				bullet->SetTarget(target);
-				EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
-			}
-
-		}
+		SkillActivation();
 	}
 	
 }
@@ -227,4 +157,77 @@ void HomingMissileEffect::Change()
 	}
 
 	mBullets.clear();
+}
+
+void HomingMissileEffect::CoolDownUpdate()
+{
+	LaraMagicWand* ownerItem = static_cast<LaraMagicWand*>(GetOwnerItem());
+	if (ownerItem->GetCoolDownFlag())
+	{
+		float& curCoolDown = ownerItem->GetCurCoolDown();
+
+		if (ownerItem->GetMaxCoolDown() < curCoolDown)
+		{
+			curCoolDown = 0.f;
+			ownerItem->SetCoolDownFlag(false);
+
+		}
+		else
+		{
+			curCoolDown += DT;
+		}
+	}
+}
+
+void HomingMissileEffect::ShotBullet()
+{
+	Item* owner = static_cast<Item*>(GetOwnerItem());
+	ItemInfo& info = owner->GetItemInfo();
+
+	if (0.f < info.mAmmo)
+	{
+		info.mAmmo--;
+
+		MagicWandBullet* bullet = new MagicWandBullet;
+		bullet->SetPos(GetPos());
+
+		Vec2 mousePos = MOUSE_POS;
+		Vec2 playerPos = RENDER_POS(Player::GetPlayer()->GetPos());
+
+		Vec2 dirVec = mousePos - playerPos;
+		dirVec.Norm();
+
+		bullet->SetInitDirVector(dirVec);
+		EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+	}
+
+	else if (0.f == info.mAmmo)
+	{
+		mReload = true;
+	}
+}
+
+void HomingMissileEffect::SkillActivation()
+{
+	LaraMagicWand* ownerItem = static_cast<LaraMagicWand*>(GetOwnerItem());
+	ownerItem->SetCoolDownFlag(true);
+	// 8방향
+	Vec2 dirArray[] = {
+		Vec2(-1, -1),
+		Vec2(0, -1),
+		Vec2(1, -1),
+		Vec2(1, 0),
+		Vec2(1, 1),
+		Vec2(0, 1),
+		Vec2(-1, 1),
+		Vec2(-1, 0),
+	};
+
+	for (int i = 0; i < std::size(dirArray); ++i)
+	{
+		MagicWandBullet* bullet = new MagicWandBullet;
+		bullet->SetPos(GetPos());
+		bullet->SetInitDirVector(dirArray[i]);
+		EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+	}
 }

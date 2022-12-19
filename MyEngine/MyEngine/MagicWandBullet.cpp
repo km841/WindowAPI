@@ -30,7 +30,6 @@ MagicWandBullet::MagicWandBullet()
 	mInfo.mSpeed = 750.f;
 
 	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
-
 	GetAnimator()->RegisterAnimation(
 		L"LaraBullet",
 		laraBulletTex,
@@ -86,62 +85,17 @@ void MagicWandBullet::Update()
 			GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
 		}
 
-		if (mMaxDuration < mCurDuration &&
-			BULLET_STATE::DEAD_ANIM != GetBulletState())
-		{
-			mCurDuration = 0.f;
-
-			AfterImage* afterImg = new AfterImage;
-			Animation* curAnim = GetAnimator()->FindAnimation(L"LaraBullet");
-			int curFrame = curAnim->GetCurFrame();
-
-			// 애니메이션과 프레임을 전달
-			afterImg->SetAnimation(curAnim);
-			afterImg->SetAnimFrame(curFrame);
-			afterImg->SetPos(GetPos());
-
-			mAfterImages.push_back(afterImg);
-		}
-
-		else
-		{
-			mCurDuration += DT;
-			Vec2 bulletPos = GetPos();
-			Vec2 dir = GetMissileVec();
-
-			bulletPos += dir * mInfo.mSpeed * DT;
-			mSpeedVector = dir;
-			SetPos(bulletPos);
-		}
+		MoveUpdate();
 	}
 	// dead 잔상 지워주기
-
-	std::vector<AfterImage*>::iterator iter = mAfterImages.begin();
-	for (; iter != mAfterImages.end();)
-	{
-		if (iter.operator*()->IsDead())
-		{
-			delete *iter;
-			iter = mAfterImages.erase(iter);
-		}
-
-		else
-		{
-			iter.operator*()->Update();
-			++iter;
-		}
-	}
-
+	AfterImageUpdate();
 	GameObject::Update();
 }
 
 void MagicWandBullet::Render()
 {
-	for (int i = 0; i < mAfterImages.size(); ++i)
-	{
-		mAfterImages[i]->Render();
-	}
 
+	AfterImageRender();
 	GameObject::Render();
 }
 
@@ -176,7 +130,65 @@ void MagicWandBullet::OnCollisionExit(Collider* _other)
 {
 }
 
-Vec2 MagicWandBullet::GetMissileVec()
+void MagicWandBullet::MoveUpdate()
+{
+	if (mMaxDuration < mCurDuration &&
+		BULLET_STATE::DEAD_ANIM != GetBulletState())
+	{
+		mCurDuration = 0.f;
+
+		AfterImage* afterImg = new AfterImage;
+		Animation* curAnim = GetAnimator()->FindAnimation(L"LaraBullet");
+		int curFrame = curAnim->GetCurFrame();
+
+		// 애니메이션과 프레임을 전달
+		afterImg->SetAnimation(curAnim);
+		afterImg->SetAnimFrame(curFrame);
+		afterImg->SetPos(GetPos());
+
+		mAfterImages.push_back(afterImg);
+	}
+
+	else
+	{
+		mCurDuration += DT;
+		Vec2 bulletPos = GetPos();
+		Vec2 dir = GetBulletVec();
+
+		bulletPos += dir * mInfo.mSpeed * DT;
+		mSpeedVector = dir;
+		SetPos(bulletPos);
+	}
+}
+
+void MagicWandBullet::AfterImageUpdate()
+{
+	std::vector<AfterImage*>::iterator iter = mAfterImages.begin();
+	for (; iter != mAfterImages.end();)
+	{
+		if (iter.operator*()->IsDead())
+		{
+			delete* iter;
+			iter = mAfterImages.erase(iter);
+		}
+
+		else
+		{
+			iter.operator*()->Update();
+			++iter;
+		}
+	}
+}
+
+void MagicWandBullet::AfterImageRender()
+{
+	for (int i = 0; i < mAfterImages.size(); ++i)
+	{
+		mAfterImages[i]->Render();
+	}
+}
+
+Vec2 MagicWandBullet::GetBulletVec()
 {
 	Vec2 dir = mSpeedVector;
 	if (dir.IsZero())

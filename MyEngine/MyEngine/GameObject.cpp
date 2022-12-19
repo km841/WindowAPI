@@ -136,7 +136,7 @@ void GameObject::CreateComponent(RigidBody* _rigidBody)
 void GameObject::SetDead(bool _flag)
 {
 	mDead = _flag;
-	if (nullptr != GetCollider())
+	if (_flag && nullptr != GetCollider())
 	{
 		GetCollider()->SetEnable(false);
 	}

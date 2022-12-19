@@ -15,14 +15,7 @@ Tile::Tile()
 	, mCollisionComponent{}
 {
 	SetSize(Vec2(TILE_SIZE, TILE_SIZE));
-	SetType(OBJECT_TYPE::TILE);
-
-	//CreateComponent(new Collider);
-	//GetCollider()->SetOwner(this);
-	//GetCollider()->SetSize(Vec2(TILE_SIZE, TILE_SIZE));
-	//GetCollider()->SetOffset(Vec2(TILE_SIZE / 2.f, TILE_SIZE / 2.f));
-	
-	
+	SetType(OBJECT_TYPE::TILE);	
 }
 
 Tile::~Tile()
@@ -46,14 +39,10 @@ void Tile::Initialize()
 	{
 		EventRegisteror::GetInstance().CreateObject(mCollisionComponent, mCollisionComponent->GetType());
 	}
-	//GetCollider()->SetPos(GetPos());
-	//GetCollider()->SetSize(GetSize());
 }
 
 void Tile::Update()
 {
-
-
 	GameObject::Update();
 }
 
@@ -88,8 +77,6 @@ void Tile::Render()
 		IMAGE_TILE_SIZE_Y,
 		RGB(255, 0, 255)
 	);
-
-
 
 	GameObject::Render();
 }

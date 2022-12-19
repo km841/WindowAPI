@@ -21,6 +21,11 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 public:
+    void MoveUpdate();
+    void AfterImageUpdate();
+    void AfterImageRender();
+
+public:
     inline void  SetAngle(float _angle) { mAngle = _angle; }
     inline float GetAngle() const { return mAngle; }
 
@@ -38,7 +43,7 @@ public:
     inline void SetSpeedVector(Vec2 _v) { mSpeedVector = _v; }
     inline Vec2 GetSpeedVector() const { return mSpeedVector; }
 
-    Vec2 GetMissileVec();
+    Vec2 GetBulletVec();
 
 private:
     float mAngle;

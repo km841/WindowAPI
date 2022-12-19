@@ -96,6 +96,7 @@ void ToolScene::Update()
 							tile->CreateWall();
 							tile->SetTileType(tileType);
 							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 						}
 						break;
 						case TILE_TYPE::FOOTHOLD:
@@ -103,6 +104,7 @@ void ToolScene::Update()
 							tile->CreateFoothold();
 							tile->SetTileType(tileType);
 							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 						}
 						break;
 						case TILE_TYPE::NONE:
@@ -179,9 +181,11 @@ void ToolScene::Update()
 						{
 						case TILE_TYPE::WALL:
 							tile->CreateWall();
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 							break;
 						case TILE_TYPE::FOOTHOLD:
 							tile->CreateFoothold();
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 							break;
 						case TILE_TYPE::NONE:
 							break;
@@ -232,6 +236,7 @@ void ToolScene::Update()
 							tile->CreateWall();
 							tile->SetTileType(tileType);
 							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 						}
 						break;
 						case TILE_TYPE::FOOTHOLD:
@@ -239,6 +244,7 @@ void ToolScene::Update()
 							tile->CreateFoothold();
 							tile->SetTileType(tileType);
 							EventRegisteror::GetInstance().CreateObject(tile, OBJECT_TYPE::TILE);
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 						}
 						break;
 						case TILE_TYPE::NONE:
@@ -315,9 +321,11 @@ void ToolScene::Update()
 						{
 						case TILE_TYPE::WALL:
 							tile->CreateWall();
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 							break;
 						case TILE_TYPE::FOOTHOLD:
 							tile->CreateFoothold();
+							EventRegisteror::GetInstance().CreateObject(tile->GetCollisionComponent(), tile->GetCollisionComponent()->GetType());
 							break;
 						case TILE_TYPE::NONE:
 							break;
@@ -518,12 +526,10 @@ void ToolScene::Exit()
 	SetMenu(APP_INSTANCE.GetHwnd(), NULL);
 	APP_INSTANCE.SetWindowSize(false);
 	DeleteObjGroup(OBJECT_TYPE::UI);
-	DeleteObjGroup(OBJECT_TYPE::WALL);
-	DeleteObjGroup(OBJECT_TYPE::FOOTHOLD);
+	CleanObjectGroup(OBJECT_TYPE::WALL);
+	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
-
-	//DeleteObjGroup(OBJECT_TYPE::TILE);
 }
 
 void ToolScene::RemoveTile(Vec2 _pos)

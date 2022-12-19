@@ -184,8 +184,10 @@ void Monster::OnCollisionEnter(Collider* _other)
 		SetCurHP(curHP);
 		if (curHP > 0.f)
 		{
-			if (MONSTER_STATE::ATTACK != mAI->GetCurState()->GetMonsterState())
-				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::ATTACK);
+			MONSTER_STATE state = mAI->GetCurState()->GetMonsterState();
+			if (MONSTER_STATE::IDLE == state ||
+				MONSTER_STATE::PATROL == state)
+				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::TRACE);
 		}
 		else
 		{
@@ -208,7 +210,6 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
-				SetDead(true);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 		}
@@ -261,7 +262,6 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
-				SetDead(true);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 
