@@ -74,8 +74,6 @@ void Dungeon1Scene::Enter()
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 21, BOTTOM_LIMIT });
 
-	Load(L"..\\Resource\\Map\\dungeon1.map");
-
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
@@ -95,6 +93,7 @@ void Dungeon1Scene::Enter()
 
 	if (false == mClear)
 	{
+		Load(L"..\\Resource\\Map\\dungeon1.map");
 		Regen();
 	}
 
@@ -114,8 +113,6 @@ void Dungeon1Scene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::PARTICLE);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
-	DeleteObjGroup(OBJECT_TYPE::TILE);
-	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 
 	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON2,
 		GET_INVENTORY_UI,

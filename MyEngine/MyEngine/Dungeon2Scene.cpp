@@ -79,7 +79,7 @@ void Dungeon2Scene::Enter()
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 23, BOTTOM_LIMIT });
 
-	Load(L"..\\Resource\\Map\\dungeon2.map");
+	
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
@@ -89,6 +89,7 @@ void Dungeon2Scene::Enter()
 
 	if (false == mClear)
 	{
+		Load(L"..\\Resource\\Map\\dungeon2.map");
 		Regen();	
 	}
 
@@ -107,8 +108,6 @@ void Dungeon2Scene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::PARTICLE);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
-	DeleteObjGroup(OBJECT_TYPE::TILE);
-	DeleteObjGroup(OBJECT_TYPE::TILE_BG);
 
 	SetCollisionFlag();
 

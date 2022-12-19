@@ -67,6 +67,15 @@ void BlackSmithNPC::Update()
 		FontMgr::GetInstance().NPCLineClear();
 		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::NPC_LINE);
 		mConversation = false;
+
+		if (mFirst)
+		{
+			mFirst = false;
+			LaraMagicWand* wand = new LaraMagicWand;
+			Vec2 pos = GetPos();
+			pos.y -= 30.f;
+			wand->Drop(pos);
+		}
 	}
 
 	if (mCollision && IS_JUST_PRESSED(KEY::F) && 
@@ -77,13 +86,7 @@ void BlackSmithNPC::Update()
 		if (mFirst)
 		{
 			FontMgr::GetInstance().OutputNPCLine(L"그리 좋은 물건은 아니지만. 보탬은 될걸세!", Vec2(30, 680));
-			mFirst = false;
-
-			// 라라의 요술봉 떨구기
-			LaraMagicWand* wand = new LaraMagicWand;
-			Vec2 pos = GetPos();
-			pos.y -= 30.f;
-			wand->Drop(pos);
+			
 		}
 
 		else

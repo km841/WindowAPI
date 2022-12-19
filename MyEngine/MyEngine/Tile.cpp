@@ -42,6 +42,10 @@ Tile::Tile(Tile&& _other)
 
 void Tile::Initialize()
 {
+	if (nullptr != mCollisionComponent)
+	{
+		EventRegisteror::GetInstance().CreateObject(mCollisionComponent, mCollisionComponent->GetType());
+	}
 	//GetCollider()->SetPos(GetPos());
 	//GetCollider()->SetSize(GetSize());
 }
