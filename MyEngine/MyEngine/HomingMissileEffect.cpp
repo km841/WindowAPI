@@ -30,8 +30,25 @@ HomingMissileEffect::HomingMissileEffect()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
+	SetOffset(Vec2(15.f, -25.f));
+
 	mReloadBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"ReloadBaseTex", L"Texture\\ReloadBase.bmp");
 	mReloadTex = ResourceMgr::GetInstance().Load<Texture>(L"ReloadBarTex", L"Texture\\ReloadBar.bmp");
+
+	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
+	GetAnimator()->RegisterAnimation(
+		L"LaraBulletHit",
+		laraBulletTex,
+		Vec2(0.f, 39.f),
+		Vec2(108.f, 105.f),
+		Vec2(108.f, 0.f),
+		0.025f,
+		7
+	);
+
+	GetAnimator()->FindAnimation(L"LaraBulletHit")->SetEffectAnimation(true);
+	
+
 
 	Texture* reloadAnim = ResourceMgr::GetInstance().Load<Texture>(L"ReloadTex", L"Texture\\ReloadAnim.bmp");
 	GetAnimator()->RegisterAnimation(
@@ -96,6 +113,8 @@ void HomingMissileEffect::Update()
 	if (IS_JUST_LBUTTON_CLICKED && false == mReload)
 	{
 		ShotBullet();
+		GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
+		GetAnimator()->GetCurAnimation()->Reset();
 	}
 
 	if (IS_JUST_PRESSED(KEY::Q) && false == ownerItem->GetCoolDownFlag())
@@ -139,7 +158,6 @@ void HomingMissileEffect::Render()
 			SRCCOPY
 		);
 	}
-
 }
 
 void HomingMissileEffect::Destroy()

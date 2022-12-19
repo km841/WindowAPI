@@ -82,7 +82,7 @@ void RotateMissileEffect::Update()
 	bool mBulletAlive = false;
 	for (int i = 0; i < mBullets.size(); ++i)
 	{
-		if (BULLET_STATE::ALIVE == mBullets[i]->GetBulletState())
+		if (IsAlive())
 		{
 			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
 			float bulletAngle = bullet->GetAngle();
@@ -100,7 +100,7 @@ void RotateMissileEffect::Update()
 			mBulletAlive = true;
 		}
 
-		else if (BULLET_STATE::DEAD_ANIM == mBullets[i]->GetBulletState())
+		else if (IsDeadAnim())
 			mBulletAlive = true;
 	}
 

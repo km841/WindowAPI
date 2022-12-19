@@ -251,7 +251,7 @@ enum class CHECK_TYPE
 	END,
 };
 
-enum class BULLET_STATE
+enum class OBJECT_STATE
 {
 	ALIVE,
 	DEAD_ANIM,

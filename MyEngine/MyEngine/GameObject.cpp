@@ -11,7 +11,7 @@ GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
 	, mGround(true)
 	, mGravity(false)
-	, mDead(false)
+	, mObjState(OBJECT_STATE::ALIVE)
 	, mPos{}
 	, mSize{}
 	, mComponents{}
@@ -133,10 +133,10 @@ void GameObject::CreateComponent(RigidBody* _rigidBody)
 	mComponents.mRigidBody = _rigidBody;
 }
 
-void GameObject::SetDead(bool _flag)
+void GameObject::SetObjState(OBJECT_STATE _state)
 {
-	mDead = _flag;
-	if (_flag && nullptr != GetCollider())
+	mObjState = _state;
+	if (OBJECT_STATE::ALIVE != _state && nullptr != GetCollider())
 	{
 		GetCollider()->SetEnable(false);
 	}

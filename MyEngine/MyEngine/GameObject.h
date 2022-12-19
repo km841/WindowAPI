@@ -86,8 +86,11 @@ public:
 	inline void SetDirectionVector(Vec2 _dirVec) { mDirectionVec = _dirVec; }
 	inline Vec2 GetDirectionVector() const { return mDirectionVec; }
 
-	inline bool IsDead() const { return mDead; }
-	void SetDead(bool _flag);
+	inline bool IsDead() const { return mObjState == OBJECT_STATE::DEAD; }
+	inline bool IsDeadAnim() const { return mObjState == OBJECT_STATE::DEAD_ANIM; }
+	inline bool IsAlive() const { return mObjState == OBJECT_STATE::ALIVE; }
+
+	void SetObjState(OBJECT_STATE _state);
 	
 public:
 	virtual void OnCollision(Collider* _other) {};
@@ -103,7 +106,7 @@ private:
 
 	bool				mGravity;
 	bool				mGround;
-	bool			    mDead;
+	OBJECT_STATE		mObjState;
 
 	Vec2				mDirectionVec;
 

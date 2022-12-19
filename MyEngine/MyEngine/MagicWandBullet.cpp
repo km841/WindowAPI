@@ -21,7 +21,7 @@ MagicWandBullet::MagicWandBullet()
 	,mCurDuration(0.f)
 	,mInitMaxDuration(0.1f)
 	,mInitCurDuration(0.f)
-	,mAngleLimit(Math::DegreeToRadian(2.f))
+	,mAngleLimit(Math::DegreeToRadian(3.f))
 {
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
@@ -64,13 +64,13 @@ void MagicWandBullet::Initialize()
 
 void MagicWandBullet::Update()
 {
-	if (BULLET_STATE::DEAD_ANIM == GetBulletState())
+	if (IsDeadAnim())
 	{
 		if (GetAnimator()->GetCurAnimation()->IsFinished())
 		{
 			if (mAfterImages.empty())
 			{
-				SetBulletState(BULLET_STATE::DEAD);
+				SetObjState(OBJECT_STATE::DEAD);
 				EventRegisteror::GetInstance().DeleteObject(this);
 			}
 		}
@@ -81,7 +81,7 @@ void MagicWandBullet::Update()
 		//화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
 		{
-			SetBulletState(BULLET_STATE::DEAD_ANIM);
+			SetObjState(OBJECT_STATE::DEAD_ANIM);
 			GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
 		}
 
@@ -121,7 +121,7 @@ void MagicWandBullet::OnCollisionEnter(Collider* _other)
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
-		SetBulletState(BULLET_STATE::DEAD_ANIM);
+		SetObjState(OBJECT_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
 	}
 }
@@ -133,7 +133,7 @@ void MagicWandBullet::OnCollisionExit(Collider* _other)
 void MagicWandBullet::MoveUpdate()
 {
 	if (mMaxDuration < mCurDuration &&
-		BULLET_STATE::DEAD_ANIM != GetBulletState())
+		!IsDeadAnim())
 	{
 		mCurDuration = 0.f;
 

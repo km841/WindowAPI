@@ -5,15 +5,12 @@
 #include "Animation.h"
 
 Bullet::Bullet()
-	:mState(BULLET_STATE::ALIVE)
 {
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
-
-
 }
 
 Bullet::~Bullet()

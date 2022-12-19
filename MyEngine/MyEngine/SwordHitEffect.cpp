@@ -109,8 +109,6 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 				otherPos.x += randomOffset;
 			}
 			
-			
-
 			if (nullptr == curAnim)
 			{
 				mHitDummy[i]->SetPos(otherPos);

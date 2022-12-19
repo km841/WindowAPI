@@ -32,8 +32,8 @@ void MultipleMissileEffect::Update()
 	bool bulletAlive = false;
 	for (int i = 0; i < mBullets.size(); ++i)
 	{
-		if (BULLET_STATE::ALIVE == mBullets[i]->GetBulletState() ||
-			BULLET_STATE::DEAD_ANIM == mBullets[i]->GetBulletState())
+		if (mBullets[i]->IsAlive() ||
+			mBullets[i]->IsDeadAnim())
 		{
 			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
 

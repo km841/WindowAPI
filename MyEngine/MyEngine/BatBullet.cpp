@@ -52,11 +52,11 @@ void BatBullet::Initialize()
 void BatBullet::Update()
 {
 	GameObject::Update();
-	if (BULLET_STATE::DEAD_ANIM == GetBulletState())
+	if (IsDeadAnim())
 	{
 		if (GetAnimator()->GetCurAnimation()->IsFinished())
 		{
-			SetBulletState(BULLET_STATE::DEAD);
+			SetObjState(OBJECT_STATE::DEAD);
 		}
 	}
 
@@ -66,7 +66,7 @@ void BatBullet::Update()
 		// 화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
 		{
-			SetBulletState(BULLET_STATE::DEAD);
+			SetObjState(OBJECT_STATE::DEAD);
 		}
 	}
 }
@@ -86,7 +86,7 @@ void BatBullet::OnCollisionEnter(Collider* _other)
 		OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
-		SetBulletState(BULLET_STATE::DEAD_ANIM);
+		SetObjState(OBJECT_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"BatBulletHit", false);
 	}
 }

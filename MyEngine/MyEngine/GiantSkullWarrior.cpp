@@ -213,6 +213,9 @@ bool GiantSkullWarrior::Attack()
 	// 공격 이펙트가 끝나면 충돌을 끝내야 함
 	// 콜리전매니저에 플레이어와 충돌이 있다면 삭제
 
+	if (IsDead())
+		return false;
+
 	Animation* attAnim = GetAnimator()->GetCurAnimation();
 
 	if (11 == attAnim->GetCurFrame())

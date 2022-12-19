@@ -21,7 +21,7 @@ void MonsterDeadState::Update()
 	if (monster->GetAnimator()->GetCurAnimation()->IsFinished())
 	{
 		//EventRegisteror::GetInstance().DeleteObject(monster);
-		monster->SetDead(true);
+		monster->SetObjState(OBJECT_STATE::DEAD);
 	}
 }
 

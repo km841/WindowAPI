@@ -210,6 +210,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
+				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 		}
@@ -262,6 +263,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 
 				GetEffect()->Destroy();
+				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
 
