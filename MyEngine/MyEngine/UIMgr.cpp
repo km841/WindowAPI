@@ -11,6 +11,7 @@
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
+#include "ItemInfoHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -29,6 +30,7 @@ void UIMgr::Initialize()
 	EnableHUD(HUD_TYPE::EQUIPED);
 	DisableHUD(HUD_TYPE::NPC_LINE);
 	DisableHUD(HUD_TYPE::ITEM_GET);
+	DisableHUD(HUD_TYPE::ITEM_INFO);
 }
 
 void UIMgr::Update()
@@ -221,6 +223,12 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 
 		case HUD_TYPE::ITEM_GET:
 			hud = new ItemGetHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
+
+		case HUD_TYPE::ITEM_INFO:
+			hud = new ItemInfoHUD;
 			hud->Initialize();
 			hud->SetState(true);
 			break;

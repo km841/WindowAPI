@@ -25,6 +25,7 @@
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
+#include "ItemInfoHUD.h"
 
 TownScene::TownScene()
 {
@@ -98,10 +99,6 @@ void TownScene::Enter()
 	Texture* grass01 = ResourceMgr::GetInstance().Load<Texture>(L"Grass01", L"Texture\\Grass01.bmp");
 	Texture* grass02 = ResourceMgr::GetInstance().Load<Texture>(L"Grass02", L"Texture\\Grass02.bmp");
 	Texture* grass03 = ResourceMgr::GetInstance().Load<Texture>(L"Grass03", L"Texture\\Grass03.bmp");
-
-	//Texture* townFloorTex = ResourceMgr::GetInstance().Load<Texture>(L"TownFloor", L"Texture\\Town_Floor.bmp");
-
-
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
@@ -187,6 +184,7 @@ void TownScene::Enter()
 	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
 	EquipedHUD* equipedHUD = GET_EQUIPED_HUD;
 	ItemGetHUD* itemGetHUD = GET_ITEMGET_HUD;
+	ItemInfoHUD* itemInfoHUD = GET_ITEMINFO_HUD;
 	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
@@ -212,6 +210,7 @@ void TownScene::Enter()
 	AddGameObject(equipedHUD, equipedHUD->GetType());
 	AddGameObject(itemGetHUD, itemGetHUD->GetType());
 	AddGameObject(npcLineHUD, npcLineHUD->GetType());
+	AddGameObject(itemInfoHUD, itemInfoHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -244,6 +243,7 @@ void TownScene::Exit()
 															GET_EQUIPED_HUD,
 															GET_NPCLINE_HUD,
 															GET_ITEMGET_HUD,
+															GET_ITEMINFO_HUD,
 															Player::GetPlayer());
 
 	Player::GetPlayer()->SetPrevScene(GetSceneType());

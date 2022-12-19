@@ -28,6 +28,7 @@ ShortSword::ShortSword()
 	SetDuration(0.225f);
 
 	SetItemName(L"Ότ ΌÒµε");
+	SetRarity(RARITY::NORMAL);
 
 	ItemInfo info = {};
 	info.mAtt = 10.f;

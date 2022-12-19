@@ -564,6 +564,8 @@ void Player::StateUpdate()
 			&& IS_JUST_PRESSED(KEY::V))
 		{
 			EventRegisteror::GetInstance().EnableUI(UI_TYPE::INVENTORY);
+			EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);
+					
 		}
 
 		else if (true == InvenState 
@@ -571,6 +573,7 @@ void Player::StateUpdate()
 			||  IS_JUST_PRESSED(KEY::ESC)))
 		{
 			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
+			EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::EQUIPED);
 		}
 	}
 }
@@ -804,7 +807,7 @@ void Player::OnCollisionEnter(Collider* _other)
 		item->Initialize();
 
 		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_GET);
-		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemName(), RARITY::UNIQUE);
+		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemName(), item->GetRarity());
 	}
 
 

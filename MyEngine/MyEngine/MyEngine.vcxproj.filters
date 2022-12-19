@@ -413,6 +413,12 @@
     <Filter Include="Engine\GameObject\HUD\ItemGetHUD">
       <UniqueIdentifier>{9dce3fe9-b668-4837-bb83-ca4661615e98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UI\InventoryUI\ItemUI">
+      <UniqueIdentifier>{528ab4f2-7977-444b-b5b8-e78a6f3af04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\ItemInfoHUD">
+      <UniqueIdentifier>{960b1e79-d220-4c13-848d-246e2b65fb5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -741,6 +747,12 @@
     </ClInclude>
     <ClInclude Include="ItemGetHUD.h">
       <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemUI.h">
+      <Filter>Engine\GameObject\UI\InventoryUI\ItemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemInfoHUD.h">
+      <Filter>Engine\GameObject\HUD\ItemInfoHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1074,6 +1086,12 @@
     </ClCompile>
     <ClCompile Include="ItemGetHUD.cpp">
       <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemUI.cpp">
+      <Filter>Engine\GameObject\UI\InventoryUI\ItemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemInfoHUD.cpp">
+      <Filter>Engine\GameObject\HUD\ItemInfoHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

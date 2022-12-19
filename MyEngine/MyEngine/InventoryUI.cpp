@@ -7,6 +7,8 @@
 #include "ResourceMgr.h"
 #include "ShortSword.h"
 #include "GreatSword.h"
+#include "Player.h"
+#include "ItemUI.h"
 
 InventoryUI::InventoryUI()
 	: UI(false)
@@ -16,33 +18,25 @@ InventoryUI::InventoryUI()
 	, mLeftBaseTex(nullptr)
 	, mRightBaseTex(nullptr)
 {
-	for (int y = 0; y < Y_SLOT_MAX; ++y)
-	{
-		for (int x = 0; x < X_SLOT_MAX; ++x)
-		{
-			mInventory.insert(std::make_pair(Vec2(y, x), nullptr));
-		}
-	}
 
+	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
+	{
+		ItemUI* itemUI = new ItemUI;
+		itemUI->SetParentUI(this);
+		mEquipMap.insert(std::make_pair((EQUIP_TYPE)i, itemUI));
+		AddChild(itemUI);
+	}
 
 	SetType(OBJECT_TYPE::UNIQUE_UI);
 	SetUIType(UI_TYPE::INVENTORY);
+
+	mEquipMap[EQUIP_TYPE::WEAPON_LEFT]->SetPos(Vec2(104, 165));
+	mEquipMap[EQUIP_TYPE::WEAPON_RIGHT]->SetPos(Vec2(324, 165));
+
 }
 
 InventoryUI::~InventoryUI()
 {
-
-
-	for (auto& item : mInventory)
-	{
-		if (nullptr != item.second)
-		{
-			delete item.second;
-			item.second = nullptr;
-		}
-
-	}
-
 }
 
 void InventoryUI::Initialize()
@@ -61,9 +55,7 @@ void InventoryUI::Initialize()
 
 void InventoryUI::Update()
 {
-
-
-
+	UI::Update();
 }
 
 void InventoryUI::Render()
@@ -73,36 +65,56 @@ void InventoryUI::Render()
 
 	if (nullptr != mLeftBaseTex && nullptr != mRightBaseTex)
 	{
+		InventoryBaseRender();
+
 		Vec2 pos = GetPos();
-		Vec2 size = mLeftBaseTex->GetSize();
-
-		Texture* curBase = nullptr;
-		switch (mSlot)
-		{
-		case INVENTORY_SLOT::LEFT_SLOT:
-			curBase = mLeftBaseTex;
-			break;
-
-		case INVENTORY_SLOT::RIGHT_SLOT:
-			curBase = mRightBaseTex;
-			break;
-		}
-
-		TransparentBlt(
-			BACK_BUF_DC,
-			(int)pos.x,
-			(int)pos.y,
-			(int)size.x,
-			(int)size.y,
-			curBase->GetDC(),
-			0, 0,
-			(int)size.x,
-			(int)size.y,
-			RGB(255, 0, 255)
-		);
 		
+		Player* player = Player::GetPlayer();
+		if (nullptr != player)
+		{
+			if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT))
+			{
+				mEquipMap[EQUIP_TYPE::WEAPON_LEFT]->SetItem(player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT));
+			}
+
+			if (nullptr != player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT))
+			{
+				mEquipMap[EQUIP_TYPE::WEAPON_RIGHT]->SetItem(player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT));
+			}
+		}
 	}
-	
+	UI::Render();
+}
+
+void InventoryUI::InventoryBaseRender()
+{
+	Vec2 pos = GetPos();
+	Vec2 size = mLeftBaseTex->GetSize();
+
+	Texture* curBase = nullptr;
+	switch (mSlot)
+	{
+	case INVENTORY_SLOT::LEFT_SLOT:
+		curBase = mLeftBaseTex;
+		break;
+
+	case INVENTORY_SLOT::RIGHT_SLOT:
+		curBase = mRightBaseTex;
+		break;
+	}
+
+	TransparentBlt(
+		BACK_BUF_DC,
+		(int)pos.x,
+		(int)pos.y,
+		(int)size.x,
+		(int)size.y,
+		curBase->GetDC(),
+		0, 0,
+		(int)size.x,
+		(int)size.y,
+		RGB(255, 0, 255)
+	);
 }
 
 

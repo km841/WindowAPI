@@ -44,6 +44,7 @@
 #define GET_NPCLINE_HUD static_cast<NPCLineHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::NPC_LINE))
 #define GET_EQUIPED_HUD static_cast<EquipedHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::EQUIPED))
 #define GET_ITEMGET_HUD static_cast<ItemGetHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::ITEM_GET))
+#define GET_ITEMINFO_HUD static_cast<ItemInfoHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::ITEM_INFO))
 #define ZERO_VECTOR Math::ZeroVector()
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY

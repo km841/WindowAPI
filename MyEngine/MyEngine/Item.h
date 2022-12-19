@@ -44,6 +44,9 @@ public:
     inline void SetItemName(const std::wstring& _name) { mItemName = _name; }
     inline const std::wstring& GetItemName() const { return mItemName; }
     
+    inline void   SetRarity(RARITY _rarity) { mRarity = _rarity; }
+    inline RARITY GetRarity() const { return mRarity; }
+
 
     void Drop(Vec2 _pos);
 
@@ -55,6 +58,8 @@ private:
     Texture*  mTexture;
     Texture*  mIconTexture;
     Texture*  mEquipedTex;
+
+    RARITY    mRarity;
 
     std::wstring mItemName;
 

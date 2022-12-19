@@ -24,6 +24,7 @@
 #include "NPCLineHUD.h"
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
+#include "ItemInfoHUD.h"
 
 Dungeon2Scene::Dungeon2Scene()
 {
@@ -56,6 +57,7 @@ void Dungeon2Scene::Update()
 			GET_NPCLINE_HUD,
 			GET_EQUIPED_HUD,
 			GET_ITEMGET_HUD,
+			GET_ITEMINFO_HUD,
 			Player::GetPlayer());
 	}
 

@@ -107,6 +107,9 @@ void EquipedHUD::Update()
 
 void EquipedHUD::Render()
 {
+	if (!GetState())
+		return;
+	
 	HUD::Render();
 	Player* player = Player::GetPlayer();
 	if (nullptr != mTex && player != nullptr)

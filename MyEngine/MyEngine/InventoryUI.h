@@ -8,11 +8,10 @@ class UI;
 class Item;
 class Player;
 class Texture;
-
+class ItemUI;
 class InventoryUI :
     public UI
 {
-    using SlotMap = std::map<Vec2, Item*>;
 
 public:
     InventoryUI();
@@ -22,6 +21,9 @@ public:
     virtual void Initialize() override;
     virtual void Update() override;
     virtual void Render() override;
+
+public:
+    void InventoryBaseRender();
 
 
 
@@ -38,7 +40,6 @@ private:
 
     Player* mPlayer;
     int     mMoney;
-    SlotMap mInventory;
     INVENTORY_SLOT mSlot;
     // 각 좌표에 대응되는 nullptr로 초기세팅됨
 
@@ -47,6 +48,8 @@ private:
     
     //(0, 0), (0, 1) 등으로 표시되고, 자리가 비면 그 자리로 바뀜
     Vec2 mNextSlotPos;
+
+    std::map<EQUIP_TYPE, ItemUI*> mEquipMap;
 
 };
 

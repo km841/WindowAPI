@@ -103,7 +103,7 @@ void IconUI::Destroy()
 
 bool IconUI::OnMouse()
 {
-	ToolUI* parentUI = (ToolUI*)GetParentUI();
+	ToolUI* parentUI = static_cast<ToolUI*>(GetParentUI());
 	Vec2 mousePos = MOUSE_POS;
 
 	Vec2 parentPos = parentUI->GetPos();
