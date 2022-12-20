@@ -106,6 +106,9 @@ public:
 public:
     inline Item* GetEquipItem(EQUIP_TYPE _itemType) const { return mEquipItems[(UINT)_itemType]; }
     void         SetEquipItem(Item* _item);
+    void         SetEquipItem(EQUIP_TYPE _itemType, Item* _item);
+
+    void         ClearEquipItem(EQUIP_TYPE _itemType) { mEquipItems[(UINT)_itemType] = nullptr; }
 
     void EquipItemUpdate();
     void EquipItemRender();
@@ -162,6 +165,8 @@ private:
     float      mImgDuration;
     float      mCurImgDuration;
     int        mImgCount;
+
+    bool       mUIState;
 
 private:
     float      mDashDuration;

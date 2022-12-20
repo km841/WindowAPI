@@ -82,6 +82,10 @@ struct WindowGDI
 		hPens[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 		hPens[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
 		hPens[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 2, RGB(0, 0, 255));
+		hPens[(UINT)PEN_TYPE::WHITE] = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
+		hPens[(UINT)PEN_TYPE::GRAY] = CreatePen(PS_SOLID, 2, RGB(147, 144, 158));
+		hPens[(UINT)PEN_TYPE::BLACK] = CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
+		hPens[(UINT)PEN_TYPE::NULL_COLOR] = (HPEN)GetStockObject(NULL_PEN);
 
 		// Brush Initialize
 		hBrushes[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
@@ -89,6 +93,10 @@ struct WindowGDI
 		hBrushes[(UINT)BRUSH_TYPE::WHITE] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::GRAY] = (HBRUSH)GetStockObject(GRAY_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::MAGENTA] = CreateSolidBrush(RGB(255, 0, 255));
+		hBrushes[(UINT)BRUSH_TYPE::BLUE] = CreateSolidBrush(RGB(0, 0, 255));
+		hBrushes[(UINT)BRUSH_TYPE::RED] = CreateSolidBrush(RGB(255, 0, 0));
+		hBrushes[(UINT)BRUSH_TYPE::GREEN] = CreateSolidBrush(RGB(0, 255, 0));
+		hBrushes[(UINT)BRUSH_TYPE::YELLOW] = CreateSolidBrush(RGB(223, 233, 85));
 	}
 
 	~WindowGDI()

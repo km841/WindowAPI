@@ -29,7 +29,7 @@ ShortSword::ShortSword()
 
 	ItemInfo info = {};
 	info.mAtt = 10.f;
-	info.mAttSpeed = 1.f;
+	info.mAttSpeed = 2.f;
 	info.mItemName = L"ºÙ º“µÂ";
 	info.mItemComment = L"'∞°∫±∞Ì »÷µŒ∏£±‚ ∆Ì«— ∞À'";
 	info.mRarity = RARITY::NORMAL;

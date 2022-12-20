@@ -25,6 +25,7 @@
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
+#include "MinimapHUD.h"
 
 Dungeon2Scene::Dungeon2Scene()
 {
@@ -58,6 +59,7 @@ void Dungeon2Scene::Update()
 			GET_EQUIPED_HUD,
 			GET_ITEMGET_HUD,
 			GET_ITEMINFO_HUD,
+			GET_MINIMAP_HUD,
 			Player::GetPlayer());
 	}
 

@@ -50,7 +50,6 @@ public:
     inline void   SetRarity(RARITY _rarity) { mRarity = _rarity; }
     inline RARITY GetRarity() const { return mRarity; }
 
-
     void Drop(Vec2 _pos);
 
 

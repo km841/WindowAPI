@@ -12,6 +12,7 @@
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
+#include "MinimapHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -28,6 +29,7 @@ void UIMgr::Initialize()
 	EnableHUD(HUD_TYPE::HP);
 	EnableHUD(HUD_TYPE::DASH_GAUGE);
 	EnableHUD(HUD_TYPE::EQUIPED);
+	EnableHUD(HUD_TYPE::MINIMAP);
 	DisableHUD(HUD_TYPE::NPC_LINE);
 	DisableHUD(HUD_TYPE::ITEM_GET);
 	DisableHUD(HUD_TYPE::ITEM_INFO);
@@ -234,7 +236,9 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 			break;
 
 		case HUD_TYPE::MINIMAP:
-			
+			hud = new MinimapHUD;
+			hud->Initialize();
+			hud->SetState(true);
 			break;
 		}
 	}

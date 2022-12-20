@@ -33,7 +33,6 @@ void ItemGetHUD::Initialize()
 
 void ItemGetHUD::Update()
 {
-	
 	if (GetState())
 	{
 		HUD::Update();
@@ -41,9 +40,6 @@ void ItemGetHUD::Update()
 		{
 			SetState(false);
 			mCurDuration = 0.f;
-
-			//mSetupItemTex = nullptr;
-			//mItemNameTex = nullptr;
 		}
 
 		else
@@ -51,7 +47,6 @@ void ItemGetHUD::Update()
 			mCurDuration += DT;
 		}
 	}
-
 }
 
 void ItemGetHUD::Render()

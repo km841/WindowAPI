@@ -413,11 +413,14 @@
     <Filter Include="Engine\GameObject\HUD\ItemGetHUD">
       <UniqueIdentifier>{9dce3fe9-b668-4837-bb83-ca4661615e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\UI\InventoryUI\ItemUI">
-      <UniqueIdentifier>{528ab4f2-7977-444b-b5b8-e78a6f3af04a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\HUD\ItemInfoHUD">
       <UniqueIdentifier>{960b1e79-d220-4c13-848d-246e2b65fb5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\MinimapHUD">
+      <UniqueIdentifier>{a60da444-d862-42ee-a305-0c9b00e1ad6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\UI\InventoryUI\ItemUI">
+      <UniqueIdentifier>{528ab4f2-7977-444b-b5b8-e78a6f3af04a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -753,6 +756,9 @@
     </ClInclude>
     <ClInclude Include="ItemInfoHUD.h">
       <Filter>Engine\GameObject\HUD\ItemInfoHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MinimapHUD.h">
+      <Filter>Engine\GameObject\HUD\MinimapHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1092,6 +1098,9 @@
     </ClCompile>
     <ClCompile Include="ItemInfoHUD.cpp">
       <Filter>Engine\GameObject\HUD\ItemInfoHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimapHUD.cpp">
+      <Filter>Engine\GameObject\HUD\MinimapHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

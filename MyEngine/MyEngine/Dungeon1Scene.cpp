@@ -28,6 +28,7 @@
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
+#include "MinimapHUD.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -73,7 +74,7 @@ void Dungeon1Scene::Enter()
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
-	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 21, BOTTOM_LIMIT });
+	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 21, BOTTOM_LIMIT});
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
@@ -123,6 +124,7 @@ void Dungeon1Scene::Exit()
 		GET_EQUIPED_HUD,
 		GET_ITEMGET_HUD,
 		GET_ITEMINFO_HUD,
+		GET_MINIMAP_HUD,
 		Player::GetPlayer());
 
 

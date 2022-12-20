@@ -21,11 +21,15 @@ public:
 public:
 	virtual bool OnMouse();
 	virtual bool OnClicked();
+	bool OnRightClicked();
 
 public:
 	inline void SetItem(Item* _item) { mItem = _item; }
 	inline Item* GetItem() const { return mItem; }
-		
+	void DeliverItem(ItemUI* _itemUI);
+
+	inline void SetEquipType(EQUIP_TYPE _equipType) { mEquipType = _equipType; }
+	inline EQUIP_TYPE GetEquipType() const { return mEquipType; }
 
 public:
 	EQUIP_TYPE mEquipType;

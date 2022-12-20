@@ -8,15 +8,21 @@
 #include "ItemInfoHUD.h"
 #include "Item.h"
 #include "FontMgr.h"
+#include "Player.h"
 
 ItemUI::ItemUI()
 	:UI(false)
 {
-	
 }
 
 ItemUI::~ItemUI()
 {
+	if (nullptr != mItem)
+	{
+		mItem->Destroy();
+		delete mItem;
+		mItem = nullptr;
+	}
 }
 
 void ItemUI::Initialize()
@@ -35,10 +41,19 @@ void ItemUI::Update()
 				GET_ITEMINFO_HUD->SetupItemInfo(mItem->GetEquipedTexture(), mItem->GetItemInfo());
 				EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_INFO);
 
-				if (OnClicked())
+				if (OnRightClicked())
 				{
-					int a = 0;
+					if (EQUIP_TYPE::END != mEquipType)
+					{
+						GET_INVENTORY_UI->UnMountItem(this);
+					}
+					
+					else
+					{
+						GET_INVENTORY_UI->MountItem(this);
+					}
 				}
+
 			}
 
 		}
@@ -69,14 +84,17 @@ void ItemUI::Render()
 				(int)size.y,
 				RGB(255, 0, 255)
 			);
-
-			const std::wstring& itemName = mItem->GetItemName();
-			
-
-
 		}
-
 	}
+
+	//else
+	//{
+	//	Rectangle(BACK_BUF_DC,
+	//		uiPos.x - 30,
+	//		uiPos.y - 30,
+	//		uiPos.x + 30,
+	//		uiPos.y + 30);
+	//}
 
 }
 
@@ -99,4 +117,19 @@ bool ItemUI::OnMouse()
 bool ItemUI::OnClicked()
 {
 	return OnMouse() && IS_LBUTTON_CLICKED;
+}
+
+bool ItemUI::OnRightClicked()
+{
+	return OnMouse() && IS_JUST_RBUTTON_CLICKED;;
+}
+
+void ItemUI::DeliverItem(ItemUI* _itemUI)
+{
+	if (nullptr != mItem)
+	{
+		_itemUI->SetItem(mItem);
+		mItem = nullptr;
+	}
+
 }

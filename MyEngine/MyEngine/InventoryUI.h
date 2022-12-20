@@ -24,7 +24,8 @@ public:
 
 public:
     void InventoryBaseRender();
-
+    void UnMountItem(ItemUI* _item);
+    void MountItem(ItemUI* _item);
 
 
 public:
@@ -32,10 +33,10 @@ public:
     inline void    SetPlayer(Player* _player) { mPlayer = _player; }
 
     inline INVENTORY_SLOT GetSlot() const { return mSlot; }
+    inline void SetEquipMap(EQUIP_TYPE _type, Item* _item);
 
 public:
     void ChangeSlot();
-
 private:
 
     Player* mPlayer;
@@ -50,6 +51,10 @@ private:
     Vec2 mNextSlotPos;
 
     std::map<EQUIP_TYPE, ItemUI*> mEquipMap;
+    std::map<INVENTORY_SLOT_TYPE, ItemUI*> mInventoryMap;
+    INVENTORY_SLOT_TYPE mNextInvenSlot;
+
+    bool mInvenFullFlag;
 
 };
 

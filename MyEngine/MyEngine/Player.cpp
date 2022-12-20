@@ -62,6 +62,7 @@ Player::Player()
 	, mInvinTime(0.f)
 	, mInfo{}
 	, mCharacter(PLAYER_CHARACTER::PLAYER)
+	, mUIState(false)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -160,8 +161,6 @@ Player::Player()
 	}
 	ShortSword* shortSword = new ShortSword;
 	SetEquipItem(shortSword);
-	//LaraMagicWand* magicWand = new LaraMagicWand;
-	//SetEquipItem(magicWand);
 
 #pragma endregion
 
@@ -196,16 +195,6 @@ Player::~Player()
 			mDashEffect[i] = nullptr;
 		}
 	}
-	
-	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
-	{
-		if (nullptr != mEquipItems[i])
-		{
-			delete mEquipItems[i];
-			mEquipItems[i] = nullptr;
-		}
-	}
-
 }
 
 void Player::Initialize()
@@ -310,7 +299,7 @@ void Player::MoveUpdate()
 	}
 	
 
-	if (IS_JUST_RBUTTON_CLICKED && NotInDash() && mInfo.mDashCount > 0.f)
+	if (IS_JUST_RBUTTON_CLICKED && NotInDash() && mInfo.mDashCount > 0.f && mUIState == false)
 	{
 		mInfo.mDashCount--;
 
@@ -565,6 +554,8 @@ void Player::StateUpdate()
 		{
 			EventRegisteror::GetInstance().EnableUI(UI_TYPE::INVENTORY);
 			EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);
+			EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
+			mUIState = true;
 					
 		}
 
@@ -574,6 +565,8 @@ void Player::StateUpdate()
 		{
 			EventRegisteror::GetInstance().DisableUI(UI_TYPE::INVENTORY);
 			EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::EQUIPED);
+			EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
+			mUIState = false;
 		}
 	}
 }
@@ -985,10 +978,17 @@ void Player::SetEquipItem(Item* _item)
 	case ITEM_TYPE::WEAPON:
 	{
 		if (nullptr == mEquipItems[(UINT)EQUIP_TYPE::WEAPON_LEFT])
+		{
 			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_LEFT] = _item;
+			inven->SetEquipMap(EQUIP_TYPE::WEAPON_LEFT, _item);
+			
+		}
 		
 		else
+		{
 			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_RIGHT] = _item;
+			inven->SetEquipMap(EQUIP_TYPE::WEAPON_RIGHT, _item);
+		}
 	}
 
 		break;
@@ -997,5 +997,10 @@ void Player::SetEquipItem(Item* _item)
 	case ITEM_TYPE::ACCESSORIES:
 		break;
 	}
+}
+
+void Player::SetEquipItem(EQUIP_TYPE _itemType, Item* _item)
+{
+	mEquipItems[(UINT)_itemType] = _item;
 }
 

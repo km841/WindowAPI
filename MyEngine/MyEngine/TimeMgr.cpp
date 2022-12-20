@@ -4,6 +4,7 @@
 #include "TimeMgr.h"
 #include "FontMgr.h"
 #include "Texture.h"
+#include "MouseMgr.h"
 
 void TimeMgr::Initialize()
 {
@@ -39,6 +40,9 @@ void TimeMgr::Render()
 		wchar_t szBuffer[256] = {};
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", mFPS, mDT);
 		SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
+		//wchar_t szBuffer[256] = {};
+		//swprintf_s(szBuffer, L"mousePos : %f, %f", MOUSE_POS.x, MOUSE_POS.y);
+		//SetWindowText(APP_INSTANCE.GetHwnd(), szBuffer);
 	}
 }
 

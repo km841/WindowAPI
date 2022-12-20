@@ -26,6 +26,7 @@
 #include "EquipedHUD.h"
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
+#include "MinimapHUD.h"
 
 TownScene::TownScene()
 {
@@ -185,6 +186,7 @@ void TownScene::Enter()
 	EquipedHUD* equipedHUD = GET_EQUIPED_HUD;
 	ItemGetHUD* itemGetHUD = GET_ITEMGET_HUD;
 	ItemInfoHUD* itemInfoHUD = GET_ITEMINFO_HUD;
+	MinimapHUD* minimapHUD = GET_MINIMAP_HUD;
 	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
@@ -211,6 +213,7 @@ void TownScene::Enter()
 	AddGameObject(itemGetHUD, itemGetHUD->GetType());
 	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(itemInfoHUD, itemInfoHUD->GetType());
+	AddGameObject(minimapHUD, minimapHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
@@ -244,6 +247,7 @@ void TownScene::Exit()
 															GET_NPCLINE_HUD,
 															GET_ITEMGET_HUD,
 															GET_ITEMINFO_HUD,
+															GET_MINIMAP_HUD,
 															Player::GetPlayer());
 
 	Player::GetPlayer()->SetPrevScene(GetSceneType());
