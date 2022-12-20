@@ -361,3 +361,19 @@ void GiantBat::AttRangeLineRender(PEN_TYPE _penType)
 	MoveToEx(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y - offset), NULL);
 	LineTo(BACK_BUF_DC, (int)monsterPos.x, (int)(monsterPos.y + mInfo.mAttRange - offset));
 }
+
+void GiantBat::Dead()
+{
+	GetCollider()->SetEnable(false);
+
+	MonsterEffect* effect = GetEffect();
+	if (nullptr != effect)
+	{
+		if (nullptr != effect->GetCollider())
+		{
+			effect->GetCollider()->SetEnable(false);
+		}
+	}
+
+	GameObject::Dead();
+}

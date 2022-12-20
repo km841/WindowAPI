@@ -5,6 +5,7 @@
 #include "ResourceMgr.h"
 #include "Texture.h"
 #include "Monster.h"
+#include "Collider.h"
 
 Scene::Scene()
 	: mOFN{}
@@ -67,7 +68,9 @@ void Scene::Update()
 			if ((UINT)OBJECT_TYPE::MONSTER == y)
 			{
 				if (mObjects[y][x]->IsDead())
+				{
 					continue;
+				}
 			}
 
 			if (nullptr != mObjects[y][x])

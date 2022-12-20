@@ -191,7 +191,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			if (!IsDead())
+			if (IsAlive())
 			{
 				int billion = mMoney / 100;
 				int changes = mMoney % 100;

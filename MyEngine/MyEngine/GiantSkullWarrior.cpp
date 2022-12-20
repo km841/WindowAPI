@@ -474,3 +474,19 @@ void GiantSkullWarrior::AttRangeLineRender(PEN_TYPE _penType)
 	LineTo(BACK_BUF_DC, (int)dirVec.x, (int)(dirVec.y - offset));
 }
 
+void GiantSkullWarrior::Dead()
+{
+	GetCollider()->SetEnable(false);
+
+	MonsterEffect* effect = GetEffect();
+	if (nullptr != effect)
+	{
+		if (nullptr != effect->GetCollider())
+		{
+			effect->GetCollider()->SetEnable(false);
+		}
+	}
+
+	GameObject::Dead();
+}
+

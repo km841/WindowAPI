@@ -91,6 +91,7 @@ public:
 	inline bool IsAlive() const { return mObjState == OBJECT_STATE::ALIVE; }
 
 	void SetObjState(OBJECT_STATE _state);
+	virtual void Dead();
 	
 public:
 	virtual void OnCollision(Collider* _other) {};

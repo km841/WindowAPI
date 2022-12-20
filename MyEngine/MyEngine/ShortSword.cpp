@@ -27,12 +27,13 @@ ShortSword::ShortSword()
 	SetYOffset(8.f);
 	SetDuration(0.225f);
 
-	SetItemName(L"ºÙ º“µÂ");
-	SetItemComment(L"'∞°∫±∞Ì »÷µŒ∏£±‚ ∆Ì«— ∞À'");
-	SetRarity(RARITY::NORMAL);
-
 	ItemInfo info = {};
 	info.mAtt = 10.f;
+	info.mAttSpeed = 1.f;
+	info.mItemName = L"ºÙ º“µÂ";
+	info.mItemComment = L"'∞°∫±∞Ì »÷µŒ∏£±‚ ∆Ì«— ∞À'";
+	info.mRarity = RARITY::NORMAL;
+	info.mWeaponType = WEAPON_TYPE::ONE_HAND;
 	SetItemInfo(info);
 
 	CreateComponent(new Animator);

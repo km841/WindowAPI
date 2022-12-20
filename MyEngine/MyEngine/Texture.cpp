@@ -50,3 +50,24 @@ Pixel Texture::GetPixel(int x, int y)
 	COLORREF rgba = ::GetPixel(mDC, x, y);
 	return Pixel(rgba);
 }
+
+void Texture::ChangeColor(COLORREF _src, COLORREF _dst, int _boundary_x)
+{
+	Pixel srcColor = _src;
+
+	for (int y = 0; y < mHeight; ++y)
+	{
+		for (int x = 0; x < mWidth; x++)
+		{
+			if (_boundary_x > x)
+				continue;
+
+			Pixel pixel = GetPixel(x, y);
+			
+			if (srcColor == pixel)
+			{
+				SetPixel(mDC, x, y, _dst);
+			}
+		}
+	}
+}

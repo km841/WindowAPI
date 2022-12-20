@@ -299,3 +299,11 @@ enum class RARITY
 	END,
 };
 
+enum class WEAPON_TYPE
+{
+	ONE_HAND,
+	TWO_HAND,
+	NONE,
+	END,
+};
+

@@ -100,8 +100,7 @@ void ItemGetHUD::Render()
 			// 이미지 출력
 			Vec2 itemTexSize = mSetupItemTex->GetSize();
 			Vec2 itemNameSize = mItemNameTex->GetSize();
-			
-
+		
 			TransparentBlt(
 				BACK_BUF_DC,
 				(int)(pos.x - (HUDSize.x / 2.f) + 20.f),
@@ -140,37 +139,27 @@ void ItemGetHUD::Destroy()
 	HUD::Destroy();
 }
 
-void ItemGetHUD::SetupItemInfo(Texture* _itemTex, const std::wstring& _itemName, RARITY _rarity)
+void ItemGetHUD::SetupItemInfo(Texture* _itemTex, const ItemInfo& _info)
 {
 	mSetupItemTex = _itemTex;
-	mItemNameTex = FontMgr::GetInstance().GetTextTexture(_itemName, _itemName);
+	mItemNameTex = FontMgr::GetInstance().GetTextTexture(_info.mItemName, _info.mItemName);
 
 	if (nullptr != mItemNameTex)
 	{
-		COLORREF color = RGB(0, 0, 0);
-		switch (_rarity)
+		COLORREF color = RGB_WHITE;
+		switch (_info.mRarity)
 		{
 		case RARITY::NORMAL:
 			break;
 		case RARITY::RARE:
-			color = RGB(0, 0, 255);
+			color = RGB_BLUE;
 			break;
 		case RARITY::UNIQUE:
-			color = RGB(255, 0, 254);
+			color = RGB_PHONE_MAGENTA;
 			break;
 		}
 
-		for (int y = 0; y < mItemNameTex->GetHeight(); ++y)
-		{
-			for (int x = 0; x < mItemNameTex->GetWidth(); x++)
-			{
-				Pixel pixel = GetPixel(mItemNameTex->GetDC(), x, y);
-				if (pixel.IsWhite())
-				{
-					SetPixel(mItemNameTex->GetDC(), x, y, color);
-				}
-			}
-		}
+		mItemNameTex->ChangeColor(RGB_WHITE, color);
 	}
 
 }

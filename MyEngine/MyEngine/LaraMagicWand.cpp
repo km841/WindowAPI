@@ -28,14 +28,15 @@ LaraMagicWand::LaraMagicWand()
 	SetYOffset(8.f);
 	SetDuration(0.225f);
 
-	SetItemName(L"라라의 요술봉");
-	SetItemComment(L"'마법 소녀 라라가 잃어버린 요술봉'");
-	SetRarity(RARITY::UNIQUE);
-
 	ItemInfo info = {};
 	info.mAtt = 10.f;
+	info.mAttSpeed = 4.f;
 	info.mMaxAmmo = 12.f;
 	info.mAmmo = info.mMaxAmmo;
+	info.mItemName = L"라라의 요술봉";
+	info.mItemComment = L"'마법 소녀 라라가 잃어버린 요술봉'";
+	info.mRarity = RARITY::UNIQUE;
+	info.mWeaponType = WEAPON_TYPE::ONE_HAND;
 	SetItemInfo(info);
 
 	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");

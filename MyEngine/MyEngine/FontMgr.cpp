@@ -103,7 +103,17 @@ FontMgr::FontMgr()
 
         mTextMap.insert(std::make_pair(itemInfoHUDLine[i], info));
     }
+
+    itemInfoHUDLine = L"¼Óµµ";
     
+    for (int i = 0; i < itemInfoHUDLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 157);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(itemInfoHUDLine[i], info));
+    }
 }
 
 FontMgr::~FontMgr()
@@ -160,7 +170,7 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
     if (nullptr != tex)
         return tex;
 
-    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight));
+    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight + 5));
 
     int x_pos = 0;
     for (int i = 0; i < _text.size(); ++i)
@@ -180,6 +190,8 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
 
         x_pos += (int)info.mSlice.x;
     }
+
+    tex->ChangeColor(RGB_BLACK, RGB_MAGENTA);
     
     return tex;
 }

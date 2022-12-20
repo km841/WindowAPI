@@ -7,6 +7,8 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "CollisionMgr.h"
+#include "Monster.h"
+#include "MonsterEffect.h"
 
 GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))
@@ -137,14 +139,34 @@ void GameObject::CreateComponent(RigidBody* _rigidBody)
 void GameObject::SetObjState(OBJECT_STATE _state)
 {
 	mObjState = _state;
-	if (OBJECT_STATE::ALIVE != _state && nullptr != GetCollider())
-	{
-		GetCollider()->SetEnable(false);
-		//std::vector<Relation>& rels = GetRelations();
 
-		//for (auto& rel : rels)
-		//{
-		//	CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), rel.mOther->GetCollider());
-		//}
+	switch (_state)
+	{
+	case OBJECT_STATE::ALIVE:
+		break;
+	case OBJECT_STATE::DEAD_ANIM:
+		if (nullptr != GetCollider())
+		{
+			GetCollider()->SetEnable(false);
+		}
+		break;
+	case OBJECT_STATE::DEAD:
+		Dead();
+		break;
 	}
+
 }
+
+void GameObject::Dead()
+{
+	//if (nullptr != GetCollider())
+	//{
+	//	auto& rels = GetRelations();
+	//	for (int i = 0; i < rels.size(); ++i)
+	//	{
+	//		CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), GetCollider());
+	//	}
+	//}
+
+}
+

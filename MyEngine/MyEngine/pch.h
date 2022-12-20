@@ -49,6 +49,13 @@
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY
 #define BOTTOM_LIMIT CameraMgr::GetInstance().GetBottomLimit()
+#define RGB_WHITE RGB(255, 255, 255)
+#define RGB_MAGENTA RGB(255, 0, 255)
+#define RGB_GRAY RGB(147, 144, 158)
+#define RGB_PHONE_MAGENTA RGB(255, 0, 254)
+#define RGB_BLUE RGB(0, 0, 255)
+#define RGB_YELLOW RGB(223, 233, 85)
+#define RGB_BLACK RGB(0, 0, 0)
 
 
 

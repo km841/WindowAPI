@@ -5,12 +5,19 @@ struct ItemInfo
 {
 	ItemInfo()
 		: mAtt(0.f)
+		, mAttSpeed(0.f)
 		, mAmmo(0.f)
 		, mMaxAmmo(0.f)
 	{}
+	std::wstring mItemName;
+	std::wstring mItemComment;
 	float mAtt;
+	float mAttSpeed;
 	float mAmmo;
 	float mMaxAmmo;
+	RARITY mRarity;
+	WEAPON_TYPE mWeaponType;
+
 	//Stat
 };
 
@@ -167,6 +174,11 @@ union Pixel
 	};
 	DWORD Color;
 
+	operator COLORREF()
+	{
+		return RGB(R, G, B);
+	}
+
 	Pixel(BYTE r, BYTE g, BYTE b, BYTE a)
 		:R(r), G(g), B(b), A(a)
 	{}
@@ -174,6 +186,16 @@ union Pixel
 	Pixel(COLORREF color)
 		:Color(color)
 	{}
+
+	bool operator==(const Pixel& _other)
+	{
+		return (R == _other.R) && (G == _other.G) && (B == _other.B);
+	}
+
+	bool operator!=(const Pixel& _other)
+	{
+		return !(*this == _other);
+	}
 
 	bool IsMagenta()
 	{

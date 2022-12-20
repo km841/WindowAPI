@@ -807,7 +807,7 @@ void Player::OnCollisionEnter(Collider* _other)
 		item->Initialize();
 
 		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_GET);
-		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemName(), item->GetRarity());
+		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemInfo());
 	}
 
 

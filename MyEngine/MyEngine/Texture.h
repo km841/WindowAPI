@@ -19,6 +19,7 @@ public:
 
 public:
     Pixel GetPixel(int x, int y);
+    void ChangeColor(COLORREF _src, COLORREF _dst, int _boundary_x = 0);
 
 private:
     HDC          mDC;

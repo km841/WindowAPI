@@ -30,6 +30,8 @@ public:
     virtual void RecogLineRender(PEN_TYPE _penType);
     virtual void AttRangeLineRender(PEN_TYPE _penType);
     
+public:
+    virtual void Dead();
 
 private:
 
