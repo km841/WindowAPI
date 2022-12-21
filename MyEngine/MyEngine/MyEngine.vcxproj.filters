@@ -422,6 +422,9 @@
     <Filter Include="Engine\GameObject\Monster\Range_Monster\Banshee">
       <UniqueIdentifier>{f2c858dc-96df-4921-b27c-bbbc5c5373bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Melee_Monster\Minotaur">
+      <UniqueIdentifier>{08e21816-bf4d-4fa3-aa3c-93ea284cc869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -759,6 +762,9 @@
     </ClInclude>
     <ClInclude Include="Banshee.h">
       <Filter>Engine\GameObject\Monster\Range_Monster\Banshee</Filter>
+    </ClInclude>
+    <ClInclude Include="Minotaur.h">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1101,6 +1107,9 @@
     </ClCompile>
     <ClCompile Include="Banshee.cpp">
       <Filter>Engine\GameObject\Monster\Range_Monster\Banshee</Filter>
+    </ClCompile>
+    <ClCompile Include="Minotaur.cpp">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

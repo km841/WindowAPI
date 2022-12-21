@@ -196,6 +196,7 @@
     <ClInclude Include="LockedDoor.h" />
     <ClInclude Include="MagicWandBullet.h" />
     <ClInclude Include="MinimapHUD.h" />
+    <ClInclude Include="Minotaur.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttAfterState.h" />
     <ClInclude Include="MonsterAttState.h" />
@@ -309,6 +310,7 @@
     <ClCompile Include="LockedDoor.cpp" />
     <ClCompile Include="MagicWandBullet.cpp" />
     <ClCompile Include="MinimapHUD.cpp" />
+    <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttAfterState.cpp" />
     <ClCompile Include="MonsterAttState.cpp" />

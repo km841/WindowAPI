@@ -135,11 +135,11 @@ void Dungeon2Scene::Regen()
 
 	MonsterSpawnEvent<GiantBat>* spawnEvent4 = new MonsterSpawnEvent<GiantBat>;
 	spawnEvent4->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 10));
+	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
 
 	MonsterSpawnEvent<RedGiantBat>* spawnEvent5 = new MonsterSpawnEvent<RedGiantBat>;
 	spawnEvent5->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 10));
+	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
 
 	MonsterSpawnEvent<Banshee>* spawnEvent6 = new MonsterSpawnEvent<Banshee>;
 	spawnEvent6->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
