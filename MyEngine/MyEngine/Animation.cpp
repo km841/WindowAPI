@@ -126,8 +126,8 @@ void Animation::Render()
 			mBlendFunc.SourceConstantAlpha = 127;
 			AlphaBlend(
 				BACK_BUF_DC
-				, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
-				, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+				, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+				, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
 				, (int)(mAnim[mCurFrm].mSlice.x)
 				, (int)(mAnim[mCurFrm].mSlice.y)
 				, mTex->GetDC()
@@ -145,8 +145,8 @@ void Animation::Render()
 			mBlendFunc.SourceConstantAlpha = 255;
 			TransparentBlt(
 				BACK_BUF_DC
-				, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
-				, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+				, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+				, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
 				, (int)(mAnim[mCurFrm].mSlice.x)
 				, (int)(mAnim[mCurFrm].mSlice.y)
 				, mTex->GetDC()
@@ -163,8 +163,8 @@ void Animation::Render()
 	{
 		TransparentBlt(
    			BACK_BUF_DC
-   			, (int)(pos.x - mAnim[mCurFrm].mSlice.x / 2.f)
-   			, (int)(pos.y - mAnim[mCurFrm].mSlice.y / divideY)
+   			, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+   			, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
    			, (int)(mAnim[mCurFrm].mSlice.x)
    			, (int)(mAnim[mCurFrm].mSlice.y)
    			, mTex->GetDC()
@@ -176,18 +176,10 @@ void Animation::Render()
 		   );
 	}
 
-
-
-
-
-	
-
 	if (nullptr != mDummyObj)
 	{
 		mDummyObj->Render();
 	}
-
-	
 }
 
 void Animation::Create(Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, float _duration, UINT _frmCount)
@@ -200,6 +192,7 @@ void Animation::Create(Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset, 
 		anim.mLeftTop = _leftTop + (_offset * (float)i);
 		anim.mSlice = _slice;
 		anim.mDuration = _duration;
+		anim.mOffset = _offset;
 		
 		mAnim.push_back(anim);
 	}
@@ -247,6 +240,15 @@ void Animation::SetExitEvent(EventAnimation _event)
 	}
 
 	mEvent->mExit = _event;
+}
+
+void Animation::SetFrameControl(int _frame, Vec2 _control)
+{
+	if (mAnim.size() <= (_frame - 1))
+		return;
+
+	AnimInfo& info = mAnim[_frame];
+	info.mControl = _control;
 }
 
 void Animation::Reset()

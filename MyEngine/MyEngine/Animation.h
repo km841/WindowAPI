@@ -9,6 +9,7 @@ struct AnimInfo
     Vec2 mLeftTop;
     Vec2 mSlice;
     Vec2 mOffset;
+    Vec2 mControl;
     float mDuration;
 };
 
@@ -75,6 +76,8 @@ public:
 
     inline void SetFrameFix(bool _flag) { mFix = _flag; }
     inline bool GetFrameFix() const { return mFix; }
+
+    void SetFrameControl(int _frame, Vec2 _control);
 
     inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
