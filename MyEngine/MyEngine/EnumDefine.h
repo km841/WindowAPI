@@ -335,3 +335,9 @@ enum class WEAPON_TYPE
 	END,
 };
 
+enum class BULLET_WAY_TYPE
+{
+	LINEAR,
+	ROTATE,
+	END,
+};

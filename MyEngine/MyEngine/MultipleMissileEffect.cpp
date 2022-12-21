@@ -29,40 +29,40 @@ void MultipleMissileEffect::Initialize()
 
 void MultipleMissileEffect::Update()
 {
-	bool bulletAlive = false;
-	for (int i = 0; i < mBullets.size(); ++i)
-	{
-		if (mBullets[i]->IsAlive() ||
-			mBullets[i]->IsDeadAnim())
-		{
-			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
+	//bool bulletAlive = false;
+	//for (int i = 0; i < mBullets.size(); ++i)
+	//{
+	//	if (mBullets[i]->IsAlive() ||
+	//		mBullets[i]->IsDeadAnim())
+	//	{
+	//		BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
 
-			Vec2 dir = bullet->GetDir();
-			Vec2 pos = bullet->GetPos();
+	//		Vec2 dir = bullet->GetDir();
+	//		Vec2 pos = bullet->GetPos();
 
-			pos += dir * 200.f * DT;
-			bullet->SetPos(pos);
+	//		pos += dir * 200.f * DT;
+	//		bullet->SetPos(pos);
 
-			bulletAlive = true;
-		}
-	}
+	//		bulletAlive = true;
+	//	}
+	//}
 
-	if (!mBullets.empty() && !bulletAlive)
-	{
-		for (int i = 0; i < mBullets.size(); ++i)
-		{
-			EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-		}
+	//if (!mBullets.empty() && !bulletAlive)
+	//{
+	//	for (int i = 0; i < mBullets.size(); ++i)
+	//	{
+	//		EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
+	//	}
 
-		mBullets.clear();
-		mAttCount = 0.f;
-		mCurDuration = mMaxDuration;
+	//	mBullets.clear();
+	//	mAttCount = 0.f;
+	//	mCurDuration = mMaxDuration;
 
-		for (int i = 0; i < MULTIPLE_BULLET_1TIMES; ++i)
-		{
-			mDirs[i] = ZERO_VECTOR;
-		}
-	}
+	//	for (int i = 0; i < MULTIPLE_BULLET_1TIMES; ++i)
+	//	{
+	//		mDirs[i] = ZERO_VECTOR;
+	//	}
+	//}
 
 
 	MonsterMissileEffect::Update();	
@@ -75,14 +75,14 @@ void MultipleMissileEffect::Render()
 
 void MultipleMissileEffect::Destroy()
 {
-	for (int i = 0; i < mBullets.size(); ++i)
-	{
-		for (int i = 0; i < mBullets.size(); ++i)
-		{
-			EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-		}
-		mBullets.clear();
-	}
+	//for (int i = 0; i < mBullets.size(); ++i)
+	//{
+	//	for (int i = 0; i < mBullets.size(); ++i)
+	//	{
+	//		EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
+	//	}
+	//	mBullets.clear();
+	//}
 }
 
 bool MultipleMissileEffect::Attack()
@@ -92,7 +92,7 @@ bool MultipleMissileEffect::Attack()
 	// for문을 돌며 시간간격에 따라  3번 발사함
 	// 매 발사마다 특정 각도로 회전된 총알도 같이 발사
 
-	if (mBullets.empty())
+	if (0.f == mAttCount)
 	{
 		Vec2 playerPos = Player::GetPlayer()->GetPos();
 		Vec2 monsterPos = GetOwner()->GetPos();
@@ -128,7 +128,7 @@ bool MultipleMissileEffect::Attack()
 				pos.y -= 80.f;
 				bullet->SetPos(pos);
 				bullet->SetDir(mDirs[i % MULTIPLE_BULLET_1TIMES]);
-				mBullets.push_back(bullet);
+				bullet->SetBulletWayType(BULLET_WAY_TYPE::LINEAR);
 
 				EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
 			}
@@ -143,6 +143,7 @@ bool MultipleMissileEffect::Attack()
 
 	else
 	{
+		mAttCount = 0.f;
 		return false;
 	}
 }

@@ -7,6 +7,7 @@
 #include "ResourceMgr.h"
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
+#include "TimeMgr.h"
 
 BatBullet::BatBullet()
 {
@@ -51,29 +52,18 @@ void BatBullet::Initialize()
 
 void BatBullet::Update()
 {
-	GameObject::Update();
-	if (IsDeadAnim())
-	{
-		if (GetAnimator()->GetCurAnimation()->IsFinished())
-		{
-			SetObjState(OBJECT_STATE::DEAD);
-		}
-	}
-
-	else
-	{
-
-		// 화면 밖으로 날아가면 false
-		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
-		{
-			SetObjState(OBJECT_STATE::DEAD);
-		}
-	}
+	MonsterBullet::Update();
 }
 
 void BatBullet::Render()
 {
-	GameObject::Render();
+	MonsterBullet::Render();
+}
+
+void BatBullet::Dead()
+{
+	SetObjState(OBJECT_STATE::DEAD_ANIM);
+	GetAnimator()->SelectAnimation(L"BatBulletHit", false);
 }
 
 void BatBullet::OnCollision(Collider* _other)

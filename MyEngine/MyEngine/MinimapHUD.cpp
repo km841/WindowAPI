@@ -61,6 +61,7 @@ void MinimapHUD::Render()
 		);
 
 		RECT limitSize = CameraMgr::GetInstance().GetCameraLimitRect();
+
 		NPCRender(limitSize);
 		TileRender(limitSize);
 		MonsterRender(limitSize);

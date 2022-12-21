@@ -43,14 +43,14 @@ void ItemUI::Update()
 
 				if (OnRightClicked())
 				{
-					if (EQUIP_TYPE::END != mEquipType)
+					if (EQUIP_TYPE::END == mEquipType)
 					{
-						GET_INVENTORY_UI->UnMountItem(this);
+						GET_INVENTORY_UI->MountItem(this);
 					}
 					
 					else
 					{
-						GET_INVENTORY_UI->MountItem(this);
+						GET_INVENTORY_UI->UnMountItem(this);
 					}
 				}
 

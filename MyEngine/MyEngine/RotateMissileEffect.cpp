@@ -14,29 +14,25 @@ RotateMissileEffect::RotateMissileEffect()
 	: mRadius(80.f)
 	, mOmega(5.f)
 	, mAngle(0.f)
-	, mBulletInterval(0.05f)
+	, mBulletInterval(0.07f)
 	, mCurTime(0.f)
 	, mMaxBullet(20)
 	, mReady(false)
 {
 	mCoreBullet = new MonsterBullet;
+	mCoreBullet->SetBulletWayType(BULLET_WAY_TYPE::LINEAR);
+	mCoreBullet->GetCollider()->SetEnable(false);
+	EventRegisteror::GetInstance().CreateObject(mCoreBullet, mCoreBullet->GetType());
 }
 
 RotateMissileEffect::~RotateMissileEffect()
 {
-	if (nullptr != mCoreBullet)
-	{
-		delete mCoreBullet;
-		mCoreBullet = nullptr;
-	}
+
 }
 
 void RotateMissileEffect::Initialize()
 {
 	MonsterMissileEffect::Initialize();
-	Vec2 pos = GetPos();
-	pos.y -= 80;
-	mCoreBullet->SetPos(pos);
 }
 
 void RotateMissileEffect::Update()
@@ -48,92 +44,33 @@ void RotateMissileEffect::Update()
 	// 총알이 전부 스폰됐다면
 	if (mReady)
 	{
-		// 충돌체 ON
-		// 
-		// 플레이어 방향으로 회전탄 발사
-		for (int i = 0; i < mBullets.size(); ++i)
-		{
-			mBullets[i]->GetCollider()->SetEnable(true);
-		}
-		
-		Vec2 coreBulletPos = mCoreBullet->GetPos();
-		coreBulletPos.x += mPlayerVec.x * 200.f * DT;
-		coreBulletPos.y += mPlayerVec.y * 200.f * DT;
-		mCoreBullet->SetPos(coreBulletPos);
-
-		if (mBullets.empty())
+		if (mCoreBullet->AllDeadChildBullet())
 		{
 			mReady = false;
+			Vec2 pos = GetPos();
+			pos.y -= 80;
+			mCoreBullet->SetPos(pos);
+			mCoreBullet->SetDir(ZERO_VECTOR);
+			mCoreBullet->ClearChildBullet();
 		}
 	}
 
 	else
 	{
-		if (nullptr != mCoreBullet)
-		{
-			Vec2 pos = GetPos();
-			pos.y -= 80;
-			mCoreBullet->SetPos(pos);
-		}
-	}
-
-
-	//총알이 비지 않았다면
-	bool mBulletAlive = false;
-	for (int i = 0; i < mBullets.size(); ++i)
-	{
-		if (IsAlive())
-		{
-			BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
-			float bulletAngle = bullet->GetAngle();
-			bulletAngle += 180.f * DT;
-			bullet->SetAngle(bulletAngle);
-
-			float radian = Math::DegreeToRadian(bulletAngle);
-
-			Vec2 bulletPos = mBullets[i]->GetPos();
-			Vec2 coreBulletPos = mCoreBullet->GetPos();
-			bulletPos.x = coreBulletPos.x + mRadius * cos(radian);
-			bulletPos.y = coreBulletPos.y + mRadius * sin(radian);
-			mBullets[i]->SetPos(bulletPos);
-
-			mBulletAlive = true;
-		}
-
-		else if (IsDeadAnim())
-			mBulletAlive = true;
-	}
-
-	// 시간이 지나면 초기화되도록 변경
-	if (!mBullets.empty() && !mBulletAlive)
-	{
-		for (int i = 0; i < mBullets.size(); ++i)
-		{
-			EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-		}
-		mBullets.clear();
-
-		mReady = false;
-		mCurTime = 0.f;
-		mPlayerVec = ZERO_VECTOR;
+		Vec2 pos = GetPos();
+		pos.y -= 80;
+		mCoreBullet->SetPos(pos);
 	}
 }
 
 void RotateMissileEffect::Render()
 {
-	mCoreBullet->Render();
+	//mCoreBullet->Render();
 }
 
 void RotateMissileEffect::Destroy()
 {
-	for (int i = 0; i < mBullets.size(); ++i)
-	{
-		for (int i = 0; i < mBullets.size(); ++i)
-		{
-			EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-		}
-		mBullets.clear();
-	}
+	mCoreBullet->SetAllDeadAnimChildBullet();
 }
 
 bool RotateMissileEffect::Attack()
@@ -142,7 +79,7 @@ bool RotateMissileEffect::Attack()
 	// 생성이 끝나면 그때부터 총알이 다 소멸할때까지
 	// 소멸이 끝나면 공격 끝
 
-	if (mMaxBullet > mBullets.size())
+	if (mMaxBullet > mCoreBullet->GetChildSize())
 	{
 		if (mBulletInterval < mCurTime)
 		{
@@ -152,7 +89,11 @@ bool RotateMissileEffect::Attack()
 			Vec2 coreBulletPos = mCoreBullet->GetPos();
 			coreBulletPos.y -= mRadius;
 			bullet->SetPos(coreBulletPos);
-			mBullets.push_back(bullet);
+			bullet->SetRadius(mRadius);
+			bullet->SetBulletWayType(BULLET_WAY_TYPE::ROTATE);
+			bullet->SetStandardBullet(mCoreBullet);
+
+			mCoreBullet->AddChildBullet(bullet);
 			
 			EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
 		}
@@ -161,23 +102,23 @@ bool RotateMissileEffect::Attack()
 		{
 			mCurTime += DT;
 		}
-
-
 	}
 
 	else
 	{
-		if (Vec2(0.f, 0.f) == mPlayerVec)
-		{
-			Vec2 coreBulletPos = mCoreBullet->GetPos();
-			Vec2 playerPos = Player::GetPlayer()->GetPos();
+		mCoreBullet->ChildColliderOn();
 
-			mPlayerVec = playerPos - coreBulletPos;
-			mPlayerVec.Norm();
+		mPlayerVec = ZERO_VECTOR;
 
-			mReady = true;
-			return false;
-		}
+		Vec2 coreBulletPos = mCoreBullet->GetPos();
+		Vec2 playerPos = Player::GetPlayer()->GetPos();
+
+		mPlayerVec = playerPos - coreBulletPos;
+		mPlayerVec.Norm();
+		mCoreBullet->SetDir(mPlayerVec);
+
+		mReady = true;
+		return false;
 	}
 
 
