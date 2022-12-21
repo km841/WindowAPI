@@ -18,16 +18,13 @@ RotateMissileEffect::RotateMissileEffect()
 	, mCurTime(0.f)
 	, mMaxBullet(20)
 	, mReady(false)
+	, mCurCoreBullet(nullptr)
 {
-	mCoreBullet = new MonsterBullet;
-	mCoreBullet->SetBulletWayType(BULLET_WAY_TYPE::LINEAR);
-	mCoreBullet->GetCollider()->SetEnable(false);
-	EventRegisteror::GetInstance().CreateObject(mCoreBullet, mCoreBullet->GetType());
+
 }
 
 RotateMissileEffect::~RotateMissileEffect()
 {
-
 }
 
 void RotateMissileEffect::Initialize()
@@ -40,27 +37,6 @@ void RotateMissileEffect::Update()
 	// Effect를 중심으로 회전한다.
 
 	MonsterMissileEffect::Update();
-
-	// 총알이 전부 스폰됐다면
-	if (mReady)
-	{
-		if (mCoreBullet->AllDeadChildBullet())
-		{
-			mReady = false;
-			Vec2 pos = GetPos();
-			pos.y -= 80;
-			mCoreBullet->SetPos(pos);
-			mCoreBullet->SetDir(ZERO_VECTOR);
-			mCoreBullet->ClearChildBullet();
-		}
-	}
-
-	else
-	{
-		Vec2 pos = GetPos();
-		pos.y -= 80;
-		mCoreBullet->SetPos(pos);
-	}
 }
 
 void RotateMissileEffect::Render()
@@ -70,7 +46,12 @@ void RotateMissileEffect::Render()
 
 void RotateMissileEffect::Destroy()
 {
-	mCoreBullet->SetAllDeadAnimChildBullet();
+	if (nullptr != mCurCoreBullet)
+	{
+		mCurCoreBullet->SetAllDeadAnimChildBullet();
+		delete mCurCoreBullet;
+		mCurCoreBullet = nullptr;
+	}
 }
 
 bool RotateMissileEffect::Attack()
@@ -78,23 +59,35 @@ bool RotateMissileEffect::Attack()
 	// 특정 딜레이를 두고 n개를 생성시킨다.
 	// 생성이 끝나면 그때부터 총알이 다 소멸할때까지
 	// 소멸이 끝나면 공격 끝
+	if (nullptr == mCurCoreBullet)
+	{
+		MonsterBullet* coreBullet = new MonsterBullet;
+		coreBullet->SetBulletWayType(BULLET_WAY_TYPE::LINEAR);
+		coreBullet->GetCollider()->SetEnable(false);
+		mCurCoreBullet = coreBullet;
+		mCoreBullets.push_back(coreBullet);
 
-	if (mMaxBullet > mCoreBullet->GetChildSize())
+		Vec2 pos = GetPos();
+		pos.y -= mRadius;
+		mCurCoreBullet->SetPos(pos);
+	}
+
+	if (mMaxBullet > mCurCoreBullet->GetChildSize())
 	{
 		if (mBulletInterval < mCurTime)
 		{
 			mCurTime = 0.f;
 			BatBullet* bullet = new BatBullet;
 			bullet->GetCollider()->SetEnable(false);
-			Vec2 coreBulletPos = mCoreBullet->GetPos();
+			Vec2 coreBulletPos = mCurCoreBullet->GetPos();
 			coreBulletPos.y -= mRadius;
+
 			bullet->SetPos(coreBulletPos);
 			bullet->SetRadius(mRadius);
 			bullet->SetBulletWayType(BULLET_WAY_TYPE::ROTATE);
-			bullet->SetStandardBullet(mCoreBullet);
+			bullet->SetStandardBullet(mCurCoreBullet);
 
-			mCoreBullet->AddChildBullet(bullet);
-			
+			mCurCoreBullet->AddChildBullet(bullet);
 			EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
 		}
 
@@ -106,21 +99,21 @@ bool RotateMissileEffect::Attack()
 
 	else
 	{
-		mCoreBullet->ChildColliderOn();
+		mCurCoreBullet->ChildColliderOn();
 
 		mPlayerVec = ZERO_VECTOR;
 
-		Vec2 coreBulletPos = mCoreBullet->GetPos();
+		Vec2 coreBulletPos = mCurCoreBullet->GetPos();
 		Vec2 playerPos = Player::GetPlayer()->GetPos();
 
 		mPlayerVec = playerPos - coreBulletPos;
 		mPlayerVec.Norm();
-		mCoreBullet->SetDir(mPlayerVec);
+		mCurCoreBullet->SetDir(mPlayerVec);
 
-		mReady = true;
+		EventRegisteror::GetInstance().CreateObject(mCurCoreBullet, mCurCoreBullet->GetType());
+		mCurCoreBullet = nullptr;
 		return false;
 	}
-
 
 	return true;
 

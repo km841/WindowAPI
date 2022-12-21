@@ -27,14 +27,12 @@ void MonsterBullet::Update()
 	if (IsDeadAnim())
 	{
 		Animator* animator = GetAnimator();
-		if (nullptr != animator)
+		if (nullptr != animator && 
+			nullptr != animator->GetCurAnimation())
 		{
-			if (nullptr != animator->GetCurAnimation())
+			if (GetAnimator()->GetCurAnimation()->IsFinished())
 			{
-				if (GetAnimator()->GetCurAnimation()->IsFinished())
-				{
-					SetObjState(OBJECT_STATE::DEAD);
-				}
+				SetObjState(OBJECT_STATE::DEAD);
 			}
 		}
 	}
@@ -44,7 +42,7 @@ void MonsterBullet::Update()
 		// 화면 밖으로 날아가면 false
 		if (CameraMgr::GetInstance().OutOfScreen(GetPos()))
 		{
-			SetObjState(OBJECT_STATE::DEAD_ANIM);
+			Dead();
 		}
 
 		Vec2 bulletPos = GetPos();

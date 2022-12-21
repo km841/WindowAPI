@@ -49,6 +49,9 @@ void Animation::Update()
 	if (mFinish)
 		return;
 
+	if (mFix)
+		return;
+
 	if (mAnim.empty())
 		return;
 

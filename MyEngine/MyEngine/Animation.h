@@ -73,6 +73,9 @@ public:
 
     inline void SetEffectAnimation(bool _effect) { mEffect = _effect; }
 
+    inline void SetFrameFix(bool _flag) { mFix = _flag; }
+    inline bool GetFrameFix() const { return mFix; }
+
     inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
     void Reset();
@@ -89,6 +92,7 @@ private:
     bool                  mRepeat;
     bool                  mFinish;
     bool                  mEffect;
+    bool                  mFix;
 
 private:
     Event*                mEvent;

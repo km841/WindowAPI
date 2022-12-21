@@ -65,14 +65,9 @@ void Scene::Update()
 	{
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
-			if ((UINT)OBJECT_TYPE::MONSTER == y)
-			{
-				if (mObjects[y][x]->IsDead())
-				{
-					continue;
-				}
-			}
-
+			if (mObjects[y][x]->IsDead())
+				continue;
+			
 			if (nullptr != mObjects[y][x])
 				mObjects[y][x]->Update();
 		}
@@ -85,11 +80,8 @@ void Scene::Render()
 	{
 		for (size_t x = 0; mObjects[y].size() > x; ++x)
 		{
-			if ((UINT)OBJECT_TYPE::MONSTER == y)
-			{
-				if (mObjects[y][x]->IsDead())
-					continue;
-			}
+			if (mObjects[y][x]->IsDead())
+				continue;
 
 			if (nullptr != mObjects[y][x])
 				mObjects[y][x]->Render();

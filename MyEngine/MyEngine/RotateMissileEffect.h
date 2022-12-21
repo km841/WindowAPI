@@ -19,7 +19,9 @@ public:
     virtual bool Attack();
 
 private:
-    MonsterBullet* mCoreBullet;
+    std::vector<MonsterBullet*> mCoreBullets;
+    MonsterBullet* mCurCoreBullet;
+
     float          mRadius;
     float          mOmega;
     float          mAngle;
