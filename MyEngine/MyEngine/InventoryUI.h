@@ -24,6 +24,7 @@ public:
 
 public:
     void InventoryBaseRender();
+    void PlayerMoneyRender();
     void UnMountItem(ItemUI* _item);
     void MountItem(ItemUI* _item);
 

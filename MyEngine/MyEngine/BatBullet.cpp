@@ -8,6 +8,7 @@
 #include "EventRegisteror.h"
 #include "CameraMgr.h"
 #include "TimeMgr.h"
+#include "CollisionMgr.h"
 
 BatBullet::BatBullet()
 {
@@ -48,6 +49,7 @@ BatBullet::~BatBullet()
 
 void BatBullet::Initialize()
 {
+	MonsterBullet::Initialize();
 }
 
 void BatBullet::Update()
@@ -78,6 +80,14 @@ void BatBullet::OnCollisionEnter(Collider* _other)
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
 		SetObjState(OBJECT_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"BatBulletHit", false);
+
+		auto& rels = GetRelations();
+		for (auto& rel : rels)
+		{
+			if (RELATION_TYPE::COLLISION == rel.mRelType)	
+				CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), rel.mOther->GetCollider());
+		}
+
 	}
 }
 

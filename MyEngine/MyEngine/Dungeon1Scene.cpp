@@ -13,14 +13,13 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "ShortSword.h"
-#include "GiantSkullSpawnEvent.h"
-#include "RedGiantBatSpawnEvent.h"
 #include "EventMgr.h"
 #include "Wall.h"
 #include "LockedDoor.h"
 #include "UIMgr.h"
 #include "GiantBat.h"
-#include "GiantBatSpawnEvent.h"
+#include "RedGiantBat.h"
+#include "Banshee.h"
 #include "InventoryUI.h"
 #include "HPHUD.h"
 #include "DashCountHUD.h"
@@ -29,6 +28,7 @@
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
+#include "MonsterSpawnEvent.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -135,26 +135,29 @@ void Dungeon1Scene::Exit()
 
 void Dungeon1Scene::Regen()
 {
-	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
-	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent2 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
-	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent3 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
-	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(Vec2(TILE_SIZE * 5, GROUND_STANDARD)));
-	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
+	MonsterSpawnEvent<GiantBat>* spawnEvent4 = new MonsterSpawnEvent<GiantBat>;
+	spawnEvent4->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 10));
 
-	GiantBatSpawnEvent* spawnEvent5 = new GiantBatSpawnEvent;
+	MonsterSpawnEvent<RedGiantBat>* spawnEvent5 = new MonsterSpawnEvent<RedGiantBat>;
 	spawnEvent5->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
+	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 10));
 
+	MonsterSpawnEvent<Banshee>* spawnEvent6 = new MonsterSpawnEvent<Banshee>;
+	spawnEvent6->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 42, TILE_SIZE * 15));
 
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
@@ -177,6 +180,7 @@ void Dungeon1Scene::Regen()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent5, spawnEvent5->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent6, spawnEvent6->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor3, lockDoor3->GetType());

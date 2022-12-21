@@ -100,6 +100,9 @@ public:
 
     inline bool IsHit() const { return mHit; }
 
+    inline int GetMoney() const { return mMoney; }
+    inline void SetMoney(int _money) { mMoney = _money; }
+
     inline void SetPrevScene(SCENE_TYPE _type) { mPrevScene = _type; }
     inline SCENE_TYPE GetPrevScene() const { return mPrevScene; }
 
@@ -167,6 +170,8 @@ private:
     int        mImgCount;
 
     bool       mUIState;
+    int        mMoney;
+
 
 private:
     float      mDashDuration;

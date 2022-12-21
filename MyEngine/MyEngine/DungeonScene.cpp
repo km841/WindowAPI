@@ -13,8 +13,6 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "ShortSword.h"
-#include "GiantSkullSpawnEvent.h"
-#include "RedGiantBatSpawnEvent.h"
 #include "EventMgr.h"
 #include "Wall.h"
 #include "LockedDoor.h"

@@ -9,6 +9,7 @@
 #include "GreatSword.h"
 #include "Player.h"
 #include "ItemUI.h"
+#include "FontMgr.h"
 
 InventoryUI::InventoryUI()
 	: UI(false)
@@ -86,26 +87,9 @@ void InventoryUI::Render()
 	if (nullptr != mLeftBaseTex && nullptr != mRightBaseTex)
 	{
 		InventoryBaseRender();
-
-		Vec2 pos = GetPos();
-		
-		Player* player = Player::GetPlayer();
-		Item* leftItem = player->GetEquipItem(EQUIP_TYPE::WEAPON_LEFT);
-		Item* rightItem = player->GetEquipItem(EQUIP_TYPE::WEAPON_RIGHT);
-
-		if (nullptr != player)
-		{
-			if (nullptr != leftItem)
-			{
-				mEquipMap[EQUIP_TYPE::WEAPON_LEFT]->SetItem(leftItem);
-			}
-
-			if (nullptr != rightItem)
-			{
-				mEquipMap[EQUIP_TYPE::WEAPON_RIGHT]->SetItem(rightItem);
-			}
-		}
+		PlayerMoneyRender();
 	}
+
 	UI::Render();
 }
 
@@ -136,6 +120,32 @@ void InventoryUI::InventoryBaseRender()
 		0, 0,
 		(int)size.x,
 		(int)size.y,
+		RGB(255, 0, 255)
+	);
+}
+
+void InventoryUI::PlayerMoneyRender()
+{
+	Vec2 pos = GetPos();
+	Player* player = Player::GetPlayer();
+	Vec2 moneyPos = pos + Vec2(428, WINDOW_HEIGHT_SIZE - 78);
+
+	int money = player->GetMoney();
+	std::wstring moneyText = std::to_wstring(money);
+
+	Texture* moneyTex = FontMgr::GetInstance().GetTextTexture(moneyText, moneyText);
+	Vec2 moneyTexOrgSize = moneyTex->GetSize();
+	Vec2 moneyTexSize = (moneyTexOrgSize / 2.f) * 3.f;
+	TransparentBlt(
+		BACK_BUF_DC,
+		(int)(moneyPos.x - moneyTexSize.x),
+		(int)(moneyPos.y - moneyTexSize.y / 2.f),
+		(int)(moneyTexSize.x),
+		(int)(moneyTexSize.y),
+		moneyTex->GetDC(),
+		0, 0,
+		(int)moneyTexOrgSize.x,
+		(int)moneyTexOrgSize.y,
 		RGB(255, 0, 255)
 	);
 }

@@ -29,42 +29,6 @@ void MultipleMissileEffect::Initialize()
 
 void MultipleMissileEffect::Update()
 {
-	//bool bulletAlive = false;
-	//for (int i = 0; i < mBullets.size(); ++i)
-	//{
-	//	if (mBullets[i]->IsAlive() ||
-	//		mBullets[i]->IsDeadAnim())
-	//	{
-	//		BatBullet* bullet = static_cast<BatBullet*>(mBullets[i]);
-
-	//		Vec2 dir = bullet->GetDir();
-	//		Vec2 pos = bullet->GetPos();
-
-	//		pos += dir * 200.f * DT;
-	//		bullet->SetPos(pos);
-
-	//		bulletAlive = true;
-	//	}
-	//}
-
-	//if (!mBullets.empty() && !bulletAlive)
-	//{
-	//	for (int i = 0; i < mBullets.size(); ++i)
-	//	{
-	//		EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-	//	}
-
-	//	mBullets.clear();
-	//	mAttCount = 0.f;
-	//	mCurDuration = mMaxDuration;
-
-	//	for (int i = 0; i < MULTIPLE_BULLET_1TIMES; ++i)
-	//	{
-	//		mDirs[i] = ZERO_VECTOR;
-	//	}
-	//}
-
-
 	MonsterMissileEffect::Update();	
 }
 
@@ -75,14 +39,6 @@ void MultipleMissileEffect::Render()
 
 void MultipleMissileEffect::Destroy()
 {
-	//for (int i = 0; i < mBullets.size(); ++i)
-	//{
-	//	for (int i = 0; i < mBullets.size(); ++i)
-	//	{
-	//		EventRegisteror::GetInstance().DeleteObject(mBullets[i]);
-	//	}
-	//	mBullets.clear();
-	//}
 }
 
 bool MultipleMissileEffect::Attack()

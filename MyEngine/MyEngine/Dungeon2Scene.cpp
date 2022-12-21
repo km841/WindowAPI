@@ -13,8 +13,6 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include "ShortSword.h"
-#include "GiantSkullSpawnEvent.h"
-#include "RedGiantBatSpawnEvent.h"
 #include "EventMgr.h"
 #include "Wall.h"
 #include "LockedDoor.h"
@@ -26,6 +24,10 @@
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
+#include "MonsterSpawnEvent.h"
+#include "GiantBat.h"
+#include "RedGiantBat.h"
+#include "Banshee.h"
 
 Dungeon2Scene::Dungeon2Scene()
 {
@@ -45,7 +47,6 @@ void Dungeon2Scene::Update()
 {
 
 	Player* player = Player::GetPlayer();
-
 	Vec2 pos = player->GetPos();
 
 	if (pos.x < TILE_SIZE * 1.5f)
@@ -83,7 +84,6 @@ void Dungeon2Scene::Enter()
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 23, BOTTOM_LIMIT });
 
-	
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
 	{
@@ -121,21 +121,29 @@ void Dungeon2Scene::Exit()
 
 void Dungeon2Scene::Regen()
 {
-	GiantSkullSpawnEvent* spawnEvent1 = new GiantSkullSpawnEvent;
-	spawnEvent1->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
-	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 15));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
-	GiantSkullSpawnEvent* spawnEvent2 = new GiantSkullSpawnEvent;
-	spawnEvent2->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
-	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 15));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent2 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent2->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
-	GiantSkullSpawnEvent* spawnEvent3 = new GiantSkullSpawnEvent;
-	spawnEvent3->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
-	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 15));
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent3 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	spawnEvent3->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent3->SetSpawnPos(Vec2(TILE_SIZE * 27, TILE_SIZE * 10));
 
-	RedGiantBatSpawnEvent* spawnEvent4 = new RedGiantBatSpawnEvent;
-	spawnEvent4->SetPos(Vec2(TILE_SIZE * 2, GROUND_STANDARD));
-	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 15));
+	MonsterSpawnEvent<GiantBat>* spawnEvent4 = new MonsterSpawnEvent<GiantBat>;
+	spawnEvent4->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent4->SetSpawnPos(Vec2(TILE_SIZE * 32, TILE_SIZE * 10));
+
+	MonsterSpawnEvent<RedGiantBat>* spawnEvent5 = new MonsterSpawnEvent<RedGiantBat>;
+	spawnEvent5->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 10));
+
+	MonsterSpawnEvent<Banshee>* spawnEvent6 = new MonsterSpawnEvent<Banshee>;
+	spawnEvent6->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 42, TILE_SIZE * 15));
 
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
@@ -149,6 +157,8 @@ void Dungeon2Scene::Regen()
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent5, spawnEvent5->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent6, spawnEvent6->GetType());
 
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());

@@ -287,9 +287,6 @@
     <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base">
       <UniqueIdentifier>{f64daf44-662f-46ec-967e-10110ed57428}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent">
-      <UniqueIdentifier>{f286898c-97db-43b8-bfa2-331b870ab7ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Monster\Melee_Monster">
       <UniqueIdentifier>{aa7bd9b2-c837-4c45-ad3f-2927810b2bb0}</UniqueIdentifier>
     </Filter>
@@ -304,9 +301,6 @@
     </Filter>
     <Filter Include="Engine\GameObject\Monster\Range_Monster\RedGiantBat">
       <UniqueIdentifier>{f10591fc-c3e9-4e21-a401-088a481a98ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent">
-      <UniqueIdentifier>{0a607b95-41e4-45eb-bac2-509602f26404}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect">
       <UniqueIdentifier>{7db185ec-2e6d-40c1-a3de-64eedbb55a6d}</UniqueIdentifier>
@@ -395,9 +389,6 @@
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect">
       <UniqueIdentifier>{1147110a-2e42-4416-8633-ca4428cf7744}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent">
-      <UniqueIdentifier>{5cbf798a-69a0-4323-84c9-401317f5679b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Manager\FontMgr\FontObject">
       <UniqueIdentifier>{f0034ee6-a380-4692-982c-158f21dda413}</UniqueIdentifier>
     </Filter>
@@ -421,6 +412,15 @@
     </Filter>
     <Filter Include="Engine\GameObject\UI\InventoryUI\ItemUI">
       <UniqueIdentifier>{528ab4f2-7977-444b-b5b8-e78a6f3af04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet\BansheeBullet">
+      <UniqueIdentifier>{7abc3e98-2e5f-416f-b22a-e15bf28b8ef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\BansheeMissileEffect">
+      <UniqueIdentifier>{ae239a0f-9c14-4d0f-ba8f-977ae0166e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Range_Monster\Banshee">
+      <UniqueIdentifier>{f2c858dc-96df-4921-b27c-bbbc5c5373bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -652,17 +652,11 @@
     <ClInclude Include="MonsterSpawnEvent.h">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base</Filter>
     </ClInclude>
-    <ClInclude Include="GiantSkullSpawnEvent.h">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent</Filter>
-    </ClInclude>
     <ClInclude Include="GiantBat.h">
       <Filter>Engine\GameObject\Monster\Range_Monster\GiantBat</Filter>
     </ClInclude>
     <ClInclude Include="RedGiantBat.h">
       <Filter>Engine\GameObject\Monster\Range_Monster\RedGiantBat</Filter>
-    </ClInclude>
-    <ClInclude Include="RedGiantBatSpawnEvent.h">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Engine\GameObject\Bullet\Base</Filter>
@@ -736,9 +730,6 @@
     <ClInclude Include="MultipleMissileEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect</Filter>
     </ClInclude>
-    <ClInclude Include="GiantBatSpawnEvent.h">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
-    </ClInclude>
     <ClInclude Include="NPCLineHUD.h">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
     </ClInclude>
@@ -759,6 +750,15 @@
     </ClInclude>
     <ClInclude Include="MinimapHUD.h">
       <Filter>Engine\GameObject\HUD\MinimapHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BansheeBullet.h">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BansheeBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BansheeMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\BansheeMissileEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Banshee.h">
+      <Filter>Engine\GameObject\Monster\Range_Monster\Banshee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -991,17 +991,11 @@
     <ClCompile Include="MonsterSpawnEvent.cpp">
       <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\Base</Filter>
     </ClCompile>
-    <ClCompile Include="GiantSkullSpawnEvent.cpp">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantSkullSpawnEvent</Filter>
-    </ClCompile>
     <ClCompile Include="GiantBat.cpp">
       <Filter>Engine\GameObject\Monster\Range_Monster\GiantBat</Filter>
     </ClCompile>
     <ClCompile Include="RedGiantBat.cpp">
       <Filter>Engine\GameObject\Monster\Range_Monster\RedGiantBat</Filter>
-    </ClCompile>
-    <ClCompile Include="RedGiantBatSpawnEvent.cpp">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\RedGiantBatSpawnEvent</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Engine\GameObject\Bullet\Base</Filter>
@@ -1078,9 +1072,6 @@
     <ClCompile Include="MultipleMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\MultipleMissileEffect</Filter>
     </ClCompile>
-    <ClCompile Include="GiantBatSpawnEvent.cpp">
-      <Filter>Engine\GameObject\MapComponent\EventObject\MonsterSpawnEvent\GiantBatSpawnEvent</Filter>
-    </ClCompile>
     <ClCompile Include="NPCLineHUD.cpp">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
     </ClCompile>
@@ -1101,6 +1092,15 @@
     </ClCompile>
     <ClCompile Include="MinimapHUD.cpp">
       <Filter>Engine\GameObject\HUD\MinimapHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="BansheeBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BansheeBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BansheeMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\BansheeMissileEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Banshee.cpp">
+      <Filter>Engine\GameObject\Monster\Range_Monster\Banshee</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

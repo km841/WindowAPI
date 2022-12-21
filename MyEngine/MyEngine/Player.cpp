@@ -63,6 +63,7 @@ Player::Player()
 	, mInfo{}
 	, mCharacter(PLAYER_CHARACTER::PLAYER)
 	, mUIState(false)
+	, mMoney(0)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -789,6 +790,8 @@ void Player::OnCollisionEnter(Collider* _other)
 		
 		FontMgr::GetInstance().OutputGold(money, goldPos);
 		EventRegisteror::GetInstance().DeleteObject(gold);
+
+		mMoney += money;
 	}
 
 	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())

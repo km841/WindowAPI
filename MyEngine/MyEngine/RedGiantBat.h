@@ -7,6 +7,7 @@ public:
     RedGiantBat();
     virtual ~RedGiantBat();
 
+    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::FLY_RANGE;
 public:
     virtual void Initialize() override;
     virtual void Update() override;

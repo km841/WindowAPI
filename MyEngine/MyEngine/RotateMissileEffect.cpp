@@ -101,8 +101,6 @@ bool RotateMissileEffect::Attack()
 	{
 		mCurCoreBullet->ChildColliderOn();
 
-		mPlayerVec = ZERO_VECTOR;
-
 		Vec2 coreBulletPos = mCurCoreBullet->GetPos();
 		Vec2 playerPos = Player::GetPlayer()->GetPos();
 

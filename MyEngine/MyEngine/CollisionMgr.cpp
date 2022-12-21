@@ -237,20 +237,31 @@ bool CollisionMgr::LineToLineCollision(Vec2 _v1, Vec2 _v2, Vec2 _v3, Vec2 _v4)
 
 void CollisionMgr::CollisionForceQuit(Collider* _left, Collider* _right)
 {
+	OBJECT_TYPE leftObjType = _left->GetOwner()->GetType();
+	OBJECT_TYPE rightObjType = _right->GetOwner()->GetType();
+
+	Collider* left = _left;
+	Collider* right = _right;
+
+	if (leftObjType > rightObjType)
+	{
+		Collider* left = _right;
+		Collider* right = _left;
+	}
 
 	COLLISION_ID colID = {};
-	colID.LID = _left->GetID();
-	colID.RID = _right->GetID();
+	colID.LID = left->GetID();
+	colID.RID = right->GetID();
 
 	std::map<ULONGLONG, bool>::iterator iter = mColMap.find(colID.ID);
 	
 	if (mColMap.end() != iter)
 	{
-		_left->OnCollisionExit(_right);
-		_right->OnCollisionExit(_left);
+		left->OnCollisionExit(right);
+		right->OnCollisionExit(left);
 		
-		_left->GetOwner()->SeverRelation(_right->GetOwner(), RELATION_TYPE::COLLISION);
-		_right->GetOwner()->SeverRelation(_left->GetOwner(), RELATION_TYPE::COLLISION);
+		left->GetOwner()->SeverRelation(right->GetOwner(), RELATION_TYPE::COLLISION);
+		right->GetOwner()->SeverRelation(left->GetOwner(), RELATION_TYPE::COLLISION);
 
 		mColMap.erase(iter);
 	}

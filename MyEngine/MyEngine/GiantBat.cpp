@@ -84,7 +84,7 @@ GiantBat::GiantBat()
 	effect->SetOwner(this);
 	SetEffect(effect);
 
-	SetAttFixFrame(3);
+	//SetAttFixFrame(3);
 }
 
 GiantBat::~GiantBat()

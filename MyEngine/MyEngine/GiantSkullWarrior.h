@@ -7,6 +7,8 @@ public:
     GiantSkullWarrior();
     virtual ~GiantSkullWarrior();
 
+    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_MELEE;
+
 public:
     virtual void Initialize() override;
     virtual void Update() override;

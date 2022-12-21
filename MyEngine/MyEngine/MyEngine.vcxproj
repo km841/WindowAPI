@@ -144,6 +144,9 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Banshee.h" />
+    <ClInclude Include="BansheeBullet.h" />
+    <ClInclude Include="BansheeMissileEffect.h" />
     <ClInclude Include="BatBullet.h" />
     <ClInclude Include="BlackSmithNPC.h" />
     <ClInclude Include="Bullet.h" />
@@ -162,8 +165,6 @@
     <ClInclude Include="FontMgr.h" />
     <ClInclude Include="Foothold.h" />
     <ClInclude Include="GiantBat.h" />
-    <ClInclude Include="GiantBatSpawnEvent.h" />
-    <ClInclude Include="GiantSkullSpawnEvent.h" />
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="Gold.h" />
     <ClInclude Include="GoldBar.h" />
@@ -217,7 +218,6 @@
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
     <ClInclude Include="RedGiantBat.h" />
-    <ClInclude Include="RedGiantBatSpawnEvent.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RotateMissileEffect.h" />
     <ClInclude Include="ShortSword.h" />
@@ -258,6 +258,9 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Banshee.cpp" />
+    <ClCompile Include="BansheeBullet.cpp" />
+    <ClCompile Include="BansheeMissileEffect.cpp" />
     <ClCompile Include="BatBullet.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -276,8 +279,6 @@
     <ClCompile Include="FontMgr.cpp" />
     <ClCompile Include="Foothold.cpp" />
     <ClCompile Include="GiantBat.cpp" />
-    <ClCompile Include="GiantBatSpawnEvent.cpp" />
-    <ClCompile Include="GiantSkullSpawnEvent.cpp" />
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="Gold.cpp" />
     <ClCompile Include="GoldBar.cpp" />
@@ -330,7 +331,6 @@
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
     <ClCompile Include="RedGiantBat.cpp" />
-    <ClCompile Include="RedGiantBatSpawnEvent.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateMissileEffect.cpp" />
     <ClCompile Include="ShortSword.cpp" />
