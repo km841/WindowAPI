@@ -21,6 +21,7 @@ public:
 
 public:
     virtual bool Attack();
+    virtual void Trace();
     virtual bool DetectPlayer();
     virtual bool DetectIntoAttRange();
 

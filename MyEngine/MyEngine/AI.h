@@ -17,6 +17,13 @@ public:
 
 public:
 	void AddState(MonsterState* _state);
+
+	template<typename ... Types>
+	void AddStates(Types* ... _args)
+	{
+		auto unreferenced = { 0, (AddState(_args), 0)... };
+	}
+
 	MonsterState* FindState(MONSTER_STATE _eState);
 
 	inline MonsterState* GetCurState() const { return mCurState; }

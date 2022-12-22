@@ -11,6 +11,7 @@
 #include "MonsterSwordEffect.h"
 #include "CollisionMgr.h"
 #include "Player.h"
+#include "TimeMgr.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
@@ -260,6 +261,54 @@ bool GiantSkullWarrior::Attack()
 
 		return true;
 	}
+}
+
+void GiantSkullWarrior::Trace()
+{
+	Player* player = Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		mPrevDir = mDir;
+
+		Vec2 playerPos = player->GetPos();
+		Vec2 monsterPos = GetPos();
+		// 방향 전환할 때 애니메이션 변환
+		// 방향 전환은? 플레이어 위치 - 내 위치 의 부호에 따라 변환
+
+		Vec2 dirVec = monsterPos - playerPos;
+		dirVec.Norm();
+		
+		if (0 > dirVec.x)
+		{
+			monsterPos.x += mInfo.mSpeed * DT;
+			mDir = DIR::RIGHT;
+		}
+
+		else
+		{
+			monsterPos.x -= mInfo.mSpeed * DT;
+			mDir = DIR::LEFT;
+		}
+
+		SetPos(monsterPos);
+
+		if (mPrevDir != mDir)
+		{
+			const std::wstring& animName = GetMoveAnimName();
+			switch (mDir)
+			{
+			case DIR::LEFT:
+				GetAnimator()->SelectAnimation(animName + L"Left", true);
+				break;
+
+			case DIR::RIGHT:
+				GetAnimator()->SelectAnimation(animName + L"Right", true);
+				break;
+			}
+		}
+	}
+
 }
 
 bool GiantSkullWarrior::DetectPlayer()

@@ -7,7 +7,7 @@ public:
     Minotaur();
     virtual ~Minotaur();
 
-    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_MELEE;
+    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_CHARGE;
 
 public:
     virtual void Initialize() override;
@@ -25,6 +25,7 @@ public:
 
 public:
     virtual bool Attack();
+    virtual void Trace();
     virtual bool DetectPlayer();
     virtual bool DetectIntoAttRange();
 

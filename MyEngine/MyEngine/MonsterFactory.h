@@ -38,37 +38,53 @@ public:
 			
 			AI* ai = new AI;
 			ai->SetOwnerMonster(monster);
-			
 			monster->SetAI(ai);
-			
-			MonsterIdleState* idleState = new MonsterIdleState;
-			idleState->SetOwnerAI(ai);
-
-			MonsterTraceState* traceState = new MonsterTraceState;
-			traceState->SetOwnerAI(ai);
-
-			MonsterPatrolState* patrolState = new MonsterPatrolState;
-			patrolState->SetOwnerAI(ai);
-
-			MonsterAttState* attState = new MonsterAttState;
-			attState->SetOwnerAI(ai);
-
-			MonsterDeadState* deadState = new MonsterDeadState;
-			deadState->SetOwnerAI(ai);
-
-			MonsterAttAfterState* attAfterState = new MonsterAttAfterState;
-			attAfterState->SetOwnerAI(ai);
-
-			ai->AddState(idleState);
-			ai->AddState(traceState);
-			ai->AddState(patrolState);
-			ai->AddState(attState);
-			ai->AddState(deadState);
-			ai->AddState(attAfterState);
+		
+			ai->AddStates(
+				new MonsterIdleState,
+				new MonsterTraceState,
+				new MonsterPatrolState,
+				new MonsterDeadState,
+				new MonsterAttState,
+				new MonsterAttAfterState
+			);
 
 			ai->ChangeState(MONSTER_STATE::IDLE);
 		}
 			break;
+
+		case MONSTER_TYPE::GROUND_CHARGE:
+		{
+			monster = new T;
+			monster->SetPos(_pos);
+			monster->SetGround(false);
+
+			info.mAtt = 5;
+			info.mMaxHP = 100;
+			info.mSpeed = 50.f;
+			info.mRecog = 300.f;
+			info.mAttRange = 150.f;
+			info.mAttDelay = 2.f;
+			info.mCurDelay = 0.f;
+
+			monster->SetMonsterInfo(info);
+
+			AI* ai = new AI;
+			ai->SetOwnerMonster(monster);
+
+			monster->SetAI(ai);
+			ai->AddStates(
+				new MonsterIdleState,
+				new MonsterTraceState,
+				new MonsterDeadState,
+				new MonsterAttState,
+				new MonsterAttAfterState
+			);
+
+			ai->ChangeState(MONSTER_STATE::IDLE);
+		}
+			break;
+			
 
 
 		case MONSTER_TYPE::FLY_RANGE:
@@ -92,30 +108,14 @@ public:
 
 			monster->SetAI(ai);
 
-			MonsterIdleState* idleState = new MonsterIdleState;
-			idleState->SetOwnerAI(ai);
-
-			MonsterTraceState* traceState = new MonsterTraceState;
-			traceState->SetOwnerAI(ai);
-
-			MonsterPatrolState* patrolState = new MonsterPatrolState;
-			patrolState->SetOwnerAI(ai);
-
-			MonsterAttState* attState = new MonsterAttState;
-			attState->SetOwnerAI(ai);
-
-			MonsterDeadState* deadState = new MonsterDeadState;
-			deadState->SetOwnerAI(ai);
-
-			MonsterAttAfterState* attAfterState = new MonsterAttAfterState;
-			attAfterState->SetOwnerAI(ai);
-
-			ai->AddState(idleState);
-			ai->AddState(traceState);
-			ai->AddState(patrolState);
-			ai->AddState(attState);
-			ai->AddState(deadState);
-			ai->AddState(attAfterState);
+			ai->AddStates(
+				new MonsterIdleState,
+				new MonsterTraceState,
+				new MonsterPatrolState,
+				new MonsterDeadState,
+				new MonsterAttState,
+				new MonsterAttAfterState
+			);
 
 			ai->ChangeState(MONSTER_STATE::IDLE);
 		}

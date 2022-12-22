@@ -29,6 +29,7 @@ void AI::Render()
 void AI::AddState(MonsterState* _state)
 {
 	mStateMap.insert(std::make_pair(_state->GetMonsterState(), _state));
+	_state->SetOwnerAI(this);
 }
 
 MonsterState* AI::FindState(MONSTER_STATE _eState)

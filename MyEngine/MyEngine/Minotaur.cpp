@@ -40,8 +40,8 @@ Minotaur::Minotaur()
 		idleAnimName + L"Left",
 		animTex,
 		Vec2(0.f, 0.f),
-		Vec2(99.f, 90.f),
-		Vec2(99.f, 0.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
 		6
 	);
@@ -49,9 +49,9 @@ Minotaur::Minotaur()
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Right",
 		animTex,
-		Vec2(0.f, 90.f),
-		Vec2(99.f, 90.f),
-		Vec2(99.f, 0.f),
+		Vec2(0.f, 150.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
 		6
 	);
@@ -59,31 +59,31 @@ Minotaur::Minotaur()
 	GetAnimator()->RegisterAnimation(
 		moveAnimName + L"Left",
 		animTex,
-		Vec2(0.f, 180.f),
-		Vec2(99.f, 90.f),
-		Vec2(99.f, 0.f),
+		Vec2(0.f, 300.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
-		6
+		8
 	);
 
 	GetAnimator()->RegisterAnimation(
 		moveAnimName + L"Right",
 		animTex,
-		Vec2(0.f, 270.f),
-		Vec2(99.f, 90.f),
-		Vec2(99.f, 0.f),
+		Vec2(0.f, 450.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
-		6
+		8
 	);
 
 	Animation* attAnimLeft = GetAnimator()->CreateAnimation(
 		attAnimName + L"Left",
 		animTex,
-		Vec2(0.f, 360.f),
-		Vec2(213.f, 144.f),
-		Vec2(213.f, 0.f),
+		Vec2(0.f, 600.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
-		12
+		7
 	);
 
 	attAnimLeft->SetOffset(Vec2(-50, 0));
@@ -91,11 +91,11 @@ Minotaur::Minotaur()
 	Animation* attAnimRight = GetAnimator()->CreateAnimation(
 		attAnimName + L"Right",
 		animTex,
-		Vec2(0.f, 504.f),
-		Vec2(213.f, 144.f),
-		Vec2(213.f, 0.f),
+		Vec2(0.f, 750.f),
+		Vec2(168.f, 150.f),
+		Vec2(168.f, 0.f),
 		0.1f,
-		12
+		7
 	);
 
 	attAnimRight->SetOffset(Vec2(50, 0));
@@ -105,6 +105,20 @@ Minotaur::Minotaur()
 
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);
+
+	// 사정거리 안에 들어오면 대쉬하고 나서 방향에 따른 공격모션
+	// PATROL 상태에도 가만히 있음
+	// 뒤돌아 있어도 좌우 전부 감지
+	// 아래나 위에 있어도 마찬가지
+	// 따라서 PATROL로 있다가 플레이어가 감지되면 TRACE로 넘어감
+	// TRACE에서는 MOVE로 돌격하며, TRACE가 끝나면 ATT
+	// ATT이 끝나고 나면 ATT_AFTER 상태로 IDLE 애니메이션 적용
+	// IDLE = IDLE
+	// PATROL = IDLE
+	// TRACE = MOVE
+	// ATT = ATT
+	// ATT_AFTER = IDLE
+	// TRACE에서 가상함수로 각 몬스터의 추적패턴을 나눠두는게 좋을 것 같음
 
 	MonsterSwordEffect* effect = new MonsterSwordEffect;
 	effect->SetOwner(this);
@@ -124,6 +138,7 @@ Minotaur::~Minotaur()
 void Minotaur::Initialize()
 {
 	Monster::Initialize();
+	mInfo.mSpeed = 0.f;
 }
 
 void Minotaur::Update()
@@ -197,7 +212,63 @@ void Minotaur::OnCollisionExit(Collider* _other)
 
 bool Minotaur::Attack()
 {
-    return false;
+	// 공격 이펙트가 끝났는지
+	// 공격 이펙트가 끝나면 충돌을 끝내야 함
+	// 콜리전매니저에 플레이어와 충돌이 있다면 삭제
+
+	if (IsDead())
+		return false;
+
+	Animation* attAnim = GetAnimator()->GetCurAnimation();
+
+	if (7 == attAnim->GetCurFrame())
+	{
+		auto& rels = mEffect->GetRelations();
+		for (int i = 0; i < rels.size(); ++i)
+		{
+			if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
+			{
+				CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
+				break;
+			}
+		}
+
+		return false;
+	}
+
+	else
+	{
+		switch (mDir)
+		{
+		case DIR::LEFT:
+			GetEffect()->GetCollider()->SetOffset_X(-80);
+			break;
+
+		case DIR::RIGHT:
+			GetEffect()->GetCollider()->SetOffset_X(80);
+			break;
+		}
+
+		int curFrame = attAnim->GetCurFrame();
+		switch (curFrame)
+		{
+		case 3:
+			GetEffect()->GetCollider()->SetEnable(true);
+			break;
+
+		case 5:
+			GetEffect()->GetCollider()->SetEnable(false);
+			break;
+		}
+
+		return true;
+	}
+}
+
+void Minotaur::Trace()
+{
+	// 플레이어와의 거리를 계산하고 멀다면 돌격
+	// 아니라면 Attack
 }
 
 bool Minotaur::DetectPlayer()

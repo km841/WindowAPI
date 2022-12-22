@@ -69,6 +69,7 @@ public:
 
 
 public:
+    virtual void Trace() {}
     virtual bool Attack() { return true; }
     virtual bool DetectPlayer() { return false; }
     virtual bool DetectIntoAttRange() { return false; }

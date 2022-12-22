@@ -29,6 +29,7 @@
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
 #include "MonsterSpawnEvent.h"
+#include "Minotaur.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -135,6 +136,10 @@ void Dungeon1Scene::Exit()
 
 void Dungeon1Scene::Regen()
 {
+	MonsterSpawnEvent<Minotaur>* spawnEvent0 = new MonsterSpawnEvent<Minotaur>;
+	spawnEvent0->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent0->SetSpawnPos(Vec2(TILE_SIZE * 12, TILE_SIZE * 10));
+
 	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
@@ -176,6 +181,7 @@ void Dungeon1Scene::Regen()
 	lockDoor4->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
 	lockDoor4->SetPos(Vec2(TILE_SIZE * 47.f, (float)(GROUND_STANDARD - TILE_SIZE * 8)));
 
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent0, spawnEvent0->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());

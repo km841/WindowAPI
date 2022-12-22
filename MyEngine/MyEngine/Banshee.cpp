@@ -12,7 +12,7 @@
 
 Banshee::Banshee()
 {
-	mInfo.mSpeed = 0.f;
+
 	mMonType = MONSTER_TYPE::FLY_RANGE;
 	//SetSize(Vec2(192.f, 192.f));
 
@@ -91,6 +91,8 @@ Banshee::~Banshee()
 void Banshee::Initialize()
 {
 	Monster::Initialize();
+	mInfo.mSpeed = 0.f;
+	mInfo.mAttDelay = 5.f;
 }
 
 void Banshee::Update()

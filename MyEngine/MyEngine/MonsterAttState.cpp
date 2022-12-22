@@ -92,10 +92,10 @@ void MonsterAttState::Enter()
 	switch (dir)
 	{
 	case DIR::LEFT:
-		monster->GetAnimator()->SelectAnimation(animName + L"Left", true);
+		monster->GetAnimator()->SelectAnimation(animName + L"Left", false);
 		break;
 	case DIR::RIGHT:
-		monster->GetAnimator()->SelectAnimation(animName + L"Right", true);
+		monster->GetAnimator()->SelectAnimation(animName + L"Right", false);
 		break;
 	}
 

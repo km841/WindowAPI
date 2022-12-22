@@ -9,6 +9,7 @@
 #include "MultipleMissileEffect.h"
 #include "Player.h"
 #include "CameraMgr.h"
+#include "TimeMgr.h"
 
 GiantBat::GiantBat()
 {
@@ -131,6 +132,69 @@ void GiantBat::OnCollisionExit(Collider* _other)
 bool GiantBat::Attack()
 {
 	return mEffect->Attack();
+}
+
+void GiantBat::Trace()
+{
+	Player* player = Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		mPrevDir = mDir;
+
+		Vec2 playerPos = player->GetPos();
+		Vec2 monsterPos = GetPos();
+		Vec2 dirVec = monsterPos - playerPos;
+		dirVec.Norm();
+
+		if (abs(playerPos.x - monsterPos.x) < mInfo.mAttRange &&
+			(playerPos - monsterPos).Len() > mInfo.mAttRange)
+		{
+			if (0 > dirVec.x)
+			{
+				mDir = DIR::RIGHT;
+			}
+
+			else
+			{
+				mDir = DIR::LEFT;
+			}
+
+			monsterPos -= dirVec * mInfo.mSpeed * DT;
+		}
+
+		else
+		{
+			if (0 > dirVec.x)
+			{
+				monsterPos.x += mInfo.mSpeed * DT;
+				mDir = DIR::RIGHT;
+			}
+
+			else
+			{
+				monsterPos.x -= mInfo.mSpeed * DT;
+				mDir = DIR::LEFT;
+			}
+		}
+
+		SetPos(monsterPos);
+
+		if (mPrevDir != mDir)
+		{
+			const std::wstring& animName = GetMoveAnimName();
+			switch (mDir)
+			{
+			case DIR::LEFT:
+				GetAnimator()->SelectAnimation(animName + L"Left", true);
+				break;
+
+			case DIR::RIGHT:
+				GetAnimator()->SelectAnimation(animName + L"Right", true);
+				break;
+			}
+		}
+	}
 }
 
 bool GiantBat::DetectPlayer()

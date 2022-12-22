@@ -15,6 +15,9 @@ public:
 public:
     virtual bool Attack();
 
-protected:
+private:
+    bool mAttFlag;
+
+
 };
 

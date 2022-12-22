@@ -28,107 +28,14 @@ void MonsterTraceState::Update()
 	{
 		AI* ai = GetOwnerAI();
 		Monster* monster = ai->GetOwnerMonster();
-		MonsterInfo info = monster->GetMonsterInfo();
+		monster->Trace();
 
-		Vec2 playerPos = player->GetPos();
-		Vec2 monsterPos = monster->GetPos();
-		// 방향 전환할 때 애니메이션 변환
-		// 방향 전환은? 플레이어 위치 - 내 위치 의 부호에 따라 변환
-
-		Vec2 dirVec = monsterPos - playerPos;
-		dirVec.Norm();
-		DIR dir = monster->GetDir();
-
-		switch (monster->GetMonsterType())
-		{
-		case MONSTER_TYPE::GROUND_MELEE:
-		{
-			monster->SetPrevDir(dir);
-
-			if (0 > dirVec.x)
-			{
-				monsterPos.x += info.mSpeed * DT;
-				monster->SetDir(DIR::RIGHT);
-			}
-
-			else
-			{
-				monsterPos.x -= info.mSpeed * DT;
-				monster->SetDir(DIR::LEFT);
-			}
-		}
-			break;
-
-		case MONSTER_TYPE::FLY_RANGE:
-		{
-			monster->SetPrevDir(dir);
-
-			if (abs(playerPos.x - monsterPos.x) < info.mAttRange &&
-				(playerPos - monsterPos).Len() > info.mAttRange)
-			{
-				if (0 > dirVec.x)
-				{
-					monster->SetDir(DIR::RIGHT);
-				}
-
-				else
-				{
-					monster->SetDir(DIR::LEFT);
-				}
-				
-				monsterPos -= dirVec * info.mSpeed * DT;
-			}
-
-			else
-			{
-				if (0 > dirVec.x)
-				{
-					monsterPos.x += info.mSpeed * DT;
-					monster->SetDir(DIR::RIGHT);
-				}
-
-				else
-				{
-					monsterPos.x -= info.mSpeed * DT;
-					monster->SetDir(DIR::LEFT);
-				}
-			}
-		}
-			break;
-		}
-
-
-
-		monster->SetPos(monsterPos);
-
-		 //플레이어가 몬스터가 바라보는 방향의 특정 거리, 특정 각도 미만으로 들어왔을 때
-		 //Attack State로 변경
-
-		bool detectFlag = monster->DetectIntoAttRange();
-		
-		if (detectFlag)
+		//플레이어가 몬스터가 바라보는 방향의 특정 거리, 특정 각도 미만으로 들어왔을 때
+		//Attack State로 변경
+		if (monster->DetectIntoAttRange())
 		{
 			EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::ATTACK);
 		}
-
-		dir = monster->GetDir();
-
-		if (monster->GetPrevDir() != dir)
-		{
-			const std::wstring& animName = monster->GetMoveAnimName();
-			switch (dir)
-			{
-			case DIR::LEFT:
-				monster->GetAnimator()->SelectAnimation(animName + L"Left", true);
-				break;
-
-
-			case DIR::RIGHT:
-				monster->GetAnimator()->SelectAnimation(animName + L"Right", true);
-				break;
-			}
-		}
-		
 
 		// Trace <-> Attack
 		// Attack State가 되는 조건
@@ -136,10 +43,7 @@ void MonsterTraceState::Update()
 		// -> 현재 상태가 Left인 경우 Left공격 애니메이션, Right인 경우 Right공격 애니메이션
 		// -> 그러면 Attack State는 그자리에 멈춰서 프레임이 끝날 때까지 실행하고 약간의 후딜레이 후에 다시 Trace상태로 변경
 
-
-
-			}
-
+	}
 }
 		
 void MonsterTraceState::Render()
