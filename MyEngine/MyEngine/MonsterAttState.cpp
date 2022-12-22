@@ -87,7 +87,7 @@ void MonsterAttState::Enter()
 {
 	// 213 x 144
 	Monster* monster = GetOwnerAI()->GetOwnerMonster();
-	const std::wstring& animName = monster->GetAttAnimName();
+	const std::wstring& animName = monster->GetAttStateAnimName();
 	DIR dir = monster->GetDir();
 	switch (dir)
 	{

@@ -425,6 +425,9 @@
     <Filter Include="Engine\GameObject\Monster\Melee_Monster\Minotaur">
       <UniqueIdentifier>{08e21816-bf4d-4fa3-aa3c-93ea284cc869}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect">
+      <UniqueIdentifier>{6c337a6d-9657-46c2-bd22-a7a259066962}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -765,6 +768,9 @@
     </ClInclude>
     <ClInclude Include="Minotaur.h">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur</Filter>
+    </ClInclude>
+    <ClInclude Include="DustEffect.h">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1110,6 +1116,9 @@
     </ClCompile>
     <ClCompile Include="Minotaur.cpp">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur</Filter>
+    </ClCompile>
+    <ClCompile Include="DustEffect.cpp">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

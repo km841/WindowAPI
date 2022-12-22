@@ -60,7 +60,7 @@ void MonsterTraceState::Render()
 void MonsterTraceState::Enter()
 {
 	Monster* monster = GetOwnerAI()->GetOwnerMonster();
-	const std::wstring& animName = monster->GetMoveAnimName();
+	const std::wstring& animName = monster->GetTraceStateAnimName();
 	DIR dir = monster->GetDir();
 	switch (dir)
 	{

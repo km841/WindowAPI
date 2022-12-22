@@ -138,7 +138,7 @@ void Dungeon1Scene::Regen()
 {
 	MonsterSpawnEvent<Minotaur>* spawnEvent0 = new MonsterSpawnEvent<Minotaur>;
 	spawnEvent0->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent0->SetSpawnPos(Vec2(TILE_SIZE * 12, TILE_SIZE * 10));
+	spawnEvent0->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 10));
 
 	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
@@ -215,4 +215,5 @@ void Dungeon1Scene::SetCollisionFlag()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::DUNGEON_OBJECT);
 }

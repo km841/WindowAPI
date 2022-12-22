@@ -78,6 +78,9 @@ public:
     inline bool GetFrameFix() const { return mFix; }
 
     void SetFrameControl(int _frame, Vec2 _control);
+    void SetFrameDuration(int _frame, float _duration);
+
+    void SetTransMode(bool _flag, float _maxTime);
 
     inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
@@ -96,6 +99,11 @@ private:
     bool                  mFinish;
     bool                  mEffect;
     bool                  mFix;
+
+    bool                  mTrans;
+    float                 mTransCurTime;
+    float                 mTransMaxTime;
+
 
 private:
     Event*                mEvent;

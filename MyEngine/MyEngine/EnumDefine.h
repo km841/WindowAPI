@@ -342,3 +342,11 @@ enum class BULLET_WAY_TYPE
 	ROTATE,
 	END,
 };
+
+enum class MINOTAUR_STATE
+{
+	NONE,
+	CHARGE,
+	ATTACK,
+	END,
+};

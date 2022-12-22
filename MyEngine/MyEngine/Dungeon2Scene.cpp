@@ -28,6 +28,7 @@
 #include "GiantBat.h"
 #include "RedGiantBat.h"
 #include "Banshee.h"
+#include "Minotaur.h"
 
 Dungeon2Scene::Dungeon2Scene()
 {
@@ -121,6 +122,11 @@ void Dungeon2Scene::Exit()
 
 void Dungeon2Scene::Regen()
 {
+
+	MonsterSpawnEvent<Minotaur>* spawnEvent0 = new MonsterSpawnEvent<Minotaur>;
+	spawnEvent0->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent0->SetSpawnPos(Vec2(TILE_SIZE * 12, TILE_SIZE * 10));
+
 	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
@@ -153,6 +159,7 @@ void Dungeon2Scene::Regen()
 	lockDoor2->SetAngleType(ANGLE_TYPE::DEGREE_270_TYPE);
 	lockDoor2->SetPos(Vec2(TILE_SIZE * 1.5f, (float)(GROUND_STANDARD - TILE_SIZE * 2)));
 
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent0, spawnEvent0->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
@@ -185,4 +192,5 @@ void Dungeon2Scene::SetCollisionFlag()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::PLAYER_EFFECT);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::WALL);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::FOOTHOLD);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::DUNGEON_OBJECT);
 }

@@ -57,6 +57,11 @@ void Animation::Update()
 
 	mAccTime += DT;
 
+	if (mTrans)
+	{
+		mTransCurTime += DT;
+	}
+
 	if (mAccTime >= mAnim[mCurFrm].mDuration)
 	{
 		++mCurFrm;
@@ -70,6 +75,11 @@ void Animation::Update()
 
 			case FALSE: mFinish = true;
 				break;
+			}
+
+			if (mTrans)
+			{
+				mTransCurTime = 0.f;
 			}
 
 			if (nullptr != mDummyObj)
@@ -102,7 +112,7 @@ void Animation::Render()
 	Vec2		pos = ownerObject->GetPos();
 	Vec2		offset = GetOffset();
 
-	if (offset.x != 0.f || offset.y != 0.f)
+	if (false == offset.IsZero())
 	{
 		pos += offset;
 	}
@@ -161,19 +171,52 @@ void Animation::Render()
 	
 	else
 	{
-		TransparentBlt(
-   			BACK_BUF_DC
-   			, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
-   			, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
-   			, (int)(mAnim[mCurFrm].mSlice.x)
-   			, (int)(mAnim[mCurFrm].mSlice.y)
-   			, mTex->GetDC()
-   			, (int)(mAnim[mCurFrm].mLeftTop.x)
-   			, (int)(mAnim[mCurFrm].mLeftTop.y)
-   			, (int)(mAnim[mCurFrm].mSlice.x)
-   			, (int)(mAnim[mCurFrm].mSlice.y)
-   			, RGB(255, 0, 255)
-		   );
+		// 애니메이션의 투명플래그가 true면 알파블렌드로 처리
+		// 근데 알파값을 어떻게?
+		// 알파값은 게임오브젝트의 변수에 있는 값을 사용
+		// visible 설정과 함께 시간을 전달, 그럼 그 시간에 걸쳐 점차 투명해짐
+		if (mTrans)
+		{
+			float ratio = 1.f - (mTransCurTime / mTransMaxTime);
+
+			if (ratio < 0.f)
+				ratio = 0.f;
+
+			mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * ratio);
+
+			AlphaBlend(
+				BACK_BUF_DC
+				, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+				, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mTex->GetDC()
+				, (int)(mAnim[mCurFrm].mLeftTop.x)
+				, (int)(mAnim[mCurFrm].mLeftTop.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mBlendFunc
+			);
+		}
+
+		else
+		{
+			TransparentBlt(
+				BACK_BUF_DC
+				, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+				, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, mTex->GetDC()
+				, (int)(mAnim[mCurFrm].mLeftTop.x)
+				, (int)(mAnim[mCurFrm].mLeftTop.y)
+				, (int)(mAnim[mCurFrm].mSlice.x)
+				, (int)(mAnim[mCurFrm].mSlice.y)
+				, RGB(255, 0, 255)
+			);
+		}
+		
+
 	}
 
 	if (nullptr != mDummyObj)
@@ -244,11 +287,27 @@ void Animation::SetExitEvent(EventAnimation _event)
 
 void Animation::SetFrameControl(int _frame, Vec2 _control)
 {
-	if (mAnim.size() <= (_frame - 1))
+	if ((int)mAnim.size() <= (_frame - 1))
 		return;
 
 	AnimInfo& info = mAnim[_frame];
 	info.mControl = _control;
+}
+
+void Animation::SetFrameDuration(int _frame, float _duration)
+{
+	if (mAnim.size() <= (_frame - 1))
+		return;
+
+	AnimInfo& info = mAnim[_frame];
+	info.mDuration = _duration;
+}
+
+void Animation::SetTransMode(bool _flag, float _maxTime)
+{
+	mTransCurTime = 0.f;
+	mTransMaxTime = _maxTime;
+	mTrans = _flag;
 }
 
 void Animation::Reset()

@@ -1,5 +1,6 @@
 #pragma once
 #include "Monster.h"
+class DustEffect;
 class Minotaur :
     public Monster
 {
@@ -35,5 +36,14 @@ public:
 
 public:
     virtual void Dead();
+
+    void ChangeMinoAttackState();
+
+
+private:
+    MINOTAUR_STATE mMinoState;
+    Vec2           mPlayerDir;
+    std::vector<DustEffect*> mDustEffects;
+    float          mDistance;
 };
 

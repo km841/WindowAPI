@@ -34,6 +34,10 @@ GiantSkullWarrior::GiantSkullWarrior()
 
 	std::wstring attAfterAnimName = L"GiantSkull_Idle";
 	SetAttAfterAnimName(attAfterAnimName);
+
+	SetTraceStateAnimName(moveAnimName);
+	SetPatrolStateAnimName(moveAnimName);
+	SetAttStateAnimName(attAnimName);
 	
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantSkullAnimTex", L"Texture\\giant_skull_animation.bmp");
 

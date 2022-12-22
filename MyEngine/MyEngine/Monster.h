@@ -46,6 +46,14 @@ public:
     inline void                SetAttAfterAnimName(const std::wstring& _attAfterAnimName) { mAttAfterAnimName = _attAfterAnimName; }
     inline const std::wstring& GetAttAfterAnimName() const { return mAttAfterAnimName; }
 
+    inline void                SetTraceStateAnimName(const std::wstring& _traceAnimName) { mTraceStateAnimName = _traceAnimName; }
+    inline const std::wstring& GetTraceStateAnimName() const { return mTraceStateAnimName; }
+
+    inline void                SetPatrolStateAnimName(const std::wstring& _patrolAnimName) { mPatrolStateAnimName = _patrolAnimName; }
+    inline const std::wstring& GetPatrolStateAnimName() const { return mPatrolStateAnimName; }
+
+    inline void                SetAttStateAnimName(const std::wstring& _attAnimName) { mAttStateAnimName = _attAnimName; }
+    inline const std::wstring& GetAttStateAnimName() const { return mAttStateAnimName; }
    
 
 public:
@@ -110,6 +118,10 @@ private:
     std::wstring mMoveAnimName;
     std::wstring mAttAnimName;
     std::wstring mAttAfterAnimName;
+
+    std::wstring mTraceStateAnimName;
+    std::wstring mPatrolStateAnimName;
+    std::wstring mAttStateAnimName;
 
 };
 

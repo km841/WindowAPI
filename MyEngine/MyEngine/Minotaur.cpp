@@ -11,8 +11,12 @@
 #include "MonsterSwordEffect.h"
 #include "CollisionMgr.h"
 #include "Player.h"
+#include "TimeMgr.h"
+#include "DustEffect.h"
 
 Minotaur::Minotaur()
+	:mMinoState(MINOTAUR_STATE::NONE)
+	, mDistance(0.f)
 {
 	mMonType = MONSTER_TYPE::GROUND_MELEE;
 	//SetSize(Vec2(99.f, 90.f));
@@ -33,6 +37,10 @@ Minotaur::Minotaur()
 
 	std::wstring attAfterAnimName = L"Minotaur_Idle";
 	SetAttAfterAnimName(attAfterAnimName);
+
+	SetTraceStateAnimName(idleAnimName);
+	SetPatrolStateAnimName(idleAnimName);
+	SetAttStateAnimName(moveAnimName);
 
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurAnimTex", L"Texture\\MinoAnim.bmp");
 
@@ -82,11 +90,11 @@ Minotaur::Minotaur()
 		Vec2(0.f, 600.f),
 		Vec2(168.f, 150.f),
 		Vec2(168.f, 0.f),
-		0.1f,
+		0.07f,
 		7
 	);
 
-	attAnimLeft->SetOffset(Vec2(-50, 0));
+	attAnimLeft->SetOffset(Vec2(-20, 0));
 
 	Animation* attAnimRight = GetAnimator()->CreateAnimation(
 		attAnimName + L"Right",
@@ -94,14 +102,37 @@ Minotaur::Minotaur()
 		Vec2(0.f, 750.f),
 		Vec2(168.f, 150.f),
 		Vec2(168.f, 0.f),
-		0.1f,
+		0.07f,
 		7
 	);
 
-	attAnimRight->SetOffset(Vec2(50, 0));
+	attAnimRight->SetOffset(Vec2(-15, 0));
 
 	GetAnimator()->AddAnimation(attAnimName + L"Left", attAnimLeft);
 	GetAnimator()->AddAnimation(attAnimName + L"Right", attAnimRight);
+
+	GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetFrameDuration(3, 0.5f);
+	GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetFrameDuration(3, 0.5f);
+	GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetFrameDuration(4, 1.0f);
+	GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetFrameDuration(4, 1.0f);
+	attAnimLeft->SetFrameDuration(2, 1.0f);
+	attAnimRight->SetFrameDuration(2, 1.0f);
+
+	attAnimLeft->SetFrameControl(0, Vec2(64.f, 0.f));
+	attAnimRight->SetFrameControl(0, Vec2(10.f, 0.f));
+
+	attAnimLeft->SetFrameControl(1, Vec2(64.f, 0.f));
+	attAnimRight->SetFrameControl(1, Vec2(10.f, 0.f));
+
+	attAnimLeft->SetFrameControl(2, Vec2(64.f, 0.f));
+	attAnimRight->SetFrameControl(2, Vec2(10.f, 0.f));
+
+	attAnimLeft->SetFrameControl(5, Vec2(4.f, 0.f));
+	attAnimLeft->SetFrameControl(6, Vec2(9.f, 0.f));
+
+	attAnimRight->SetFrameControl(5, Vec2(5.f, 0.f));
+	attAnimRight->SetFrameControl(6, Vec2(5.f, 0.f));
+
 
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);
@@ -139,6 +170,8 @@ void Minotaur::Initialize()
 {
 	Monster::Initialize();
 	mInfo.mSpeed = 0.f;
+	mInfo.mRecog = 500.f;
+	mInfo.mAttRange = mInfo.mRecog;
 }
 
 void Minotaur::Update()
@@ -155,6 +188,16 @@ void Minotaur::Render()
 void Minotaur::Destroy()
 {
 	Monster::Destroy();
+
+	for (int i = 0; i < mDustEffects.size(); ++i)
+	{
+		if (nullptr != mDustEffects[i])
+		{
+			delete mDustEffects[i];
+			mDustEffects[i] = nullptr;
+		}
+	}
+
 }
 
 void Minotaur::GroundStateUpdate()
@@ -204,6 +247,7 @@ void Minotaur::OnCollision(Collider* _other)
 
 void Minotaur::OnCollisionEnter(Collider* _other)
 {
+	Monster::OnCollisionEnter(_other);
 }
 
 void Minotaur::OnCollisionExit(Collider* _other)
@@ -219,56 +263,166 @@ bool Minotaur::Attack()
 	if (IsDead())
 		return false;
 
-	Animation* attAnim = GetAnimator()->GetCurAnimation();
-
-	if (7 == attAnim->GetCurFrame())
+	if (MINOTAUR_STATE::NONE == mMinoState)
 	{
-		auto& rels = mEffect->GetRelations();
-		for (int i = 0; i < rels.size(); ++i)
+		mMinoState = MINOTAUR_STATE::CHARGE;
+		
+		Player* player = Player::GetPlayer();
+		if (nullptr != player)
 		{
-			if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
+			Vec2 playerPos = player->GetPos();
+			Vec2 monsterPos = GetPos();
+			mPlayerDir = playerPos - monsterPos;
+		}
+	}
+
+	else if (MINOTAUR_STATE::ATTACK == mMinoState)
+	{
+		Animation* attAnim = GetAnimator()->GetCurAnimation();
+
+		if (7 == attAnim->GetCurFrame())
+		{
+			auto& rels = mEffect->GetRelations();
+			for (int i = 0; i < rels.size(); ++i)
 			{
-				CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
+				if (OBJECT_TYPE::PLAYER == rels[i].mOther->GetType())
+				{
+					CollisionMgr::GetInstance().CollisionForceQuit(rels[i].mOther->GetCollider(), mEffect->GetCollider());
+					break;
+				}
+			}
+
+			mPlayerDir = ZERO_VECTOR;
+			mMinoState = MINOTAUR_STATE::NONE;
+			return false;
+		}
+
+		else
+		{
+			switch (mDir)
+			{
+			case DIR::LEFT:
+				GetEffect()->GetCollider()->SetOffset_X(-80);
+				break;
+
+			case DIR::RIGHT:
+				GetEffect()->GetCollider()->SetOffset_X(80);
+				break;
+			}
+
+			int curFrame = attAnim->GetCurFrame();
+			switch (curFrame)
+			{
+			case 3:
+				GetEffect()->GetCollider()->SetEnable(true);
+				break;
+
+			case 4:
+				GetEffect()->GetCollider()->SetEnable(false);
 				break;
 			}
 		}
-
-		return false;
 	}
 
-	else
+	else if (MINOTAUR_STATE::CHARGE == mMinoState)
 	{
+		// 플레이어 위치로 돌격
+		// 프레임이 4일 때
+
+		Animation* anim = GetAnimator()->GetCurAnimation();
+		if (nullptr != anim)
+		{
+			int frame = anim->GetCurFrame();
+
+			if (anim->IsFinished())
+			{
+				ChangeMinoAttackState();
+			}
+
+			if (4 == frame)
+			{
+				Player* player = Player::GetPlayer();
+				if (nullptr != player)
+				{
+					Vec2 playerPos = player->GetPos();
+					Vec2 monsterPos = GetPos();
+					
+					if (mPlayerDir.x > 0.f)
+						monsterPos.x += 600.f * DT;
+					else
+						monsterPos.x -= 600.f * DT;
+
+
+					SetPos(monsterPos);
+
+					mDistance += 600.f * DT;
+					if (mDistance > 100.f)
+					{
+						mDistance = 0.f;
+						DustEffect* dust = new DustEffect;
+						dust->SetOwner(this);
+						dust->Initialize();
+
+						mDustEffects.push_back(dust);
+
+						EventRegisteror::GetInstance().CreateObject(dust, dust->GetType());
+					}
+
+					if (50.f > abs(playerPos.x - monsterPos.x))
+					{
+						ChangeMinoAttackState();
+					}
+				}
+			}
+		}
+	}
+
+	return true;
+}
+
+void Minotaur::ChangeMinoAttackState()
+{
+	mMinoState = MINOTAUR_STATE::ATTACK;
+	Animation* anim = GetAnimator()->GetCurAnimation();
+
+	if (nullptr != anim)
+	{
+		anim->Reset();
+
 		switch (mDir)
 		{
 		case DIR::LEFT:
-			GetEffect()->GetCollider()->SetOffset_X(-80);
+			GetAnimator()->SelectAnimation(GetAttAnimName() + L"Left", false);
 			break;
 
 		case DIR::RIGHT:
-			GetEffect()->GetCollider()->SetOffset_X(80);
+			GetAnimator()->SelectAnimation(GetAttAnimName() + L"Right", false);
 			break;
 		}
-
-		int curFrame = attAnim->GetCurFrame();
-		switch (curFrame)
-		{
-		case 3:
-			GetEffect()->GetCollider()->SetEnable(true);
-			break;
-
-		case 5:
-			GetEffect()->GetCollider()->SetEnable(false);
-			break;
-		}
-
-		return true;
 	}
 }
 
 void Minotaur::Trace()
 {
-	// 플레이어와의 거리를 계산하고 멀다면 돌격
-	// 아니라면 Attack
+	//자신과 플레이어의 방향에 따라 mDir 변경
+	Player* player = Player::GetPlayer();
+
+	if (nullptr != player)
+	{
+		mPrevDir = mDir;
+		Vec2 playerPos = player->GetPos();
+		Vec2 monsterPos = GetPos();
+
+		if (playerPos.x - monsterPos.x > 0.f)
+		{
+			mDir = DIR::RIGHT;
+		}
+
+		else
+		{
+			mDir = DIR::LEFT;
+		}
+	}
 }
 
 bool Minotaur::DetectPlayer()
@@ -498,3 +652,5 @@ void Minotaur::Dead()
 
 	GameObject::Dead();
 }
+
+

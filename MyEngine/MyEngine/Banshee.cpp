@@ -34,6 +34,10 @@ Banshee::Banshee()
 	std::wstring attAfterAnimName = L"Banshee_Idle";
 	SetAttAfterAnimName(attAfterAnimName);
 
+	SetTraceStateAnimName(idleAnimName);
+	SetPatrolStateAnimName(idleAnimName);
+	SetAttStateAnimName(attAnimName);
+
 	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"BansheeAnimTex", L"Texture\\BansheeAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
