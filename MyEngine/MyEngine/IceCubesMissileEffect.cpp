@@ -4,13 +4,33 @@
 #include "IceBullet.h"
 #include "EventRegisteror.h"
 #include "TimeMgr.h"
+#include "ResourceMgr.h"
+#include "Texture.h"
+#include "Animator.h"
+#include "Animation.h"
 
 IceCubesMissileEffect::IceCubesMissileEffect()
-	: mMaxDuration(0.1f)
+	: mMaxDuration(0.2f)
 	, mCurDuration(0.f)
 	, mMaxBulletCount(4.f)
 	, mCurBulletCount(0.f)
 {
+	CreateComponent(new Animator);
+	GetAnimator()->SetOwner(this);
+
+	Texture* iceBulletHitTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
+	GetAnimator()->RegisterAnimation(
+		L"IceBulletHitAnim",
+		iceBulletHitTex,
+		Vec2(0.f, 0.f),
+		Vec2(75.f, 75.f),
+		Vec2(75.f, 0.f),
+		0.05f,
+		3
+	);
+
+	GetAnimator()->FindAnimation(L"IceBulletHitAnim")->SetEffectAnimation(true);
+	GetAnimator()->FindAnimation(L"IceBulletHitAnim")->SetOffset(Vec2(0.f, -20.f));
 }
 
 IceCubesMissileEffect::~IceCubesMissileEffect()
@@ -29,6 +49,7 @@ void IceCubesMissileEffect::Update()
 
 void IceCubesMissileEffect::Render()
 {
+	Effect::Render();
 }
 
 void IceCubesMissileEffect::Destroy()
@@ -87,6 +108,8 @@ bool IceCubesMissileEffect::Skill()
 				bullet->SetBulletWayType(BULLET_WAY_TYPE::LINEAR);
 				bullet->Initialize();
 
+				GetAnimator()->SelectAnimation(L"IceBulletHitAnim", false);
+				GetAnimator()->GetCurAnimation()->Reset();
 				EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
 			}
 

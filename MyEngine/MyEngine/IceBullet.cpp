@@ -49,6 +49,7 @@ void IceBullet::Initialize()
 {
 	MonsterBullet::Initialize();
 	GetAnimator()->RotSelectAnimation(L"IceBulletAnim", GetAngle(), true);
+	GetAnimator()->FindAnimation(L"IceBulletAnimRot")->SetEffectAnimation(false);
 }
 
 void IceBullet::Update()
@@ -79,6 +80,7 @@ void IceBullet::OnCollisionEnter(Collider* _other)
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
 		SetObjState(OBJECT_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"IceBulletHitAnim", false);
+		
 
 		auto& rels = GetRelations();
 		for (auto& rel : rels)
