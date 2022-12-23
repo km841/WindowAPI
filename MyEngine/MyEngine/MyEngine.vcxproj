@@ -148,6 +148,7 @@
     <ClInclude Include="BansheeBullet.h" />
     <ClInclude Include="BansheeMissileEffect.h" />
     <ClInclude Include="BatBullet.h" />
+    <ClInclude Include="BigGrayIceSkullWarrior.h" />
     <ClInclude Include="BlackSmithNPC.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="HPHUD.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="IceMage.h" />
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
@@ -264,6 +266,7 @@
     <ClCompile Include="BansheeBullet.cpp" />
     <ClCompile Include="BansheeMissileEffect.cpp" />
     <ClCompile Include="BatBullet.cpp" />
+    <ClCompile Include="BigGrayIceSkullWarrior.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
@@ -289,6 +292,7 @@
     <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="HPHUD.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="IceMage.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />

@@ -428,6 +428,12 @@
     <Filter Include="Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect">
       <UniqueIdentifier>{6c337a6d-9657-46c2-bd22-a7a259066962}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Melee_Monster\BigGrayIceSkullWarrior">
+      <UniqueIdentifier>{96803315-b51f-44fa-a4b2-6e50d85b0db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Range_Monster\IceMage">
+      <UniqueIdentifier>{b72f38e8-dc45-4106-aada-ecdca81fe1df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -771,6 +777,12 @@
     </ClInclude>
     <ClInclude Include="DustEffect.h">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGrayIceSkullWarrior.h">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\BigGrayIceSkullWarrior</Filter>
+    </ClInclude>
+    <ClInclude Include="IceMage.h">
+      <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1119,6 +1131,12 @@
     </ClCompile>
     <ClCompile Include="DustEffect.cpp">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Minotaur\DustEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGrayIceSkullWarrior.cpp">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\BigGrayIceSkullWarrior</Filter>
+    </ClCompile>
+    <ClCompile Include="IceMage.cpp">
+      <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

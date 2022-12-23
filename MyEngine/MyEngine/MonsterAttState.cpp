@@ -43,20 +43,35 @@ void MonsterAttState::Update()
 	MonsterInfo& monInfo = monster->GetMonsterInfo();
 	int fixFrame = monster->GetAttFixFrame();
 
-	if (!monster->Attack())
+	if (false == monInfo.mAttFinFlag)
 	{
-		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::ATTACK_AFTER);
-		if (0 != fixFrame)
-			monster->GetAnimator()->GetCurAnimation()->SetFrameFix(false);
-	}
-	else
-	{
-		if (0 != fixFrame)
+		if (!monster->Attack())
 		{
-			monster->GetAnimator()->GetCurAnimation()->SetCurFrame(monster->GetAttFixFrame());
-			monster->GetAnimator()->GetCurAnimation()->SetFrameFix(true);
+			if (0 != fixFrame)
+				monster->GetAnimator()->GetCurAnimation()->SetFrameFix(false);
+
+			monInfo.mAttFinFlag = true;
+		}
+		else
+		{
+			if (0 != fixFrame)
+			{
+				monster->GetAnimator()->GetCurAnimation()->SetCurFrame(monster->GetAttFixFrame());
+				monster->GetAnimator()->GetCurAnimation()->SetFrameFix(true);
+			}
 		}
 	}
+
+	else
+	{
+		if (monster->GetAnimator()->GetCurAnimation()->IsFinished())
+		{
+			monInfo.mAttFinFlag = false;
+			EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::ATTACK_AFTER);
+		}
+	}
+
+
 
 	
 

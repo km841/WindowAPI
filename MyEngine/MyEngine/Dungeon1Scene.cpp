@@ -30,6 +30,7 @@
 #include "MinimapHUD.h"
 #include "MonsterSpawnEvent.h"
 #include "Minotaur.h"
+#include "BigGrayIceSkullWarrior.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -140,7 +141,7 @@ void Dungeon1Scene::Regen()
 	spawnEvent0->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent0->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 10));
 
-	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<GiantSkullWarrior>;
+	MonsterSpawnEvent<BigGrayIceSkullWarrior>* spawnEvent1 = new MonsterSpawnEvent<BigGrayIceSkullWarrior>;
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
