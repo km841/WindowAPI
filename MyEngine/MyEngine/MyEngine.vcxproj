@@ -174,6 +174,8 @@
     <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="HPHUD.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="IceBullet.h" />
+    <ClInclude Include="IceCubesMissileEffect.h" />
     <ClInclude Include="IceMage.h" />
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
@@ -210,6 +212,7 @@
     <ClInclude Include="MonsterIdleState.h" />
     <ClInclude Include="MonsterMissileEffect.h" />
     <ClInclude Include="MonsterPatrolState.h" />
+    <ClInclude Include="MonsterSkillState.h" />
     <ClInclude Include="MonsterSpawnEvent.h" />
     <ClInclude Include="MonsterState.h" />
     <ClInclude Include="MonsterSwordEffect.h" />
@@ -292,6 +295,8 @@
     <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="HPHUD.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="IceBullet.cpp" />
+    <ClCompile Include="IceCubesMissileEffect.cpp" />
     <ClCompile Include="IceMage.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
@@ -327,6 +332,7 @@
     <ClCompile Include="MonsterIdleState.cpp" />
     <ClCompile Include="MonsterMissileEffect.cpp" />
     <ClCompile Include="MonsterPatrolState.cpp" />
+    <ClCompile Include="MonsterSkillState.cpp" />
     <ClCompile Include="MonsterSpawnEvent.cpp" />
     <ClCompile Include="MonsterState.cpp" />
     <ClCompile Include="MonsterSwordEffect.cpp" />

@@ -181,6 +181,8 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 
 	anim->SetRepeat(_repeat);
 
+	int degree = (int)(Math::RadianToDegree(_angle));
+
 	RegisterAnimation(
 		_animName + L"Rot",
 		rotTex,
@@ -192,6 +194,7 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 	);
 
 	mCurAnim = FindAnimation(_animName + L"Rot");
+	mCurAnim->SetRepeat(_repeat);
 	mCurAnim->SetEffectAnimation(true);
 
 	// curanim에 들어가면 update를 통해 애니메이션의 각 프레임이

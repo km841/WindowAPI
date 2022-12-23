@@ -205,6 +205,8 @@ void ShortSword::Update()
 			break;
 		}
 		
+		mCurAngle = angle;
+
 		GetEffect()->SetAngle(angle);
 		GetEffect()->SetOffset(basicOffset + effDirVec * 30.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);

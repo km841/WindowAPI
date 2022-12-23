@@ -17,7 +17,7 @@ public:
 private:
     float mCurDuration;
     bool  mAttFlag;
-
+    float mCurAngle;
 
 
 };

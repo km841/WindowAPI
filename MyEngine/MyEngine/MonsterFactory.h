@@ -6,6 +6,7 @@
 #include "MonsterAttState.h"
 #include "MonsterDeadState.h"
 #include "MonsterAttAfterState.h"
+#include "MonsterSkillState.h"
 #include "AI.h"
 
 class MonsterFactory
@@ -53,6 +54,40 @@ public:
 		}
 			break;
 
+		case MONSTER_TYPE::GROUND_SKILL:
+		{
+			monster = new T;
+			monster->SetPos(_pos);
+			monster->SetGround(false);
+
+			info.mAtt = 5;
+			info.mMaxHP = 100;
+			info.mSpeed = 50.f;
+			info.mRecog = 300.f;
+			info.mAttRange = 150.f;
+			info.mAttDelay = 2.f;
+			info.mCurDelay = 0.f;
+
+			monster->SetMonsterInfo(info);
+
+			AI* ai = new AI;
+			ai->SetOwnerMonster(monster);
+			monster->SetAI(ai);
+
+			ai->AddStates(
+				new MonsterIdleState,
+				new MonsterTraceState,
+				new MonsterPatrolState,
+				new MonsterDeadState,
+				new MonsterAttState,
+				new MonsterAttAfterState,
+				new MonsterSkillState
+			);
+
+			ai->ChangeState(MONSTER_STATE::IDLE);
+		}
+		break;
+
 		case MONSTER_TYPE::GROUND_CHARGE:
 		{
 			monster = new T;
@@ -84,6 +119,8 @@ public:
 			ai->ChangeState(MONSTER_STATE::IDLE);
 		}
 			break;
+
+			
 			
 
 

@@ -12,10 +12,13 @@
 #include "CollisionMgr.h"
 #include "Player.h"
 #include "TimeMgr.h"
+#include "IceCubesMissileEffect.h"
+#include "IceBullet.h"
 
 BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
+	: mSkillEffect(nullptr)
 {
-	mMonType = MONSTER_TYPE::GROUND_MELEE;
+	mMonType = MONSTER_TYPE::GROUND_SKILL;
 	SetSize(Vec2(99.f, 90.f));
 
 	GetCollider()->SetSize(Vec2(30.f, 30.f));
@@ -31,6 +34,9 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 
 	std::wstring attAnimName = L"BigGraySkull_Att";
 	SetAttAnimName(attAnimName);
+
+	std::wstring skillAnimName = L"BigGraySkull_Skill";
+	SetSkillAnimName(skillAnimName);
 
 	std::wstring attAfterAnimName = L"BigGraySkull_Idle";
 	SetAttAfterAnimName(attAfterAnimName);
@@ -91,7 +97,20 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 		12
 	);
 
-	attAnimLeft->SetOffset(Vec2(-50, 0));
+	attAnimLeft->SetFrameControl(0, Vec2(50, 0));
+	attAnimLeft->SetFrameControl(1, Vec2(40, 0));
+	attAnimLeft->SetFrameControl(2, Vec2(-43, 0));
+	attAnimLeft->SetFrameControl(3, Vec2(-55, 0));
+	attAnimLeft->SetFrameControl(4, Vec2(-60, 0));
+	attAnimLeft->SetFrameControl(5, Vec2(-78, 0));
+	attAnimLeft->SetFrameControl(6, Vec2(-63, 0));
+	attAnimLeft->SetFrameControl(7, Vec2(-43, 0));
+	attAnimLeft->SetFrameControl(8, Vec2(-53, 0));
+	attAnimLeft->SetFrameControl(9, Vec2(-58, 0));
+	attAnimLeft->SetFrameControl(10, Vec2(-43, 0));
+	attAnimLeft->SetFrameControl(11, Vec2(-30, 0));
+
+	//attAnimLeft->SetOffset(Vec2(-50, 0));
 
 	Animation* attAnimRight = GetAnimator()->CreateAnimation(
 		attAnimName + L"Right",
@@ -109,7 +128,33 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 	GetAnimator()->AddAnimation(attAnimName + L"Right", attAnimRight);
 
 
+	GetAnimator()->RegisterAnimation(
+		skillAnimName + L"Left",
+		animTex,
+		Vec2(0.f, 648.f),
+		Vec2(120.f, 120.f),
+		Vec2(120.f, 0.f),
+		0.1f,
+		13
+	);
+
+	GetAnimator()->RegisterAnimation(
+		skillAnimName + L"Right",
+		animTex,
+		Vec2(0.f, 768.f),
+		Vec2(120.f, 120.f),
+		Vec2(120.f, 0.f),
+		0.1f,
+		13
+	);
+
+
+
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);
+
+	mSkillEffect = new IceCubesMissileEffect;
+	mSkillEffect->SetOwner(this);
+
 
 	MonsterSwordEffect* effect = new MonsterSwordEffect;
 	effect->SetOwner(this);
@@ -124,11 +169,22 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 
 BigGrayIceSkullWarrior::~BigGrayIceSkullWarrior()
 {
+	if (nullptr != mSkillEffect)
+	{
+		delete mSkillEffect;
+		mSkillEffect = nullptr;
+	}
 }
 
 void BigGrayIceSkullWarrior::Initialize()
 {
 	Monster::Initialize();
+
+	mSkillEffect->SetPos(GetPos());
+	mSkillEffect->Initialize();
+	mSkillEffect->SetOffset(Vec2(0.f, -30.f));
+	EventRegisteror::GetInstance().CreateObject(mSkillEffect, mSkillEffect->GetType());
+
 }
 
 void BigGrayIceSkullWarrior::Update()
@@ -260,6 +316,12 @@ bool BigGrayIceSkullWarrior::Attack()
 	}
 }
 
+bool BigGrayIceSkullWarrior::Skill()
+{
+
+	return mSkillEffect->Skill();
+}
+
 void BigGrayIceSkullWarrior::Trace()
 {
 	Player* player = Player::GetPlayer();
@@ -274,6 +336,15 @@ void BigGrayIceSkullWarrior::Trace()
 		// 방향 전환은? 플레이어 위치 - 내 위치 의 부호에 따라 변환
 
 		Vec2 dirVec = monsterPos - playerPos;
+		float distance = dirVec.Len();
+
+		if (distance < mInfo.mAttRange * 2.f && 
+			distance > mInfo.mAttRange)
+		{
+			EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::SKILL);
+			return;
+		}
+
 		dirVec.Norm();
 
 		if (0 > dirVec.x)
@@ -304,6 +375,8 @@ void BigGrayIceSkullWarrior::Trace()
 				break;
 			}
 		}
+
+
 	}
 
 }

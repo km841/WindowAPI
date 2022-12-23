@@ -1,5 +1,8 @@
 #pragma once
 #include "Monster.h"
+
+
+class IceCubesMissileEffect;
 class BigGrayIceSkullWarrior :
     public Monster
 {
@@ -7,7 +10,7 @@ public:
     BigGrayIceSkullWarrior();
     virtual ~BigGrayIceSkullWarrior();
 
-    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_MELEE;
+    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_SKILL;
 
 public:
     virtual void Initialize() override;
@@ -25,6 +28,7 @@ public:
 
 public:
     virtual bool Attack();
+    virtual bool Skill();
     virtual void Trace();
     virtual bool DetectPlayer();
     virtual bool DetectIntoAttRange();
@@ -35,5 +39,8 @@ public:
 
 public:
     virtual void Dead();
+
+private:
+    IceCubesMissileEffect* mSkillEffect;
 };
 

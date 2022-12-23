@@ -70,6 +70,7 @@ bool RotateMissileEffect::Attack()
 		Vec2 pos = GetPos();
 		pos.y -= mRadius;
 		mCurCoreBullet->SetPos(pos);
+		mCurCoreBullet->SetBulletInfo(BulletInfo( 5.f, 300.f ));
 	}
 
 	if (mMaxBullet > mCurCoreBullet->GetChildSize())

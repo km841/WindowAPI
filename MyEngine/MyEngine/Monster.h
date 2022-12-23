@@ -43,6 +43,9 @@ public:
     inline void                SetAttAnimName(const std::wstring& _attAnimName) { mAttAnimName = _attAnimName; }
     inline const std::wstring& GetAttAnimName() const { return mAttAnimName; }
 
+    inline void                SetSkillAnimName(const std::wstring& _skillAnimName) { mSkillAnimName = _skillAnimName; }
+    inline const std::wstring& GetSkillAnimName() const { return mSkillAnimName; }
+
     inline void                SetAttAfterAnimName(const std::wstring& _attAfterAnimName) { mAttAfterAnimName = _attAfterAnimName; }
     inline const std::wstring& GetAttAfterAnimName() const { return mAttAfterAnimName; }
 
@@ -79,6 +82,7 @@ public:
 public:
     virtual void Trace() {}
     virtual bool Attack() { return true; }
+    virtual bool Skill() { return true; }
     virtual bool DetectPlayer() { return false; }
     virtual bool DetectIntoAttRange() { return false; }
 
@@ -118,6 +122,7 @@ private:
     std::wstring mMoveAnimName;
     std::wstring mAttAnimName;
     std::wstring mAttAfterAnimName;
+    std::wstring mSkillAnimName;
 
     std::wstring mTraceStateAnimName;
     std::wstring mPatrolStateAnimName;

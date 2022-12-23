@@ -434,6 +434,15 @@
     <Filter Include="Engine\GameObject\Monster\Range_Monster\IceMage">
       <UniqueIdentifier>{b72f38e8-dc45-4106-aada-ecdca81fe1df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState">
+      <UniqueIdentifier>{a2f88b09-ae4f-4a3d-bee2-3fb878b90a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect">
+      <UniqueIdentifier>{2f071738-8605-42dc-be80-a65ef7c54902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet\IceBullet">
+      <UniqueIdentifier>{48544ae8-dd41-4aca-ae6d-a160dbb2b160}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -783,6 +792,15 @@
     </ClInclude>
     <ClInclude Include="IceMage.h">
       <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSkillState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="IceCubesMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="IceBullet.h">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\IceBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1137,6 +1155,15 @@
     </ClCompile>
     <ClCompile Include="IceMage.cpp">
       <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSkillState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="IceCubesMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="IceBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\IceBullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

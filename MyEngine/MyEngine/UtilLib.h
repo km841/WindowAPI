@@ -27,6 +27,11 @@ struct BulletInfo
 		: mSpeed(0.f)
 		, mAtt(0.f)
 	{}
+
+	BulletInfo(float _att, float _speed)
+		: mSpeed(_speed)
+		, mAtt(_att)
+	{}
 	float mSpeed;
 	float mAtt;
 };

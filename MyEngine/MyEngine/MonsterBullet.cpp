@@ -52,7 +52,7 @@ void MonsterBullet::Update()
 		case BULLET_WAY_TYPE::LINEAR:
 		{
 			Vec2 dir = GetDir();
-			bulletPos += dir * 300.f * DT;
+			bulletPos += dir * mInfo.mSpeed * DT;
 			SetPos(bulletPos);
 		}
 		break;

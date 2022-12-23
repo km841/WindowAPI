@@ -120,6 +120,7 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 			{
 				// nullptr이 아닌 경우.. 그러면 애니메이터에 rot가 있을거고 그게 finished인지만 확인해서 처리해주면 될듯
 
+
 				Animation* anim = mHitDummy[i]->GetAnimator()->FindAnimation(L"SwordHitAnimRot");
 
 				if (anim->IsFinished())

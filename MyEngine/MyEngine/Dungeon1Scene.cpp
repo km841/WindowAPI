@@ -164,7 +164,7 @@ void Dungeon1Scene::Regen()
 
 	MonsterSpawnEvent<Banshee>* spawnEvent6 = new MonsterSpawnEvent<Banshee>;
 	spawnEvent6->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 42, TILE_SIZE * 15));
+	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 40, TILE_SIZE * 15));
 
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);

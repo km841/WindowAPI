@@ -13,6 +13,7 @@
 BatBullet::BatBullet()
 {
 	mInfo.mAtt = 5.f;
+	mInfo.mSpeed = 300.f;
 
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
@@ -40,6 +41,7 @@ BatBullet::BatBullet()
 	);
 
 	GetAnimator()->SelectAnimation(L"BatBullet", true);
+
 
 }
 
