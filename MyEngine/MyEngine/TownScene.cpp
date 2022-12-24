@@ -103,6 +103,7 @@ void TownScene::Enter()
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
+	//CameraMgr::GetInstance().SetLookPos(player->GetPos());
 	CameraMgr::GetInstance().SetTrackingObject(player);
 
 

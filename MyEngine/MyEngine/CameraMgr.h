@@ -26,12 +26,17 @@ class CameraMgr :
     public Singleton< CameraMgr >
 {
 public:
+    CameraMgr();
+    ~CameraMgr() {}
+
+
+public:
     void Initialize();
     void Update();
     void Render();
 
 public:
-    inline void SetLookPos(Vec2 _pos) { mLookPos = _pos; }
+    void SetLookPos(Vec2 _pos);
     inline Vec2 GetLookPos() const { return mLookPos; }
     inline void SetTrackingObject(GameObject* _obj) { mObject = _obj; }
 
@@ -59,9 +64,12 @@ public:
 
 private:
     Vec2                    mLookPos;
+    Vec2                    mCurLookPos;
     Vec2                    mPrevLookPos;
     Vec2                    mDistance;   
     float                   mAccTime;
+    float                   mMaxTime;
+    float                   mSpeed;
     GameObject*             mObject;
     RECT                    mCamLimitRect;
 

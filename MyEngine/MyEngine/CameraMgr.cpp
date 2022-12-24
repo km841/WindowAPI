@@ -5,6 +5,14 @@
 #include "KeyMgr.h"
 #include "ResourceMgr.h"
 #include "Texture.h"
+#include "MouseMgr.h"
+
+CameraMgr::CameraMgr()
+	: mAccTime(0.f)
+	, mMaxTime(1.f)
+	, mSpeed(0.f)
+{
+}
 
 void CameraMgr::Initialize()
 {
@@ -45,7 +53,6 @@ void CameraMgr::Update()
 	
 	if (IS_PRESSED(KEY::RIGHT))
 		mLookPos.x += (CAMERA_SPEED * DT);
-	
 
 	WorldToScreenCalc();
 
@@ -59,7 +66,7 @@ void CameraMgr::Update()
 		}
 		else
 		{
-			mLookPos = mObject->GetPos();
+			mCurLookPos = mObject->GetPos();
 		}
 
 		if (mLookPos.x - WINDOW_WIDTH_SIZE / 2.f < 0.f)
@@ -162,6 +169,15 @@ void CameraMgr::Render()
 	
 }
 
+void CameraMgr::SetLookPos(Vec2 _pos)
+{
+	mLookPos = _pos;
+	
+	float distance = (mLookPos - mPrevLookPos).Len();
+	mSpeed = distance / mMaxTime;
+	mAccTime = 0.f;
+}
+
 Vec2 CameraMgr::GetTileCoord(Vec2 _tilePos) const
 {
 	Vec2 calVec = {};
@@ -191,9 +207,28 @@ bool CameraMgr::OutOfScreen(Vec2 _pos)
 void CameraMgr::WorldToScreenCalc()
 {
 	mAccTime += DT;
+
+	if (mMaxTime <= mAccTime)
+	{
+		mCurLookPos = mLookPos;
+	}
+
+	else
+	{
+		Vec2 lookDir = mLookPos - mPrevLookPos;
+
+		if (false == lookDir.IsZero())
+		{
+			lookDir.Norm();
+			mCurLookPos = mPrevLookPos + (lookDir * mSpeed * DT);
+		}
+	}
+	
 	Vec2 resolution = APP_INSTANCE.GetResolution();
 	Vec2 center = resolution / 2.f;
-	mDistance = mLookPos - center;
+
+	mDistance = mCurLookPos - center;
+	mPrevLookPos = mCurLookPos;
 }
 
 void CameraMgr::SetEffect(CAMERA_EFFECT _effect, float _endTime, float _delayTime)
