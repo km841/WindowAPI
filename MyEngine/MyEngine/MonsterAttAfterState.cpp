@@ -26,7 +26,11 @@ void MonsterAttAfterState::Update()
 	if (info.mAttDelay < info.mCurDelay)
 	{
 		info.mCurDelay = 0.f;
-		EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
+
+		if (nullptr != ai->FindState(MONSTER_STATE::TRACE))
+			EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::TRACE);
+		else
+			EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::IDLE);
 	}
 
 	else

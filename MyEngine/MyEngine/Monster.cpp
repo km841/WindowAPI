@@ -187,7 +187,13 @@ void Monster::OnCollisionEnter(Collider* _other)
 			MONSTER_STATE state = mAI->GetCurState()->GetMonsterState();
 			if (MONSTER_STATE::IDLE == state ||
 				MONSTER_STATE::PATROL == state)
-				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::TRACE);
+			{
+
+				if (nullptr != mAI->FindState(MONSTER_STATE::TRACE))
+					mAI->ChangeState(MONSTER_STATE::TRACE);
+				else
+					mAI->ChangeState(MONSTER_STATE::ATTACK);
+			}
 		}
 		else
 		{
@@ -209,7 +215,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 					Gold::Drop(new Coin, GetPos(), 10, (float)randomAngle);
 				}
 
-				GetEffect()->Destroy();
+				MonsterEffect* effect = GetEffect();
+				if (nullptr != effect)
+				{
+					effect->Destroy();
+				}
 				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}
@@ -239,7 +249,10 @@ void Monster::OnCollisionEnter(Collider* _other)
 			if (MONSTER_STATE::IDLE == state || 
 				MONSTER_STATE::PATROL == state)
 			{
-				mAI->ChangeState(MONSTER_STATE::TRACE);
+				if (nullptr != mAI->FindState(MONSTER_STATE::TRACE))
+					mAI->ChangeState(MONSTER_STATE::TRACE);
+				else
+					mAI->ChangeState(MONSTER_STATE::ATTACK);
 			}
 		}
 		else
@@ -262,7 +275,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 					Gold::Drop(new Coin, GetPos(), 10, (float)randomAngle);
 				}
 
-				GetEffect()->Destroy();
+				MonsterEffect* effect = GetEffect();
+				if (nullptr != effect)
+				{
+					effect->Destroy();
+				}
 				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
 			}

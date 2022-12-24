@@ -99,15 +99,15 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 	Texture* orgTex = anim->GetTexture();
 	
 	// 신규 DC 초기화
-	Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(L"RotTex" + degreeWstring, orgTex->GetSize());
+	Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotTex" + degreeWstring, orgTex->GetSize());
 	Brush brush(rotTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(rotTex->GetDC(), -5, -5, rotTex->GetWidth() + 5, rotTex->GetHeight() + 5);
 
 	const std::vector<AnimInfo>& animInfo = anim->GetAnimInfo();
 
 	// Slice 크기의 임시 버퍼 생성
-	Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(L"TempTex" + degreeWstring, animInfo.front().mSlice);
-	Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(L"MaskTex" + degreeWstring, animInfo.front().mSlice);
+	Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"TempTex" + degreeWstring, animInfo.front().mSlice);
+	Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"MaskTex" + degreeWstring, animInfo.front().mSlice);
 
 	Brush tempBrush(tempTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(tempTex->GetDC(), -5, -5, tempTex->GetWidth() + 5, tempTex->GetHeight() + 5);
@@ -183,8 +183,6 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 	}
 
 	anim->SetRepeat(_repeat);
-
-
 
 	std::wstring animName = _animName + degreeWstring;
 

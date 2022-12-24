@@ -446,6 +446,9 @@
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect">
       <UniqueIdentifier>{622ea787-1778-4d81-926f-c96d9835f339}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Melee_Monster\Ovibos">
+      <UniqueIdentifier>{400e8db8-7ca0-4e80-98ca-3fdc8f4820ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -807,6 +810,9 @@
     </ClInclude>
     <ClInclude Include="IceMageMissileEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Ovibos.h">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Ovibos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1173,6 +1179,9 @@
     </ClCompile>
     <ClCompile Include="IceMageMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Ovibos.cpp">
+      <Filter>Engine\GameObject\Monster\Melee_Monster\Ovibos</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

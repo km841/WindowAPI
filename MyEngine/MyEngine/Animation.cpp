@@ -46,10 +46,10 @@ Animation::~Animation()
 
 void Animation::Update()
 {
-	if (mFinish)
+	if (true == mFinish)
 		return;
 
-	if (mFix)
+	if (true == mFix)
 		return;
 
 	if (mAnim.empty())
@@ -57,7 +57,7 @@ void Animation::Update()
 
 	mAccTime += DT;
 
-	if (mTrans)
+	if (true == mTrans)
 	{
 		mTransCurTime += DT;
 	}
@@ -68,16 +68,18 @@ void Animation::Update()
 
 		if (mCurFrm >= mAnim.size())
 		{
-			switch (mRepeat)
-			{
-			case TRUE: mCurFrm = 0;
-				break;
 
-			case FALSE: mFinish = true;
-				break;
+			if (true == mRepeat)
+			{
+				mCurFrm = 0;
 			}
 
-			if (mTrans)
+			else
+			{
+				mFinish = true;
+			}
+
+			if (true == mTrans)
 			{
 				mTransCurTime = 0.f;
 			}

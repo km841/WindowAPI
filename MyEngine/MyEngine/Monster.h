@@ -78,6 +78,8 @@ public:
     inline void         SetMonsterType(MONSTER_TYPE _eType) { mMonType = _eType; }
     inline MONSTER_TYPE GetMonsterType() const { return mMonType; }
 
+    inline bool GetMonsterAttFlag() const { return mAttFlag; }
+
 
 public:
     virtual void Trace() {}
@@ -116,7 +118,7 @@ protected:
     static Texture* mHPTex;
 
     Vec2 mHPBarOffset;
-
+    bool mAttFlag;
 private:
     std::wstring mIdleAnimName;
     std::wstring mMoveAnimName;

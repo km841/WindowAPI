@@ -222,6 +222,7 @@
     <ClInclude Include="MultipleMissileEffect.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="NPCLineHUD.h" />
+    <ClInclude Include="Ovibos.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
@@ -343,6 +344,7 @@
     <ClCompile Include="MultipleMissileEffect.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="NPCLineHUD.cpp" />
+    <ClCompile Include="Ovibos.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />

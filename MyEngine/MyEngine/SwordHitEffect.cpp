@@ -91,7 +91,7 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 			// 더미의 현재 애니메이션이 끝났는지를 확인하고 끝났다면 쉬는거임
 			// 초기값이 있어야? 처음엔 nullptr이니까..
 
-			Animation* curAnim = mHitDummy[i]->GetAnimator()->GetCurAnimation();
+			
 			int randomOffset = 1 + (rand() % 20);
 			int randomSign = rand() % 2;
 			int randomXY = rand() % 2;
@@ -108,31 +108,27 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 			{
 				otherPos.x += randomOffset;
 			}
-			
+			Animation* curAnim = mHitDummy[i]->GetAnimator()->GetCurAnimation();
+
 			if (nullptr == curAnim)
 			{
 				mHitDummy[i]->SetPos(otherPos);
 				mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
-				//mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
+				mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
 				break;
 			}
 
-			else 
+			else
 			{
-				// nullptr이 아닌 경우.. 그러면 애니메이터에 rot가 있을거고 그게 finished인지만 확인해서 처리해주면 될듯
-
-
-				//Animation* anim = mHitDummy[i]->GetAnimator()->FindAnimation(L"SwordHitAnimRot");
-
-				//if (anim->IsFinished())
-				//{
-					// 해당 각도에 맞는 애니메이션을 만들고 출력한다
-				mHitDummy[i]->SetPos(otherPos);
-				mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
-				//mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
-				break;
-				/*}*/	
+				if (curAnim->IsFinished())
+				{
+					mHitDummy[i]->SetPos(otherPos);
+					mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
+					mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
+					break;
+				}
 			}
+
 		}
 	}
 	

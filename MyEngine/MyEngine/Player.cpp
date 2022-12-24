@@ -766,6 +766,34 @@ void Player::OnCollisionEnter(Collider* _other)
 		mHit = true;
 	}
 
+	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
+	{
+		Monster* monster = static_cast<Monster*>(_other->GetOwner());
+		if (MONSTER_TYPE::GROUND_CHARGE == monster->GetMonsterType())
+		{
+			// 스턴 처리
+			if (monster->GetMonsterAttFlag())
+			{
+				CameraMgr::GetInstance().RemoveEffect();
+				CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
+				CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
+
+				MonsterInfo info = monster->GetMonsterInfo();
+				float damage = info.mAtt;
+				if (damage >= mInfo.mCurHP)
+				{
+					// Dead
+				}
+				else
+				{
+					mInfo.mCurHP -= damage;
+					if (0.f > mInfo.mCurHP)
+						mInfo.mCurHP = 0.f;
+				}
+			}
+		}
+	}
+
 	if (OBJECT_TYPE::FOOTHOLD == _other->GetOwner()->GetType())
 	{
 		LineCollider* lineCol = static_cast<LineCollider*>(_other);

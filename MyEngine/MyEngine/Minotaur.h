@@ -8,7 +8,7 @@ public:
     Minotaur();
     virtual ~Minotaur();
 
-    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_CHARGE;
+    static constexpr MONSTER_TYPE TYPE = MONSTER_TYPE::GROUND_OP_CHARGE;
 
 public:
     virtual void Initialize() override;

@@ -48,7 +48,7 @@ void RotateMissileEffect::Destroy()
 {
 	if (nullptr != mCurCoreBullet)
 	{
-		mCurCoreBullet->SetAllDeadAnimChildBullet();
+		//mCurCoreBullet->SetAllDeadAnimChildBullet();
 		delete mCurCoreBullet;
 		mCurCoreBullet = nullptr;
 	}

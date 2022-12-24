@@ -18,7 +18,7 @@ Minotaur::Minotaur()
 	:mMinoState(MINOTAUR_STATE::NONE)
 	, mDistance(0.f)
 {
-	mMonType = MONSTER_TYPE::GROUND_MELEE;
+	mMonType = MONSTER_TYPE::GROUND_OP_CHARGE;
 	//SetSize(Vec2(99.f, 90.f));
 
 	GetCollider()->SetSize(Vec2(30.f, 30.f));

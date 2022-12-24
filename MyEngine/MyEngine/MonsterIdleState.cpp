@@ -63,7 +63,10 @@ void MonsterIdleState::Update()
 			{
 				if (nullptr != ownerAI->FindState(MONSTER_STATE::TRACE))
 				{
-					EventRegisteror::GetInstance().ChangeMonsterState(ownerAI, MONSTER_STATE::TRACE);
+					if (nullptr != ownerAI->FindState(MONSTER_STATE::TRACE))
+						EventRegisteror::GetInstance().ChangeMonsterState(ownerAI, MONSTER_STATE::TRACE);
+					else
+						EventRegisteror::GetInstance().ChangeMonsterState(ownerAI, MONSTER_STATE::ATTACK);
 				}
 			}
 
