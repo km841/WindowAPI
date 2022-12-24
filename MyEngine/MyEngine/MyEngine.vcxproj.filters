@@ -443,6 +443,9 @@
     <Filter Include="Engine\GameObject\Bullet\MonsterBullet\IceBullet">
       <UniqueIdentifier>{48544ae8-dd41-4aca-ae6d-a160dbb2b160}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect">
+      <UniqueIdentifier>{622ea787-1778-4d81-926f-c96d9835f339}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -801,6 +804,9 @@
     </ClInclude>
     <ClInclude Include="IceBullet.h">
       <Filter>Engine\GameObject\Bullet\MonsterBullet\IceBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="IceMageMissileEffect.h">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1164,6 +1170,9 @@
     </ClCompile>
     <ClCompile Include="IceBullet.cpp">
       <Filter>Engine\GameObject\Bullet\MonsterBullet\IceBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="IceMageMissileEffect.cpp">
+      <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceMageMissileEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

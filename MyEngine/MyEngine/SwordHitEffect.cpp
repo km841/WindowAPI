@@ -113,6 +113,7 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 			{
 				mHitDummy[i]->SetPos(otherPos);
 				mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
+				//mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
 				break;
 			}
 
@@ -121,15 +122,16 @@ void SwordHitEffect::OnCollisionEnter(Collider* _other)
 				// nullptr이 아닌 경우.. 그러면 애니메이터에 rot가 있을거고 그게 finished인지만 확인해서 처리해주면 될듯
 
 
-				Animation* anim = mHitDummy[i]->GetAnimator()->FindAnimation(L"SwordHitAnimRot");
+				//Animation* anim = mHitDummy[i]->GetAnimator()->FindAnimation(L"SwordHitAnimRot");
 
-				if (anim->IsFinished())
-				{
+				//if (anim->IsFinished())
+				//{
 					// 해당 각도에 맞는 애니메이션을 만들고 출력한다
-					mHitDummy[i]->SetPos(otherPos);
-					mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
-					break;
-				}	
+				mHitDummy[i]->SetPos(otherPos);
+				mHitDummy[i]->GetAnimator()->RotSelectAnimation(L"SwordHitAnim", mAngle, false);
+				//mHitDummy[i]->GetAnimator()->GetCurAnimation()->Reset();
+				break;
+				/*}*/	
 			}
 		}
 	}

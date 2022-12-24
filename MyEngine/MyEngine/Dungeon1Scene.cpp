@@ -31,6 +31,7 @@
 #include "MonsterSpawnEvent.h"
 #include "Minotaur.h"
 #include "BigGrayIceSkullWarrior.h"
+#include "IceMage.h"
 
 Dungeon1Scene::Dungeon1Scene()
 {
@@ -145,8 +146,7 @@ void Dungeon1Scene::Regen()
 	spawnEvent1->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent1->SetSpawnPos(Vec2(TILE_SIZE * 17, TILE_SIZE * 10));
 
-	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent2 = 
-		new MonsterSpawnEvent<GiantSkullWarrior>;
+	MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent2 = new MonsterSpawnEvent<GiantSkullWarrior>;
 	spawnEvent2->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
 	spawnEvent2->SetSpawnPos(Vec2(TILE_SIZE * 22, TILE_SIZE * 10));
 
@@ -160,11 +160,15 @@ void Dungeon1Scene::Regen()
 
 	MonsterSpawnEvent<RedGiantBat>* spawnEvent5 = new MonsterSpawnEvent<RedGiantBat>;
 	spawnEvent5->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 37, TILE_SIZE * 15));
+	spawnEvent5->SetSpawnPos(Vec2(TILE_SIZE * 33, TILE_SIZE * 15));
 
 	MonsterSpawnEvent<Banshee>* spawnEvent6 = new MonsterSpawnEvent<Banshee>;
 	spawnEvent6->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
-	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 40, TILE_SIZE * 15));
+	spawnEvent6->SetSpawnPos(Vec2(TILE_SIZE * 35, TILE_SIZE * 15));
+
+	MonsterSpawnEvent<IceMage>* spawnEvent7 = new MonsterSpawnEvent<IceMage>;
+	spawnEvent7->SetPos(Vec2(TILE_SIZE * 5, GROUND_STANDARD));
+	spawnEvent7->SetSpawnPos(Vec2(TILE_SIZE * 38, TILE_SIZE * 15));
 
 	LockedDoor* lockDoor1 = new LockedDoor;
 	lockDoor1->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
@@ -182,13 +186,14 @@ void Dungeon1Scene::Regen()
 	lockDoor4->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
 	lockDoor4->SetPos(Vec2(TILE_SIZE * 47.f, (float)(GROUND_STANDARD - TILE_SIZE * 8)));
 
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent0, spawnEvent0->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent5, spawnEvent5->GetType());
-	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent6, spawnEvent6->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent0, spawnEvent0->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent1, spawnEvent1->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent2, spawnEvent2->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent3, spawnEvent3->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent4, spawnEvent4->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent5, spawnEvent5->GetType());
+	//SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent6, spawnEvent6->GetType());
+	SceneMgr::GetInstance().GetCurScene()->AddGameObject(spawnEvent7, spawnEvent7->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor1, lockDoor1->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor2, lockDoor2->GetType());
 	SceneMgr::GetInstance().GetCurScene()->AddGameObject(lockDoor3, lockDoor3->GetType());

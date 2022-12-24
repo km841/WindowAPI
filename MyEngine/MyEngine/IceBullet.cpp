@@ -49,7 +49,7 @@ void IceBullet::Initialize()
 {
 	MonsterBullet::Initialize();
 	GetAnimator()->RotSelectAnimation(L"IceBulletAnim", GetAngle(), true);
-	GetAnimator()->FindAnimation(L"IceBulletAnimRot")->SetEffectAnimation(false);
+	GetAnimator()->GetCurAnimation()->SetEffectAnimation(false);
 }
 
 void IceBullet::Update()

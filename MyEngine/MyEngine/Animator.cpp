@@ -59,8 +59,9 @@ void Animator::AddAnimation(const std::wstring& _animName, Animation* _anim)
 		delete anim;
 
 		mAnimMap.erase(res.first);
-		mAnimMap.insert(std::make_pair(_animName, _anim));
+		
 	}
+	mAnimMap.insert(std::make_pair(_animName, _anim));
 }
 
 void Animator::RegisterAnimation(const std::wstring& _animName, Texture* _tex, Vec2 _leftTop, Vec2 _slice, Vec2 _offset
@@ -91,20 +92,22 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 {
 
 	//CreateRotAnimation을 만들고... 그 애니메이션은 덮어쓸 수 있게 함 그 애니메이션은 텍스쳐만 다름
+	int degree = (int)(Math::RadianToDegree(_angle));
+	std::wstring degreeWstring = std::to_wstring(degree);
 
 	Animation* anim = FindAnimation(_animName);
 	Texture* orgTex = anim->GetTexture();
 	
 	// 신규 DC 초기화
-	Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotAnimTex", orgTex->GetSize());
+	Texture* rotTex = ResourceMgr::GetInstance().CreateTexture(L"RotTex" + degreeWstring, orgTex->GetSize());
 	Brush brush(rotTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(rotTex->GetDC(), -5, -5, rotTex->GetWidth() + 5, rotTex->GetHeight() + 5);
 
 	const std::vector<AnimInfo>& animInfo = anim->GetAnimInfo();
 
 	// Slice 크기의 임시 버퍼 생성
-	Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotTempTex", animInfo.front().mSlice);
-	Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(_animName + L"RotMaskTex", animInfo.front().mSlice);
+	Texture* tempTex = ResourceMgr::GetInstance().CreateTexture(L"TempTex" + degreeWstring, animInfo.front().mSlice);
+	Texture* maskTex = ResourceMgr::GetInstance().CreateTexture(L"MaskTex" + degreeWstring, animInfo.front().mSlice);
 
 	Brush tempBrush(tempTex->GetDC(), BRUSH_TYPE::MAGENTA);
 	Rectangle(tempTex->GetDC(), -5, -5, tempTex->GetWidth() + 5, tempTex->GetHeight() + 5);
@@ -181,10 +184,12 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 
 	anim->SetRepeat(_repeat);
 
-	int degree = (int)(Math::RadianToDegree(_angle));
+
+
+	std::wstring animName = _animName + degreeWstring;
 
 	RegisterAnimation(
-		_animName + L"Rot",
+		animName,
 		rotTex,
 		animInfo[0].mLeftTop,
 		animInfo[0].mSlice,
@@ -193,7 +198,7 @@ void Animator::RotSelectAnimation(const std::wstring& _animName, float _angle, b
 		(UINT)animInfo.size()
 	);
 
-	mCurAnim = FindAnimation(_animName + L"Rot");
+	mCurAnim = FindAnimation(animName);
 	mCurAnim->SetRepeat(_repeat);
 	mCurAnim->SetEffectAnimation(true);
 

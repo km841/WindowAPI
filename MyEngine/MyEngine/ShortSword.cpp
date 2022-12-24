@@ -156,11 +156,11 @@ void ShortSword::Update()
 
 	if (GetPrevSwordState() != GetSwordState())
 	{
-		Animation* rotAnim = GetEffect()->GetAnimator()->FindAnimation(L"ShortSwordEffectRot");
-		if (nullptr != rotAnim && rotAnim->IsFinished())
-		{
-			rotAnim->Reset();
-		}
+		//Animation* rotAnim = GetEffect()->GetAnimator()->FindAnimation(L"ShortSwordEffectRot");
+		//if (nullptr != rotAnim && rotAnim->IsFinished())
+		//{
+		//	rotAnim->Reset();
+		//}
 		Vec2 dirVec = {1.f, 0.f};
 		DIR dir = Player::GetPlayer()->GetPlayerDir();
 
@@ -210,6 +210,7 @@ void ShortSword::Update()
 		GetEffect()->SetAngle(angle);
 		GetEffect()->SetOffset(basicOffset + effDirVec * 30.f);
 		GetEffect()->GetAnimator()->RotSelectAnimation(L"ShortSwordEffect", angle, false);
+		GetEffect()->GetAnimator()->GetCurAnimation()->Reset();
 	}
 
 	//Effect* effect = GetEffect();

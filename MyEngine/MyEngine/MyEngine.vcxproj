@@ -177,6 +177,7 @@
     <ClInclude Include="IceBullet.h" />
     <ClInclude Include="IceCubesMissileEffect.h" />
     <ClInclude Include="IceMage.h" />
+    <ClInclude Include="IceMageMissileEffect.h" />
     <ClInclude Include="InfRepeatBg.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CameraMgr.h" />
@@ -298,6 +299,7 @@
     <ClCompile Include="IceBullet.cpp" />
     <ClCompile Include="IceCubesMissileEffect.cpp" />
     <ClCompile Include="IceMage.cpp" />
+    <ClCompile Include="IceMageMissileEffect.cpp" />
     <ClCompile Include="InfRepeatBg.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CameraMgr.cpp" />
