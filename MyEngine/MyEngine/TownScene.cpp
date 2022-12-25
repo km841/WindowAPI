@@ -27,6 +27,7 @@
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
+#include "ToolWindows.h"
 
 TownScene::TownScene()
 {

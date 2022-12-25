@@ -449,6 +449,24 @@
     <Filter Include="Engine\GameObject\Monster\Melee_Monster\Ovibos">
       <UniqueIdentifier>{400e8db8-7ca0-4e80-98ca-3fdc8f4820ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage">
+      <UniqueIdentifier>{78ecefe5-c26f-4da2-a66d-31e2106e2c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Base">
+      <UniqueIdentifier>{afa9452c-2616-4cfe-bf37-beef2fcc2817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\SnowMountain">
+      <UniqueIdentifier>{47c20578-bc5d-4fc3-990c-c65108d3baa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map">
+      <UniqueIdentifier>{3da1246f-71da-4559-93bf-496d2475e9e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map\Base">
+      <UniqueIdentifier>{92d34eae-aa98-4d54-8e4d-c679016243c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Prison">
+      <UniqueIdentifier>{066b76ec-18e1-43bc-9e00-9d8d2435aa3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -813,6 +831,18 @@
     </ClInclude>
     <ClInclude Include="Ovibos.h">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Ovibos</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Prison.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Prison</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolWindows.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1182,6 +1212,18 @@
     </ClCompile>
     <ClCompile Include="Ovibos.cpp">
       <Filter>Engine\GameObject\Monster\Melee_Monster\Ovibos</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Prison.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Prison</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolWindows.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

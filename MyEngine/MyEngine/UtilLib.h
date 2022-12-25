@@ -131,6 +131,13 @@ struct WindowData
 	wchar_t      szFileAddr[512];
 };
 
+struct ButtonInfo
+{
+	HBITMAP mBitmap;
+	HWND mHwnd;
+	bool mState;
+};
+
 struct Pen
 {
 public:

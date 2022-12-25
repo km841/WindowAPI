@@ -201,6 +201,7 @@
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="LockedDoor.h" />
     <ClInclude Include="MagicWandBullet.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MinimapHUD.h" />
     <ClInclude Include="Minotaur.h" />
     <ClInclude Include="Monster.h" />
@@ -226,10 +227,12 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerEffect.h" />
+    <ClInclude Include="Prison.h" />
     <ClInclude Include="RedGiantBat.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RotateMissileEffect.h" />
     <ClInclude Include="ShortSword.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Sword.h" />
@@ -252,6 +255,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="ToolScene.h" />
     <ClInclude Include="ToolUI.h" />
+    <ClInclude Include="ToolWindows.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIMgr.h" />
@@ -323,6 +327,7 @@
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="LockedDoor.cpp" />
     <ClCompile Include="MagicWandBullet.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MinimapHUD.cpp" />
     <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -348,10 +353,12 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerEffect.cpp" />
+    <ClCompile Include="Prison.cpp" />
     <ClCompile Include="RedGiantBat.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateMissileEffect.cpp" />
     <ClCompile Include="ShortSword.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Sword.cpp" />
@@ -381,6 +388,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="ToolScene.cpp" />
     <ClCompile Include="ToolUI.cpp" />
+    <ClCompile Include="ToolWindows.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIMgr.cpp" />

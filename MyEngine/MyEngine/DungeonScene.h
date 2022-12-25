@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+class Stage;
 class DungeonScene :
     public Scene
 {
@@ -20,6 +21,8 @@ public:
 	virtual void Regen() = 0;
 
 protected:
+	Stage* mStages;
+
 	bool mClear;
 };
 

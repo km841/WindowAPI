@@ -16,6 +16,7 @@
 #include "GameObject.h"
 #include "CollisionComponent.h"
 #include "LineCollider.h"
+#include "ToolWindows.h"
 
 ToolScene::ToolScene()
 	: mCheckedObjectType(OBJECT_TYPE::TILE_BG)
@@ -448,6 +449,7 @@ void ToolScene::Enter()
 {
 	SetMenu(APP_INSTANCE.GetHwnd(), APP_INSTANCE.GetMainMenuHandle());
 	APP_INSTANCE.SetWindowSize(true);
+	TOOL_INSTANCE.EnableWindow();
 	// 툴에 사용할 모든 타일을 벡터에 넣음
 	// 넣고 나서 16열로 출력
 	CameraMgr::GetInstance().RemoveEffect();
@@ -523,6 +525,7 @@ void ToolScene::Enter()
 
 void ToolScene::Exit()
 {
+	TOOL_INSTANCE.DisableWindow();
 	SetMenu(APP_INSTANCE.GetHwnd(), NULL);
 	APP_INSTANCE.SetWindowSize(false);
 	DeleteObjGroup(OBJECT_TYPE::UI);

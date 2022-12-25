@@ -15,6 +15,7 @@
 #include "CameraMgr.h"
 #include "UIMgr.h"
 #include "FontMgr.h"
+#include "ToolWindows.h"
 
 void Application::Initialize(const WindowData& _winData)
 {
@@ -22,6 +23,8 @@ void Application::Initialize(const WindowData& _winData)
 	//mFST.open(L"..\\Resource\\Log\\log.txt", std::ios::out | std::ios::app);
 
 	// Manager Initialize
+	ToolWindows::GetInstance().Initialize();
+
 	KeyMgr::GetInstance().Initialize();
 	TimeMgr::GetInstance().Initialize();
 	CameraMgr::GetInstance().Initialize();
@@ -63,6 +66,8 @@ void Application::WindowInit(const WindowData& _winData)
 
 	SetWindowSize(false);
 	srand(static_cast<UINT>(time(nullptr)));
+
+	
 }
 
 void Application::SetWindowSize(bool _isMenu)
@@ -153,6 +158,7 @@ void Application::Render()
 void Application::Destroy()
 {
 	//mFST.close();
+	ToolWindows::GetInstance().Destroy();
 	FontMgr::GetInstance().Destroy();
 	SceneMgr::GetInstance().Destroy();
 	EventMgr::GetInstance().Destroy();

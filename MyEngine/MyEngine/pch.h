@@ -15,6 +15,7 @@
 
 /*C STYLE HEADER*/
 #include <windows.h>
+#include <windowsx.h>
 #include <tchar.h>
 #include <assert.h>
 #include <time.h>
@@ -31,6 +32,7 @@
 
 /*MANAGER MACRO*/
 #define APP_INSTANCE Application::GetInstance()
+#define TOOL_INSTANCE ToolWindows::GetInstance()
 #define MAIN_DC APP_INSTANCE.GetMainDC()
 #define BACK_BUF_DC APP_INSTANCE.GetBackBufDC()
 

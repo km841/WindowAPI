@@ -27,6 +27,7 @@ public:
 	inline HMENU GetTypeMenuHandle() const { return mWinData.hTypeMenu; }
 	inline const std::wofstream& GetOutputFileStream() const { return mFST; }
 	inline std::wstring GetBaseAddress() { return mWinData.szFileAddr; }
+	inline HINSTANCE GetHandleInstance() const { return mWinData.hInst; }
 	
 
 public:
