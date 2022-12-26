@@ -18,7 +18,9 @@ ToolWindows::ToolWindows()
 	mData.iHeight = APP_INSTANCE.GetHeight();
 	mData.hInst = APP_INSTANCE.GetHandleInstance();
 
-	mFont = CreateFont(20, 0, 0, 0, FW_SEMIBOLD, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, _T("Consolas"));
+	mNormalFont = CreateFont(20, 0, 0, 0, FW_NORMAL, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, _T("Consolas"));
+	mSemiBoldFont = CreateFont(20, 0, 0, 0, FW_SEMIBOLD, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, _T("Consolas"));
+	mBoldFont = CreateFont(20, 0, 0, 0, FW_BOLD, 0, 0, 0, DEFAULT_CHARSET, 0, 0, 0, 0, _T("Consolas"));
 }
 
 ToolWindows::~ToolWindows()
@@ -29,7 +31,7 @@ void ToolWindows::Initialize()
 {
 	WindowInit();
 
-	CreateText(L"몬스터 선택 UI", Vec2(75, 10), Vec2(120, 20));
+	CreateText(L"■ 몬스터 선택", Vec2(75, 10), Vec2(120, 20), FONT_TYPE::SEMI_BOLD);
 	CreateButton(TOOL_ID::BTN_RED_GIANT_BAT, L"..\\Resource\\Texture\\Btn_RedGiantBat.bmp", Vec2(24, 60), Vec2(64, 64));
 	CreateButton(TOOL_ID::BTN_GIANT_BAT, L"..\\Resource\\Texture\\Btn_GiantBat.bmp", Vec2(108, 60), Vec2(64, 64));
 	CreateButton(TOOL_ID::BTN_MINOTAUR, L"..\\Resource\\Texture\\Btn_Minotaur.bmp", Vec2(192, 60), Vec2(64, 64));
@@ -39,13 +41,17 @@ void ToolWindows::Initialize()
 	CreateButton(TOOL_ID::BTN_GIANT_SKULL, L"..\\Resource\\Texture\\Btn_GiantSkull.bmp", Vec2(24, 228), Vec2(64, 64));
 	CreateButton(TOOL_ID::BTN_OVIBOS, L"..\\Resource\\Texture\\Btn_Ovibos.bmp", Vec2(108, 228), Vec2(64, 64));
 
-	CreateText(L"던전 오브젝트 선택 UI", Vec2(15, 400), Vec2(240, 20));
-	CreateButton(TOOL_ID::BTN_DOOR_0DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 450), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_900Deg.bmp", Vec2(108, 450), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_270DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_270Deg.bmp", Vec2(192, 450), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_180DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 534), Vec2(64, 64));
+	CreateText(L"■ 던전 오브젝트 선택", Vec2(15, 370), Vec2(240, 20), FONT_TYPE::SEMI_BOLD);
+	CreateButton(TOOL_ID::BTN_DOOR_0DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_900Deg.bmp", Vec2(108, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_270DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_270Deg.bmp", Vec2(192, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_180DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 504), Vec2(64, 64));
 
-
+	CreateText(L"> 다음 타일 페이지 (Page Up)", Vec2(15, 650), Vec2(240, 20), FONT_TYPE::NORMAL, false);
+	CreateText(L"> 이전 타일 페이지 (Page Down)", Vec2(15, 670), Vec2(300, 20), FONT_TYPE::NORMAL, false);
+	CreateText(L"> 선택 해제 (우클릭)", Vec2(15, 690), Vec2(240, 20), FONT_TYPE::NORMAL, false);
+	CreateText(L"> 맵 저장하기 (CTRL + S)", Vec2(15, 710), Vec2(240, 20), FONT_TYPE::NORMAL, false);
+	CreateText(L"> 맵 불러오기 (CTRL + O)", Vec2(15, 730), Vec2(240, 20), FONT_TYPE::NORMAL, false);
 }
 
 void ToolWindows::Update()
@@ -126,11 +132,18 @@ void ToolWindows::CreateButton(TOOL_ID _id, const std::wstring& _bmpPath, Vec2 _
 	mBtnMap.insert(std::make_pair(_id, info));
 }
 
-void ToolWindows::CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size)
+void ToolWindows::CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size, FONT_TYPE _fontType, bool _centerAlign)
 {
+	UINT style = WS_VISIBLE | WS_CHILD | SS_CENTER;
+
+	if (false == _centerAlign)
+	{
+		style = WS_VISIBLE | WS_CHILD;
+	}
+
 	HWND hwnd = CreateWindowEx(
 		0, L"static", _text.c_str()
-		, WS_VISIBLE | WS_CHILD | SS_CENTER
+		, style
 		, (int)_pos.x
 		, (int)_pos.y
 		, (int)_size.x
@@ -141,7 +154,19 @@ void ToolWindows::CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size)
 		NULL
 	);
 
-	SendMessage(hwnd, WM_SETFONT, (WPARAM)(mFont), 0);
+	switch (_fontType)
+	{
+	case FONT_TYPE::NORMAL:
+		SendMessage(hwnd, WM_SETFONT, (WPARAM)(mNormalFont), 0);
+		break;
+	case FONT_TYPE::SEMI_BOLD:
+		SendMessage(hwnd, WM_SETFONT, (WPARAM)(mSemiBoldFont), 0);
+		break;
+	case FONT_TYPE::BOLD:
+		SendMessage(hwnd, WM_SETFONT, (WPARAM)(mBoldFont), 0);
+		break;
+	}
+	
 }
 
 TOOL_ID ToolWindows::GetSelectedID() const

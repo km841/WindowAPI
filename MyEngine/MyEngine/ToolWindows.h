@@ -30,7 +30,7 @@ public:
 	inline void Resize() const { SetWindowPos(mData.hWnd, 0, WINDOW_WIDTH_SIZE, 0, mData.iWidth, APP_INSTANCE.GetHeight(), NULL); };
 	
 	void CreateButton(TOOL_ID _id, const std::wstring& _bmpPath, Vec2 _pos, Vec2 _size);
-	void CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size);
+	void CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size, FONT_TYPE _fontType, bool _centerAlign = true);
 	ButtonInfo& GetButtonInfo(TOOL_ID _id) { return mBtnMap[_id]; }
 	TOOL_ID GetSelectedID() const;
 
@@ -46,7 +46,9 @@ private:
 
 	std::map<TOOL_ID, ButtonInfo> mBtnMap;
 	TOOL_ID mCurID;
-	HFONT mFont;
+	HFONT mNormalFont;
+	HFONT mSemiBoldFont;
+	HFONT mBoldFont;
 	Texture* mMonsterTex;
 };
 

@@ -400,3 +400,10 @@ enum class MONSTER_ENUM
 
 };
 
+enum class FONT_TYPE
+{
+	NORMAL,
+	SEMI_BOLD,
+	BOLD,
+	END,
+};
