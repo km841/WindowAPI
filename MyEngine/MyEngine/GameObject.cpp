@@ -21,6 +21,7 @@ GameObject::GameObject()
 	, mType()
 	, mRelations()
 	, mCollisionType(COLLISION_TYPE::NONE)
+	, mToolID(TOOL_ID::END)
 {
 }
 
@@ -169,4 +170,14 @@ void GameObject::Dead()
 	//}
 
 }
+
+
+void GameObject::Save(FILE* _fp)
+{
+	Vec2 pos = GetPos();
+
+	fwrite(&pos, sizeof(Vec2), 1, _fp);
+	fwrite(&mToolID, sizeof(TOOL_ID), 1, _fp);
+}
+
 

@@ -51,7 +51,14 @@ public:
     void Update()
     {
         EventObject::Update();
-        if (mFlag)
+        if (mSpawnPos.IsZero())
+        {
+            GetAnimator()->SelectAnimation(L"MONSTER_SPAWN_ANIM", false);
+            mFlag = true;
+            mSpawnPos = GetPos();
+        }
+
+        if (true == mFlag)
         {
             Animation* curAnim = GetAnimator()->GetCurAnimation();
             int curFrame = curAnim->GetCurFrame();

@@ -12,7 +12,7 @@
 
 Banshee::Banshee()
 {
-
+	mToolID = TOOL_ID::BTN_BANSHEE;
 	mMonType = MONSTER_TYPE::FLY_RANGE;
 	//SetSize(Vec2(192.f, 192.f));
 

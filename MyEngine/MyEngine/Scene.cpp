@@ -6,6 +6,18 @@
 #include "Texture.h"
 #include "Monster.h"
 #include "Collider.h"
+#include "MonsterSpawnEvent.h"
+#include "GiantSkullWarrior.h"
+#include "GiantBat.h"
+#include "RedGiantBat.h"
+#include "Banshee.h"
+#include "Minotaur.h"
+#include "BigGrayIceSkullWarrior.h"
+#include "IceMage.h"
+#include "Ovibos.h"
+#include "CameraMgr.h"
+#include "MouseMgr.h"
+#include "LockedDoor.h"
 
 Scene::Scene()
 	: mOFN{}
@@ -250,6 +262,133 @@ void Scene::Load(const std::wstring& _path)
 		}
 	}
 
+	size_t monsterSize = 0;
+	fread(&monsterSize, sizeof(size_t), 1, fp);
+	for (int i = 0; i < monsterSize; ++i)
+	{
+		Vec2 monsterPos = {};
+		TOOL_ID id = {};
+
+		fread(&monsterPos, sizeof(Vec2), 1, fp);
+		fread(&id, sizeof(TOOL_ID), 1, fp);
+
+		SetupMonster(id, monsterPos);
+	}
+
+	size_t dungeonObjSize = 0;
+	fread(&dungeonObjSize, sizeof(size_t), 1, fp);
+	for (int i = 0; i < dungeonObjSize; ++i)
+	{
+		Vec2 dungeonObjPos = {};
+		TOOL_ID id = {};
+
+		fread(&dungeonObjPos, sizeof(Vec2), 1, fp);
+		fread(&id, sizeof(TOOL_ID), 1, fp);
+
+		SetupDungeonObject(id, dungeonObjPos);
+	}
+
 	fclose(fp);
 }
 
+void Scene::SetupMonster(TOOL_ID _id, Vec2 _pos)
+{
+	switch (_id)
+	{
+	case TOOL_ID::BTN_RED_GIANT_BAT:
+	{
+		MonsterSpawnEvent<RedGiantBat>* spawnEvent = new MonsterSpawnEvent<RedGiantBat>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_GIANT_BAT:
+	{
+		MonsterSpawnEvent<GiantBat>* spawnEvent = new MonsterSpawnEvent<GiantBat>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_GIANT_SKULL:
+	{
+		MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent = new MonsterSpawnEvent<GiantSkullWarrior>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_BANSHEE:
+	{
+		MonsterSpawnEvent<Banshee>* spawnEvent = new MonsterSpawnEvent<Banshee>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_ICE_GRAY_SKULL:
+	{
+		MonsterSpawnEvent<BigGrayIceSkullWarrior>* spawnEvent = new MonsterSpawnEvent<BigGrayIceSkullWarrior>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_MINOTAUR:
+	{
+		MonsterSpawnEvent<Minotaur>* spawnEvent = new MonsterSpawnEvent<Minotaur>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_ICE_MAGE:
+	{
+		MonsterSpawnEvent<IceMage>* spawnEvent = new MonsterSpawnEvent<IceMage>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_OVIBOS:
+	{
+		MonsterSpawnEvent<Ovibos>* spawnEvent = new MonsterSpawnEvent<Ovibos>;
+		spawnEvent->SetPos(_pos);
+		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+	}
+	break;
+	}
+}
+
+void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
+{
+	switch (_id)
+	{
+	case TOOL_ID::BTN_DOOR_0DEG:
+	{
+		LockedDoor* door = new LockedDoor;
+		door->SetPos(_pos);
+		door->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
+		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_DOOR_90DEG:
+	{
+		LockedDoor* door = new LockedDoor;
+		door->SetPos(_pos);
+		door->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
+		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_DOOR_180DEG:
+	{
+		LockedDoor* door = new LockedDoor;
+		door->SetPos(_pos);
+		door->SetAngleType(ANGLE_TYPE::DEGREE_180_TYPE);
+		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_DOOR_270DEG:
+	{
+		LockedDoor* door = new LockedDoor;
+		door->SetPos(_pos);
+		door->SetAngleType(ANGLE_TYPE::DEGREE_270_TYPE);
+		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+	}
+	break;
+	}
+}

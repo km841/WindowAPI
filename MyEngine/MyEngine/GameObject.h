@@ -92,6 +92,9 @@ public:
 
 	void SetObjState(OBJECT_STATE _state);
 	virtual void Dead();
+
+public:
+	void Save(FILE* _fp);
 	
 public:
 	virtual void OnCollision(Collider* _other) {};
@@ -115,4 +118,7 @@ private:
 	COLLISION_TYPE		mCollisionType;
 
 	std::vector<Relation>  mRelations;
+
+protected:
+	TOOL_ID				mToolID;
 };

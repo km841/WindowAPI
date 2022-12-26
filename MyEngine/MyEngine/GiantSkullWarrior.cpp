@@ -15,6 +15,7 @@
 
 GiantSkullWarrior::GiantSkullWarrior()
 {
+	mToolID = TOOL_ID::BTN_GIANT_SKULL;
 	mMonType = MONSTER_TYPE::GROUND_MELEE;
 	SetSize(Vec2(99.f, 90.f));
 

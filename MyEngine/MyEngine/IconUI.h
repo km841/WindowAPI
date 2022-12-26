@@ -23,6 +23,7 @@ public:
 
 public:
 	inline static IconUI* GetSelectedUI() { return selectedUI; }
+	inline static void ClearSelectedUI() { selectedUI = nullptr; }
 
 private:
 	Vec2 mLT;

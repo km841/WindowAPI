@@ -14,6 +14,7 @@
 
 RedGiantBat::RedGiantBat()
 {
+	mToolID = TOOL_ID::BTN_RED_GIANT_BAT;
 	mMonType = MONSTER_TYPE::FLY_RANGE;
 	SetSize(Vec2(192.f, 192.f));
 

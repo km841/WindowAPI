@@ -15,6 +15,7 @@ Ovibos::Ovibos()
 	: mMaxDashDuration(1.0f)
 	, mCurDashDuration(0.f)
 {
+	mToolID = TOOL_ID::BTN_OVIBOS;
 	mMonType = MONSTER_TYPE::GROUND_CHARGE;
 	//SetSize(Vec2(99.f, 90.f));
 

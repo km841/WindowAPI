@@ -18,6 +18,7 @@ Minotaur::Minotaur()
 	:mMinoState(MINOTAUR_STATE::NONE)
 	, mDistance(0.f)
 {
+	mToolID = TOOL_ID::BTN_MINOTAUR;
 	mMonType = MONSTER_TYPE::GROUND_OP_CHARGE;
 	//SetSize(Vec2(99.f, 90.f));
 

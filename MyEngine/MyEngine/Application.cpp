@@ -127,6 +127,7 @@ void Application::Tick()
 	Rectangle(BACK_BUF_DC, 0, 0, GetWidth(), GetHeight());
 
 	// Manager Update
+	
 	TimeMgr::GetInstance().Update();
 	KeyMgr::GetInstance().Update();
 	MouseMgr::GetInstance().Update();
@@ -137,6 +138,7 @@ void Application::Tick()
 	FontMgr::GetInstance().Update();
 
 	// Manager Render
+	ToolWindows::GetInstance().Render();
 	TimeMgr::GetInstance().Render();
 	SceneMgr::GetInstance().Render();
 	CameraMgr::GetInstance().Render();

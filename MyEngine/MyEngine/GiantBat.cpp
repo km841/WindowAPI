@@ -13,6 +13,7 @@
 
 GiantBat::GiantBat()
 {
+	mToolID = TOOL_ID::BTN_GIANT_BAT;
 	mMonType = MONSTER_TYPE::FLY_RANGE;
 	SetSize(Vec2(99.f, 90.f));
 

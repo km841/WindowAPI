@@ -33,8 +33,12 @@
 /*MANAGER MACRO*/
 #define APP_INSTANCE Application::GetInstance()
 #define TOOL_INSTANCE ToolWindows::GetInstance()
+
 #define MAIN_DC APP_INSTANCE.GetMainDC()
 #define BACK_BUF_DC APP_INSTANCE.GetBackBufDC()
+
+#define TOOL_MAIN_DC TOOL_INSTANCE.GetMainDC()
+#define TOOL_BACK_BUF_DC TOOL_INSTANCE.GetBackBufDC()
 
 #define DT TimeMgr::GetInstance().GetDT()
 #define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS)

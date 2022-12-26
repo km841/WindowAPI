@@ -247,6 +247,26 @@ void LockedDoor::Destroy()
 	GameObject::Destroy();
 }
 
+void LockedDoor::SetAngleType(ANGLE_TYPE _angle)
+{
+	mAngleType = _angle;
+	switch (_angle)
+	{
+	case ANGLE_TYPE::DEGREE_0_TYPE:
+		mToolID = TOOL_ID::BTN_DOOR_0DEG;
+		break;
+	case ANGLE_TYPE::DEGREE_90_TYPE:
+		mToolID = TOOL_ID::BTN_DOOR_90DEG;
+		break;
+	case ANGLE_TYPE::DEGREE_180_TYPE:
+		mToolID = TOOL_ID::BTN_DOOR_180DEG;
+		break;
+	case ANGLE_TYPE::DEGREE_270_TYPE:
+		mToolID = TOOL_ID::BTN_DOOR_270DEG;
+		break;
+	}
+}
+
 void LockedDoor::OnCollision(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())

@@ -11,6 +11,7 @@
 
 IceMage::IceMage()
 {
+	mToolID = TOOL_ID::BTN_ICE_MAGE;
 	mMonType = MONSTER_TYPE::FLY_RANGE;
 	//SetSize(Vec2(192.f, 192.f));
 

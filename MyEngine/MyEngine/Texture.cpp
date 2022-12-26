@@ -45,6 +45,27 @@ bool Texture::Load(const std::wstring& _path)
 	return true;
 }
 
+bool Texture::Load(HBITMAP _bitmap)
+{
+	mBit = _bitmap;
+
+	if (mBit == 0)
+		return false;
+
+	BITMAP bitmap = {};
+	GetObject(mBit, sizeof(bitmap), &bitmap);
+
+	mWidth = bitmap.bmWidth;
+	mHeight = bitmap.bmHeight;
+	mSize = Vec2((float)mWidth, (float)mHeight);
+	mDC = CreateCompatibleDC(BACK_BUF_DC);
+
+	HBITMAP prevBit = (HBITMAP)SelectObject(mDC, mBit);
+	DeleteObject(prevBit);
+
+	return true;
+}
+
 Pixel Texture::GetPixel(int x, int y)
 {
 	COLORREF rgba = ::GetPixel(mDC, x, y);

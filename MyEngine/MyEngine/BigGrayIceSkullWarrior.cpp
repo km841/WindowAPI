@@ -18,6 +18,7 @@
 BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 	: mSkillEffect(nullptr)
 {
+	mToolID = TOOL_ID::BTN_ICE_GRAY_SKULL;
 	mMonType = MONSTER_TYPE::GROUND_SKILL;
 	SetSize(Vec2(99.f, 90.f));
 

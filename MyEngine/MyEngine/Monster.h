@@ -80,6 +80,8 @@ public:
 
     inline bool GetMonsterAttFlag() const { return mAttFlag; }
 
+    inline TOOL_ID GetMonsterID() const { return mToolID; }
+
 
 public:
     virtual void Trace() {}
@@ -111,7 +113,6 @@ protected:
 
     int mMoney;
     int mAttFixFrame;
-    
 
 protected:
     static Texture* mHPBaseTex;

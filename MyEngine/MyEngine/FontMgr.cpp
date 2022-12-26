@@ -154,7 +154,7 @@ void FontMgr::Destroy()
     mFonts.clear();
 }
 
-Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _text)
+Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _text, HDC _dc)
 {
     int textureWidth = 0;
     int textureHeight = 0;
@@ -170,7 +170,17 @@ Texture* FontMgr::GetTextTexture(const std::wstring& _key, const std::wstring& _
     if (nullptr != tex)
         return tex;
 
-    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight + 5));
+    if (BACK_BUF_DC != _dc)
+    {
+        tex = ResourceMgr::GetInstance().CreateTexture(_key, _dc, Vec2(textureWidth, textureHeight + 5));
+    }
+
+    else
+    {
+        tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight + 5));
+    }
+
+    
 
     int x_pos = 0;
     for (int i = 0; i < _text.size(); ++i)

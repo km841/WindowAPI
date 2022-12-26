@@ -26,7 +26,7 @@ public:
 
 public:
     // Number
-    Texture* GetTextTexture(const std::wstring& _key, const std::wstring& _text);
+    Texture* GetTextTexture(const std::wstring& _key, const std::wstring& _text, HDC _dc = BACK_BUF_DC);
     Texture* GetTextTexture(const std::wstring& _key, wchar_t _text);
     Texture* GetTextTexture_Gold(const std::wstring& _key, const std::wstring& _text);
     TextInfo GetTextInfo(wchar_t _text);

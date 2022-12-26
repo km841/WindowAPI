@@ -14,7 +14,7 @@ public:
 	virtual void Destroy();
 
 public:
-	inline void       SetAngleType(ANGLE_TYPE _angle) { mAngleType = _angle; }
+	void SetAngleType(ANGLE_TYPE _angle);
 	inline ANGLE_TYPE GetAngleType() const { return mAngleType; }
 
 	inline void SetClearFlag(bool _flag) { mFlag = _flag; }
@@ -24,7 +24,6 @@ public:
 	virtual void OnCollision(Collider* _other);
 	virtual void OnCollisionEnter(Collider* _other);
 	virtual void OnCollisionExit(Collider* _other);
-
 
 private:
 	ANGLE_TYPE mAngleType;

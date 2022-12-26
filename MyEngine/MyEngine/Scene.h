@@ -52,6 +52,8 @@ public:
 
 public:
 	void Load(const std::wstring& _path);
+	void SetupMonster(TOOL_ID _id, Vec2 _pos);
+	void SetupDungeonObject(TOOL_ID _id, Vec2 _pos);
 
 protected:
 	std::vector<GameObject*> mObjects[(UINT)OBJECT_TYPE::END];

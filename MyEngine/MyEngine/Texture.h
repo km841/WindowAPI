@@ -9,6 +9,7 @@ public:
     virtual ~Texture();
 
     virtual bool Load(const std::wstring& _path);
+    virtual bool Load(HBITMAP _bitmap);
 
 public:
     inline HBITMAP GetBitmap() const { return mBit; }

@@ -30,6 +30,23 @@ public:
 		return res;
 	}
 
+	template<typename T>
+	T* Load(const std::wstring& _key, HBITMAP _bitmap)
+	{
+		auto iter = mResMap.find(_key);
+		if (iter != mResMap.end())
+		{
+			return dynamic_cast<T*>(iter->second);
+		}
+
+		T* res = new T;
+		res->SetKey(_key);
+		res->Load(_bitmap);
+		mResMap.insert(std::make_pair(_key, res));
+
+		return res;
+	}
+
 	Res* FindTexture(const std::wstring& _key)
 	{
 		auto iter = mResMap.find(_key);
