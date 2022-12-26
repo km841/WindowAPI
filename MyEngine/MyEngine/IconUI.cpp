@@ -5,6 +5,7 @@
 #include "MouseMgr.h"
 #include "CheckButtonUI.h"
 #include "ToolUI.h"
+#include "ToolWindows.h"
 
 IconUI* IconUI::selectedUI = nullptr;
 IconUI::IconUI()
@@ -41,7 +42,10 @@ void IconUI::Update()
 	if (mOnMouse)
 	{
 		if (mOnClicked)
+		{
+			TOOL_INSTANCE.AllButtonRelease();
 			selectedUI = this;
+		}
 	}
 
 
