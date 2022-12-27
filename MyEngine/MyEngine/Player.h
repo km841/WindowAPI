@@ -117,6 +117,10 @@ public:
     void EquipItemRender();
 
     void AllCollisionExit();
+    inline void SetMoveMapCoolDown() { mMoveMapCoolDown = true; }
+    inline bool GetMoveMapCoolDown() { return mMoveMapCoolDown; }
+
+
     
 public:
     static Player* GetPlayer() { return mPlayer; }
@@ -173,6 +177,10 @@ private:
 
     bool       mUIState;
     int        mMoney;
+
+    bool       mMoveMapCoolDown;
+    float      mMoveMapMaxDuration;
+    float      mMoveMapCurDuration;
 
 
 private:

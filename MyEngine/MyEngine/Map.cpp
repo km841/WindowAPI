@@ -126,12 +126,13 @@ void Map::Update()
 
 		if (nullptr != player)
 		{
+			
 			Vec2 playerPos = player->GetPos();
 			
 			for (int i = 0; i < (UINT)WARP_POINT::END; ++i)
 			{
 				float distance = (playerPos - mEscapesPos[i]).Len();
-				if (distance < 50.f)
+				if (distance < 70.f)
 				{
 					Map* nextMap = nullptr;
 					switch ((WARP_POINT)i)
@@ -154,8 +155,10 @@ void Map::Update()
 
 					}
 
-					if (nullptr != nextMap)
+					if (nullptr != nextMap && 
+						false == player->GetMoveMapCoolDown())
 					{
+						player->SetMoveMapCoolDown();
 						EventRegisteror::GetInstance().TransitionToMap(mOwner, nextMap);
 						nextMap->FromWhichInitDir((WARP_POINT)i);
 					}
@@ -184,7 +187,6 @@ void Map::Destroy()
 			}
 		}
 	}
-	int a = 0;
 }
 
 void Map::Enter()

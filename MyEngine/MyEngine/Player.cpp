@@ -65,6 +65,9 @@ Player::Player()
 	, mCharacter(PLAYER_CHARACTER::PLAYER)
 	, mUIState(false)
 	, mMoney(0)
+	, mMoveMapCoolDown(false)
+	, mMoveMapMaxDuration(0.1f)
+	, mMoveMapCurDuration(0.f)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -221,6 +224,20 @@ void Player::Update()
 
 	if (GetRigidBody()->GetVelocity_Y() > 800.f)
 		GetRigidBody()->SetVelocity_Y(800.f);
+
+	if (mMoveMapCoolDown)
+	{
+		if (mMoveMapMaxDuration < mMoveMapCurDuration)
+		{
+			mMoveMapCurDuration = 0.f;
+			mMoveMapCoolDown = false;
+		}
+
+		else
+		{
+			mMoveMapCurDuration += DT;
+		}
+	}
 
 	if (mHit && (mInvinTime > mInvinMaxTime))
 	{

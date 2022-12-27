@@ -98,6 +98,7 @@ void LockedDoor::Update()
 				mDir = Vec2(0, 1);
 			}
 		}
+			break;
 		case ANGLE_TYPE::DEGREE_0_TYPE:
 		{
 			if (L"LockedDoor_0Degree" == curAnim->GetName())
@@ -118,7 +119,7 @@ void LockedDoor::Update()
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
 
-				mDir = Vec2(-1, 0);
+				mDir = Vec2(1, 0);
 			}
 		}
 			break;
@@ -130,7 +131,7 @@ void LockedDoor::Update()
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
 
-				mDir = Vec2(1, 0);
+				mDir = Vec2(-1, 0);
 			}
 		}
 			break;
