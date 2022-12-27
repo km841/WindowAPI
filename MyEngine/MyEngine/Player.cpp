@@ -34,6 +34,7 @@
 #include "MonsterEffect.h"
 #include "MonsterBullet.h"
 #include "ItemGetHUD.h"
+#include "CollisionMgr.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -917,6 +918,16 @@ void Player::EquipItemRender()
 
 			mEquipItems[i]->Render();
 		}
+	}
+}
+
+void Player::AllCollisionExit()
+{
+	const std::vector<Relation>& relations = GetRelations();
+
+	for (int i = 0; i < relations.size(); ++i)
+	{
+		CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), relations[i].mOther->GetCollider());
 	}
 }
 

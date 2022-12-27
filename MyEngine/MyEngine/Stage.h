@@ -16,11 +16,25 @@ public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
+public:
+	inline void SetInitPlayerPos(Vec2 _pos) { mInitPlayerPos = _pos; }
+	inline Vec2 GetInitPlayerPos() { return mInitPlayerPos; }
+	void TransitionToMap(Map* _map);
+	void AddMap(const std::wstring& _path);
+
+	inline Map* GetStartMap() const { return mMaps[0]; }
+
+	void ChainMaps(Map* _map);
+
 private:
 	STAGE_TYPE mType;
-	
 	std::vector<Map*> mMaps;
+	
 
+protected:
+	Map* mCurMap;
+	Map* mStartMap;
+	Vec2 mInitPlayerPos;
 	// 맵을 집어넣을 때 맵 파일의 주소를 집어넣음
 	// 맵을 연결해주는건?
 	// Stage의 Enter에서 처리

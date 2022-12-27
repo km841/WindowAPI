@@ -11,6 +11,7 @@ public:
 	friend class EventMgr;
 	friend class SceneMgr;
 	friend class ToolScene;
+	friend class Map;
 
 public:
 	virtual void Initialize();

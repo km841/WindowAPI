@@ -241,7 +241,7 @@ void TownScene::Exit()
 
 	SetCollisionFlag();
 
-	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1, 
+	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON, 
 															GET_INVENTORY_UI, 
 															GET_HP_HUD, 
 															GET_DASH_HUD,

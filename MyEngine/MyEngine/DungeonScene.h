@@ -15,11 +15,14 @@ public:
 	virtual void Destroy();
 
 public:
-	virtual void Enter() = 0;
-	virtual void Exit() = 0;
+	virtual void Enter();
+	virtual void Exit();
+
+	virtual void SetCollisionFlag();
 
 protected:
-	Stage* mStages;
+	Stage* mStages[(UINT)STAGE_TYPE::END];
+	Stage* mCurStage;
 
 	bool mClear;
 };

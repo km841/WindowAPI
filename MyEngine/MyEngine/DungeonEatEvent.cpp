@@ -73,7 +73,7 @@ void DungeonEatEvent::Update()
 			if (!(CameraMgr::GetInstance().IsEffectProgress()))
 			{
 				CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_OUT, 1.5f);
-				EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::DUNGEON1);
+				EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::DUNGEON);
 				SetFixPos(Vec2(0.f, 0.f));
 			}
 		}

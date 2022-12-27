@@ -3,6 +3,8 @@
 
 class GameObject;
 class AI;
+class Map;
+class Stage;
 class EventRegisteror
 	: public Singleton< EventRegisteror >
 {
@@ -14,6 +16,7 @@ public:
 	void ChangeScene(SCENE_TYPE _eType);
 	void ChangeMonsterState(AI* _ai, MONSTER_STATE _eState);
 
+	void TransitionToMap(Stage* _stage, Map* _map);
 	void EnableUI(UI_TYPE _eType);
 	void DisableUI(UI_TYPE _eType);
 

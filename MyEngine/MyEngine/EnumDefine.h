@@ -41,9 +41,7 @@ enum class SCENE_TYPE
 	TOOL,
 	PLAY,
 	TOWN,
-	DUNGEON1,
-	DUNGEON2,
-
+	DUNGEON,
 	END,
 };
 
@@ -106,10 +104,11 @@ enum class EVENT_TYPE
 	DISABLE_HUD,
 	// lParam : No used, wParam : HUD Type
 
-
 	MONSTER_STATE_CHANGE,
 	// lParam : AI Pointer, wParam : Monster State Type
 
+	TRANSITION_TO_MAP,
+	// lParam : Next Map Pointer, wParam : Owner Stage Pointer
 };
 
 enum class RELATION_TYPE

@@ -1,4 +1,6 @@
 #pragma once
+
+class Stage;
 class Map
 {
 public:
@@ -12,14 +14,41 @@ public:
 	virtual void Destroy();
 
 public:
-	virtual void Enter() = 0;
-	virtual void Exit() = 0;
+	virtual void Enter();
+	virtual void Exit();
 
 public:
-	void AddNextMap(Map* _nextMap);
+	void SetMapLink(WARP_POINT _point, Map* _map);
+	Map* GetMapLink(WARP_POINT _point) const { return mLinked[(UINT)_point]; }
+
+	inline Vec2 ExitOnTheDir(WARP_POINT _dir) const { return mEscapesPos[(UINT)_dir]; }
+	inline bool IsPassage(WARP_POINT _dir) const { return mPassages[(UINT)_dir]; }
+
+	inline void SetOwnerStage(Stage* _stage) { mOwner = _stage; }
+	inline Stage* GetOwnerStage() const { return mOwner; }
+
+	inline void FromWhichInitDir(WARP_POINT _dir) { mInitDir = _dir; }
+
+	inline bool IsRegister() const { return mRegister; }
+	inline void SetVisit() { mVisit = true; }
+	inline bool GetVisit() const { return mVisit; }
+
+	void KeepGameObject(OBJECT_TYPE _eType);
+	void GiveBackGameObject(OBJECT_TYPE _eType);
 
 private:
-	Vec2 mWarpPoint[(UINT)WARP_POINT::END];
-	Vec2 mStartingPoint[(UINT)WARP_POINT::END];
+	bool mPassages[(UINT)WARP_POINT::END];
+	Vec2 mEscapesPos[(UINT)WARP_POINT::END];
+	Map* mLinked[(UINT)WARP_POINT::END];
+
+	bool mClear;
+	bool mRegister;
+	bool mVisit;
+	std::wstring mPath;
+
+	Stage* mOwner;
+	WARP_POINT mInitDir;
+
+	std::vector<GameObject*> mMapObjects[(UINT)OBJECT_TYPE::END];
 };
 

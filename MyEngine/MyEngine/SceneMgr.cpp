@@ -35,8 +35,7 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::TOOL] = new ToolScene;
 	mScenes[(UINT)SCENE_TYPE::PLAY] = new PlayScene;
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
-	mScenes[(UINT)SCENE_TYPE::DUNGEON1] = new Dungeon1Scene;
-	mScenes[(UINT)SCENE_TYPE::DUNGEON2] = new Dungeon2Scene;
+	mScenes[(UINT)SCENE_TYPE::DUNGEON] = new DungeonScene;
 
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];
 	

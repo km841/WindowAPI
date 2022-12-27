@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "UIMgr.h"
 #include "AI.h"
+#include "Map.h"
+#include "Stage.h"
 
 void EventMgr::Initialize()
 {
@@ -95,6 +97,15 @@ void EventMgr::Execute(Event _event)
 	{
 		AI* ai = (AI*)_event.lParam;
 		ai->ChangeState((MONSTER_STATE)_event.wParam);
+	}
+	break;
+
+
+	case EVENT_TYPE::TRANSITION_TO_MAP:
+	{
+		Map* map = (Map*)_event.lParam;
+		Stage* stage = (Stage*)_event.wParam;
+		stage->TransitionToMap(map);
 	}
 	break;
 

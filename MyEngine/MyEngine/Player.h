@@ -115,6 +115,8 @@ public:
 
     void EquipItemUpdate();
     void EquipItemRender();
+
+    void AllCollisionExit();
     
 public:
     static Player* GetPlayer() { return mPlayer; }

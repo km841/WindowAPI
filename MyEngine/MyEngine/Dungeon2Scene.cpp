@@ -32,7 +32,7 @@
 
 Dungeon2Scene::Dungeon2Scene()
 {
-	mSceneType = SCENE_TYPE::DUNGEON2;
+	//mSceneType = SCENE_TYPE::DUNGEON2;
 }
 
 Dungeon2Scene::~Dungeon2Scene()
@@ -47,23 +47,23 @@ void Dungeon2Scene::Initialize()
 void Dungeon2Scene::Update()
 {
 
-	Player* player = Player::GetPlayer();
-	Vec2 pos = player->GetPos();
+	//Player* player = Player::GetPlayer();
+	//Vec2 pos = player->GetPos();
 
-	if (pos.x < TILE_SIZE * 1.5f)
-	{
-		EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::DUNGEON1);
-		SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1,
-			GET_INVENTORY_UI,
-			GET_HP_HUD,
-			GET_DASH_HUD,
-			GET_NPCLINE_HUD,
-			GET_EQUIPED_HUD,
-			GET_ITEMGET_HUD,
-			GET_ITEMINFO_HUD,
-			GET_MINIMAP_HUD,
-			Player::GetPlayer());
-	}
+	//if (pos.x < TILE_SIZE * 1.5f)
+	//{
+	//	EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::DUNGEON1);
+	//	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON1,
+	//		GET_INVENTORY_UI,
+	//		GET_HP_HUD,
+	//		GET_DASH_HUD,
+	//		GET_NPCLINE_HUD,
+	//		GET_EQUIPED_HUD,
+	//		GET_ITEMGET_HUD,
+	//		GET_ITEMINFO_HUD,
+	//		GET_MINIMAP_HUD,
+	//		Player::GetPlayer());
+	//}
 
 	DungeonScene::Update();
 }

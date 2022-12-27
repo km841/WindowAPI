@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "EventRegisteror.h"
 #include "EventMgr.h"
+#include "Stage.h"
+#include "Map.h"
 
 void EventRegisteror::CreateObject(GameObject* _obj, OBJECT_TYPE _eType)
 {
@@ -58,6 +60,16 @@ void EventRegisteror::ChangeMonsterState(AI* _ai, MONSTER_STATE _eState)
 	event.eType = EVENT_TYPE::MONSTER_STATE_CHANGE;
 	event.lParam = (DWORD_PTR)_ai;
 	event.wParam = (DWORD_PTR)_eState;
+
+	EventMgr::GetInstance().AddEvent(event);
+}
+
+void EventRegisteror::TransitionToMap(Stage* _stage, Map* _map)
+{
+	Event event = {};
+	event.eType = EVENT_TYPE::TRANSITION_TO_MAP;
+	event.wParam = (DWORD_PTR)_stage;
+	event.lParam = (DWORD_PTR)_map;
 
 	EventMgr::GetInstance().AddEvent(event);
 }

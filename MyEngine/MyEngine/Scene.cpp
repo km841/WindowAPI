@@ -230,8 +230,6 @@ void Scene::Load(const std::wstring& _path)
 		assert(nullptr);
 	}
 
-
-
 	DeleteObjGroup(OBJECT_TYPE::TILE);
 
 	size_t tileSize = 0;
@@ -299,56 +297,56 @@ void Scene::SetupMonster(TOOL_ID _id, Vec2 _pos)
 	{
 		MonsterSpawnEvent<RedGiantBat>* spawnEvent = new MonsterSpawnEvent<RedGiantBat>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_GIANT_BAT:
 	{
 		MonsterSpawnEvent<GiantBat>* spawnEvent = new MonsterSpawnEvent<GiantBat>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_GIANT_SKULL:
 	{
 		MonsterSpawnEvent<GiantSkullWarrior>* spawnEvent = new MonsterSpawnEvent<GiantSkullWarrior>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_BANSHEE:
 	{
 		MonsterSpawnEvent<Banshee>* spawnEvent = new MonsterSpawnEvent<Banshee>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_ICE_GRAY_SKULL:
 	{
 		MonsterSpawnEvent<BigGrayIceSkullWarrior>* spawnEvent = new MonsterSpawnEvent<BigGrayIceSkullWarrior>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_MINOTAUR:
 	{
 		MonsterSpawnEvent<Minotaur>* spawnEvent = new MonsterSpawnEvent<Minotaur>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_ICE_MAGE:
 	{
 		MonsterSpawnEvent<IceMage>* spawnEvent = new MonsterSpawnEvent<IceMage>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_OVIBOS:
 	{
 		MonsterSpawnEvent<Ovibos>* spawnEvent = new MonsterSpawnEvent<Ovibos>;
 		spawnEvent->SetPos(_pos);
-		EventRegisteror::GetInstance().CreateObject(spawnEvent, spawnEvent->GetType());
+		AddGameObject(spawnEvent, spawnEvent->GetType());
 	}
 	break;
 	}
@@ -363,7 +361,7 @@ void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
 		LockedDoor* door = new LockedDoor;
 		door->SetPos(_pos);
 		door->SetAngleType(ANGLE_TYPE::DEGREE_0_TYPE);
-		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+		AddGameObject(door, door->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_DOOR_90DEG:
@@ -371,7 +369,7 @@ void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
 		LockedDoor* door = new LockedDoor;
 		door->SetPos(_pos);
 		door->SetAngleType(ANGLE_TYPE::DEGREE_90_TYPE);
-		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+		AddGameObject(door, door->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_DOOR_180DEG:
@@ -379,7 +377,7 @@ void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
 		LockedDoor* door = new LockedDoor;
 		door->SetPos(_pos);
 		door->SetAngleType(ANGLE_TYPE::DEGREE_180_TYPE);
-		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+		AddGameObject(door, door->GetType());
 	}
 	break;
 	case TOOL_ID::BTN_DOOR_270DEG:
@@ -387,7 +385,7 @@ void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
 		LockedDoor* door = new LockedDoor;
 		door->SetPos(_pos);
 		door->SetAngleType(ANGLE_TYPE::DEGREE_270_TYPE);
-		EventRegisteror::GetInstance().CreateObject(door, door->GetType());
+		AddGameObject(door, door->GetType());
 	}
 	break;
 	}
