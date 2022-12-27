@@ -75,6 +75,7 @@ void Map::Initialize()
 		GiveBackGameObject(OBJECT_TYPE::WALL);
 		GiveBackGameObject(OBJECT_TYPE::FOOTHOLD);
 		GiveBackGameObject(OBJECT_TYPE::DUNGEON_OBJECT);
+		GiveBackGameObject(OBJECT_TYPE::DROP_GOLD);
 	}
 
 	const std::vector<GameObject*>& dunObjVec = 
@@ -89,13 +90,13 @@ void Map::Initialize()
 			mEscapesPos[(UINT)WARP_POINT::BOTTOM] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_90DEG:
-			mEscapesPos[(UINT)WARP_POINT::RIGHT] = dunObjVec[i]->GetPos();
+			mEscapesPos[(UINT)WARP_POINT::LEFT] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_180DEG:
 			mEscapesPos[(UINT)WARP_POINT::TOP] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_270DEG:
-			mEscapesPos[(UINT)WARP_POINT::LEFT] = dunObjVec[i]->GetPos();
+			mEscapesPos[(UINT)WARP_POINT::RIGHT] = dunObjVec[i]->GetPos();
 			break;
 		}
 	}
@@ -138,19 +139,19 @@ void Map::Update()
 					switch ((WARP_POINT)i)
 					{
 					case WARP_POINT::LEFT:
-						nextMap = mLinked[(UINT)WARP_POINT::RIGHT];
-						break;
-
-					case WARP_POINT::RIGHT:
 						nextMap = mLinked[(UINT)WARP_POINT::LEFT];
 						break;
 
+					case WARP_POINT::RIGHT:
+						nextMap = mLinked[(UINT)WARP_POINT::RIGHT];
+						break;
+
 					case WARP_POINT::TOP:
-						nextMap = mLinked[(UINT)WARP_POINT::BOTTOM];
+						nextMap = mLinked[(UINT)WARP_POINT::TOP];
 						break;
 
 					case WARP_POINT::BOTTOM:
-						nextMap = mLinked[(UINT)WARP_POINT::TOP];
+						nextMap = mLinked[(UINT)WARP_POINT::BOTTOM];
 						break;
 
 					}
@@ -234,7 +235,7 @@ void Map::Enter()
 		case WARP_POINT::LEFT:
 		{
 			Vec2 objectPos = mEscapesPos[(UINT)WARP_POINT::RIGHT];
-			objectPos.x += TILE_SIZE;
+			objectPos.x -= TILE_SIZE;
 			Player::GetPlayer()->SetPos(objectPos);
 		}
 			break;
@@ -242,15 +243,15 @@ void Map::Enter()
 		case WARP_POINT::RIGHT:
 		{
 			Vec2 objectPos = mEscapesPos[(UINT)WARP_POINT::LEFT];
-			objectPos.x -= TILE_SIZE;
+			objectPos.x += TILE_SIZE;
 			Player::GetPlayer()->SetPos(objectPos);
 		}
 			break;
-
+			 
 		case WARP_POINT::TOP:
 		{
 			Vec2 objectPos = mEscapesPos[(UINT)WARP_POINT::BOTTOM];
-			objectPos.y += TILE_SIZE;
+			objectPos.y -= TILE_SIZE;
 			Player::GetPlayer()->SetPos(objectPos);
 		}
 			break;
@@ -258,7 +259,7 @@ void Map::Enter()
 		case WARP_POINT::BOTTOM:
 		{
 			Vec2 objectPos = mEscapesPos[(UINT)WARP_POINT::TOP];
-			objectPos.y -= TILE_SIZE;
+			objectPos.y += TILE_SIZE;
 			Player::GetPlayer()->SetPos(objectPos);
 		}
 			break;
@@ -277,6 +278,7 @@ void Map::Exit()
 	KeepGameObject(OBJECT_TYPE::WALL);
 	KeepGameObject(OBJECT_TYPE::FOOTHOLD);
 	KeepGameObject(OBJECT_TYPE::DUNGEON_OBJECT);
+	KeepGameObject(OBJECT_TYPE::DROP_GOLD);
 
 	ShowCursor(true);
 	//curScene->CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);

@@ -16,6 +16,7 @@ void Prison::Initialize()
 	//AddMap(L"..\\Resource\\Map\\dungeon4.map");
 	AddMap(L"..\\Resource\\Map\\start_map_TR.map");
 	AddMap(L"..\\Resource\\Map\\dungeon2_LR.map");
+	AddMap(L"..\\Resource\\Map\\dungeon3_RTB.map");
 
 	mCurMap = GetStartMap();
 	// 재귀적으로 nullptr을 찾아서 조립

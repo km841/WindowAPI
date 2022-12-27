@@ -67,7 +67,8 @@ void Stage::ChainMaps(Map* _map)
 
 	_map->SetVisit();
 
-	if (true == _map->IsPassage(WARP_POINT::LEFT))
+	if (true == _map->IsPassage(WARP_POINT::LEFT) && 
+		nullptr == _map->GetMapLink(WARP_POINT::LEFT))
 	{
 		for (int i = 0; i < mMaps.size(); ++i)
 		{
@@ -84,7 +85,8 @@ void Stage::ChainMaps(Map* _map)
 		}
 	}
 
-	if (true == _map->IsPassage(WARP_POINT::RIGHT))
+	if (true == _map->IsPassage(WARP_POINT::RIGHT) &&
+		nullptr == _map->GetMapLink(WARP_POINT::RIGHT))
 	{
 		for (int i = 0; i < mMaps.size(); ++i)
 		{
@@ -101,7 +103,8 @@ void Stage::ChainMaps(Map* _map)
 		}
 	}
 
-	if (true == _map->IsPassage(WARP_POINT::TOP))
+	if (true == _map->IsPassage(WARP_POINT::TOP) && 
+		nullptr == _map->GetMapLink(WARP_POINT::TOP))
 	{
 		for (int i = 0; i < mMaps.size(); ++i)
 		{
@@ -118,7 +121,8 @@ void Stage::ChainMaps(Map* _map)
 		}
 	}
 
-	if (true == _map->IsPassage(WARP_POINT::BOTTOM))
+	if (true == _map->IsPassage(WARP_POINT::BOTTOM) && 
+		nullptr == _map->GetMapLink(WARP_POINT::BOTTOM))
 	{
 		for (int i = 0; i < mMaps.size(); ++i)
 		{
