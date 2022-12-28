@@ -55,10 +55,9 @@ enum class OBJECT_TYPE
 	TILE_BG,
 	TILE,
 	NPC,
+	DUNGEON_OBJECT,
 	DROP_GOLD,
 	DROP_ITEM,
-	DUNGEON_OBJECT,
-	DUNGEON_DOOR,
 	PARTICLE,
 	EVENT_OBJECT,
 	MONSTER,
@@ -370,6 +369,14 @@ enum class WARP_POINT
 	END,
 };
 
+enum class MAP_TYPE
+{
+	NORMAL,
+	BOSS_SIDE,
+	BOSS,
+	END,
+};
+
 enum class TOOL_ID
 {
 	BTN_RED_GIANT_BAT,
@@ -407,5 +414,12 @@ enum class FONT_TYPE
 	NORMAL,
 	SEMI_BOLD,
 	BOLD,
+	END,
+};
+
+enum class DOOR_STATE
+{
+	OPEN,
+	CLOSE,
 	END,
 };

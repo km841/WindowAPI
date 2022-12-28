@@ -2,8 +2,14 @@
 #include "Stage.h"
 #include "Map.h"
 #include "Player.h"
+#include "BossMap.h"
 
-Stage::Stage()
+Stage::Stage(STAGE_TYPE _type)
+	: mBossSideMap(nullptr)
+	, mBossMap(nullptr)
+	, mCurMap(nullptr)
+	, mStartMap(nullptr)
+	, mStageType(_type)
 {
 }
 
@@ -39,6 +45,20 @@ void Stage::Destroy()
 			mMaps[i] = nullptr;
 		}
 	}
+
+	if (nullptr != mBossSideMap)
+	{
+		mBossSideMap->Destroy();
+		delete mBossSideMap;
+		mBossSideMap = nullptr;
+	}
+
+	if (nullptr != mBossMap)
+	{
+		mBossMap->Destroy();
+		delete mBossMap;
+		mBossMap = nullptr;
+	}
 }
 
 void Stage::TransitionToMap(Map* _map)
@@ -49,7 +69,6 @@ void Stage::TransitionToMap(Map* _map)
 	}
 	
 	mCurMap = _map;
-//	mCurMap->Initialize();
 	mCurMap->Enter();
 }
 
@@ -81,6 +100,7 @@ void Stage::ChainMaps(Map* _map)
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::RIGHT, _map);
 				_map->SetMapLink(WARP_POINT::LEFT, mMaps[i]);
+				break;
 			}
 		}
 	}
@@ -99,6 +119,7 @@ void Stage::ChainMaps(Map* _map)
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::LEFT, _map);
 				_map->SetMapLink(WARP_POINT::RIGHT, mMaps[i]);
+				break;
 			}
 		}
 	}
@@ -117,6 +138,7 @@ void Stage::ChainMaps(Map* _map)
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::BOTTOM, _map);
 				_map->SetMapLink(WARP_POINT::TOP, mMaps[i]);
+				break;
 			}
 		}
 	}
@@ -135,6 +157,7 @@ void Stage::ChainMaps(Map* _map)
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::TOP, _map);
 				_map->SetMapLink(WARP_POINT::BOTTOM, mMaps[i]);
+				break;
 			}
 		}
 	}
@@ -146,5 +169,30 @@ void Stage::ChainMaps(Map* _map)
 		temp = _map->GetMapLink((WARP_POINT)i);
 		if (nullptr != temp)
 			ChainMaps(temp);
+	}
+}
+
+void Stage::SetBossSideMap(Map* _sideMap)
+{
+	mBossSideMap = _sideMap;
+	mBossSideMap->SetMapType(MAP_TYPE::BOSS_SIDE);
+
+	if (nullptr != mBossMap && 
+		nullptr == mBossMap->GetMapLink(WARP_POINT::LEFT))
+	{
+		mBossSideMap->SetMapLink(WARP_POINT::RIGHT, mBossMap);
+		mBossMap->SetMapLink(WARP_POINT::LEFT, mBossSideMap);
+	}
+}
+
+void Stage::SetBossMap(BossMap* _bossMap)
+{
+	mBossMap = _bossMap;
+
+	if (nullptr != mBossSideMap &&
+		nullptr == mBossSideMap->GetMapLink(WARP_POINT::RIGHT))
+	{
+		mBossSideMap->SetMapLink(WARP_POINT::RIGHT, mBossMap);
+		mBossMap->SetMapLink(WARP_POINT::LEFT, mBossSideMap);
 	}
 }

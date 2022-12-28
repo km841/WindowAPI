@@ -24,6 +24,7 @@ DungeonScene::DungeonScene()
 	: mClear(false)
 	, mCurStage(nullptr)
 {
+	mSceneType = SCENE_TYPE::DUNGEON;
 }
 
 DungeonScene::~DungeonScene()

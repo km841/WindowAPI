@@ -12,7 +12,7 @@ BelialRoomGate::BelialRoomGate()
 	mToolID = TOOL_ID::BTN_BELIAL_DOOR;
 	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"BelialDoorTex", L"Texture\\BelialDoorAnim.bmp");
 	GetAnimator()->RegisterAnimation(
-		L"BelialDoorAnim",
+		L"BelialDoorOpenAnim",
 		tex,
 		Vec2(0, 0),
 		Vec2(171, 195),
@@ -21,7 +21,17 @@ BelialRoomGate::BelialRoomGate()
 		10
 	);
 
-	GetAnimator()->SelectAnimation(L"BelialDoorAnim", false);
+	GetAnimator()->RegisterAnimation(
+		L"BelialDoorCloseAnim",
+		tex,
+		Vec2(0, 195),
+		Vec2(171, 195),
+		Vec2(171, 0),
+		0.1f,
+		10
+	);
+
+	GetAnimator()->SelectAnimation(L"BelialDoorOpenAnim", false);
 }
 
 BelialRoomGate::~BelialRoomGate()
@@ -35,6 +45,19 @@ void BelialRoomGate::Initialize()
 
 void BelialRoomGate::Update()
 {
+	if (mState != mPrevState)
+	{
+		switch (mState)
+		{
+		case DOOR_STATE::OPEN:
+			GetAnimator()->SelectAnimation(L"BelialDoorOpenAnim", false);
+			break;
+
+		case DOOR_STATE::CLOSE:
+			GetAnimator()->SelectAnimation(L"BelialDoorCloseAnim", false);
+			break;
+		}
+	}
 	BossRoomGate::Update();
 }
 

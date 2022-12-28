@@ -148,9 +148,11 @@
     <ClInclude Include="BansheeBullet.h" />
     <ClInclude Include="BansheeMissileEffect.h" />
     <ClInclude Include="BatBullet.h" />
+    <ClInclude Include="BelialBossMap.h" />
     <ClInclude Include="BelialRoomGate.h" />
     <ClInclude Include="BigGrayIceSkullWarrior.h" />
     <ClInclude Include="BlackSmithNPC.h" />
+    <ClInclude Include="BossMap.h" />
     <ClInclude Include="BossRoomGate.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
@@ -276,9 +278,11 @@
     <ClCompile Include="BansheeBullet.cpp" />
     <ClCompile Include="BansheeMissileEffect.cpp" />
     <ClCompile Include="BatBullet.cpp" />
+    <ClCompile Include="BelialBossMap.cpp" />
     <ClCompile Include="BelialRoomGate.cpp" />
     <ClCompile Include="BigGrayIceSkullWarrior.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
+    <ClCompile Include="BossMap.cpp" />
     <ClCompile Include="BossRoomGate.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />

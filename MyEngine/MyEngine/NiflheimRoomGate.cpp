@@ -12,7 +12,7 @@ NiflheimRoomGate::NiflheimRoomGate()
 	mToolID = TOOL_ID::BTN_NIFLHEIM_DOOR;
 	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"NiflheimDoorTex", L"Texture\\NiflheimDoorAnim.bmp");
 	GetAnimator()->RegisterAnimation(
-		L"NiflheimDoorAnim",
+		L"NiflheimDoorOpenAnim",
 		tex,
 		Vec2(0, 0),
 		Vec2(171, 195),
@@ -21,7 +21,17 @@ NiflheimRoomGate::NiflheimRoomGate()
 		10
 	);
 
-	GetAnimator()->SelectAnimation(L"NiflheimDoorAnim", false);
+	GetAnimator()->RegisterAnimation(
+		L"NiflheimDoorCloseAnim",
+		tex,
+		Vec2(0, 195),
+		Vec2(171, 195),
+		Vec2(171, 0),
+		0.1f,
+		10
+	);
+
+	GetAnimator()->SelectAnimation(L"NiflheimDoorOpenAnim", false);
 }
 
 NiflheimRoomGate::~NiflheimRoomGate()
@@ -35,6 +45,21 @@ void NiflheimRoomGate::Initialize()
 
 void NiflheimRoomGate::Update()
 {
+	
+	if (mState != mPrevState)
+	{
+		switch (mState)
+		{
+		case DOOR_STATE::OPEN:
+			GetAnimator()->SelectAnimation(L"NiflheimDoorOpenAnim", false);
+			break;
+
+		case DOOR_STATE::CLOSE:
+			GetAnimator()->SelectAnimation(L"NiflheimDoorCloseAnim", false);
+			break;
+		}
+	}
+
 	BossRoomGate::Update();
 }
 

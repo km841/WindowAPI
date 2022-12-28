@@ -8,6 +8,7 @@
 #include "CameraMgr.h"
 #include "EventRegisteror.h"
 #include "Stage.h"
+#include "BossRoomGate.h"
 
 Map::Map(const std::wstring& _path)
 	: mInitDir(WARP_POINT::END)
@@ -15,10 +16,12 @@ Map::Map(const std::wstring& _path)
 	, mClear(false)
 	, mVisit(false)
 	, mPath(_path)
+	, mAllowable(70.f)
 {
 	// 방향에 대한 정보
 	// 그래프를 이용하는 방법
 	// 4번째 방에 보스 방이 위치하도록 함
+	mMapType = MAP_TYPE::NORMAL;
 
 	size_t index = mPath.rfind(L'.');
 
@@ -98,6 +101,16 @@ void Map::Initialize()
 		case TOOL_ID::BTN_DOOR_270DEG:
 			mEscapesPos[(UINT)WARP_POINT::RIGHT] = dunObjVec[i]->GetPos();
 			break;
+
+		case TOOL_ID::BTN_BELIAL_DOOR:
+		case TOOL_ID::BTN_NIFLHEIM_DOOR:
+		{
+			if (MAP_TYPE::BOSS_SIDE == mMapType)
+			{
+				static_cast<BossRoomGate*>(dunObjVec[i])->SetDoorState(DOOR_STATE::CLOSE);
+			}
+		}
+			break;
 		}
 	}
 }
@@ -115,7 +128,15 @@ void Map::Update()
 	{
 		for (int i = 0; i < dunObjVec.size(); ++i)
 		{
-			static_cast<LockedDoor*>(dunObjVec[i])->SetClearFlag(true);
+			switch (dunObjVec[i]->GetToolID())
+			{
+			case TOOL_ID::BTN_DOOR_0DEG:
+			case TOOL_ID::BTN_DOOR_90DEG:
+			case TOOL_ID::BTN_DOOR_180DEG:
+			case TOOL_ID::BTN_DOOR_270DEG:
+				static_cast<LockedDoor*>(dunObjVec[i])->SetClearFlag(true);
+				break;
+			}
 		}
 
 		mClear = true;
@@ -133,7 +154,7 @@ void Map::Update()
 			for (int i = 0; i < (UINT)WARP_POINT::END; ++i)
 			{
 				float distance = (playerPos - mEscapesPos[i]).Len();
-				if (distance < 70.f)
+				if (distance < mAllowable)
 				{
 					Map* nextMap = nullptr;
 					switch ((WARP_POINT)i)
@@ -218,13 +239,42 @@ void Map::Enter()
 
 	if (WARP_POINT::END == mInitDir)
 	{
+
 		Player* player = Player::GetPlayer();
 
 		if (nullptr != player)
 		{
-			player->SetPos(mOwner->GetInitPlayerPos());
-			player->SetStop(false);
-			player->Initialize();
+			switch (mMapType)
+			{
+			case MAP_TYPE::NORMAL:
+			{
+
+				player->SetPos(mOwner->GetInitPlayerPos());
+				player->SetStop(false);
+				player->Initialize();
+
+			}
+			break;
+
+
+			case MAP_TYPE::BOSS_SIDE:
+			{
+				std::vector<GameObject*>& dungeonObjVec = 
+					SceneMgr::GetInstance().GetCurScene()->mObjects[(UINT)OBJECT_TYPE::DUNGEON_OBJECT];
+
+				for (int i = 0; i < dungeonObjVec.size(); ++i)
+				{
+					if (TOOL_ID::BTN_BELIAL_DOOR == dungeonObjVec[i]->GetToolID() ||
+						TOOL_ID::BTN_NIFLHEIM_DOOR == dungeonObjVec[i]->GetToolID())
+					{
+						player->SetPos(dungeonObjVec[i]->GetPos());
+						break;
+					}
+				}
+			}
+
+			break;
+			}
 		}
 	}
 

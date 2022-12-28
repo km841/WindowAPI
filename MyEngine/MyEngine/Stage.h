@@ -1,9 +1,10 @@
 #pragma once
 class Map;
+class BossMap;
 class Stage
 {
 public:
-	Stage();
+	Stage(STAGE_TYPE _type);
 	virtual ~Stage();
 
 public:
@@ -25,16 +26,27 @@ public:
 	inline Map* GetStartMap() const { return mMaps[0]; }
 
 	void ChainMaps(Map* _map);
+	inline STAGE_TYPE GetStageType() const { return mStageType; }
+
+	inline Map* GetBossSideMap() const { return mBossSideMap; }
+	void SetBossSideMap(Map* _sideMap);
+	void SetBossMap(BossMap* _bossMap);
 
 private:
-	STAGE_TYPE mType;
+	STAGE_TYPE mStageType;
 	std::vector<Map*> mMaps;
+	
 	
 
 protected:
 	Map* mCurMap;
 	Map* mStartMap;
+
+	Map* mBossSideMap;
+	BossMap* mBossMap;
+
 	Vec2 mInitPlayerPos;
+	//Vec2 mBossSideMapPos;
 	// 맵을 집어넣을 때 맵 파일의 주소를 집어넣음
 	// 맵을 연결해주는건?
 	// Stage의 Enter에서 처리

@@ -1,6 +1,7 @@
 #pragma once
 
 class Stage;
+class GameObject;
 class Map
 {
 public:
@@ -36,7 +37,12 @@ public:
 	void KeepGameObject(OBJECT_TYPE _eType);
 	void GiveBackGameObject(OBJECT_TYPE _eType);
 
+	inline void SetMapType(MAP_TYPE _type) { mMapType = _type; }
+	inline MAP_TYPE GetMapType() const { return mMapType; }
+
 private:
+	MAP_TYPE mMapType;
+
 	bool mPassages[(UINT)WARP_POINT::END];
 	Vec2 mEscapesPos[(UINT)WARP_POINT::END];
 	Map* mLinked[(UINT)WARP_POINT::END];
@@ -46,8 +52,11 @@ private:
 	bool mVisit;
 	std::wstring mPath;
 
+	float mAllowable;
+
 	Stage* mOwner;
 	WARP_POINT mInitDir;
+
 
 	std::vector<GameObject*> mMapObjects[(UINT)OBJECT_TYPE::END];
 };

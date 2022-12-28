@@ -473,6 +473,15 @@
     <Filter Include="Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate">
       <UniqueIdentifier>{1491b918-3c8b-4b68-9581-ef6760dd10a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap">
+      <UniqueIdentifier>{064cc98b-2173-4f16-96b4-b030f83584f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap\Base">
+      <UniqueIdentifier>{76eb96ee-e486-42d9-b9e2-44594e656cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap">
+      <UniqueIdentifier>{f0762b0b-20ba-4d98-aaed-df732a7af96b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -852,6 +861,12 @@
     </ClInclude>
     <ClInclude Include="NiflheimRoomGate.h">
       <Filter>Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMap.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialBossMap.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1236,6 +1251,12 @@
     </ClCompile>
     <ClCompile Include="NiflheimRoomGate.cpp">
       <Filter>Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMap.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialBossMap.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

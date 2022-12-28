@@ -6,10 +6,19 @@
 #include "ResourceMgr.h"
 #include "CameraMgr.h"
 #include "Animation.h"
+#include "KeyMgr.h"
+#include "SceneMgr.h"
+#include "Stage.h"
+#include "DungeonScene.h"
+#include "EventRegisteror.h"
+#include "Map.h"
 
 BossRoomGate::BossRoomGate()
+	:mState(DOOR_STATE::OPEN)
+	,mPrevState(DOOR_STATE::OPEN)
+	,mCollision(false)
 {
-	SetType(OBJECT_TYPE::DUNGEON_DOOR);
+	SetType(OBJECT_TYPE::DUNGEON_OBJECT);
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
@@ -45,36 +54,59 @@ void BossRoomGate::Update()
 			anim->SetFrameFix(true);
 		}
 	}
+
+	if (mCollision && (DOOR_STATE::OPEN == mState))
+	{
+		if (IS_JUST_PRESSED(KEY::F))
+		{
+			// Side Room ÀÌµ¿
+			Scene* scene = SceneMgr::GetInstance().GetCurScene();
+			if (SCENE_TYPE::DUNGEON == scene->GetSceneType())
+			{
+				Stage* curStage = static_cast<DungeonScene*>(scene)->GetCurStage();
+				Map* sideMap = curStage->GetBossSideMap();
+
+				if (nullptr != curStage && nullptr != sideMap)
+				{
+					EventRegisteror::GetInstance().TransitionToMap(curStage, sideMap);
+				}
+			}
+		}
+	}
+
+	mPrevState = mState;
 }
 
 void BossRoomGate::Render()
 {
 	GameObject::Render();
 
-	if (nullptr != mKeyTex &&
-		true == mCollision)
+
+	if (DOOR_STATE::OPEN == mState)
 	{
-		Vec2 fKeyPos = GetPos();
-		fKeyPos.y -= 110.f;
+		if (nullptr != mKeyTex &&
+			true == mCollision)
+		{
+			Vec2 fKeyPos = GetPos();
+			fKeyPos.y -= 110.f;
 
-		fKeyPos = RENDER_POS(fKeyPos);
-		Vec2 textureSize = mKeyTex->GetSize();
+			fKeyPos = RENDER_POS(fKeyPos);
+			Vec2 textureSize = mKeyTex->GetSize();
 
-		TransparentBlt(
-			BACK_BUF_DC,
-			(int)(fKeyPos.x - ((textureSize.x * TIMES) / 2.f)),
-			(int)(fKeyPos.y - ((textureSize.y * TIMES) / 2.f)),
-			(int)(textureSize.x * TIMES),
-			(int)(textureSize.y * TIMES),
-			mKeyTex->GetDC(),
-			0, 0,
-			(int)textureSize.x,
-			(int)textureSize.y,
-			RGB(255, 0, 255)
-		);
+			TransparentBlt(
+				BACK_BUF_DC,
+				(int)(fKeyPos.x - ((textureSize.x * TIMES) / 2.f)),
+				(int)(fKeyPos.y - ((textureSize.y * TIMES) / 2.f)),
+				(int)(textureSize.x * TIMES),
+				(int)(textureSize.y * TIMES),
+				mKeyTex->GetDC(),
+				0, 0,
+				(int)textureSize.x,
+				(int)textureSize.y,
+				RGB(255, 0, 255)
+			);
+		}
 	}
-
-
 }
 
 void BossRoomGate::Destroy()

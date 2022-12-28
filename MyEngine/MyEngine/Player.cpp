@@ -35,6 +35,7 @@
 #include "MonsterBullet.h"
 #include "ItemGetHUD.h"
 #include "CollisionMgr.h"
+#include "LockedDoor.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -619,7 +620,10 @@ void Player::GroundStateUpdate()
 
 		if (OBJECT_TYPE::DUNGEON_OBJECT == relations[i].mOther->GetType())
 		{
-			isGround = true;
+			if (TOOL_ID::BTN_DOOR_0DEG == relations[i].mOther->GetToolID())
+			{
+				isGround = true;
+			}
 		}
 	}
 

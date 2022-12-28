@@ -167,38 +167,46 @@ void MinimapHUD::DungeonObjectRender(RECT _limitSize)
 		Vec2 dungeonObjPos = dungeonObj->GetPos();
 		Vec2 minimapPos = pos + GetMinimapPos(_limitSize, dungeonObjPos);
 
-		ANGLE_TYPE angleType = static_cast<LockedDoor*>(dungeonObj)->GetAngleType();
-
-		Brush brush(BACK_BUF_DC, BRUSH_TYPE::GREEN);
-		Pen pen(BACK_BUF_DC, PEN_TYPE::NULL_COLOR);
-
-		switch (angleType)
+		if (TOOL_ID::BTN_DOOR_0DEG == dungeonObj->GetToolID() ||
+			TOOL_ID::BTN_DOOR_90DEG == dungeonObj->GetToolID() ||
+			TOOL_ID::BTN_DOOR_180DEG == dungeonObj->GetToolID() ||
+			TOOL_ID::BTN_DOOR_270DEG == dungeonObj->GetToolID())
 		{
-		case ANGLE_TYPE::DEGREE_0_TYPE:
-			Rectangle(BACK_BUF_DC,
-				(int)(minimapPos.x - 6),
-				(int)(minimapPos.y + 3),
-				(int)(minimapPos.x + 23),
-				(int)(minimapPos.y + 14));
-			break;
+			ANGLE_TYPE angleType = static_cast<LockedDoor*>(dungeonObj)->GetAngleType();
 
-		case ANGLE_TYPE::DEGREE_90_TYPE:
-			Rectangle(BACK_BUF_DC,
-				(int)(minimapPos.x - 6),
-				(int)(minimapPos.y - 9),
-				(int)(minimapPos.x + 8),
-				(int)(minimapPos.y + 23));
-			break;
+			Brush brush(BACK_BUF_DC, BRUSH_TYPE::GREEN);
+			Pen pen(BACK_BUF_DC, PEN_TYPE::NULL_COLOR);
 
-		case ANGLE_TYPE::DEGREE_270_TYPE:
-			Rectangle(BACK_BUF_DC,
-				(int)(minimapPos.x - 6),
-				(int)(minimapPos.y - 9),
-				(int)(minimapPos.x + 8),
-				(int)(minimapPos.y + 23));
-			break;
+			switch (angleType)
+			{
+			case ANGLE_TYPE::DEGREE_0_TYPE:
+				Rectangle(BACK_BUF_DC,
+					(int)(minimapPos.x - 6),
+					(int)(minimapPos.y + 3),
+					(int)(minimapPos.x + 23),
+					(int)(minimapPos.y + 14));
+				break;
 
+			case ANGLE_TYPE::DEGREE_90_TYPE:
+				Rectangle(BACK_BUF_DC,
+					(int)(minimapPos.x - 6),
+					(int)(minimapPos.y - 9),
+					(int)(minimapPos.x + 8),
+					(int)(minimapPos.y + 23));
+				break;
+
+			case ANGLE_TYPE::DEGREE_270_TYPE:
+				Rectangle(BACK_BUF_DC,
+					(int)(minimapPos.x - 6),
+					(int)(minimapPos.y - 9),
+					(int)(minimapPos.x + 8),
+					(int)(minimapPos.y + 23));
+				break;
+
+			}
 		}
+
+
 
 	}
 }
