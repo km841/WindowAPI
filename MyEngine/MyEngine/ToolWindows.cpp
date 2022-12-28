@@ -43,10 +43,13 @@ void ToolWindows::Initialize()
 
 	CreateText(L"■ 던전 오브젝트 선택", Vec2(15, 370), Vec2(240, 20), FONT_TYPE::SEMI_BOLD);
 	CreateButton(TOOL_ID::BTN_DOOR_0DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 420), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_900Deg.bmp", Vec2(108, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_90Deg.bmp", Vec2(108, 420), Vec2(64, 64));
 	CreateButton(TOOL_ID::BTN_DOOR_270DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_270Deg.bmp", Vec2(192, 420), Vec2(64, 64));
 	CreateButton(TOOL_ID::BTN_DOOR_180DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 504), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_BELIAL_DOOR, L"..\\Resource\\Texture\\Btn_BelialDoor.bmp", Vec2(108, 504), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_NIFLHEIM_DOOR, L"..\\Resource\\Texture\\Btn_NiflheimDoor.bmp", Vec2(192, 504), Vec2(64, 64));
 
+	CreateText(L"■ 단축키", Vec2(15, 620), Vec2(240, 20), FONT_TYPE::SEMI_BOLD);
 	CreateText(L"> 다음 타일 페이지 (Page Up)", Vec2(15, 650), Vec2(240, 20), FONT_TYPE::NORMAL, false);
 	CreateText(L"> 이전 타일 페이지 (Page Down)", Vec2(15, 670), Vec2(300, 20), FONT_TYPE::NORMAL, false);
 	CreateText(L"> 선택 해제 (우클릭)", Vec2(15, 690), Vec2(240, 20), FONT_TYPE::NORMAL, false);
@@ -166,7 +169,6 @@ void ToolWindows::CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size, F
 		SendMessage(hwnd, WM_SETFONT, (WPARAM)(mBoldFont), 0);
 		break;
 	}
-	
 }
 
 TOOL_ID ToolWindows::GetSelectedID() const

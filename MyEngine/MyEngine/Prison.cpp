@@ -47,4 +47,5 @@ void Prison::Enter()
 
 void Prison::Exit()
 {
+	// 스테이지 정리
 }

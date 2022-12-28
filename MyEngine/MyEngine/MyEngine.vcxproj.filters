@@ -112,9 +112,6 @@
     <Filter Include="Engine\Scene\DungeonScene">
       <UniqueIdentifier>{2bb4b51e-a286-459c-9278-a53092b56d05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\DungeonScene\Dungeon1">
-      <UniqueIdentifier>{0e2ca030-778a-49d9-91a7-680756b8b57f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\RigidBody">
       <UniqueIdentifier>{956697ff-14a1-4924-92b6-c8e42b393ce9}</UniqueIdentifier>
     </Filter>
@@ -380,9 +377,6 @@
     <Filter Include="Engine\GameObject\MapComponent\Particle">
       <UniqueIdentifier>{3b39ce53-91cf-425d-a604-302e76200748}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\DungeonScene\Dungeon2">
-      <UniqueIdentifier>{607a3188-735b-43f3-92ec-75a55219155f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene\DungeonScene\Base">
       <UniqueIdentifier>{49b8fd2c-01cc-4721-a542-a4d9e507a35f}</UniqueIdentifier>
     </Filter>
@@ -466,6 +460,18 @@
     </Filter>
     <Filter Include="Engine\Scene\DungeonScene\Stage\Prison">
       <UniqueIdentifier>{066b76ec-18e1-43bc-9e00-9d8d2435aa3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\BossRoomGate">
+      <UniqueIdentifier>{4407ed41-dc86-46fc-927f-8562df806b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\BossRoomGate\Base">
+      <UniqueIdentifier>{5e990035-4d70-4a81-98b9-c3c0e2dbe763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\BossRoomGate\BelialRoomGate">
+      <UniqueIdentifier>{eaff18b7-21ce-4d01-b45f-32d886ec6e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate">
+      <UniqueIdentifier>{1491b918-3c8b-4b68-9581-ef6760dd10a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -573,9 +579,6 @@
     </ClInclude>
     <ClInclude Include="UserFollowingBg.h">
       <Filter>Engine\GameObject\MapComponent\Background\UserFollowBg</Filter>
-    </ClInclude>
-    <ClInclude Include="Dungeon1Scene.h">
-      <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
       <Filter>Engine\Component\RigidBody</Filter>
@@ -766,9 +769,6 @@
     <ClInclude Include="Particle.h">
       <Filter>Engine\GameObject\MapComponent\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Dungeon2Scene.h">
-      <Filter>Engine\Scene\DungeonScene\Dungeon2</Filter>
-    </ClInclude>
     <ClInclude Include="DungeonScene.h">
       <Filter>Engine\Scene\DungeonScene\Base</Filter>
     </ClInclude>
@@ -843,6 +843,15 @@
     </ClInclude>
     <ClInclude Include="ToolWindows.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="BossRoomGate.h">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialRoomGate.h">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\BelialRoomGate</Filter>
+    </ClInclude>
+    <ClInclude Include="NiflheimRoomGate.h">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -954,9 +963,6 @@
     </ClCompile>
     <ClCompile Include="UserFollowingBg.cpp">
       <Filter>Engine\GameObject\MapComponent\Background\UserFollowBg</Filter>
-    </ClCompile>
-    <ClCompile Include="Dungeon1Scene.cpp">
-      <Filter>Engine\Scene\DungeonScene\Dungeon1</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
       <Filter>Engine\Component\RigidBody</Filter>
@@ -1147,9 +1153,6 @@
     <ClCompile Include="Application.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Dungeon2Scene.cpp">
-      <Filter>Engine\Scene\DungeonScene\Dungeon2</Filter>
-    </ClCompile>
     <ClCompile Include="DungeonScene.cpp">
       <Filter>Engine\Scene\DungeonScene\Base</Filter>
     </ClCompile>
@@ -1224,6 +1227,15 @@
     </ClCompile>
     <ClCompile Include="ToolWindows.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="BossRoomGate.cpp">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialRoomGate.cpp">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\BelialRoomGate</Filter>
+    </ClCompile>
+    <ClCompile Include="NiflheimRoomGate.cpp">
+      <Filter>Engine\GameObject\MapComponent\BossRoomGate\NiflheimRoomGate</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

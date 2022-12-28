@@ -116,11 +116,16 @@ void ToolScene::Update()
 						pos.x += TILE_OFFSET;
 						pos.y += TILE_SIZE * 2.f;
 						break;
+
+					case TOOL_ID::BTN_BELIAL_DOOR:
+					case TOOL_ID::BTN_NIFLHEIM_DOOR:
+						pos.y += TILE_SIZE;
+						pos.x += TILE_SIZE * 2.f;
+						break;
 					}
 
 					SetupDungeonObject(mCurToolID, pos);
 				}
-				
 			}
 
 
@@ -240,6 +245,12 @@ void ToolScene::Render()
 		break;
 	case TOOL_ID::BTN_DOOR_270DEG:
 		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_270DEG_SAMPLE", L"Texture\\Btn_LockedDoor_270Deg.bmp");
+		break;
+	case TOOL_ID::BTN_BELIAL_DOOR:
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_BELIAL", L"Texture\\Btn_BelialDoor.bmp");
+		break;
+	case TOOL_ID::BTN_NIFLHEIM_DOOR:
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_NIFLHEIM", L"Texture\\Btn_NiflheimDoor.bmp");
 		break;
 	}
 

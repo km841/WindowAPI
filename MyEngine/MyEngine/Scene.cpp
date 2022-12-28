@@ -18,6 +18,8 @@
 #include "CameraMgr.h"
 #include "MouseMgr.h"
 #include "LockedDoor.h"
+#include "BelialRoomGate.h"
+#include "NiflheimRoomGate.h"
 
 Scene::Scene()
 	: mOFN{}
@@ -388,5 +390,21 @@ void Scene::SetupDungeonObject(TOOL_ID _id, Vec2 _pos)
 		AddGameObject(door, door->GetType());
 	}
 	break;
+	case TOOL_ID::BTN_BELIAL_DOOR:
+	{
+		BelialRoomGate* door = new BelialRoomGate;
+		door->SetPos(_pos);
+		AddGameObject(door, door->GetType());
+	}
+	break;
+	case TOOL_ID::BTN_NIFLHEIM_DOOR:
+	{
+		NiflheimRoomGate* door = new NiflheimRoomGate;
+		door->SetPos(_pos);
+		AddGameObject(door, door->GetType());
+	}
+	break;
+
+
 	}
 }

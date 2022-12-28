@@ -337,7 +337,7 @@ void Foothold::OnCollisionEnter(Collider* _other)
 			if (LINE_TYPE::FLAT == collider->GetLineType() ||
 				LINE_TYPE::FLAT_WALL == collider->GetLineType())
 			{
-				//if (mPlayerAbobeMe)
+				if (mPlayerAbobeMe)
 					player->InGround();
 			}
 			else

@@ -47,7 +47,7 @@ void Stage::TransitionToMap(Map* _map)
 	{
 		mCurMap->Exit();
 	}
-
+	
 	mCurMap = _map;
 //	mCurMap->Initialize();
 	mCurMap->Enter();
