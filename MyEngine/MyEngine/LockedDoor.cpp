@@ -119,7 +119,7 @@ void LockedDoor::Update()
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
 
-				mDir = Vec2(1, 0);
+				mDir = Vec2(-1, 0);
 			}
 		}
 			break;
@@ -131,7 +131,7 @@ void LockedDoor::Update()
 				Vec2 size = GetAnimator()->GetCurAnimation()->GetAnimInfo()[0].mSlice;
 				GetCollider()->SetSize(size);
 
-				mDir = Vec2(-1, 0);
+				mDir = Vec2(1, 0);
 			}
 		}
 			break;

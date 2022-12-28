@@ -17,6 +17,7 @@ enum class PEN_TYPE
 enum class BRUSH_TYPE
 {
 	HOLLOW,
+	DUNGEON_BLACK,
 	BLACK,
 	WHITE,
 	YELLOW,

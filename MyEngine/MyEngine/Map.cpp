@@ -93,13 +93,13 @@ void Map::Initialize()
 			mEscapesPos[(UINT)WARP_POINT::BOTTOM] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_90DEG:
-			mEscapesPos[(UINT)WARP_POINT::LEFT] = dunObjVec[i]->GetPos();
+			mEscapesPos[(UINT)WARP_POINT::RIGHT] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_180DEG:
 			mEscapesPos[(UINT)WARP_POINT::TOP] = dunObjVec[i]->GetPos();
 			break;
 		case TOOL_ID::BTN_DOOR_270DEG:
-			mEscapesPos[(UINT)WARP_POINT::RIGHT] = dunObjVec[i]->GetPos();
+			mEscapesPos[(UINT)WARP_POINT::LEFT] = dunObjVec[i]->GetPos();
 			break;
 
 		case TOOL_ID::BTN_BELIAL_DOOR:
@@ -222,20 +222,33 @@ void Map::Enter()
 	const std::vector<GameObject*>& dunObjVec =
 		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::TILE);
 
-	int btmMax = (int)-21e8;
-	int rightMax = (int)-21e8;
+	int widthMin = (int)21e8;
+	int heightMin = (int)21e8;
+
+	int widthMax = (int)-21e8;
+	int heightMax = (int)-21e8;
 
 	for (int i = 0; i < dunObjVec.size(); ++i)
 	{
 		Vec2 pos = dunObjVec[i]->GetPos();
-		if (btmMax < pos.y)
-			btmMax = (int)pos.y;
+		if (heightMax < pos.y)
+			heightMax = (int)pos.y;
 
-		if (rightMax < pos.x)
-			rightMax = (int)pos.x;
+		if (heightMin > pos.y)
+			heightMin = (int)pos.y;
+
+		if (widthMax < pos.x)
+			widthMax = (int)pos.x;
+
+		if (widthMin > pos.x)
+			widthMin = (int)pos.x;
 	}
 
-	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, rightMax + TILE_SIZE, btmMax + TILE_SIZE });
+	CameraMgr::GetInstance().SetCameraLimitRect({ 
+		widthMin - TILE_SIZE,
+		heightMin - TILE_SIZE, 
+		widthMax + TILE_SIZE, 
+		heightMax + TILE_SIZE });
 
 	if (WARP_POINT::END == mInitDir)
 	{

@@ -35,8 +35,11 @@ void BossMap::Enter()
 {
 	// 카메라 포커싱
 	// 보스 몬스터 소환
+
+	Map::Enter();
 }
 
 void BossMap::Exit()
 {
+	Map::Exit();
 }

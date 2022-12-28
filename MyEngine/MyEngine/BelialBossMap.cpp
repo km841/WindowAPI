@@ -34,9 +34,10 @@ void BelialBossMap::Enter()
 {
 	// 보스 몬스터 소환
 	// 카메라 시점 변환
-
+	BossMap::Enter();
 }
 
 void BelialBossMap::Exit()
 {
+	BossMap::Exit();
 }

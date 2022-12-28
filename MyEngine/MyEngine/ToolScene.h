@@ -22,8 +22,7 @@ public:
 	virtual void Exit();
 public:
 	void RemoveTile(Vec2 _pos);
-	//IconUI* CutTile(UI* _parentUI, Vec2 _ltPos, Vec2 _slice);
-	//void    CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount);
+	void RemoveObject(Vec2 _pos);
 
 public:
 	inline void SetObjectType(OBJECT_TYPE _objType) { mCheckedObjectType = _objType; }

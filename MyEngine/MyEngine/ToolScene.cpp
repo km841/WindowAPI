@@ -132,9 +132,10 @@ void ToolScene::Update()
 		}
 	}
 
-	if (IS_RBUTTON_CLICKED)
+	if (IS_JUST_RBUTTON_CLICKED)
 	{
 		RemoveTile(tilePos);
+		RemoveObject(tilePos);
 		TOOL_INSTANCE.AllButtonRelease();
 	}
 	
@@ -394,6 +395,45 @@ void ToolScene::RemoveTile(Vec2 _pos)
 				EventRegisteror::GetInstance().DeleteObjectFromScene(colCom);
 			}
 			EventRegisteror::GetInstance().DeleteObject(tile);
+			break;
+		}
+	}
+}
+
+void ToolScene::RemoveObject(Vec2 _pos)
+{
+	std::vector<GameObject*>& monsterGroup = mObjects[(UINT)OBJECT_TYPE::MONSTER];
+	std::vector<GameObject*>& dungeonObjGroup = mObjects[(UINT)OBJECT_TYPE::DUNGEON_OBJECT];
+
+	for (int i = 0; i < monsterGroup.size(); ++i)
+	{
+		Vec2 objPos = CameraMgr::GetInstance().GetTileCoord(monsterGroup[i]->GetPos());
+		if (objPos == _pos)
+		{
+			EventRegisteror::GetInstance().DeleteObject(monsterGroup[i]);
+			break;
+		}
+	}
+
+	for (int i = 0; i < dungeonObjGroup.size(); ++i)
+	{
+		Vec2 objPos = CameraMgr::GetInstance().GetTileCoord(dungeonObjGroup[i]->GetPos());
+		switch (dungeonObjGroup[i]->GetToolID())
+		{
+		case TOOL_ID::BTN_DOOR_0DEG:
+		case TOOL_ID::BTN_DOOR_180DEG:
+			objPos.x -= TILE_SIZE * 2;
+			break;
+
+		case TOOL_ID::BTN_DOOR_90DEG:
+		case TOOL_ID::BTN_DOOR_270DEG:
+			objPos.y -= TILE_SIZE * 2;
+			break;
+		}
+
+		if (_pos == objPos)
+		{
+			EventRegisteror::GetInstance().DeleteObject(dungeonObjGroup[i]);
 			break;
 		}
 	}

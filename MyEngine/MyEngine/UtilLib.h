@@ -95,6 +95,7 @@ struct WindowGDI
 		// Brush Initialize
 		hBrushes[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::BLACK] = (HBRUSH)GetStockObject(BLACK_BRUSH);
+		hBrushes[(UINT)BRUSH_TYPE::DUNGEON_BLACK] = CreateSolidBrush(RGB(51, 49, 67));
 		hBrushes[(UINT)BRUSH_TYPE::WHITE] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::GRAY] = (HBRUSH)GetStockObject(GRAY_BRUSH);
 		hBrushes[(UINT)BRUSH_TYPE::MAGENTA] = CreateSolidBrush(RGB(255, 0, 255));

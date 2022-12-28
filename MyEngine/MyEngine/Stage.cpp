@@ -174,7 +174,9 @@ void Stage::ChainMaps(Map* _map)
 
 void Stage::SetBossSideMap(Map* _sideMap)
 {
+	
 	mBossSideMap = _sideMap;
+	mBossSideMap->SetOwnerStage(this);
 	mBossSideMap->SetMapType(MAP_TYPE::BOSS_SIDE);
 
 	if (nullptr != mBossMap && 
@@ -188,6 +190,7 @@ void Stage::SetBossSideMap(Map* _sideMap)
 void Stage::SetBossMap(BossMap* _bossMap)
 {
 	mBossMap = _bossMap;
+	mBossMap->SetOwnerStage(this);
 
 	if (nullptr != mBossSideMap &&
 		nullptr == mBossSideMap->GetMapLink(WARP_POINT::RIGHT))

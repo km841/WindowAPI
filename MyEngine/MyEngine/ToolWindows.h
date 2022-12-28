@@ -31,6 +31,7 @@ public:
 	
 	void CreateButton(TOOL_ID _id, const std::wstring& _bmpPath, Vec2 _pos, Vec2 _size);
 	void CreateText(const std::wstring& _text, Vec2 _pos, Vec2 _size, FONT_TYPE _fontType, bool _centerAlign = true);
+
 	ButtonInfo& GetButtonInfo(TOOL_ID _id) { return mBtnMap[_id]; }
 	TOOL_ID GetSelectedID() const;
 
@@ -46,9 +47,10 @@ private:
 
 	std::map<TOOL_ID, ButtonInfo> mBtnMap;
 	TOOL_ID mCurID;
+	Texture* mMonsterTex;
+
 	HFONT mNormalFont;
 	HFONT mSemiBoldFont;
 	HFONT mBoldFont;
-	Texture* mMonsterTex;
 };
 

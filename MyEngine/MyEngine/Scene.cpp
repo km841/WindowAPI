@@ -205,7 +205,7 @@ void Scene::TileInitialize(size_t _size)
 
 void Scene::Background_Black()
 {
-	Brush brush(BACK_BUF_DC, BRUSH_TYPE::BLACK);
+	Brush brush(BACK_BUF_DC, BRUSH_TYPE::DUNGEON_BLACK);
 	Rectangle(BACK_BUF_DC,
 		0, 0,
 		WINDOW_WIDTH_SIZE,

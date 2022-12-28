@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Prison.h"
 #include "Map.h"
+#include "BelialBossMap.h"
 
 Prison::Prison()
 	:Stage(STAGE_TYPE::PRISON)
@@ -24,7 +25,7 @@ void Prison::Initialize()
 	// 재귀적으로 nullptr을 찾아서 조립
 
 	SetBossSideMap(new Map(L"..\\Resource\\Map\\prison_side_map_r.map"));
-
+	SetBossMap(new BelialBossMap(L"..\\Resource\\Map\\boss_map_LR.map"));
 	
 	ChainMaps(mCurMap);
 	Stage::Initialize();
