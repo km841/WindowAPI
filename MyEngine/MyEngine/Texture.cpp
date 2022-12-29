@@ -92,3 +92,32 @@ void Texture::ChangeColor(COLORREF _src, COLORREF _dst, int _boundary_x)
 		}
 	}
 }
+
+void Texture::SetAlphaValue(COLORREF _targetColor, int _alpha)
+{
+	BITMAPINFO bmi = {};
+	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	bmi.bmiHeader.biWidth = mWidth;
+	bmi.bmiHeader.biHeight = -mHeight;
+	bmi.bmiHeader.biPlanes = 1;
+	bmi.bmiHeader.biBitCount = 32;
+	bmi.bmiHeader.biCompression = BI_RGB;
+
+	void* pBits = NULL;
+	HBITMAP hbmDIB = CreateDIBSection(mDC, &bmi, DIB_RGB_COLORS, &pBits, NULL, 0);
+
+	GetDIBits(mDC, mBit, 0, mHeight, pBits, &bmi, DIB_RGB_COLORS);
+
+	for (int y = 0; y < mHeight; y++) {
+		for (int x = 0; x < mWidth; x++) {
+			COLORREF color = ((UINT32*)pBits)[x + y * mWidth] & 0x00ffffff; // get the color of the pixel
+			if (color == _targetColor) {
+				// Set the alpha value of the pixel
+				((UINT32*)pBits)[x + y * mWidth] = (_alpha << 24) | (0x00ffffff & ((UINT32*)pBits)[x + y * mWidth]);
+			}
+		}
+	}
+
+	SetDIBits(mDC, mBit, 0, mHeight, pBits, &bmi, DIB_RGB_COLORS);
+	DeleteObject(hbmDIB);
+}

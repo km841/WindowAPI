@@ -2,6 +2,7 @@
 #include "HUD.h"
 
 class Texture;
+class BossMonster;
 class BossAppearHUD :
     public HUD
 {
@@ -16,7 +17,12 @@ public:
     virtual void Destroy() override;
 
 public:
+    void SetBossMonster(BossMonster* _boss);
+
+public:
+    BossMonster* mBoss;
     BLENDFUNCTION mBlendFunc;
+
     float mMaxDuration;
     float mCurDuration;
 
@@ -28,6 +34,12 @@ public:
 
     float mStayCurDuration;
     float mStayMaxDuration;
+
+    Texture* mBossNameTex;
+    Texture* mBossCommentTex;
+
+    Vec2 mBossNamePos;
+    Vec2 mBossCommentPos;
 
 };
 

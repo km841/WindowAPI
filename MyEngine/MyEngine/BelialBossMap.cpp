@@ -10,6 +10,8 @@
 #include "CameraMgr.h"
 #include "EventRegisteror.h"
 #include "MonsterEffect.h"
+#include "UIMgr.h"
+#include "BossAppearHUD.h"
 
 BelialBossMap::BelialBossMap(const std::wstring& _path)
 	:BossMap(_path)
@@ -32,7 +34,9 @@ void BelialBossMap::Initialize()
 
 void BelialBossMap::Update()
 {
-	BossMap::Update();
+	if (mBossActive)
+		BossMap::Update();
+
 	// 키 입력을 이용한 보스몬스터 스킬 조정
 	
 	if (false == mBossActive)
@@ -66,8 +70,6 @@ void BelialBossMap::Update()
 					mBossAppearing = true;
 					player->SetStop(true);
 
-					EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::BOSS_APPEAR);
-
 					mBossMonster = static_cast<Belial*>(
 						MonsterFactory::CreateMonster<Belial>(MONSTER_TYPE::BOSS_BELIAL, Vec2(770, 900)));
 
@@ -79,6 +81,9 @@ void BelialBossMap::Update()
 
 					CameraMgr::GetInstance().SetTrackingObject(nullptr);
 					CameraMgr::GetInstance().SetLookPos(bossMonsterPos);
+
+					GET_BOSS_APPEAR_HUD->SetBossMonster(mBossMonster);
+					EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::BOSS_APPEAR);
 				}
 			}
 		}

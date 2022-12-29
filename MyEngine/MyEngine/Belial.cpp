@@ -14,6 +14,9 @@ Belial::Belial()
 	SetGravity(false);
 	Texture* mTex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Body_Tex", L"Texture\\Belial_Body_Anim.bmp");
 
+	SetBossName(L"벨리알");
+	SetBossComment(L"감옥의 수문장");
+
 
 	std::wstring idleAnimName = L"Belial_Idle";
 	SetIdleAnimName(idleAnimName);

@@ -114,6 +114,17 @@ FontMgr::FontMgr()
 
         mTextMap.insert(std::make_pair(itemInfoHUDLine[i], info));
     }
+
+    std::wstring bossTextLine = L"감옥의수문장벨리알얼음마녀니플헤임";
+
+    for (int i = 0; i < bossTextLine.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 184);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(bossTextLine[i], info));
+    }
 }
 
 FontMgr::~FontMgr()
