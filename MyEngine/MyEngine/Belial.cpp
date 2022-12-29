@@ -51,6 +51,8 @@ Belial::Belial()
 		10
 	);
 
+	GetAnimator()->FindAnimation(idleAnimName)->SetTransMode(true, 3.f, TRANS_MODE::FADE_IN);
+
 	GetAnimator()->SelectAnimation(idleAnimName, true);
 	
 	BelialCore* belialCore = new BelialCore;

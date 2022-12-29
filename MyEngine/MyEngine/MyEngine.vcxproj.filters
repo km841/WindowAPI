@@ -347,12 +347,6 @@
     <Filter Include="Engine\GameObject\HUD">
       <UniqueIdentifier>{3cd80381-18d1-4ad6-8fc3-ce23aa65affe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\HUD\DashCountHUD">
-      <UniqueIdentifier>{44c884ea-edcb-49f1-b2ec-d73b266665dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\HUD\HPHUD">
-      <UniqueIdentifier>{17310a17-9229-4685-a5d2-112ff1f117f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\HUD\Base">
       <UniqueIdentifier>{e90579e3-d4e6-418c-8a28-99f3569cd4f2}</UniqueIdentifier>
     </Filter>
@@ -373,9 +367,6 @@
     </Filter>
     <Filter Include="Engine\GameObject\HUD\NPCLineHUD">
       <UniqueIdentifier>{2935b6f8-6420-4392-8a56-c9d21707edf0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\HUD\EquipedHUD">
-      <UniqueIdentifier>{f58d840f-1d07-467d-ac5f-7166b6a05105}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\HUD\ItemGetHUD">
       <UniqueIdentifier>{9dce3fe9-b668-4837-bb83-ca4661615e98}</UniqueIdentifier>
@@ -464,9 +455,6 @@
     <Filter Include="Engine\GameObject\Monster\Boss_Monster">
       <UniqueIdentifier>{a8623a25-5250-4119-a20c-824d540a3029}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\HUD\BossHPHUD">
-      <UniqueIdentifier>{5d63cb9d-cdea-4eb4-abb8-551e7fda3190}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster">
       <UniqueIdentifier>{827d2fc4-1a2e-459c-980f-8026f65c0657}</UniqueIdentifier>
     </Filter>
@@ -511,6 +499,27 @@
     </Filter>
     <Filter Include="Engine\GameObject\Monster\Boss_Monster\Niflheim">
       <UniqueIdentifier>{487290c0-d668-4ad4-81a7-20c38878b220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\BossHUD">
+      <UniqueIdentifier>{3ab8844f-0067-4722-afc3-f1f2be5d5339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\BossHUD\BossAppearHUD">
+      <UniqueIdentifier>{55416350-16dc-4229-ade0-a0139a4602d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\BossHUD\BossHPHUD">
+      <UniqueIdentifier>{5d63cb9d-cdea-4eb4-abb8-551e7fda3190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\PlayerHUD">
+      <UniqueIdentifier>{9634ba79-899c-4888-8762-5914d0d40852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\PlayerHUD\DashCountHUD">
+      <UniqueIdentifier>{44c884ea-edcb-49f1-b2ec-d73b266665dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\PlayerHUD\EquipedHUD">
+      <UniqueIdentifier>{f58d840f-1d07-467d-ac5f-7166b6a05105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\PlayerHUD\HPHUD">
+      <UniqueIdentifier>{17310a17-9229-4685-a5d2-112ff1f117f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -784,11 +793,8 @@
     <ClInclude Include="GoldBar.h">
       <Filter>Engine\GameObject\Gold\GoldBar</Filter>
     </ClInclude>
-    <ClInclude Include="HPHUD.h">
-      <Filter>Engine\GameObject\HUD\HPHUD</Filter>
-    </ClInclude>
     <ClInclude Include="DashCountHUD.h">
-      <Filter>Engine\GameObject\HUD\DashCountHUD</Filter>
+      <Filter>Engine\GameObject\HUD\PlayerHUD\DashCountHUD</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Engine\GameObject\HUD\Base</Filter>
@@ -807,9 +813,6 @@
     </ClInclude>
     <ClInclude Include="NPCLineHUD.h">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
-    </ClInclude>
-    <ClInclude Include="EquipedHUD.h">
-      <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClInclude>
     <ClInclude Include="MonsterAttAfterState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttAfterState</Filter>
@@ -893,7 +896,7 @@
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial</Filter>
     </ClInclude>
     <ClInclude Include="BossHPHUD.h">
-      <Filter>Engine\GameObject\HUD\BossHPHUD</Filter>
+      <Filter>Engine\GameObject\HUD\BossHUD\BossHPHUD</Filter>
     </ClInclude>
     <ClInclude Include="BossIdleState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossIdleState</Filter>
@@ -915,6 +918,15 @@
     </ClInclude>
     <ClInclude Include="BelialCore.h">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipedHUD.h">
+      <Filter>Engine\GameObject\HUD\PlayerHUD\EquipedHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="HPHUD.h">
+      <Filter>Engine\GameObject\HUD\PlayerHUD\HPHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAppearHUD.h">
+      <Filter>Engine\GameObject\HUD\BossHUD\BossAppearHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1189,11 +1201,8 @@
     <ClCompile Include="GoldBar.cpp">
       <Filter>Engine\GameObject\Gold\GoldBar</Filter>
     </ClCompile>
-    <ClCompile Include="HPHUD.cpp">
-      <Filter>Engine\GameObject\HUD\HPHUD</Filter>
-    </ClCompile>
     <ClCompile Include="DashCountHUD.cpp">
-      <Filter>Engine\GameObject\HUD\DashCountHUD</Filter>
+      <Filter>Engine\GameObject\HUD\PlayerHUD\DashCountHUD</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Engine\GameObject\HUD\Base</Filter>
@@ -1215,9 +1224,6 @@
     </ClCompile>
     <ClCompile Include="NPCLineHUD.cpp">
       <Filter>Engine\GameObject\HUD\NPCLineHUD</Filter>
-    </ClCompile>
-    <ClCompile Include="EquipedHUD.cpp">
-      <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClCompile>
     <ClCompile Include="MonsterAttAfterState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttAfterState</Filter>
@@ -1301,7 +1307,7 @@
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial</Filter>
     </ClCompile>
     <ClCompile Include="BossHPHUD.cpp">
-      <Filter>Engine\GameObject\HUD\BossHPHUD</Filter>
+      <Filter>Engine\GameObject\HUD\BossHUD\BossHPHUD</Filter>
     </ClCompile>
     <ClCompile Include="BossIdleState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossIdleState</Filter>
@@ -1323,6 +1329,15 @@
     </ClCompile>
     <ClCompile Include="BelialCore.cpp">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipedHUD.cpp">
+      <Filter>Engine\GameObject\HUD\PlayerHUD\EquipedHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="HPHUD.cpp">
+      <Filter>Engine\GameObject\HUD\PlayerHUD\HPHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="BossAppearHUD.cpp">
+      <Filter>Engine\GameObject\HUD\BossHUD\BossAppearHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -54,6 +54,7 @@ public:
     void StateUpdate();
     void AnimationUpdate();
     void GroundStateUpdate();
+    void MoveMapCoolDownUpdate();
 
     bool IsMove() const;
     bool IsLeftMove() const;
@@ -160,6 +161,8 @@ private:
     float      mJumpXMaxValue;
     float      mJumpYMinValue;
     bool       mFall;
+
+    float      mYSpeedLimit;
 
 private:
     bool       mAccDash;

@@ -35,8 +35,8 @@ DustEffect::DustEffect()
 		8
 	);
 
-	GetAnimator()->FindAnimation(L"MinoDashAnim_Left")->SetTransMode(true, 0.8f);
-	GetAnimator()->FindAnimation(L"MinoDashAnim_Right")->SetTransMode(true, 0.8f);
+	GetAnimator()->FindAnimation(L"MinoDashAnim_Left")->SetTransMode(true, 0.8f, TRANS_MODE::FADE_OUT);
+	GetAnimator()->FindAnimation(L"MinoDashAnim_Right")->SetTransMode(true, 0.8f, TRANS_MODE::FADE_OUT);
 }
 
 DustEffect::~DustEffect()

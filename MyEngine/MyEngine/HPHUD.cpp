@@ -39,8 +39,6 @@ void HPHUD::Render()
 			Vec2 pos = GetPos();
 
 			PlayerInfo info = player->GetPlayerInfo();
-			
-
 
 			TransparentBlt(
 				BACK_BUF_DC,
@@ -88,8 +86,8 @@ void HPHUD::Render()
 				Vec2 hpTexsize = hpTextTex->GetSize();
 				TransparentBlt(
 					BACK_BUF_DC,
-					(int)(hpBarPos.x + 23),
-					(int)(hpBarPos.y + 3),
+					(int)(hpBarPos.x + 40),
+					(int)(hpBarPos.y + 2),
 					(int)(hpTexsize.x),
 					(int)(hpTexsize.y),
 					hpTextTex->GetDC(),

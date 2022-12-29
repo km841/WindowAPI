@@ -48,6 +48,7 @@ Player::Player()
 	, mJumpYMinValue(0.f)
 	, mJumpXValue(0.f)
 	, mJumpXMaxValue(300.f)
+	, mYSpeedLimit(800.f)
 	, mFall(false)
 	, mDashAccTime(0.f)
 	, mImgCount(0)
@@ -73,8 +74,8 @@ Player::Player()
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
 
-	mInfo.mMaxHP = 100.f;
-	mInfo.mCurHP = 100.f;
+	mInfo.mMaxHP = 80.f;
+	mInfo.mCurHP = 80.f;
 	mInfo.mDashCount = 3.f;
 	mInfo.mSpeed = 350.f;
 	mInfo.mAtt = 1.f;
@@ -218,69 +219,28 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	if (!mStop)
-		mPrevPos = GetPos();
+	mPrevPos = GetPos();
 
 	GameObject::Update();
-
-	if (GetRigidBody()->GetVelocity_Y() > 800.f)
-		GetRigidBody()->SetVelocity_Y(800.f);
-
-	if (mMoveMapCoolDown)
-	{
-		if (mMoveMapMaxDuration < mMoveMapCurDuration)
-		{
-			mMoveMapCurDuration = 0.f;
-			mMoveMapCoolDown = false;
-		}
-
-		else
-		{
-			mMoveMapCurDuration += DT;
-		}
-	}
-
-	if (mHit && (mInvinTime > mInvinMaxTime))
-	{
-		mHit = false;
-		mInvinTime = 0.f;
-	}
-
-	else
-	{
-		if (mHit)
-		{
-			mInvinTime += DT;
-		}
-		
-	}
-
-	if (3.f > mInfo.mDashCount)
-	{
-		mDashDuration += DT;
-		if (1.0f < mDashDuration)
-		{
-			mDashDuration = 0.f;
-			mInfo.mDashCount++;
-		}
-	}
-	
+	MoveMapCoolDownUpdate();
 	EquipItemUpdate();
 
-	if (mStop)
-		return;
-	
-	MoveUpdate();
-	GroundStateUpdate();
-	EffectUpdate();
-	StateUpdate();
+	if (!mStop)
+	{
+		MoveUpdate();
+		EffectUpdate();
+		GroundStateUpdate();
+		StateUpdate();
+	}
+
 	AnimationUpdate();
-	
 	mPrevState = mState;
 }
 
 void Player::MoveUpdate()
 {
+
+
 	// 감속 시간이 0이상이고 감속 최대치보다 작은 경우
 	if (mDecDash && mDecTime < mDecMaxTime)
 		DashDeceleration();
@@ -290,7 +250,6 @@ void Player::MoveUpdate()
 	DashAcceleration();
 	
 	Vec2 pos = GetPos();
-
 
 	if (IS_PRESSED(KEY::W) || IS_PRESSED(KEY::SPACE))
 	{
@@ -466,6 +425,9 @@ void Player::MoveUpdate()
 		}
 	}
 
+	if (GetRigidBody()->GetVelocity_Y() > mYSpeedLimit)
+		GetRigidBody()->SetVelocity_Y(mYSpeedLimit);
+
 	//현재 방향 기록
 	mPrevDir = mDir;
 
@@ -589,6 +551,31 @@ void Player::StateUpdate()
 			mUIState = false;
 		}
 	}
+
+	if (mHit && (mInvinTime > mInvinMaxTime))
+	{
+		mHit = false;
+		mInvinTime = 0.f;
+	}
+
+	else
+	{
+		if (mHit)
+		{
+			mInvinTime += DT;
+		}
+
+	}
+
+	if (3.f > mInfo.mDashCount)
+	{
+		mDashDuration += DT;
+		if (1.0f < mDashDuration)
+		{
+			mDashDuration = 0.f;
+			mInfo.mDashCount++;
+		}
+	}
 }
 
 void Player::AnimationUpdate()
@@ -633,6 +620,23 @@ void Player::GroundStateUpdate()
 	}
 }
 
+void Player::MoveMapCoolDownUpdate()
+{
+	if (mMoveMapCoolDown)
+	{
+		if (mMoveMapMaxDuration < mMoveMapCurDuration)
+		{
+			mMoveMapCurDuration = 0.f;
+			mMoveMapCoolDown = false;
+		}
+
+		else
+		{
+			mMoveMapCurDuration += DT;
+		}
+	}
+}
+
 
 bool Player::IsMove() const
 {
@@ -667,9 +671,6 @@ bool Player::IsDownMove() const
 
 void Player::Render()
 {
-	if (mStop)
-		return;
-
 	EquipItemRender();
 	GameObject::Render();
 

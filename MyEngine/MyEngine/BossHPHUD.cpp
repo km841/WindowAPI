@@ -40,14 +40,14 @@ void BossHPHUD::Render()
 		Vec2 basePos = pos - hpBaseSize / 2.f;
 		TransparentBlt(
 			BACK_BUF_DC,
-			basePos.x,
-			basePos.y,
-			hpBaseSize.x,
-			hpBaseSize.y,
+			(int)basePos.x,
+			(int)basePos.y,
+			(int)hpBaseSize.x,
+			(int)hpBaseSize.y,
 			mBaseTex->GetDC(),
 			0, 0,
-			hpBaseSize.x,
-			hpBaseSize.y,
+			(int)hpBaseSize.x,
+			(int)hpBaseSize.y,
 			RGB(255, 0, 255)
 		);
 
@@ -58,17 +58,16 @@ void BossHPHUD::Render()
 		MonsterInfo info =mBoss->GetMonsterInfo();
 		float ratio = info.mCurHP / info.mMaxHP;
 
-
 		TransparentBlt(
 			BACK_BUF_DC,
-			hpBarPos.x,
-			hpBarPos.y,
-			hpSize.x * ratio,
-			hpSize.y,
+			(int)(hpBarPos.x),
+			(int)(hpBarPos.y),
+			(int)(hpSize.x * ratio),
+			(int)(hpSize.y),
 			mTex->GetDC(),
 			0, 0,
-			hpSize.x * ratio,
-			hpSize.y,
+			(int)(hpSize.x * ratio),
+			(int)(hpSize.y),
 			RGB(255, 0, 255)
 		);
 	}

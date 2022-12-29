@@ -21,5 +21,12 @@ public:
 
 private:
 	Belial* mBelial;
+	
+	bool mBossAppearing;
+	bool mBossActive;
+	float mBossActiveArea;
+
+	float mMaxDuration;
+	float mCurDuration;
 };
 

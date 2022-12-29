@@ -80,7 +80,7 @@ public:
     void SetFrameControl(int _frame, Vec2 _control);
     void SetFrameDuration(int _frame, float _duration);
 
-    void SetTransMode(bool _flag, float _maxTime);
+    void SetTransMode(bool _flag, float _maxTime, TRANS_MODE _mode);
 
     inline const std::vector<AnimInfo>& GetAnimInfo() const { return mAnim; }
 
@@ -103,7 +103,7 @@ private:
     bool                  mTrans;
     float                 mTransCurTime;
     float                 mTransMaxTime;
-
+    TRANS_MODE            mTransMode;
 
 private:
     Event*                mEvent;

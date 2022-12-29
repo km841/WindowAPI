@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "KeyMgr.h"
+#include "Player.h"
 
 void KeyMgr::Initialize()
 {

@@ -21,6 +21,7 @@ Animation::Animation()
 	, mEvent{}
 	, mDummyObj(nullptr)
 	, mOffset(ZERO_VECTOR)
+	, mTransMode(TRANS_MODE::END)
 {
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
@@ -59,7 +60,17 @@ void Animation::Update()
 
 	if (true == mTrans)
 	{
-		mTransCurTime += DT;
+		if (mTransMaxTime < mTransCurTime)
+		{
+			mTrans = false;
+			mTransCurTime = 0.f;
+			mTransMode = TRANS_MODE::END;
+		}
+		else
+		{
+			mTransCurTime += DT;
+		}
+		
 	}
 
 	if (mAccTime >= mAnim[mCurFrm].mDuration)
@@ -79,10 +90,10 @@ void Animation::Update()
 				mFinish = true;
 			}
 
-			if (true == mTrans)
-			{
-				mTransCurTime = 0.f;
-			}
+			//if (true == mTrans)
+			//{
+			//	mTransCurTime = 0.f;
+			//}
 
 			if (nullptr != mDummyObj)
 			{
@@ -179,10 +190,24 @@ void Animation::Render()
 		// visible 설정과 함께 시간을 전달, 그럼 그 시간에 걸쳐 점차 투명해짐
 		if (mTrans)
 		{
-			float ratio = 1.f - (mTransCurTime / mTransMaxTime);
+			float ratio = 0.f;
+
+			switch (mTransMode)
+			{
+			case TRANS_MODE::FADE_IN:
+				ratio = mTransCurTime / mTransMaxTime;
+				break;
+
+			case TRANS_MODE::FADE_OUT:
+				ratio = 1.f - (mTransCurTime / mTransMaxTime);
+				break;
+			}
 
 			if (ratio < 0.f)
 				ratio = 0.f;
+
+			if (ratio > 255.f)
+				ratio = 255.f;
 
 			mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * ratio);
 
@@ -305,11 +330,12 @@ void Animation::SetFrameDuration(int _frame, float _duration)
 	info.mDuration = _duration;
 }
 
-void Animation::SetTransMode(bool _flag, float _maxTime)
+void Animation::SetTransMode(bool _flag, float _maxTime, TRANS_MODE _mode)
 {
 	mTransCurTime = 0.f;
 	mTransMaxTime = _maxTime;
 	mTrans = _flag;
+	mTransMode = _mode;
 }
 
 void Animation::Reset()

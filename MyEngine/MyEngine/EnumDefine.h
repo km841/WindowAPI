@@ -199,6 +199,7 @@ enum class HUD_TYPE
 	ITEM_GET,
 	ITEM_INFO,
 	BOSS_HP,
+	BOSS_APPEAR,
 	END,
 };
 
@@ -433,5 +434,12 @@ enum class BOSS_SKILL
 	SKILL_1,
 	SKILL_2,
 	SKILL_3,
+	END,
+};
+
+enum class TRANS_MODE
+{
+	FADE_IN,
+	FADE_OUT,
 	END,
 };

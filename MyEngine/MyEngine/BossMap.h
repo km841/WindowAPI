@@ -1,5 +1,7 @@
 #pragma once
 #include "Map.h"
+
+class BossMonster;
 class BossMap :
     public Map
 {
@@ -19,6 +21,10 @@ public:
 
 protected:
 	BossMonster* mBossMonster;
+
+	float mMaxDuration;
+	float mCurDuration;
+	
 
 };
 

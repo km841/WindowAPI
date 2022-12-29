@@ -40,3 +40,8 @@ void BelialCore::Render()
 	GameObject::Render();
 
 }
+
+bool BelialCore::Attack()
+{
+	return false;
+}

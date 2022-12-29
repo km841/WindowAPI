@@ -28,7 +28,9 @@
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
 #include "BossHPHUD.h"
+#include "BossAppearHUD.h"
 #include "ToolWindows.h"
+
 
 TownScene::TownScene()
 {
@@ -252,6 +254,7 @@ void TownScene::Exit()
 															GET_ITEMINFO_HUD,
 															GET_MINIMAP_HUD,
 															GET_BOSSHP_HUD,
+															GET_BOSS_APPEAR_HUD,
 															Player::GetPlayer());
 
 	Player::GetPlayer()->SetPrevScene(GetSceneType());

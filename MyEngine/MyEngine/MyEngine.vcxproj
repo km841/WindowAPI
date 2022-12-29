@@ -154,6 +154,7 @@
     <ClInclude Include="BelialRoomGate.h" />
     <ClInclude Include="BigGrayIceSkullWarrior.h" />
     <ClInclude Include="BlackSmithNPC.h" />
+    <ClInclude Include="BossAppearHUD.h" />
     <ClInclude Include="BossHPHUD.h" />
     <ClInclude Include="BossIdleState.h" />
     <ClInclude Include="BossMap.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="BelialRoomGate.cpp" />
     <ClCompile Include="BigGrayIceSkullWarrior.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
+    <ClCompile Include="BossAppearHUD.cpp" />
     <ClCompile Include="BossHPHUD.cpp" />
     <ClCompile Include="BossIdleState.cpp" />
     <ClCompile Include="BossMap.cpp" />
