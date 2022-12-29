@@ -52,6 +52,7 @@
 #define GET_ITEMGET_HUD static_cast<ItemGetHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::ITEM_GET))
 #define GET_ITEMINFO_HUD static_cast<ItemInfoHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::ITEM_INFO))
 #define GET_MINIMAP_HUD static_cast<MinimapHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::MINIMAP))
+#define GET_BOSSHP_HUD static_cast<BossHPHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::BOSS_HP))
 #define ZERO_VECTOR Math::ZeroVector()
 #define IS_PLAYER Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::PLAYER
 #define IS_LASLEY Player::GetPlayer()->GetCurCharacter() == PLAYER_CHARACTER::LASLEY

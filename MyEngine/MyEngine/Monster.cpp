@@ -105,8 +105,6 @@ void Monster::Update()
 		mAI->Update();
 
 	GameObject::Update();
-
-
 }
 
 void Monster::Render()

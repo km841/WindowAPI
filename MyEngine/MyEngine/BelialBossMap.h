@@ -1,5 +1,7 @@
 #pragma once
 #include "BossMap.h"
+
+class Belial;
 class BelialBossMap :
     public BossMap
 {
@@ -16,5 +18,8 @@ public:
 public:
 	virtual void Enter();
 	virtual void Exit();
+
+private:
+	Belial* mBelial;
 };
 

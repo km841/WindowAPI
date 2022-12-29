@@ -38,6 +38,10 @@ enum class KEY
     LBUTTON,
     RBUTTON,
 
+    NUMPAD1,
+    NUMPAD2,
+    NUMPAD3,
+
     END
 };
 
@@ -65,6 +69,10 @@ static UINT KEY_CODE[(UINT)KEY::END]
 
     VK_LBUTTON,
     VK_RBUTTON,
+
+    VK_NUMPAD1,
+    VK_NUMPAD2,
+    VK_NUMPAD3,
 };
 
 

@@ -13,6 +13,7 @@
 #include "ItemGetHUD.h"
 #include "ItemInfoHUD.h"
 #include "MinimapHUD.h"
+#include "BossHPHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -33,6 +34,7 @@ void UIMgr::Initialize()
 	DisableHUD(HUD_TYPE::NPC_LINE);
 	DisableHUD(HUD_TYPE::ITEM_GET);
 	DisableHUD(HUD_TYPE::ITEM_INFO);
+	DisableHUD(HUD_TYPE::BOSS_HP);
 }
 
 void UIMgr::Update()
@@ -237,6 +239,12 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 
 		case HUD_TYPE::MINIMAP:
 			hud = new MinimapHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
+
+		case HUD_TYPE::BOSS_HP:
+			hud = new BossHPHUD;
 			hud->Initialize();
 			hud->SetState(true);
 			break;

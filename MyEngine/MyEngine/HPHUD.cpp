@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "Player.h"
+#include "FontMgr.h"
 
 HPHUD::HPHUD()
 {
@@ -58,10 +59,16 @@ void HPHUD::Render()
 
 			float ratio = info.mCurHP / info.mMaxHP;
 
+
+
+			Vec2 hpBarPos = pos;
+			hpBarPos.x += 66;
+			hpBarPos.y += 10;
+
 			TransparentBlt(
 				BACK_BUF_DC,
-				(int)(pos.x + 66),
-				(int)(pos.y + 10),
+				(int)(hpBarPos.x),
+				(int)(hpBarPos.y),
 				(int)(hpSize.x * ratio),
 				(int)(hpSize.y),
 				mTex->GetDC(),
@@ -70,6 +77,29 @@ void HPHUD::Render()
 				(int)hpSize.y,
 				RGB(255, 0, 255)
 			);
+
+			std::wstring szMaxHP = std::to_wstring((int)info.mMaxHP);
+			std::wstring szCurHP = std::to_wstring((int)info.mCurHP);
+			std::wstring result = szCurHP + L'/' + szMaxHP;
+			Texture* hpTextTex = FontMgr::GetInstance().GetTextTexture(result, result);
+
+			if (nullptr != hpTextTex)
+			{
+				Vec2 hpTexsize = hpTextTex->GetSize();
+				TransparentBlt(
+					BACK_BUF_DC,
+					(int)(hpBarPos.x + 23),
+					(int)(hpBarPos.y + 3),
+					(int)(hpTexsize.x),
+					(int)(hpTexsize.y),
+					hpTextTex->GetDC(),
+					0, 0,
+					(int)(hpTexsize.x),
+					(int)(hpTexsize.y),
+					RGB(255, 0, 255));
+			};
+
+			
 		}
 	}
 

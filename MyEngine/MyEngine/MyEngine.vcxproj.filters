@@ -217,24 +217,12 @@
     <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Base">
       <UniqueIdentifier>{0bd9cda3-5987-4f44-bbca-c694d7d3d68d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState">
-      <UniqueIdentifier>{66a5a81e-1b9b-4c16-8354-1563850f31ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Monster\MonsterFactory">
       <UniqueIdentifier>{13989927-249f-4bc5-b66f-f183b5ca0918}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState">
-      <UniqueIdentifier>{d9f41615-713d-4541-bf3a-0dfa23a202f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState">
-      <UniqueIdentifier>{f73f9d64-e57a-4087-b175-fea555af1911}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterAttState">
-      <UniqueIdentifier>{b713eeed-faa2-46da-8561-b1d0e341e5de}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\UI">
       <UniqueIdentifier>{c58ccb67-294d-4fd1-a389-e35e29e4723e}</UniqueIdentifier>
@@ -326,9 +314,6 @@
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect">
       <UniqueIdentifier>{0c6af008-e57f-4e6b-be64-888ba2437cc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState">
-      <UniqueIdentifier>{6073918f-68bc-466a-9954-352beaee8096}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect">
       <UniqueIdentifier>{83ae8df3-4d5a-4c3f-a615-83939f0f8019}</UniqueIdentifier>
     </Filter>
@@ -392,9 +377,6 @@
     <Filter Include="Engine\GameObject\HUD\EquipedHUD">
       <UniqueIdentifier>{f58d840f-1d07-467d-ac5f-7166b6a05105}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState">
-      <UniqueIdentifier>{dbe59478-8510-4a08-baae-2c68c9a03deb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\HUD\ItemGetHUD">
       <UniqueIdentifier>{9dce3fe9-b668-4837-bb83-ca4661615e98}</UniqueIdentifier>
     </Filter>
@@ -427,9 +409,6 @@
     </Filter>
     <Filter Include="Engine\GameObject\Monster\Range_Monster\IceMage">
       <UniqueIdentifier>{b72f38e8-dc45-4106-aada-ecdca81fe1df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState">
-      <UniqueIdentifier>{a2f88b09-ae4f-4a3d-bee2-3fb878b90a30}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect">
       <UniqueIdentifier>{2f071738-8605-42dc-be80-a65ef7c54902}</UniqueIdentifier>
@@ -481,6 +460,57 @@
     </Filter>
     <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap">
       <UniqueIdentifier>{f0762b0b-20ba-4d98-aaed-df732a7af96b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster">
+      <UniqueIdentifier>{a8623a25-5250-4119-a20c-824d540a3029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\BossHPHUD">
+      <UniqueIdentifier>{5d63cb9d-cdea-4eb4-abb8-551e7fda3190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster">
+      <UniqueIdentifier>{827d2fc4-1a2e-459c-980f-8026f65c0657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterTraceState">
+      <UniqueIdentifier>{d9f41615-713d-4541-bf3a-0dfa23a202f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttAfterState">
+      <UniqueIdentifier>{dbe59478-8510-4a08-baae-2c68c9a03deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttState">
+      <UniqueIdentifier>{b713eeed-faa2-46da-8561-b1d0e341e5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterDeadState">
+      <UniqueIdentifier>{6073918f-68bc-466a-9954-352beaee8096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterIdleState">
+      <UniqueIdentifier>{66a5a81e-1b9b-4c16-8354-1563850f31ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterPatrolState">
+      <UniqueIdentifier>{f73f9d64-e57a-4087-b175-fea555af1911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterSkillState">
+      <UniqueIdentifier>{a2f88b09-ae4f-4a3d-bee2-3fb878b90a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Boss">
+      <UniqueIdentifier>{cd4cb391-e032-47b6-97ba-221507e32af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Boss\BossIdleState">
+      <UniqueIdentifier>{6479fe0b-c804-4e7b-8676-b39c4e20c15b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\AI\MonsterState\Boss\BossSkillState">
+      <UniqueIdentifier>{6dc1039d-5649-4b51-b198-0748cc7b334c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial">
+      <UniqueIdentifier>{dbf8daf7-1525-4444-abca-1eb9a27fd477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore">
+      <UniqueIdentifier>{61021c19-7006-4a77-89e6-1a622b14aa95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Base">
+      <UniqueIdentifier>{22754c7a-c3f5-4719-b788-c06cb2ce3060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Niflheim">
+      <UniqueIdentifier>{487290c0-d668-4ad4-81a7-20c38878b220}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -673,9 +703,6 @@
     <ClInclude Include="MonsterState.h">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Base</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterIdleState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState</Filter>
-    </ClInclude>
     <ClInclude Include="GiantSkullWarrior.h">
       <Filter>Engine\GameObject\Monster\Melee_Monster\GiantSkullWarrior</Filter>
     </ClInclude>
@@ -683,16 +710,13 @@
       <Filter>Engine\GameObject\Monster\MonsterFactory</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTraceState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterTraceState</Filter>
     </ClInclude>
     <ClInclude Include="MonsterPatrolState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterPatrolState</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterAttState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
     </ClInclude>
     <ClInclude Include="SwordHitEffect.h">
       <Filter>Engine\GameObject\Effect\PlayerEffect\SwordHitEffect</Filter>
@@ -729,9 +753,6 @@
     </ClInclude>
     <ClInclude Include="RotateMissileEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterDeadState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState</Filter>
     </ClInclude>
     <ClInclude Include="HomingMissileEffect.h">
       <Filter>Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect</Filter>
@@ -791,7 +812,7 @@
       <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClInclude>
     <ClInclude Include="MonsterAttAfterState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttAfterState</Filter>
     </ClInclude>
     <ClInclude Include="ItemGetHUD.h">
       <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
@@ -827,7 +848,7 @@
       <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
     </ClInclude>
     <ClInclude Include="MonsterSkillState.h">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterSkillState</Filter>
     </ClInclude>
     <ClInclude Include="IceCubesMissileEffect.h">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect</Filter>
@@ -867,6 +888,33 @@
     </ClInclude>
     <ClInclude Include="BelialBossMap.h">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Belial.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial</Filter>
+    </ClInclude>
+    <ClInclude Include="BossHPHUD.h">
+      <Filter>Engine\GameObject\HUD\BossHPHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIdleState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossIdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttState</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDeadState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterDeadState</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterIdleState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterIdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="BossMonster.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BossSkillState.h">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialCore.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1063,9 +1111,6 @@
     <ClCompile Include="MonsterState.cpp">
       <Filter>Engine\GameObject\Monster\AI\MonsterState\Base</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterIdleState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterIdleState</Filter>
-    </ClCompile>
     <ClCompile Include="GiantSkullWarrior.cpp">
       <Filter>Engine\GameObject\Monster\Melee_Monster\GiantSkullWarrior</Filter>
     </ClCompile>
@@ -1073,13 +1118,10 @@
       <Filter>Engine\GameObject\Monster\MonsterFactory</Filter>
     </ClCompile>
     <ClCompile Include="MonsterTraceState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterTraceState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterTraceState</Filter>
     </ClCompile>
     <ClCompile Include="MonsterPatrolState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterPatrolState</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterAttState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterPatrolState</Filter>
     </ClCompile>
     <ClCompile Include="SwordHitEffect.cpp">
       <Filter>Engine\GameObject\Effect\PlayerEffect\SwordHitEffect</Filter>
@@ -1116,9 +1158,6 @@
     </ClCompile>
     <ClCompile Include="RotateMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\RotateMissileEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterDeadState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterDeadState</Filter>
     </ClCompile>
     <ClCompile Include="HomingMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\PlayerEffect\HomingMissileEffect</Filter>
@@ -1181,7 +1220,7 @@
       <Filter>Engine\GameObject\HUD\EquipedHUD</Filter>
     </ClCompile>
     <ClCompile Include="MonsterAttAfterState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterAttAfterState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttAfterState</Filter>
     </ClCompile>
     <ClCompile Include="ItemGetHUD.cpp">
       <Filter>Engine\GameObject\HUD\ItemGetHUD</Filter>
@@ -1217,7 +1256,7 @@
       <Filter>Engine\GameObject\Monster\Range_Monster\IceMage</Filter>
     </ClCompile>
     <ClCompile Include="MonsterSkillState.cpp">
-      <Filter>Engine\GameObject\Monster\AI\MonsterState\MonsterSkillState</Filter>
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterSkillState</Filter>
     </ClCompile>
     <ClCompile Include="IceCubesMissileEffect.cpp">
       <Filter>Engine\GameObject\Effect\MonsterEffect\MonsterMissileEffect\IceCubesMissileEffect</Filter>
@@ -1257,6 +1296,33 @@
     </ClCompile>
     <ClCompile Include="BelialBossMap.cpp">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Belial.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial</Filter>
+    </ClCompile>
+    <ClCompile Include="BossHPHUD.cpp">
+      <Filter>Engine\GameObject\HUD\BossHPHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIdleState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossIdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterAttState</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDeadState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterDeadState</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterIdleState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Monster\MonsterIdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMonster.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BossSkillState.cpp">
+      <Filter>Engine\GameObject\Monster\AI\MonsterState\Boss\BossSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialCore.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

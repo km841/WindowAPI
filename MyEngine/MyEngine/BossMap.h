@@ -17,5 +17,8 @@ public:
 	virtual void Enter();
 	virtual void Exit();
 
+protected:
+	BossMonster* mBossMonster;
+
 };
 

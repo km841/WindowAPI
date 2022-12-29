@@ -245,10 +245,10 @@ void Map::Enter()
 	}
 
 	CameraMgr::GetInstance().SetCameraLimitRect({ 
-		widthMin - TILE_SIZE,
-		heightMin - TILE_SIZE, 
-		widthMax + TILE_SIZE, 
-		heightMax + TILE_SIZE });
+		widthMin - TILE_SIZE * 5,
+		heightMin - TILE_SIZE * 5, 
+		widthMax + TILE_SIZE * 5, 
+		heightMax + TILE_SIZE * 5 });
 
 	if (WARP_POINT::END == mInitDir)
 	{
@@ -348,8 +348,8 @@ void Map::Exit()
 	//curScene->CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
 	//curScene->DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
 	//curScene->DeleteObjGroup(OBJECT_TYPE::NPC);
-	curScene->DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_MONSTER);
-	curScene->DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_PLAYER);
+	//curScene->DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_MONSTER);
+	//curScene->DeleteObjGroup(OBJECT_TYPE::MISSILE_FROM_PLAYER);
 	curScene->DeleteObjGroup(OBJECT_TYPE::PARTICLE);
 	
 	//curScene->CleanObjectGroup(OBJECT_TYPE::DUNGEON_OBJECT);

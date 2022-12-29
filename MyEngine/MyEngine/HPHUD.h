@@ -15,6 +15,7 @@ public:
     virtual void Render() override;
     virtual void Destroy() override;
 
+
 private:
     Texture* mTex;
     Texture* mBaseTex;

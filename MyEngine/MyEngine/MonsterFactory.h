@@ -7,6 +7,8 @@
 #include "MonsterDeadState.h"
 #include "MonsterAttAfterState.h"
 #include "MonsterSkillState.h"
+#include "BossIdleState.h"
+#include "BossSkillState.h"
 #include "AI.h"
 
 class MonsterFactory
@@ -188,6 +190,30 @@ public:
 			ai->ChangeState(MONSTER_STATE::IDLE);
 		}
 			break;
+
+		case MONSTER_TYPE::BOSS_BELIAL:
+		{
+			monster = new T;
+			monster->SetPos(_pos);
+
+			info.mAtt = 1;
+			info.mMaxHP = 500;
+			info.mCurHP = 500;
+
+			monster->SetMonsterInfo(info);
+
+			AI* ai = new AI;
+			ai->SetOwnerMonster(monster);
+			monster->SetAI(ai);
+
+			ai->AddStates(
+				new BossIdleState,
+				new BossSkillState
+			);
+
+			ai->ChangeState(MONSTER_STATE::BOSS_IDLE);
+		}
+		break;
 
 		}
 
