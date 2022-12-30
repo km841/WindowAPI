@@ -521,6 +521,12 @@
     <Filter Include="Engine\GameObject\HUD\PlayerHUD\HPHUD">
       <UniqueIdentifier>{17310a17-9229-4685-a5d2-112ff1f117f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore\BelialCoreParticle">
+      <UniqueIdentifier>{1f08f21e-acaf-460d-8688-c075952c1d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand">
+      <UniqueIdentifier>{b1fbe543-1fb3-4502-aaf1-bce26e39fd0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -927,6 +933,12 @@
     </ClInclude>
     <ClInclude Include="BossAppearHUD.h">
       <Filter>Engine\GameObject\HUD\BossHUD\BossAppearHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialCoreParticle.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore\BelialCoreParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialHand.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1338,6 +1350,12 @@
     </ClCompile>
     <ClCompile Include="BossAppearHUD.cpp">
       <Filter>Engine\GameObject\HUD\BossHUD\BossAppearHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialCoreParticle.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialCore\BelialCoreParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialHand.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

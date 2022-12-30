@@ -13,8 +13,6 @@ struct Components
 	RigidBody* mRigidBody;
 };
 
-
-
 class GameObject
 {
 public:

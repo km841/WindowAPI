@@ -443,3 +443,10 @@ enum class TRANS_MODE
 	FADE_OUT,
 	END,
 };
+
+enum class BELIAL_HAND_TYPE
+{
+	LEFT_HAND,
+	RIGHT_HAND,
+	END,
+};

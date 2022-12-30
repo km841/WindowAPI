@@ -6,7 +6,7 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "BelialCore.h"
-
+#include "BelialHand.h"
 
 Belial::Belial()
 {
@@ -16,7 +16,6 @@ Belial::Belial()
 
 	SetBossName(L"벨리알");
 	SetBossComment(L"감옥의 수문장");
-
 
 	std::wstring idleAnimName = L"Belial_Idle";
 	SetIdleAnimName(idleAnimName);
@@ -65,6 +64,10 @@ Belial::Belial()
 	SetEffect(belialCore);
 	// 후방 Core는 Effect
 	// Hand는? 이펙트인데 소멸자에서 따로 처리
+
+
+	mLeftHand = new BelialHand(BELIAL_HAND_TYPE::LEFT_HAND);
+	mRightHand = new BelialHand(BELIAL_HAND_TYPE::RIGHT_HAND);
 }
 
 Belial::~Belial()
@@ -77,6 +80,16 @@ void Belial::Initialize()
 	//BelialCore 소환
 	//Hand 2개 소환
 
+	Vec2 curPos = GetPos();
+	Vec2 leftHandPos = curPos;
+	Vec2 rightHandPos = curPos;
+
+	leftHandPos.x -= 400.f;
+	rightHandPos.x += 400.f;
+
+	mLeftHand->SetPos(leftHandPos);
+	mRightHand->SetPos(rightHandPos);
+
 	BossMonster::Initialize();
 
 }
@@ -84,11 +97,24 @@ void Belial::Initialize()
 void Belial::Update()
 {
 	BossMonster::Update();
+
+	if (nullptr != mLeftHand && nullptr != mRightHand)
+	{
+		mLeftHand->Update();
+		mRightHand->Update();
+	}
+
 }
 
 void Belial::Render()
 {
 	BossMonster::Render();
+
+	if (nullptr != mLeftHand && nullptr != mRightHand)
+	{
+		mLeftHand->Render();
+		mRightHand->Render();
+	}
 }
 
 void Belial::Destroy()

@@ -3,8 +3,14 @@
 #include "Texture.h"
 #include "ResourceMgr.h"
 #include "Animator.h"
+#include "BelialCoreParticle.h"
+#include "EventRegisteror.h"
+#include "TimeMgr.h"
+#include "CameraMgr.h"
 
 BelialCore::BelialCore()
+	:mMaxDuration(0.2f)
+	,mCurDuration(0.f)
 {
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -32,12 +38,38 @@ void BelialCore::Update()
 {
 	//Particle Update
 	Effect::Update();
+
+	// ·£´ý ¹æÇâ
+
+	if (mMaxDuration < mCurDuration)
+	{
+		mCurDuration = 0.f;
+		Vec2 initVec = Vec2(1, 0);
+		float randAngle = Math::DegreeToRadian((float)(rand() % 360));
+		Vec2 randomDir = Math::RotateVector(initVec, randAngle);
+
+		BelialCoreParticle* particle = new BelialCoreParticle;
+		particle->SetDir(randomDir);
+
+		Vec2 particlePos = GetPos();
+		particlePos += Vec2(0, -30);
+
+		particle->SetPos(particlePos);
+		EventRegisteror::GetInstance().CreateObject(particle, particle->GetType());
+	}
+
+	else
+	{
+		mCurDuration += DT;
+	}
 }
 
 void BelialCore::Render()
 {
 	//Particle Render
 	GameObject::Render();
+
+	Vec2 particlePos = GetPos();
 
 }
 

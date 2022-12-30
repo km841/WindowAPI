@@ -26,8 +26,8 @@ BossAppearHUD::BossAppearHUD()
 	mBlendFunc.SourceConstantAlpha = 0;
 
 	SetPos(Vec2(0, 0));
-	mBossNamePos = Vec2(100, 570);
 	mBossCommentPos = Vec2(100, 520);
+	mBossNamePos = Vec2(100, 570);
 }
 
 BossAppearHUD::~BossAppearHUD()
@@ -118,14 +118,14 @@ void BossAppearHUD::Render()
 
 				AlphaBlend(
 					BACK_BUF_DC,
-					mBossNamePos.x - bossNameSize.x / 2.f,
-					mBossNamePos.y - bossNameSize.y / 2.f,
-					bossNameSize.x,
-					bossNameSize.y,
+					(int)(mBossNamePos.x - bossNameSize.x / 2.f),
+					(int)(mBossNamePos.y - bossNameSize.y / 2.f),
+					(int)(bossNameSize.x),
+					(int)(bossNameSize.y),
 					mBossNameTex->GetDC(),
 					0, 0,
-					bossNameOrgSize.x,
-					bossNameOrgSize.y,
+					(int)bossNameOrgSize.x,
+					(int)bossNameOrgSize.y,
 					mBlendFunc
 				);
 			}
@@ -136,14 +136,14 @@ void BossAppearHUD::Render()
 
 				AlphaBlend(
 					BACK_BUF_DC,
-					mBossCommentPos.x - bossCommentSize.x / 2.f,
-					mBossCommentPos.y - bossCommentSize.y / 2.f,
-					bossCommentSize.x,
-					bossCommentSize.y,
+					(int)(mBossCommentPos.x - bossCommentSize.x / 2.f),
+					(int)(mBossCommentPos.y - bossCommentSize.y / 2.f),
+					(int)(bossCommentSize.x),
+					(int)(bossCommentSize.y),
 					mBossCommentTex->GetDC(),
 					0, 0,
-					bossCommentSize.x,
-					bossCommentSize.y,
+					(int)bossCommentSize.x,
+					(int)bossCommentSize.y,
 					mBlendFunc
 				);
 			}

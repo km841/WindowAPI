@@ -1,5 +1,7 @@
 #pragma once
 #include "BossMonster.h"
+
+class BelialHand;
 class Belial :
     public BossMonster
 {
@@ -22,5 +24,9 @@ public:
 
 public: 
     virtual bool Skill();
+
+private:
+    BelialHand* mLeftHand;
+    BelialHand* mRightHand;
 };
 
