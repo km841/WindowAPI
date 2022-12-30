@@ -5,6 +5,7 @@
 #include "UIMgr.h"
 #include "BossMonster.h"
 #include "TimeMgr.h"
+#include "MinimapHUD.h"
 
 BossMap::BossMap(const std::wstring& _path)
 	:Map(_path)
@@ -47,13 +48,12 @@ void BossMap::Destroy()
 
 void BossMap::Enter()
 {
-	// 카메라 포커싱
-	// 보스 몬스터 소환
 	Map::Enter();
-
+	EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
 }
 
 void BossMap::Exit()
 {
 	Map::Exit();
+	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
 }

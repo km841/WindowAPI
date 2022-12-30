@@ -43,7 +43,8 @@ Minotaur::Minotaur()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(moveAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurAnimTex", L"Texture\\MinoAnim.bmp");
+	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurAnimTex", L"Texture\\Monster\\MinotaurAnim.bmp");
+	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurHitAnimTex", L"Texture\\Monster\\MinotaurHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",
@@ -134,6 +135,12 @@ Minotaur::Minotaur()
 	attAnimRight->SetFrameControl(5, Vec2(5.f, 0.f));
 	attAnimRight->SetFrameControl(6, Vec2(5.f, 0.f));
 
+	GetAnimator()->FindAnimation(idleAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(idleAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Right")->SetHitAnimation(hitAnimTex);
 
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);

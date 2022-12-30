@@ -15,7 +15,7 @@ BelialCore::BelialCore()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Back_Tex", L"Texture\\Belial_Back_Anim.bmp");
+	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Back_Tex", L"Texture\\Monster\\Belial\\Belial_Back_Anim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"BelialBackAnim",

@@ -40,7 +40,7 @@ ToolScene::~ToolScene()
 
 void ToolScene::Initialize()
 {
-	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map3.bmp");
+	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
 	assert(mDefaultTexture);
 
 	mBlendFunc = {};
@@ -212,46 +212,46 @@ void ToolScene::Render()
 	switch (mCurToolID)
 	{
 	case TOOL_ID::BTN_RED_GIANT_BAT:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"RED_GIANT_BAT_SAMPLE", L"Texture\\Btn_RedGiantBat.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"RED_GIANT_BAT_SAMPLE", L"Texture\\Button\\Btn_RedGiantBat.bmp");
 		break;
 	case TOOL_ID::BTN_GIANT_BAT:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"GIANT_BAT_SAMPLE", L"Texture\\Btn_GiantBat.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"GIANT_BAT_SAMPLE", L"Texture\\Button\\Btn_GiantBat.bmp");
 		break;
 	case TOOL_ID::BTN_GIANT_SKULL:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"GIANT_SKULL_SAMPLE", L"Texture\\Btn_GiantSkull.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"GIANT_SKULL_SAMPLE", L"Texture\\Button\\Btn_GiantSkull.bmp");
 		break;
 	case TOOL_ID::BTN_BANSHEE:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"BANSHEE_SAMPLE", L"Texture\\Btn_Banshee.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"BANSHEE_SAMPLE", L"Texture\\Button\\Btn_Banshee.bmp");
 		break;
 	case TOOL_ID::BTN_ICE_GRAY_SKULL:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"ICE_GRAY_SKULL_SAMPLE", L"Texture\\Btn_GrayIceSkull.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"ICE_GRAY_SKULL_SAMPLE", L"Texture\\Button\\Btn_GrayIceSkull.bmp");
 		break;
 	case TOOL_ID::BTN_MINOTAUR:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"MINOTAUR_SAMPLE", L"Texture\\Btn_Minotaur.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"MINOTAUR_SAMPLE", L"Texture\\Button\\Btn_Minotaur.bmp");
 		break;
 	case TOOL_ID::BTN_ICE_MAGE:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"ICE_MAGE_SAMPLE", L"Texture\\Btn_IceMage.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"ICE_MAGE_SAMPLE", L"Texture\\Button\\Btn_IceMage.bmp");
 		break;
 	case TOOL_ID::BTN_OVIBOS:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"OVIBOS_SAMPLE", L"Texture\\Btn_Ovibos.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"OVIBOS_SAMPLE", L"Texture\\Button\\Btn_Ovibos.bmp");
 		break;
 	case TOOL_ID::BTN_DOOR_0DEG:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_0DEG_SAMPLE", L"Texture\\Btn_LockedDoor_0Deg.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_0DEG_SAMPLE", L"Texture\\Button\\Btn_LockedDoor_0Deg.bmp");
 		break;
 	case TOOL_ID::BTN_DOOR_90DEG:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_90DEG_SAMPLE", L"Texture\\Btn_LockedDoor_90Deg.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_90DEG_SAMPLE", L"Texture\\Button\\Btn_LockedDoor_90Deg.bmp");
 		break;
 	case TOOL_ID::BTN_DOOR_180DEG:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_0DEG_SAMPLE", L"Texture\\Btn_LockedDoor_0Deg.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_0DEG_SAMPLE", L"Texture\\Button\\Btn_LockedDoor_0Deg.bmp");
 		break;
 	case TOOL_ID::BTN_DOOR_270DEG:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_270DEG_SAMPLE", L"Texture\\Btn_LockedDoor_270Deg.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_270DEG_SAMPLE", L"Texture\\Button\\Btn_LockedDoor_270Deg.bmp");
 		break;
 	case TOOL_ID::BTN_BELIAL_DOOR:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_BELIAL", L"Texture\\Btn_BelialDoor.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_BELIAL", L"Texture\\Button\\Btn_BelialDoor.bmp");
 		break;
 	case TOOL_ID::BTN_NIFLHEIM_DOOR:
-		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_NIFLHEIM", L"Texture\\Btn_NiflheimDoor.bmp");
+		btnTex = ResourceMgr::GetInstance().Load<Texture>(L"DOOR_NIFLHEIM", L"Texture\\Button\\Btn_NiflheimDoor.bmp");
 		break;
 	}
 

@@ -10,7 +10,7 @@ BelialCoreParticle::BelialCoreParticle()
 	: mSpeed(120.f)
 {
 	SetType(OBJECT_TYPE::PARTICLE);
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialCore_ParticleTex", L"Texture\\Belial_Back_Particle_Anim.bmp");
+	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialCore_ParticleTex", L"Texture\\Monster\\Belial\\Belial_Back_Particle_Anim.bmp");
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);

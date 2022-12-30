@@ -3,11 +3,12 @@
 #include "Animator.h"
 #include "Texture.h"
 #include "ResourceMgr.h"
+#include "Animation.h"
 
 BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 	:mType(_type)
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialHand_Tex", L"Texture\\Belial_Hand_Anim.bmp");
+	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialHand_Tex", L"Texture\\Monster\\Belial\\Belial_Hand_Anim.bmp");
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -21,7 +22,7 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 		Vec2(0, 0),
 		Vec2(171, 207),
 		Vec2(171, 0),
-		0.1f,
+		0.05f,
 		10
 	);
 
@@ -31,7 +32,7 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 		Vec2(0, 207),
 		Vec2(171, 207),
 		Vec2(171, 0),
-		0.1f,
+		0.05f,
 		10
 	);
 
@@ -54,6 +55,9 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 		0.1f,
 		18
 	);
+
+	GetAnimator()->FindAnimation(mIdleAnimName + L"Left")->SetTransMode(true, 3.0f, TRANS_MODE::FADE_IN);
+	GetAnimator()->FindAnimation(mIdleAnimName + L"Right")->SetTransMode(true, 3.0f, TRANS_MODE::FADE_IN);
 
 	switch (mType)
 	{

@@ -26,9 +26,9 @@ LockedDoor::LockedDoor()
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
 
-	Texture* deg0Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_0Deg_Tex", L"Texture\\LockedDoor_0Deg_Anim.bmp");
-	Texture* deg90Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_90Deg_Tex", L"Texture\\LockedDoor_90Deg_Anim.bmp");
-	Texture* deg270Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_270Deg_Tex", L"Texture\\LockedDoor_270Deg_Anim.bmp");
+	Texture* deg0Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_0Deg_Tex", L"Texture\\DungeonObject\\LockedDoor_0Deg_Anim.bmp");
+	Texture* deg90Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_90Deg_Tex", L"Texture\\DungeonObject\\LockedDoor_90Deg_Anim.bmp");
+	Texture* deg270Tex = ResourceMgr::GetInstance().Load<Texture>(L"LockedDoor_270Deg_Tex", L"Texture\\DungeonObject\\LockedDoor_270Deg_Anim.bmp");
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);

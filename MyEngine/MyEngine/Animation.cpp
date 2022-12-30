@@ -8,6 +8,8 @@
 #include "GameObject.h"
 #include "EventRegisteror.h"
 #include "Player.h"
+#include "ResourceMgr.h"
+#include "Monster.h"
 
 Animation::Animation()
 	: mFinish(false)
@@ -22,6 +24,11 @@ Animation::Animation()
 	, mDummyObj(nullptr)
 	, mOffset(ZERO_VECTOR)
 	, mTransMode(TRANS_MODE::END)
+	, mHitAnimMaxDuration(0.2f)
+	, mHitAniMCurDuration(0.f)
+	, mHitFlag(false)
+	, mHitMode(false)
+	, mHitTex(nullptr)
 {
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
@@ -70,7 +77,6 @@ void Animation::Update()
 		{
 			mTransCurTime += DT;
 		}
-		
 	}
 
 	if (mAccTime >= mAnim[mCurFrm].mDuration)
@@ -242,6 +248,31 @@ void Animation::Render()
 				, RGB(255, 0, 255)
 			);
 		}
+
+		if (true == mHitMode)
+		{
+			GameObject* owner = mOwner->GetOwner();
+			if (OBJECT_TYPE::MONSTER == owner->GetType())
+			{
+				Monster* monster = static_cast<Monster*>(owner);
+				if (monster->IsHit())
+				{
+					TransparentBlt(
+						BACK_BUF_DC
+						, (int)(pos.x - (mAnim[mCurFrm].mSlice.x / 2.f) + mAnim[mCurFrm].mControl.x)
+						, (int)(pos.y - (mAnim[mCurFrm].mSlice.y / divideY) + mAnim[mCurFrm].mControl.y)
+						, (int)(mAnim[mCurFrm].mSlice.x)
+						, (int)(mAnim[mCurFrm].mSlice.y)
+						, mHitTex->GetDC()
+						, (int)(mAnim[mCurFrm].mLeftTop.x)
+						, (int)(mAnim[mCurFrm].mLeftTop.y)
+						, (int)(mAnim[mCurFrm].mSlice.x)
+						, (int)(mAnim[mCurFrm].mSlice.y)
+						, RGB(255, 0, 255)
+					);
+				}
+			}
+		}
 		
 
 	}
@@ -342,4 +373,11 @@ void Animation::Reset()
 {
 	mCurFrm = 0;
 	mFinish = false;
+}
+
+void Animation::SetHitAnimation(Texture* _hitTex)
+{
+	mHitMode = true;
+	mHitAniMCurDuration = 0.f;
+	mHitTex = _hitTex;
 }

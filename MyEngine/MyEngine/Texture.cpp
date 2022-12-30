@@ -93,6 +93,24 @@ void Texture::ChangeColor(COLORREF _src, COLORREF _dst, int _boundary_x)
 	}
 }
 
+void Texture::ChangeExceptColor(COLORREF _excep, COLORREF _dst)
+{
+	Pixel excColor = _excep;
+
+	for (int y = 0; y < mHeight; ++y)
+	{
+		for (int x = 0; x < mWidth; x++)
+		{
+			Pixel pixel = GetPixel(x, y);
+
+			if (excColor != pixel)
+			{
+				SetPixel(mDC, x, y, _dst);
+			}
+		}
+	}
+}
+
 void Texture::SetAlphaValue(COLORREF _targetColor, int _alpha)
 {
 	BITMAPINFO bmi = {};

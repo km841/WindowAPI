@@ -38,7 +38,8 @@ Banshee::Banshee()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(attAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"BansheeAnimTex", L"Texture\\BansheeAnim.bmp");
+	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"BansheeAnimTex", L"Texture\\Monster\\BansheeAnim.bmp");
+	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"BansheeHitAnimTex", L"Texture\\Monster\\BansheeHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",
@@ -79,6 +80,11 @@ Banshee::Banshee()
 		0.1f,
 		6
 	);
+
+	GetAnimator()->FindAnimation(idleAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(idleAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Right")->SetHitAnimation(hitAnimTex);
 
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Right", true);

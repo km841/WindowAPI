@@ -20,6 +20,8 @@ public:
     virtual void Destroy() override;
 
 public:
+    void HitUpdate();
+
     inline void SetAI(AI* _ai) { mAI = _ai; }
     inline AI* GetAI() const { return mAI; }
 
@@ -82,6 +84,8 @@ public:
 
     inline TOOL_ID GetMonsterID() const { return mToolID; }
 
+    void SetHit();
+    inline bool IsHit() const { return mHit; }
 
 public:
     virtual void Trace() {}
@@ -113,6 +117,10 @@ protected:
 
     int mMoney;
     int mAttFixFrame;
+
+    bool  mHit;
+    float mHitMaxTime;
+    float mHitCurTime;
 
 protected:
     static Texture* mHPBaseTex;

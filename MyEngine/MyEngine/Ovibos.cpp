@@ -40,7 +40,8 @@ Ovibos::Ovibos()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(moveAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"OvibosAnimTex", L"Texture\\ovibos_animation.bmp");
+	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"OvibosAnimTex", L"Texture\\Monster\\OvibosAnim.bmp");
+	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"OvibosHitAnimTex", L"Texture\\Monster\\OvibosHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",
@@ -81,6 +82,11 @@ Ovibos::Ovibos()
 		0.25f,
 		6
 	);
+
+	GetAnimator()->FindAnimation(idleAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(idleAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetHitAnimation(hitAnimTex);
 
 	//GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetFrameDuration(3, 0.5f);
 	//GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetFrameDuration(3, 0.5f);

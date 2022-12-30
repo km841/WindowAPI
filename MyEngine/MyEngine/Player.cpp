@@ -564,7 +564,6 @@ void Player::StateUpdate()
 		{
 			mInvinTime += DT;
 		}
-
 	}
 
 	if (3.f > mInfo.mDashCount)
@@ -734,7 +733,6 @@ void Player::OnCollisionEnter(Collider* _other)
 			if (0.f > mInfo.mCurHP)
 				mInfo.mCurHP = 0.f;
 		}
-
 		mHit = true;
 	}
 

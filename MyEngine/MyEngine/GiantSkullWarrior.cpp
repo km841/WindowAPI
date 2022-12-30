@@ -40,7 +40,8 @@ GiantSkullWarrior::GiantSkullWarrior()
 	SetPatrolStateAnimName(moveAnimName);
 	SetAttStateAnimName(attAnimName);
 	
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantSkullAnimTex", L"Texture\\giant_skull_animation.bmp");
+	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantSkullAnimTex", L"Texture\\Monster\\GiantSkullAnim.bmp");
+	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantSkullHitAnimTex", L"Texture\\Monster\\GiantSkullHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",
@@ -108,6 +109,13 @@ GiantSkullWarrior::GiantSkullWarrior()
 
 	GetAnimator()->AddAnimation(attAnimName + L"Left", attAnimLeft);
 	GetAnimator()->AddAnimation(attAnimName + L"Right", attAnimRight);
+
+	GetAnimator()->FindAnimation(idleAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(idleAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(moveAnimName + L"Right")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Left")->SetHitAnimation(hitAnimTex);
+	GetAnimator()->FindAnimation(attAnimName + L"Right")->SetHitAnimation(hitAnimTex);
 
 
 	GetAnimator()->SelectAnimation(idleAnimName + L"Left", true);

@@ -9,6 +9,7 @@
 #include "CollisionMgr.h"
 #include "Monster.h"
 #include "MonsterEffect.h"
+#include "TimeMgr.h"
 
 GameObject::GameObject()
 	: mScale(Vec2(1.f, 1.f))

@@ -10,7 +10,7 @@
 NiflheimRoomGate::NiflheimRoomGate()
 {
 	mToolID = TOOL_ID::BTN_NIFLHEIM_DOOR;
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"NiflheimDoorTex", L"Texture\\NiflheimDoorAnim.bmp");
+	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"NiflheimDoorTex", L"Texture\\DungeonObject\\NiflheimDoorAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"NiflheimDoorOpenAnim",
 		tex,

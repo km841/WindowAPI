@@ -8,6 +8,7 @@ enum class CAMERA_EFFECT
     FADE_OUT,
     HIT,
     SHAKE,
+    BOSS_SHAKE,
     END,
 };
 

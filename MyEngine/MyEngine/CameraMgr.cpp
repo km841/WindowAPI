@@ -113,6 +113,9 @@ void CameraMgr::Update()
 		mLookPos.x += 2.f;
 		break;
 
+	case CAMERA_EFFECT::BOSS_SHAKE:
+		mLookPos.x += 5.f;
+
 	case CAMERA_EFFECT::HIT:
 		mAlphaValue = 1.0f - ratio;
 		mBlendFunc.SourceConstantAlpha = (BYTE)(50 * mAlphaValue);
@@ -129,7 +132,8 @@ void CameraMgr::Update()
 void CameraMgr::Render()
 {
 	if (mCamEffects.empty() || 
-		CAMERA_EFFECT::SHAKE == mCamEffects.front().mEffect)
+		CAMERA_EFFECT::SHAKE == mCamEffects.front().mEffect || 
+		CAMERA_EFFECT::BOSS_SHAKE == mCamEffects.front().mEffect )
 		return;
 
 	CameraEffect& mCurEffect = mCamEffects.front();

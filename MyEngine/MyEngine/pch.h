@@ -65,6 +65,7 @@
 #define RGB_BLUE RGB(0, 0, 255)
 #define RGB_YELLOW RGB(223, 233, 85)
 #define RGB_BLACK RGB(0, 0, 0)
+#define RGB_RED RGB(255, 0, 0)
 
 
 

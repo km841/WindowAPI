@@ -86,9 +86,12 @@ public:
 
     void Reset();
 
+    void SetHitAnimation(Texture* _hitAnim);
+
 private:
     Animator*             mOwner;
     Texture*              mTex;
+    Texture*              mHitTex;
     std::wstring          mName;
     Vec2                  mOffset;
     
@@ -104,6 +107,11 @@ private:
     float                 mTransCurTime;
     float                 mTransMaxTime;
     TRANS_MODE            mTransMode;
+
+    bool                  mHitMode;
+    bool                  mHitFlag;
+    float                 mHitAnimMaxDuration;
+    float                 mHitAniMCurDuration;
 
 private:
     Event*                mEvent;

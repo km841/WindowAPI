@@ -6,6 +6,7 @@
 #include "PlayerEffect.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "CameraMgr.h"
 
 BossMonster::BossMonster()
 {
@@ -49,6 +50,7 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
+		SetHit();
 		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
 		Player* player = Player::GetPlayer();
 		float att = playerEffect->GetAtt();
@@ -65,10 +67,14 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 		pos.y -= 80;
 		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
+
+		CameraMgr::GetInstance().RemoveEffect();
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
 	}
 
 	if (OBJECT_TYPE::MISSILE_FROM_PLAYER == _other->GetOwner()->GetType())
 	{
+		SetHit();
 		Bullet* bullet = static_cast<Bullet*>(_other->GetOwner());
 		BulletInfo info = bullet->GetBulletInfo();
 
@@ -84,6 +90,9 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 
 		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
+
+		CameraMgr::GetInstance().RemoveEffect();
+		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
 	}
 
 }

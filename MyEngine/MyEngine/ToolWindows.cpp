@@ -32,22 +32,22 @@ void ToolWindows::Initialize()
 	WindowInit();
 
 	CreateText(L"■ 몬스터 선택", Vec2(75, 10), Vec2(120, 20), FONT_TYPE::SEMI_BOLD);
-	CreateButton(TOOL_ID::BTN_RED_GIANT_BAT, L"..\\Resource\\Texture\\Btn_RedGiantBat.bmp", Vec2(24, 60), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_GIANT_BAT, L"..\\Resource\\Texture\\Btn_GiantBat.bmp", Vec2(108, 60), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_MINOTAUR, L"..\\Resource\\Texture\\Btn_Minotaur.bmp", Vec2(192, 60), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_ICE_MAGE, L"..\\Resource\\Texture\\Btn_IceMage.bmp", Vec2(24, 144), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_BANSHEE, L"..\\Resource\\Texture\\Btn_Banshee.bmp", Vec2(108, 144), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_ICE_GRAY_SKULL, L"..\\Resource\\Texture\\Btn_GrayIceSkull.bmp", Vec2(192, 144), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_GIANT_SKULL, L"..\\Resource\\Texture\\Btn_GiantSkull.bmp", Vec2(24, 228), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_OVIBOS, L"..\\Resource\\Texture\\Btn_Ovibos.bmp", Vec2(108, 228), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_RED_GIANT_BAT, L"..\\Resource\\Texture\\Button\\Btn_RedGiantBat.bmp", Vec2(24, 60), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_GIANT_BAT, L"..\\Resource\\Texture\\Button\\Btn_GiantBat.bmp", Vec2(108, 60), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_MINOTAUR, L"..\\Resource\\Texture\\Button\\Btn_Minotaur.bmp", Vec2(192, 60), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_ICE_MAGE, L"..\\Resource\\Texture\\Button\\Btn_IceMage.bmp", Vec2(24, 144), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_BANSHEE, L"..\\Resource\\Texture\\Button\\Btn_Banshee.bmp", Vec2(108, 144), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_ICE_GRAY_SKULL, L"..\\Resource\\Texture\\Button\\Btn_GrayIceSkull.bmp", Vec2(192, 144), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_GIANT_SKULL, L"..\\Resource\\Texture\\Button\\Btn_GiantSkull.bmp", Vec2(24, 228), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_OVIBOS, L"..\\Resource\\Texture\\Button\\Btn_Ovibos.bmp", Vec2(108, 228), Vec2(64, 64));
 
 	CreateText(L"■ 던전 오브젝트 선택", Vec2(15, 370), Vec2(240, 20), FONT_TYPE::SEMI_BOLD);
-	CreateButton(TOOL_ID::BTN_DOOR_0DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 420), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_90Deg.bmp", Vec2(108, 420), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_270DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_270Deg.bmp", Vec2(192, 420), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_DOOR_180DEG, L"..\\Resource\\Texture\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 504), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_BELIAL_DOOR, L"..\\Resource\\Texture\\Btn_BelialDoor.bmp", Vec2(108, 504), Vec2(64, 64));
-	CreateButton(TOOL_ID::BTN_NIFLHEIM_DOOR, L"..\\Resource\\Texture\\Btn_NiflheimDoor.bmp", Vec2(192, 504), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_0DEG, L"..\\Resource\\Texture\\Button\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_90DEG, L"..\\Resource\\Texture\\Button\\Btn_LockedDoor_90Deg.bmp", Vec2(108, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_270DEG, L"..\\Resource\\Texture\\Button\\Btn_LockedDoor_270Deg.bmp", Vec2(192, 420), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_DOOR_180DEG, L"..\\Resource\\Texture\\Button\\Btn_LockedDoor_0Deg.bmp", Vec2(24, 504), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_BELIAL_DOOR, L"..\\Resource\\Texture\\Button\\Btn_BelialDoor.bmp", Vec2(108, 504), Vec2(64, 64));
+	CreateButton(TOOL_ID::BTN_NIFLHEIM_DOOR, L"..\\Resource\\Texture\\Button\\Btn_NiflheimDoor.bmp", Vec2(192, 504), Vec2(64, 64));
 
 	CreateText(L"■ 단축키", Vec2(15, 620), Vec2(240, 20), FONT_TYPE::SEMI_BOLD);
 	CreateText(L"> 다음 타일 페이지 (Page Up)", Vec2(15, 650), Vec2(240, 20), FONT_TYPE::NORMAL, false);

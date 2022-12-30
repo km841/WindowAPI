@@ -32,6 +32,8 @@ Monster::Monster()
 	, mPrevDir(DIR::END)
 	, mMoney(0)
 	, mAttFixFrame(0)
+	, mHitMaxTime(0.05f)
+	, mHitCurTime(0.f)
 {
 	SetType(OBJECT_TYPE::MONSTER);
 
@@ -105,6 +107,8 @@ void Monster::Update()
 		mAI->Update();
 
 	GameObject::Update();
+	HitUpdate();
+
 }
 
 void Monster::Render()
@@ -155,6 +159,28 @@ void Monster::Destroy()
 		EventRegisteror::GetInstance().DeleteObject(mEffect);
 }
 
+void Monster::HitUpdate()
+{
+	if (mHit)
+	{
+		if (mHitMaxTime < mHitCurTime)
+		{
+			mHit = false;
+		}
+
+		else
+		{
+			mHitCurTime += DT;
+		}
+	}
+}
+
+void Monster::SetHit()
+{
+	mHit = true;
+	mHitCurTime = 0.f;
+}
+
 void Monster::OnCollision(Collider* _other)
 {
 }
@@ -163,6 +189,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
+		SetHit();
 		// 무기에서 이펙트에 공격력을 전달?
 		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
 		Player* player = Player::GetPlayer();
@@ -226,6 +253,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::MISSILE_FROM_PLAYER == _other->GetOwner()->GetType())
 	{
+		SetHit();
 		Bullet* bullet = static_cast<Bullet*>(_other->GetOwner());
 		BulletInfo info = bullet->GetBulletInfo();
 

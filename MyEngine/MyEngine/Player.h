@@ -61,6 +61,7 @@ public:
     bool IsRightMove() const;
     bool IsUpMove() const;
     bool IsDownMove() const;
+    bool IsHit() const { return mHit; }
 
     inline void    SetEffect(Effect* _effect) { mEffect = _effect; }
     inline Effect* GetEffect() const { return mEffect; }
@@ -98,8 +99,6 @@ public:
 
     inline bool GetStop() const { return mStop; }
     inline void SetStop(bool _flag);
-
-    inline bool IsHit() const { return mHit; }
 
     inline int GetMoney() const { return mMoney; }
     inline void SetMoney(int _money) { mMoney = _money; }
@@ -149,10 +148,10 @@ private:
 
 private:
     bool       mStop;
-    bool       mHit;
     float      mInvinMaxTime;
     float      mInvinTime;
 
+    bool       mHit;
 private:
     TILE_TYPE  mGroundType;
 private:

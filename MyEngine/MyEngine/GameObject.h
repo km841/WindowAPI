@@ -88,7 +88,6 @@ public:
 	inline bool IsDeadAnim() const { return mObjState == OBJECT_STATE::DEAD_ANIM; }
 	inline bool IsAlive() const { return mObjState == OBJECT_STATE::ALIVE; }
 
-
 	inline TOOL_ID GetToolID() const { return mToolID; }
 
 	void SetObjState(OBJECT_STATE _state);
@@ -109,6 +108,8 @@ private:
 	Components			mComponents;
 	OBJECT_TYPE			mType;
 
+	
+
 	bool				mGravity;
 	bool				mGround;
 	OBJECT_STATE		mObjState;
@@ -119,6 +120,7 @@ private:
 	COLLISION_TYPE		mCollisionType;
 
 	std::vector<Relation>  mRelations;
+
 
 protected:
 	TOOL_ID				mToolID;
