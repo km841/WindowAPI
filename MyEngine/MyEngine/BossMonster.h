@@ -28,11 +28,26 @@ public:
     inline void SetBossComment(const std::wstring& _comment) { mComment = _comment; }
     inline const std::wstring& GetBossComment() const { return mComment; }
 
+    inline void SetSkill01AnimName(const std::wstring& _name) { mSkill01AnimName = _name; }
+    inline const std::wstring& GetSkill01AnimName() const { return mSkill01AnimName; }
+
+    inline void SetSkill02AnimName(const std::wstring& _name) { mSkill02AnimName = _name; }
+    inline const std::wstring& GetSkill02AnimName() const { return mSkill02AnimName; }
+
+    inline void SetSkill03AnimName(const std::wstring& _name) { mSkill03AnimName = _name; }
+    inline const std::wstring& GetSkill03AnimName() const { return mSkill03AnimName; }
+
+
 
 private:
     BOSS_SKILL mCurSkill;
 
     std::wstring mBossName;
     std::wstring mComment;
+
+    std::wstring mSkill01AnimName;
+    std::wstring mSkill02AnimName;
+    std::wstring mSkill03AnimName;
+
 };
 

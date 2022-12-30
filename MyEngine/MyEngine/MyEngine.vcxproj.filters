@@ -527,6 +527,9 @@
     <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand">
       <UniqueIdentifier>{b1fbe543-1fb3-4502-aaf1-bce26e39fd0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet">
+      <UniqueIdentifier>{f262ffea-03d4-483a-afaf-41c0118f5341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -939,6 +942,9 @@
     </ClInclude>
     <ClInclude Include="BelialHand.h">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialCoreBullet.h">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1356,6 +1362,9 @@
     </ClCompile>
     <ClCompile Include="BelialHand.cpp">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialCoreBullet.cpp">
+      <Filter>Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

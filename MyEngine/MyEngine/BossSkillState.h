@@ -15,5 +15,8 @@ public:
     virtual void Enter();
     virtual void Exit();
 
+
+private:
+    bool mStartFlag;
 };
 

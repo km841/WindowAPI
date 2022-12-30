@@ -15,7 +15,7 @@ IceBullet::IceBullet()
 	mInfo.mSpeed = 300.f;
 
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
-	GetCollider()->SetOffset(Vec2(0.f, -15.f));
+	GetCollider()->SetOffset(Vec2(0.f, -10.f));
 
 	Texture* iceBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletTex", L"Texture\\IceBullet.bmp");
 	Texture* iceBulletHitTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
@@ -75,6 +75,7 @@ void IceBullet::OnCollision(Collider* _other)
 void IceBullet::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType() ||
+		OBJECT_TYPE::DUNGEON_OBJECT == _other->GetOwner()->GetType() ||
 		OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸

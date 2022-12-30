@@ -7,10 +7,16 @@
 #include "EventRegisteror.h"
 #include "TimeMgr.h"
 #include "CameraMgr.h"
+#include "BelialCoreBullet.h"
 
 BelialCore::BelialCore()
-	:mMaxDuration(0.2f)
-	,mCurDuration(0.f)
+	: mMaxDuration(0.2f)
+	, mCurDuration(0.f)
+	, mMaxFired(24.f)
+	, mCurFired(0.f)
+	, mInitAngle(0.f)
+	, mShotMaxDuration(0.1f)
+	, mShotCurDuration(0.f)
 {
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -75,5 +81,46 @@ void BelialCore::Render()
 
 bool BelialCore::Attack()
 {
-	return false;
+	// N초동안 각도를 회전시킨 공을 발사
+	if (mMaxFired < mCurFired)
+	{
+		mInitAngle = 0.f;
+		mCurFired = 0.f;
+		mShotCurDuration = 0.f;
+		return false;
+	}
+
+	else
+	{
+		if (mShotMaxDuration < mShotCurDuration)
+		{
+			mShotCurDuration = 0.f;
+			for (int i = 0; i < NUM_SHOTS; ++i)
+			{
+				BelialCoreBullet* bullet = new BelialCoreBullet;
+				Vec2 curPos =GetPos();
+				curPos.y -= 50.f;
+
+				bullet->SetPos(curPos);
+
+				float angle = mInitAngle + (i * 90.f);
+				float radian = Math::DegreeToRadian(angle);
+				bullet->SetDir(Math::RotateVector(Vec2(1, 0), radian));
+				
+				EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+			}
+
+			mInitAngle += 10.f;
+			++mCurFired;
+		}
+
+		else
+		{
+			mShotCurDuration += DT;
+		}
+	}
+
+
+
+	return true;
 }

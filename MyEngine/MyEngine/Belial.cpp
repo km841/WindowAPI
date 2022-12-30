@@ -7,6 +7,7 @@
 #include "ResourceMgr.h"
 #include "BelialCore.h"
 #include "BelialHand.h"
+#include "EventRegisteror.h"
 
 Belial::Belial()
 {
@@ -21,8 +22,14 @@ Belial::Belial()
 	std::wstring idleAnimName = L"Belial_Idle";
 	SetIdleAnimName(idleAnimName);
 
-	GetCollider()->SetSize(Vec2(100, 100));
-	GetCollider()->SetOffset(Vec2(25, -50));
+	std::wstring skillAnimName = L"Belial_Attack";
+	SetSkillAnimName(skillAnimName);
+
+	SetSkill01AnimName(skillAnimName);
+
+
+	GetCollider()->SetSize(Vec2(120, 120));
+	GetCollider()->SetOffset(Vec2(25, -80));
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName,
@@ -35,27 +42,19 @@ Belial::Belial()
 	);
 
 	GetAnimator()->RegisterAnimation(
-		L"Belial_Attack_Open",
+		skillAnimName,
 		tex,
 		Vec2(0, 297),
 		Vec2(210, 384),
 		Vec2(210, 0),
 		0.1f,
-		10
-	);
-
-	GetAnimator()->RegisterAnimation(
-		L"Belial_Attack_Close",
-		tex,
-		Vec2(0, 681),
-		Vec2(210, 384),
-		Vec2(210, 0),
-		0.1f,
-		10
+		19
 	);
 
 	GetAnimator()->FindAnimation(idleAnimName)->SetTransMode(true, 3.f, TRANS_MODE::FADE_IN);
 	GetAnimator()->FindAnimation(idleAnimName)->SetHitAnimation(hitTex);
+	GetAnimator()->FindAnimation(skillAnimName)->SetHitAnimation(hitTex);
+	GetAnimator()->FindAnimation(skillAnimName)->SetOffset(Vec2(0.f, 30.f));
 
 	GetAnimator()->SelectAnimation(idleAnimName, true);
 
@@ -76,12 +75,13 @@ Belial::Belial()
 	
 	BelialCore* belialCore = new BelialCore;
 	belialCore->SetOwner(this);
-	belialCore->SetOffset(Vec2(25, 0));
+	belialCore->SetOffset(Vec2(25, -15));
 
 	SetEffect(belialCore);
 	// 후방 Core는 Effect
 	// Hand는? 이펙트인데 소멸자에서 따로 처리
 
+	SetAttFixFrame(9);
 
 	mLeftHand = new BelialHand(BELIAL_HAND_TYPE::LEFT_HAND);
 	mRightHand = new BelialHand(BELIAL_HAND_TYPE::RIGHT_HAND);
@@ -184,5 +184,25 @@ void Belial::OnCollisionExit(Collider* _other)
 
 bool Belial::Skill()
 {
+	// 스킬 1
+	// 구체 소환해서 전방위로 날리기
+	// effect에게 위임하기
+
+	switch (GetCurSkill())
+	{
+	case BOSS_SKILL::SKILL_1:
+	{
+		return mEffect->Attack();
+	}
+		break;
+
+	case BOSS_SKILL::SKILL_2:
+		break;
+
+	case BOSS_SKILL::SKILL_3:
+		break;
+	}
+
+
 	return false;
 }

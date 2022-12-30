@@ -1,6 +1,8 @@
 #pragma once
 #include "MonsterEffect.h"
 
+#define NUM_SHOTS 4
+
 class BelialCoreParticle;
 class BelialCore :
     public MonsterEffect
@@ -25,5 +27,12 @@ private:
     float mMaxDuration;
     float mCurDuration;
 
+    float mMaxFired;
+    float mCurFired;
+
+    float mShotMaxDuration;
+    float mShotCurDuration;
+
+    float mInitAngle;
 };
 

@@ -151,6 +151,7 @@
     <ClInclude Include="Belial.h" />
     <ClInclude Include="BelialBossMap.h" />
     <ClInclude Include="BelialCore.h" />
+    <ClInclude Include="BelialCoreBullet.h" />
     <ClInclude Include="BelialCoreParticle.h" />
     <ClInclude Include="BelialHand.h" />
     <ClInclude Include="BelialRoomGate.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="Belial.cpp" />
     <ClCompile Include="BelialBossMap.cpp" />
     <ClCompile Include="BelialCore.cpp" />
+    <ClCompile Include="BelialCoreBullet.cpp" />
     <ClCompile Include="BelialCoreParticle.cpp" />
     <ClCompile Include="BelialHand.cpp" />
     <ClCompile Include="BelialRoomGate.cpp" />

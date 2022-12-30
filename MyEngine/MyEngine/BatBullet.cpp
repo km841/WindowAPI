@@ -77,6 +77,7 @@ void BatBullet::OnCollision(Collider* _other)
 void BatBullet::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::WALL == _other->GetOwner()->GetType() ||
+		OBJECT_TYPE::DUNGEON_OBJECT == _other->GetOwner()->GetType() ||
 		OBJECT_TYPE::PLAYER == _other->GetOwner()->GetType())
 	{
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
