@@ -18,6 +18,7 @@ BelialCore::BelialCore()
 	, mShotMaxDuration(0.1f)
 	, mShotCurDuration(0.f)
 {
+	SetType(OBJECT_TYPE::DUMMY);
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 

@@ -17,3 +17,8 @@ void MonsterEffect::Update()
 	Monster* monster= static_cast<Monster*>(GetOwner());
 	mAtt = monster->GetMonsterInfo().mAtt;
 }
+
+void MonsterEffect::Render()
+{
+	Effect::Render();
+}

@@ -9,7 +9,7 @@ public:
 
 public:
     virtual void Update();
-    virtual void Render() {}
+    virtual void Render();
 
 public:
     virtual bool Attack() { return false; }

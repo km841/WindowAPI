@@ -530,6 +530,12 @@
     <Filter Include="Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet">
       <UniqueIdentifier>{f262ffea-03d4-483a-afaf-41c0118f5341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialSword">
+      <UniqueIdentifier>{56fdb838-8f47-4ce8-b0a1-fc650f1ea726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser">
+      <UniqueIdentifier>{20ff73de-3adf-43d9-bbfe-ad991157b899}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -945,6 +951,12 @@
     </ClInclude>
     <ClInclude Include="BelialCoreBullet.h">
       <Filter>Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialSword.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialSword</Filter>
+    </ClInclude>
+    <ClInclude Include="BelialLaser.h">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1365,6 +1377,12 @@
     </ClCompile>
     <ClCompile Include="BelialCoreBullet.cpp">
       <Filter>Engine\GameObject\Bullet\MonsterBullet\BelialCoreBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialSword.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialSword</Filter>
+    </ClCompile>
+    <ClCompile Include="BelialLaser.cpp">
+      <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,9 +7,17 @@
 #include "ResourceMgr.h"
 #include "BelialCore.h"
 #include "BelialHand.h"
+#include "BelialSword.h"
 #include "EventRegisteror.h"
+#include "TimeMgr.h"
 
 Belial::Belial()
+	: mSwordSpawnMaxTime(0.3f)
+	, mSwordSpawnCurTime(0.f)
+	, mSwordMaxCount(SWORD_MAX_COUNT)
+	, mSwordCurCount(0)
+	, mHandType(BELIAL_HAND_TYPE::LEFT_HAND)
+	
 {
 	mMonType = MONSTER_TYPE::BOSS_BELIAL;
 	SetGravity(false);
@@ -166,6 +174,15 @@ void Belial::Destroy()
 		mRightHand = nullptr;
 	}
 
+	for (int i = 0; i < mSwords.size(); ++i)
+	{
+		if (nullptr != mSwords[i])
+		{
+			delete mSwords[i];
+			mSwords[i] = nullptr;
+		}
+	}
+
 
 }
 
@@ -197,12 +214,88 @@ bool Belial::Skill()
 		break;
 
 	case BOSS_SKILL::SKILL_2:
+		return BelialSwordSkill();
 		break;
 
 	case BOSS_SKILL::SKILL_3:
+		return BelialLaserSkill();
 		break;
 	}
 
 
 	return false;
+}
+
+bool Belial::BelialSwordSkill()
+{
+	Vec2 initPos = Vec2(500, 500);
+	
+	if (mSwordMaxCount <= mSwordCurCount)
+	{
+		mSwordSpawnCurTime = 0.f;
+		mSwordCurCount = 0;
+		return false;
+	}
+
+	else
+	{
+		if (mSwordSpawnMaxTime < mSwordSpawnCurTime)
+		{
+			mSwordSpawnCurTime = 0.f;
+
+			initPos.x += mSwordCurCount * 150;
+			BelialSword* sword = new BelialSword;
+			sword->SetPos(initPos);
+
+			mSwords.push_back(sword);
+			EventRegisteror::GetInstance().CreateObject(sword, sword->GetType());
+
+			++mSwordCurCount;
+		}
+
+		else
+		{
+			mSwordSpawnCurTime += DT;
+		}
+	}
+
+	return true;
+}
+
+bool Belial::BelialLaserSkill()
+{
+	// left 공격하고 right 공격하고 left 공격
+	// bool형을 반환해서 계속 돌다가 끝나면 반대손
+
+	switch (mHandType)
+	{
+	case BELIAL_HAND_TYPE::LEFT_HAND:
+	{
+		if (!mLeftHand->Skill())
+		{
+			mHandType = BELIAL_HAND_TYPE::RIGHT_HAND;
+			BelialHand::IncreaseLaserCount();
+
+		}
+	}
+		break;
+
+	case BELIAL_HAND_TYPE::RIGHT_HAND:
+	{
+		if (!mRightHand->Skill())
+		{
+			mHandType = BELIAL_HAND_TYPE::LEFT_HAND;
+			BelialHand::IncreaseLaserCount();
+		}
+	}
+		break;
+	}
+
+	if (BelialHand::IsLaserCountFinished())
+	{
+		BelialHand::ClearLaserCount();
+		return false;
+	}
+
+	return true;
 }

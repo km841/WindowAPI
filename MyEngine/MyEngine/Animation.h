@@ -77,6 +77,9 @@ public:
     inline void SetFrameFix(bool _flag) { mFix = _flag; }
     inline bool GetFrameFix() const { return mFix; }
 
+    inline void SetAccTime(float _accTime) { mAccTime = _accTime; }
+    inline float GetAccTime() const { return mAccTime; }
+
     void SetFrameControl(int _frame, Vec2 _control);
     void SetFrameDuration(int _frame, float _duration);
 

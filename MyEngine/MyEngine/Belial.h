@@ -1,7 +1,9 @@
 #pragma once
 #include "BossMonster.h"
+#define SWORD_MAX_COUNT 5
 
 class BelialHand;
+class BelialSword;
 class Belial :
     public BossMonster
 {
@@ -22,11 +24,20 @@ public:
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
 
-public: 
+public:
     virtual bool Skill();
+    bool BelialSwordSkill();
+    bool BelialLaserSkill();
 
 private:
+    BELIAL_HAND_TYPE mHandType;
     BelialHand* mLeftHand;
     BelialHand* mRightHand;
-};
 
+    float mSwordSpawnMaxTime;
+    float mSwordSpawnCurTime;
+    int mSwordMaxCount;
+    int mSwordCurCount;
+
+    std::vector<BelialSword*> mSwords;
+};

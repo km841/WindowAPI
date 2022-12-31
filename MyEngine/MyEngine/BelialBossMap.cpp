@@ -12,6 +12,7 @@
 #include "MonsterEffect.h"
 #include "UIMgr.h"
 #include "BossAppearHUD.h"
+#include "CollisionMgr.h"
 
 BelialBossMap::BelialBossMap(const std::wstring& _path)
 	:BossMap(_path)
@@ -105,10 +106,12 @@ void BelialBossMap::Destroy()
 
 void BelialBossMap::Enter()
 {
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::MONSTER_EFFECT);
 	BossMap::Enter();
 }
 
 void BelialBossMap::Exit()
 {
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::MONSTER_EFFECT);
 	BossMap::Exit();
 }

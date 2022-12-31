@@ -154,7 +154,9 @@
     <ClInclude Include="BelialCoreBullet.h" />
     <ClInclude Include="BelialCoreParticle.h" />
     <ClInclude Include="BelialHand.h" />
+    <ClInclude Include="BelialLaser.h" />
     <ClInclude Include="BelialRoomGate.h" />
+    <ClInclude Include="BelialSword.h" />
     <ClInclude Include="BigGrayIceSkullWarrior.h" />
     <ClInclude Include="BlackSmithNPC.h" />
     <ClInclude Include="BossAppearHUD.h" />
@@ -294,7 +296,9 @@
     <ClCompile Include="BelialCoreBullet.cpp" />
     <ClCompile Include="BelialCoreParticle.cpp" />
     <ClCompile Include="BelialHand.cpp" />
+    <ClCompile Include="BelialLaser.cpp" />
     <ClCompile Include="BelialRoomGate.cpp" />
+    <ClCompile Include="BelialSword.cpp" />
     <ClCompile Include="BigGrayIceSkullWarrior.cpp" />
     <ClCompile Include="BlackSmithNPC.cpp" />
     <ClCompile Include="BossAppearHUD.cpp" />
