@@ -64,12 +64,28 @@ void BossRoomGate::Update()
 			if (SCENE_TYPE::DUNGEON == scene->GetSceneType())
 			{
 				Stage* curStage = static_cast<DungeonScene*>(scene)->GetCurStage();
-				Map* sideMap = curStage->GetBossSideMap();
 
-				if (nullptr != curStage && nullptr != sideMap)
+				if (false == curStage->IsClear())
 				{
-					EventRegisteror::GetInstance().TransitionToMap(curStage, sideMap);
+					Map* sideMap = curStage->GetBossSideMap();
+
+					if (nullptr != curStage && nullptr != sideMap)
+					{
+						EventRegisteror::GetInstance().TransitionToMap(curStage, sideMap);
+					}
 				}
+
+				else
+				{
+					// GameClear
+					//Map* nextMap = curStage->GetBossNextMap();
+
+					//if (nullptr != curStage && nullptr != nextMap)
+					//{
+					//	EventRegisteror::GetInstance().TransitionToMap(curStage, nextMap);
+					//}
+				}
+
 			}
 		}
 	}

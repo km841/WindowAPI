@@ -8,6 +8,7 @@
 #include "MinimapHUD.h"
 #include "Scene.h"
 #include "SceneMgr.h"
+#include "Stage.h"
 
 BossMap::BossMap(const std::wstring& _path)
 	:Map(_path)
@@ -27,7 +28,7 @@ void BossMap::Update()
 {
 	Map::Update();
 
-	if (nullptr != mBossMonster)
+	if (nullptr != mBossMonster && mBossMonster->IsAlive())
 	{
 		GET_BOSSHP_HUD->SetBossMonster(mBossMonster);
 		if (false == GET_BOSSHP_HUD->GetState())
@@ -58,7 +59,8 @@ void BossMap::Exit()
 {
 	Map::Exit();
 	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
-
+	
+	GetOwnerStage()->SetClear(true);
 	//SceneMgr::GetInstance().GetCurScene()->DeleteObjGroup(OBJECT_TYPE::MONSTER_EFFECT);
 
 }

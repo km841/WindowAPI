@@ -7,9 +7,11 @@
 Stage::Stage(STAGE_TYPE _type)
 	: mBossSideMap(nullptr)
 	, mBossMap(nullptr)
+	, mBossNextMap(nullptr)
 	, mCurMap(nullptr)
 	, mStartMap(nullptr)
 	, mStageType(_type)
+	, mClear(false)
 {
 }
 
@@ -58,6 +60,13 @@ void Stage::Destroy()
 		mBossMap->Destroy();
 		delete mBossMap;
 		mBossMap = nullptr;
+	}
+
+	if (nullptr != mBossNextMap)
+	{
+		mBossNextMap->Destroy();
+		delete mBossNextMap;
+		mBossNextMap = nullptr;
 	}
 }
 
@@ -197,5 +206,26 @@ void Stage::SetBossMap(BossMap* _bossMap)
 	{
 		mBossSideMap->SetMapLink(WARP_POINT::RIGHT, mBossMap);
 		mBossMap->SetMapLink(WARP_POINT::LEFT, mBossSideMap);
+	}
+
+	if (nullptr != mBossNextMap &&
+		nullptr == mBossNextMap->GetMapLink(WARP_POINT::LEFT))
+	{
+		mBossNextMap->SetMapLink(WARP_POINT::LEFT, mBossMap);
+		mBossMap->SetMapLink(WARP_POINT::RIGHT, mBossNextMap);
+	}
+}
+
+void Stage::SetBossNextMap(Map* _nextMap)
+{
+	mBossNextMap = _nextMap;
+	mBossNextMap->SetOwnerStage(this);
+	mBossNextMap->SetMapType(MAP_TYPE::BOSS_NEXT);
+
+	if (nullptr != mBossMap &&
+		nullptr == mBossMap->GetMapLink(WARP_POINT::RIGHT))
+	{
+		mBossNextMap->SetMapLink(WARP_POINT::LEFT, mBossMap);
+		mBossMap->SetMapLink(WARP_POINT::RIGHT, mBossNextMap);
 	}
 }

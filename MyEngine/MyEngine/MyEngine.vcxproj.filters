@@ -419,9 +419,6 @@
     <Filter Include="Engine\Scene\DungeonScene\Stage\Base">
       <UniqueIdentifier>{afa9452c-2616-4cfe-bf37-beef2fcc2817}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\DungeonScene\Stage\SnowMountain">
-      <UniqueIdentifier>{47c20578-bc5d-4fc3-990c-c65108d3baa4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene\DungeonScene\Stage\Map">
       <UniqueIdentifier>{3da1246f-71da-4559-93bf-496d2475e9e7}</UniqueIdentifier>
     </Filter>
@@ -889,9 +886,6 @@
     <ClInclude Include="Map.h">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Prison.h">
-      <Filter>Engine\Scene\DungeonScene\Stage\Prison</Filter>
-    </ClInclude>
     <ClInclude Include="ToolWindows.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -963,6 +957,9 @@
     </ClInclude>
     <ClInclude Include="BoomEffect.h">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Prison.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Prison</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -110,6 +110,9 @@ enum class EVENT_TYPE
 
 	TRANSITION_TO_MAP,
 	// lParam : Next Map Pointer, wParam : Owner Stage Pointer
+
+	STAGE_CHANGE,
+	// lParam : No used, wParam : Stage Type
 };
 
 enum class RELATION_TYPE
@@ -379,6 +382,7 @@ enum class MAP_TYPE
 	NORMAL,
 	BOSS_SIDE,
 	BOSS,
+	BOSS_NEXT,
 	END,
 };
 

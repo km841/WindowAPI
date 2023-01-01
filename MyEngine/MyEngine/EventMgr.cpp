@@ -8,6 +8,7 @@
 #include "AI.h"
 #include "Map.h"
 #include "Stage.h"
+#include "DungeonScene.h"
 
 void EventMgr::Initialize()
 {
@@ -106,6 +107,17 @@ void EventMgr::Execute(Event _event)
 		Map* map = (Map*)_event.lParam;
 		Stage* stage = (Stage*)_event.wParam;
 		stage->TransitionToMap(map);
+	}
+	break;
+
+	case EVENT_TYPE::STAGE_CHANGE:
+	{
+		Scene* scene = SceneMgr::GetInstance().GetCurScene();
+		if (SCENE_TYPE::DUNGEON == scene->GetSceneType())
+		{
+			static_cast<DungeonScene*>(scene)->ChangeStage((STAGE_TYPE)_event.wParam);
+		}
+		
 	}
 	break;
 

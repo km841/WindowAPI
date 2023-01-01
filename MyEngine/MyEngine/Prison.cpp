@@ -16,16 +16,17 @@ Prison::~Prison()
 void Prison::Initialize()
 {
 	//AddMap(L"..\\Resource\\Map\\dungeon4.map");
-	AddMap(L"..\\Resource\\Map\\start_map_TR.map");
-	AddMap(L"..\\Resource\\Map\\dungeon2_LR.map");
-	AddMap(L"..\\Resource\\Map\\dungeon4_RTB.map");
-	AddMap(L"..\\Resource\\Map\\dungeon5_L.map");
+	AddMap(L"..\\Resource\\Map\\Prison_StartMap_TR.map");
+	AddMap(L"..\\Resource\\Map\\Prison_Dungeon1_LR.map");
+	AddMap(L"..\\Resource\\Map\\Prison_Dungeon2_RTB.map");
+	AddMap(L"..\\Resource\\Map\\Prison_Dungeon3_L.map");
 
 	mCurMap = GetStartMap();
 	// 재귀적으로 nullptr을 찾아서 조립
 
-	SetBossSideMap(new Map(L"..\\Resource\\Map\\prison_side_map_r.map"));
-	SetBossMap(new BelialBossMap(L"..\\Resource\\Map\\boss_map_LR.map"));
+	SetBossSideMap(new Map(L"..\\Resource\\Map\\Prison_BossSide_R.map"));
+	SetBossMap(new BelialBossMap(L"..\\Resource\\Map\\Prison_Boss_LR.map"));
+	SetBossNextMap(new Map(L"..\\Resource\\Map\\Prison_BossNext_L.map"));
 	
 	ChainMaps(mCurMap);
 	Stage::Initialize();
@@ -53,5 +54,5 @@ void Prison::Enter()
 
 void Prison::Exit()
 {
-	// 스테이지 정리
+	mCurMap->Exit();
 }

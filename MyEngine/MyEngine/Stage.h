@@ -29,14 +29,19 @@ public:
 	inline STAGE_TYPE GetStageType() const { return mStageType; }
 
 	inline Map* GetBossSideMap() const { return mBossSideMap; }
+	inline Map* GetBossNextMap() const { return mBossNextMap; }
 	void SetBossSideMap(Map* _sideMap);
 	void SetBossMap(BossMap* _bossMap);
+	void SetBossNextMap(Map* _nextMap);
+
+	inline void SetClear(bool _flag) { mClear = _flag; }
+	inline bool IsClear() const { return mClear; }
 
 private:
 	STAGE_TYPE mStageType;
 	std::vector<Map*> mMaps;
 	
-	
+	bool mClear;
 
 protected:
 	Map* mCurMap;
@@ -44,9 +49,10 @@ protected:
 
 	Map* mBossSideMap;
 	BossMap* mBossMap;
+	Map* mBossNextMap;
 
 	Vec2 mInitPlayerPos;
-	//Vec2 mBossSideMapPos;
+	// Vec2 mBossSideMapPos;
 	// 맵을 집어넣을 때 맵 파일의 주소를 집어넣음
 	// 맵을 연결해주는건?
 	// Stage의 Enter에서 처리

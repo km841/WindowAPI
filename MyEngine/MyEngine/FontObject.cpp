@@ -58,8 +58,8 @@ void FontObject::Render()
 	Vec2 pos = RENDER_POS(GetPos());
 	// 데미지를 출력하려면 Texture가 있어야 함
 
-	Vec2 size = mTex->GetSize();
-
+	Vec2 orgSize = mTex->GetSize();
+	Vec2 size = orgSize * 1.2f;
 	if (mTrans)
 	{
 		AlphaBlend(
@@ -70,8 +70,8 @@ void FontObject::Render()
 			(int)(size.y),
 			mTex->GetDC(),
 			0, 0,
-			(int)size.x,
-			(int)size.y,
+			(int)orgSize.x,
+			(int)orgSize.y,
 			mBlendFunc
 		);
 	}

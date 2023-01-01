@@ -81,6 +81,7 @@ void BelialBossMap::Update()
 				CameraMgr::GetInstance().SetTrackingObject(Player::GetPlayer());
 				mBossMonster->SetObjState(OBJECT_STATE::DEAD);
 				mBossMonster->GetEffect()->SetObjState(OBJECT_STATE::DEAD);
+				EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::BOSS_HP);
 			}
 
 			else

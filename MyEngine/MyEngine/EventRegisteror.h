@@ -14,6 +14,7 @@ public:
 	void DeleteObjectFromScene(GameObject* _obj);
 	void TransfortObject(GameObject* _obj, SCENE_TYPE _eType);
 	void ChangeScene(SCENE_TYPE _eType);
+	void ChangeStage(STAGE_TYPE _eType);
 	void ChangeMonsterState(AI* _ai, MONSTER_STATE _eState);
 
 	void TransitionToMap(Stage* _stage, Map* _map);

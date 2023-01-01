@@ -439,29 +439,6 @@ void ToolScene::RemoveObject(Vec2 _pos)
 	}
 }
 
-//IconUI* ToolScene::CutTile(UI* _parentUI, Vec2 _ltPos, Vec2 _slice)
-//{
-//	size_t size = _parentUI->GetChildUI().size();
-//	int row = (int)(size / (WINDOW_WIDTH_SIZE / TILE_SIZE));
-//	int col = size % (WINDOW_WIDTH_SIZE / TILE_SIZE);
-//
-//
-//	IconUI* iconUI = new IconUI;
-//	iconUI->SetLTPos(_ltPos);
-//	iconUI->SetPos(Vec2(col * TILE_SIZE, row * TILE_SIZE));
-//	iconUI->SetParentUI(_parentUI);
-//
-//	return iconUI;
-//}
-//
-//void ToolScene::CutTiles(UI* _parentUI, Vec2 _ltPos, Vec2 _offset, Vec2 _slice, int _tileCount)
-//{
-//	for (int i = 0; i < _tileCount; ++i)
-//	{
-//		_parentUI->AddChild(CutTile(_parentUI, _ltPos + (_offset * (float)i), _slice));
-//	}
-//}
-
 void ToolScene::SetupTile()
 {
 	// 여기서 타입에 따라 갈려야 하나?
@@ -713,6 +690,8 @@ void ToolScene::Save()
 			dungeonObjGroup[i]->Save(fp);
 		}
 		fclose(fp);
+
+		_wchdir(APP_INSTANCE.GetBaseAddress().c_str());
 	}
 }
 

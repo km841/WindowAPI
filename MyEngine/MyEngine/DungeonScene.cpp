@@ -140,3 +140,14 @@ void DungeonScene::SetCollisionFlag()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::MONSTER, OBJECT_TYPE::DUNGEON_OBJECT);
 }
 
+void DungeonScene::ChangeStage(STAGE_TYPE _type)
+{
+	if (nullptr != mCurStage)
+	{
+		mCurStage->Exit();
+	}
+
+	mCurStage = mStages[(UINT)_type];
+	mCurStage->Enter();
+}
+

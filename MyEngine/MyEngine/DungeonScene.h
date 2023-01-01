@@ -23,6 +23,8 @@ public:
 	inline Stage* GetCurStage() const { return mCurStage; }
 	inline Stage* GetStage(STAGE_TYPE _type) { return mStages[(UINT)_type]; }
 
+	void ChangeStage(STAGE_TYPE _type);
+
 protected:
 	Stage* mStages[(UINT)STAGE_TYPE::END];
 	Stage* mCurStage;
