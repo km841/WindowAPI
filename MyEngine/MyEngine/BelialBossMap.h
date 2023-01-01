@@ -1,6 +1,7 @@
 #pragma once
 #include "BossMap.h"
 
+class BoomEffect;
 class Belial;
 class BelialBossMap :
     public BossMap
@@ -22,11 +23,24 @@ public:
 private:
 	Belial* mBelial;
 	
+	std::vector<BoomEffect*> mEffects;
 	bool mBossAppearing;
 	bool mBossActive;
 	float mBossActiveArea;
 
 	float mMaxDuration;
 	float mCurDuration;
+
+
+	float mDeadStayMaxTime;
+	float mDeadStayCurTime;
+
+	bool mDeadStayFlag;
+
+	int mBoomMaxCount;
+	int mBoomCurCount;
+
+	float mBoomMaxTime;
+	float mBoomCurTime;
 };
 

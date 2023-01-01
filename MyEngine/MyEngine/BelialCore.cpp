@@ -8,6 +8,7 @@
 #include "TimeMgr.h"
 #include "CameraMgr.h"
 #include "BelialCoreBullet.h"
+#include "Animation.h"
 
 BelialCore::BelialCore()
 	: mMaxDuration(0.2f)
@@ -124,4 +125,14 @@ bool BelialCore::Attack()
 
 
 	return true;
+}
+
+void BelialCore::Dead()
+{
+	GetAnimator()->SelectAnimation(L"BelialBackAnim", true);
+	GetAnimator()->GetCurAnimation()->Reset();
+	GetAnimator()->GetCurAnimation()->SetFrameFix(true);
+
+
+
 }

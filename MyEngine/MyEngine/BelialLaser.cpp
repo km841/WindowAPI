@@ -13,8 +13,12 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 	Texture* laserHeadTex = ResourceMgr::GetInstance().Load<Texture>(L"LaserHeadTex", L"Texture\\Monster\\Belial\\Belial_Laser_Head.bmp");
 	Texture* laserBodyTex = ResourceMgr::GetInstance().Load<Texture>(L"LaserBodyTex", L"Texture\\Monster\\Belial\\Belial_Laser_Body.bmp");
 
+	
+
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
+
+
 
 	mLaserHeadAnimName = L"LaserHeadAnim";
 	mLaserBodyAnimName = L"LaserBodyAnim";
@@ -25,7 +29,7 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 		Vec2(0, 0),
 		Vec2(96, 165),
 		Vec2(96, 0),
-		0.01f,
+		0.1f,
 		7
 	);
 
@@ -35,7 +39,7 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 		Vec2(0, 165),
 		Vec2(96, 165),
 		Vec2(96, 0),
-		0.01f,
+		0.1f,
 		7
 	);
 
@@ -45,7 +49,7 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 		Vec2(0, 0),
 		Vec2(96, 165),
 		Vec2(96, 0),
-		0.01f,
+		0.1f,
 		7
 	);
 
@@ -53,14 +57,21 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 	{
 	case BELIAL_LASER_TYPE::HEAD:
 	{
+		CreateComponent(new Collider);
+		GetCollider()->SetOwner(this);
+
+		GetCollider()->SetSize(Vec2(960, 100));
+
 		switch (mHandType)
 		{
 		case BELIAL_HAND_TYPE::LEFT_HAND:
 			GetAnimator()->SelectAnimation(mLaserHeadAnimName + L"Left", false);
+			GetCollider()->SetOffset(Vec2(480, -80));
 			break;
 
 		case BELIAL_HAND_TYPE::RIGHT_HAND:
 			GetAnimator()->SelectAnimation(mLaserHeadAnimName + L"Right", false);
+			GetCollider()->SetOffset(Vec2(-480, -80));
 			break;
 		}
 	}

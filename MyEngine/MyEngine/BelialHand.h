@@ -34,6 +34,8 @@ public:
 	static bool IsLaserCountFinished() { return laserCount == LASER_MAX_COUNT; }
 	static void ClearLaserCount() { laserCount = 0; }
 
+	virtual void Dead() override;
+
 private:
 	static int laserCount;
 
@@ -44,9 +46,16 @@ private:
 	std::wstring mAttAnimName;
 
 	bool mAttFlag;
+	bool mAttacked;
 
 	float mStayMaxTime;
 	float mStayCurTime;
+
+	int mLaserBodyCount;
+
+	float mDistance;
+	float mSpeed;
+	Vec2  mDir;
 
 	std::vector<BelialLaser*> mLasers;
 };

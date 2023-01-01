@@ -536,6 +536,9 @@
     <Filter Include="Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser">
       <UniqueIdentifier>{20ff73de-3adf-43d9-bbfe-ad991157b899}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect">
+      <UniqueIdentifier>{2be2bfca-bf05-43c6-8404-e13f2872f1e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -957,6 +960,9 @@
     </ClInclude>
     <ClInclude Include="BelialLaser.h">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomEffect.h">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1383,6 +1389,9 @@
     </ClCompile>
     <ClCompile Include="BelialLaser.cpp">
       <Filter>Engine\GameObject\Monster\Boss_Monster\Belial\BelialHand\BelialLaser</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomEffect.cpp">
+      <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

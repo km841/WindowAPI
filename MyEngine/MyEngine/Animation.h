@@ -90,6 +90,7 @@ public:
     void Reset();
 
     void SetHitAnimation(Texture* _hitAnim);
+    inline void DisableHitMode() { mHitMode = false; }
 
 private:
     Animator*             mOwner;

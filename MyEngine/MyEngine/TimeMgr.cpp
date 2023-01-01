@@ -6,6 +6,25 @@
 #include "Texture.h"
 #include "MouseMgr.h"
 
+TimeMgr::TimeMgr()
+	: mPrevCount{}
+	, mCurCount{}
+	, mFrequency{}
+	, mMagnification(1.f)
+	, mSettingMaxTime(0.f)
+	, mSettingCurTime(0.f)
+	, mDT(0.f)
+	, mAcc(0.)
+	, mCallCount(0)
+	, mFPS(0)
+	, mDTChange(false)
+{
+}
+
+TimeMgr::~TimeMgr()
+{
+}
+
 void TimeMgr::Initialize()
 {
 	QueryPerformanceCounter(&mPrevCount);
@@ -19,6 +38,21 @@ void TimeMgr::Update()
 
 	mDT = (float)(mCurCount.QuadPart - mPrevCount.QuadPart) / (float)(mFrequency.QuadPart);
 	mPrevCount = mCurCount;
+
+	if (mDTChange)
+	{
+		if (mSettingMaxTime < mSettingCurTime)
+		{
+			mSettingCurTime = 0.f;
+			mDTChange = false;
+		}
+
+		else
+		{
+			mSettingCurTime += mDT;
+			mDT *= mMagnification;
+		}
+	}
 
 	if (mDT > (1.f / 60.f))
 		mDT = (1.f / 60.f);
@@ -62,4 +96,12 @@ std::wstring TimeMgr::GetCurTime()
 	swprintf_s(buff, L"%d-%d-%d_%d:%d:%d", year, month, day, hour, min, sec);
 
 	return std::wstring(buff);
+}
+
+void TimeMgr::SetDeltaTime(float _magn, float _maxTime)
+{
+	mDTChange = true;
+	mMagnification = _magn;
+	mSettingMaxTime = _maxTime;
+	mSettingCurTime = 0.f;
 }

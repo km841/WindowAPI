@@ -10,6 +10,7 @@
 #include "BelialSword.h"
 #include "EventRegisteror.h"
 #include "TimeMgr.h"
+#include "CameraMgr.h"
 
 Belial::Belial()
 	: mSwordSpawnMaxTime(0.3f)
@@ -126,18 +127,36 @@ void Belial::Initialize()
 
 void Belial::Update()
 {
-	BossMonster::Update();
+	
 
-	if (nullptr != mLeftHand)
+	if (IsAlive())
 	{
-		mLeftHand->Update();
+		BossMonster::Update();
 
+		if (nullptr != mLeftHand)
+		{
+			mLeftHand->Update();
+
+		}
+
+		if (nullptr != mRightHand)
+		{
+			mRightHand->Update();
+		}
 	}
 
-	if (nullptr != mRightHand)
+	else
 	{
-		mRightHand->Update();
+		GetAnimator()->SelectAnimation(GetIdleAnimName(), false);
+		GetAnimator()->GetCurAnimation()->Reset();
+		GetAnimator()->GetCurAnimation()->SetFrameFix(true);
+		GetAnimator()->GetCurAnimation()->DisableHitMode();
+
+		mLeftHand->Dead();
+		mRightHand->Dead();
 	}
+
+
 
 }
 
@@ -298,4 +317,22 @@ bool Belial::BelialLaserSkill()
 	}
 
 	return true;
+}
+
+void Belial::Killed()
+{
+	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN_FROM_WHITE, 3.0f);
+	TimeMgr::GetInstance().SetDeltaTime(0.5f, 3.0f);
+
+	SetObjState(OBJECT_STATE::DEAD_ANIM);
+	// 1. 화이트 Fade In
+	// Dead이펙트를 따로 만들어서... 함수호출->bool값 세팅->update에서 터지는 이펙트 연출
+	// 
+
+	// DeadEffect에게 위임하고 애니메이션이 끝난 후에는 Core, Hand에게 Destroy 
+}
+
+void Belial::Dead()
+{
+
 }

@@ -25,9 +25,12 @@ public:
     virtual void OnCollisionExit(Collider* _other);
 
 public:
-    virtual bool Skill();
+    virtual bool Skill() override;
     bool BelialSwordSkill();
     bool BelialLaserSkill();
+
+    virtual void Killed() override;
+    virtual void Dead() override;
 
 private:
     BELIAL_HAND_TYPE mHandType;
@@ -36,6 +39,7 @@ private:
 
     float mSwordSpawnMaxTime;
     float mSwordSpawnCurTime;
+
     int mSwordMaxCount;
     int mSwordCurCount;
 

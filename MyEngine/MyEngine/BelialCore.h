@@ -17,7 +17,7 @@ public:
 
 public:
     virtual bool Attack();
-
+    virtual void Dead();
 public:
     virtual void OnCollision(Collider* _other) {}
     virtual void OnCollisionEnter(Collider* _other) {}

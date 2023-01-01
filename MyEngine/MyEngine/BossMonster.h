@@ -37,7 +37,7 @@ public:
     inline void SetSkill03AnimName(const std::wstring& _name) { mSkill03AnimName = _name; }
     inline const std::wstring& GetSkill03AnimName() const { return mSkill03AnimName; }
 
-
+    virtual void Killed() {}
 
 private:
     BOSS_SKILL mCurSkill;

@@ -11,6 +11,7 @@ public:
     virtual void Update();
     virtual void Render();
 
+    inline BELIAL_LASER_TYPE GetLaserType() const { return mLaserType; }
 
 private:
     BELIAL_LASER_TYPE mLaserType;

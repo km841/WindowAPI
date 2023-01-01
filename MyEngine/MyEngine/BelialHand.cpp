@@ -7,13 +7,19 @@
 #include "BelialLaser.h"
 #include "EventRegisteror.h"
 #include "TimeMgr.h"
+#include "Collider.h"
+#include "Player.h"
 
 int BelialHand::laserCount = 0;
 BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 	: mType(_type)
 	, mAttFlag(false)
-	, mStayMaxTime(0.8f)
+	, mAttacked(false)
+	, mStayMaxTime(0.5f)
 	, mStayCurTime(0.f)
+	, mLaserBodyCount(12)
+	, mDistance(0.f)
+	, mSpeed(0.f)
 {
 	
 
@@ -51,7 +57,7 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 		Vec2(0, 414),
 		Vec2(210, 240),
 		Vec2(210, 0),
-		0.1f,
+		0.05f,
 		18
 	);
 
@@ -61,14 +67,14 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 		Vec2(0, 654),
 		Vec2(210, 240),
 		Vec2(210, 0),
-		0.1f,
+		0.05f,
 		18
 	);
 
 	GetAnimator()->FindAnimation(mIdleAnimName + L"Left")->SetTransMode(true, 3.0f, TRANS_MODE::FADE_IN);
 	GetAnimator()->FindAnimation(mIdleAnimName + L"Right")->SetTransMode(true, 3.0f, TRANS_MODE::FADE_IN);
-	GetAnimator()->FindAnimation(mAttAnimName + L"Left")->SetOffset(Vec2(0, 12));
-	GetAnimator()->FindAnimation(mAttAnimName + L"Right")->SetOffset(Vec2(0, 12));
+	GetAnimator()->FindAnimation(mAttAnimName + L"Left")->SetOffset(Vec2(0, 30));
+	GetAnimator()->FindAnimation(mAttAnimName + L"Right")->SetOffset(Vec2(0, 30));
 
 	switch (mType)
 	{
@@ -135,6 +141,29 @@ bool BelialHand::Skill()
 			GetAnimator()->SelectAnimation(mAttAnimName + L"Right", false);
 			break;
 		}
+
+		Player* player = Player::GetPlayer();
+		if (nullptr != player)
+		{
+			Vec2 playerPos = player->GetPos();
+			playerPos.y += 15.f;
+			Vec2 curPos = GetPos();
+			mDistance = playerPos.y - curPos.y;
+
+			if (0.f > mDistance)
+			{
+				mDir = Vec2(0, -1);
+				mDistance = -mDistance;
+			}
+
+			else
+			{
+				mDir = Vec2(0, 1);
+			}
+
+			mSpeed = mDistance / (mStayMaxTime / 2.f);
+		}
+
 	}
 
 	else
@@ -158,57 +187,84 @@ bool BelialHand::Skill()
 						break;
 					}
 
+					for (int i = 0; i < mLasers.size(); ++i)
+					{
+						if (nullptr != mLasers[i])
+						{
+							if (BELIAL_LASER_TYPE::HEAD == mLasers[i]->GetLaserType())
+							{
+								mLasers[i]->GetCollider()->SetEnable(false);
+							}
+						}
+					}
+
+
 					mStayCurTime = 0.f;
 					mAttFlag = false;
+					mAttacked = false;
 					return false;
 				}
 			}
 
-			Vec2 curPos = GetPos();
 
-			switch (mType)
+			if (false == mAttacked)
 			{
-			case BELIAL_HAND_TYPE::LEFT_HAND:
-				curPos += Vec2(30.f, -10.f);
-				break;
+				mAttacked = true;
+				Vec2 curPos = GetPos();
 
-			case BELIAL_HAND_TYPE::RIGHT_HAND:
-				curPos += Vec2(-30.f, -10.f);
-				break;
-			}
-
-			BelialLaser* laserHead = new BelialLaser(BELIAL_LASER_TYPE::HEAD, mType);
-			laserHead->SetPos(curPos);
-
-			mLasers.push_back(laserHead);
-			EventRegisteror::GetInstance().CreateObject(laserHead, laserHead->GetType());
-
-
-			for (int i = 0; i < LASER_MAX_COUNT; ++i)
-			{
 				switch (mType)
 				{
 				case BELIAL_HAND_TYPE::LEFT_HAND:
-					curPos.x += 96.f;
+					curPos += Vec2(30.f, 5.f);
 					break;
 
 				case BELIAL_HAND_TYPE::RIGHT_HAND:
-					curPos.x -= 96.f;
+					curPos += Vec2(-30.f, 5.f);
 					break;
 				}
 
-				
-				BelialLaser* laserBody = new BelialLaser(BELIAL_LASER_TYPE::BODY, mType);
-				laserBody->SetPos(curPos);
+				BelialLaser* laserHead = new BelialLaser(BELIAL_LASER_TYPE::HEAD, mType);
+				laserHead->SetPos(curPos);
 
-				mLasers.push_back(laserBody);
-				EventRegisteror::GetInstance().CreateObject(laserBody, laserBody->GetType());
+				mLasers.push_back(laserHead);
+				EventRegisteror::GetInstance().CreateObject(laserHead, laserHead->GetType());
+
+
+				for (int i = 0; i < mLaserBodyCount; ++i)
+				{
+					switch (mType)
+					{
+					case BELIAL_HAND_TYPE::LEFT_HAND:
+						curPos.x += 96.f;
+						break;
+
+					case BELIAL_HAND_TYPE::RIGHT_HAND:
+						curPos.x -= 96.f;
+						break;
+					}
+
+
+					BelialLaser* laserBody = new BelialLaser(BELIAL_LASER_TYPE::BODY, mType);
+					laserBody->SetPos(curPos);
+
+					mLasers.push_back(laserBody);
+					EventRegisteror::GetInstance().CreateObject(laserBody, laserBody->GetType());
+				}
 			}
+
 		}
 
 		else
 		{
 			mStayCurTime += DT;
+
+			if (mStayCurTime < (mStayMaxTime / 2.f))
+			{
+				// 플레이어 따라 움직이기
+				Vec2 curPos = GetPos();
+				curPos += mDir * mSpeed * DT;
+				SetPos(curPos);
+			}
 		}
 
 
@@ -216,4 +272,20 @@ bool BelialHand::Skill()
 
 
 	return true;
+}
+
+void BelialHand::Dead()
+{
+	switch (mType)
+	{
+	case BELIAL_HAND_TYPE::LEFT_HAND:
+		GetAnimator()->SelectAnimation(mIdleAnimName + L"Left");
+		break;
+	case BELIAL_HAND_TYPE::RIGHT_HAND:
+		GetAnimator()->SelectAnimation(mIdleAnimName + L"Right");
+		break;
+	}
+
+	GetAnimator()->GetCurAnimation()->Reset();
+	GetAnimator()->GetCurAnimation()->SetFrameFix(true);
 }

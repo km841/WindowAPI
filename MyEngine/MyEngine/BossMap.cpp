@@ -6,6 +6,8 @@
 #include "BossMonster.h"
 #include "TimeMgr.h"
 #include "MinimapHUD.h"
+#include "Scene.h"
+#include "SceneMgr.h"
 
 BossMap::BossMap(const std::wstring& _path)
 	:Map(_path)
@@ -56,4 +58,7 @@ void BossMap::Exit()
 {
 	Map::Exit();
 	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
+
+	//SceneMgr::GetInstance().GetCurScene()->DeleteObjGroup(OBJECT_TYPE::MONSTER_EFFECT);
+
 }

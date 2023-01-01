@@ -95,6 +95,11 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
 	}
 
+	if (0.f > GetCurHP())
+	{
+		Killed();
+	}
+
 }
 
 void BossMonster::OnCollisionExit(Collider* _other)

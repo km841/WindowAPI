@@ -11,6 +11,9 @@ CameraMgr::CameraMgr()
 	: mAccTime(0.f)
 	, mMaxTime(1.f)
 	, mSpeed(0.f)
+	, mWhiteCutton(nullptr)
+	, mHitCutton(nullptr)
+	, mCutton(nullptr)
 {
 }
 
@@ -20,6 +23,10 @@ void CameraMgr::Initialize()
 	mLookPos = resolution / 2.f;
 
 	mCutton = ResourceMgr::GetInstance().CreateTexture(L"Cutton", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
+
+	mWhiteCutton = ResourceMgr::GetInstance().CreateTexture(L"WhiteCutton", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
+	mWhiteCutton->ChangeColor(RGB_BLACK, RGB_WHITE);
+
 	mHitCutton = ResourceMgr::GetInstance().Load<Texture>(L"HitCutton", L"Texture\\RedWarningOnHit2.bmp");
 	
 	mBlendFunc = {};
@@ -99,6 +106,7 @@ void CameraMgr::Update()
 
 	switch (mCurEffect.mEffect)
 	{
+	case CAMERA_EFFECT::FADE_IN_FROM_WHITE:
 	case CAMERA_EFFECT::FADE_IN:
 		mAlphaValue = 1.0f - ratio;
 		mBlendFunc.SourceConstantAlpha = (BYTE)(255.f * mAlphaValue);
@@ -159,15 +167,33 @@ void CameraMgr::Render()
 
 	else
 	{
-		mBlendFunc.AlphaFormat = 0;
-		AlphaBlend(BACK_BUF_DC,
-			0, 0,
-			WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
-			mCutton->GetDC(),
-			0, 0,
-			mCutton->GetWidth(),
-			mCutton->GetHeight(),
-			mBlendFunc);
+
+		if (CAMERA_EFFECT::FADE_IN_FROM_WHITE == mCurEffect.mEffect)
+		{
+			mBlendFunc.AlphaFormat = 0;
+			AlphaBlend(BACK_BUF_DC,
+				0, 0,
+				WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
+				mWhiteCutton->GetDC(),
+				0, 0,
+				mWhiteCutton->GetWidth(),
+				mWhiteCutton->GetHeight(),
+				mBlendFunc);
+		}
+
+		else
+		{
+			mBlendFunc.AlphaFormat = 0;
+			AlphaBlend(BACK_BUF_DC,
+				0, 0,
+				WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE,
+				mCutton->GetDC(),
+				0, 0,
+				mCutton->GetWidth(),
+				mCutton->GetHeight(),
+				mBlendFunc);
+		}
+
 	}
 
 	
