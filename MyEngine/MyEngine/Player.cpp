@@ -36,6 +36,7 @@
 #include "ItemGetHUD.h"
 #include "CollisionMgr.h"
 #include "LockedDoor.h"
+#include "Sound.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -70,6 +71,8 @@ Player::Player()
 	, mMoveMapCoolDown(false)
 	, mMoveMapMaxDuration(0.1f)
 	, mMoveMapCurDuration(0.f)
+	, mPlayerHitSound(nullptr)
+	, mPickUpSound(nullptr)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -80,6 +83,9 @@ Player::Player()
 	mInfo.mSpeed = 350.f;
 	mInfo.mAtt = 1.f;
 
+	mInventorySound = LOAD_SOUND(L"InventoryOpenClose", L"Sound\\InventoryOpenClose.wav");
+	mPlayerHitSound = LOAD_SOUND(L"PlayerHit", L"Sound\\PlayerHit.wav");
+	mPickUpSound = LOAD_SOUND(L"ItemPickUp", L"Sound\\PickUpItem.wav");
 #pragma region PLAYER_STATE_INITIALIZE
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
@@ -538,6 +544,11 @@ void Player::StateUpdate()
 			EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);
 			EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
 			mUIState = true;
+
+			if (nullptr != mInventorySound)
+			{
+				mInventorySound->Play(false);
+			}
 					
 		}
 
@@ -549,7 +560,15 @@ void Player::StateUpdate()
 			EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::EQUIPED);
 			EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
 			mUIState = false;
+
+			if (nullptr != mInventorySound)
+			{
+				mInventorySound->Play(false);
+			}
+
 		}
+
+
 	}
 
 	if (mHit && (mInvinTime > mInvinMaxTime))
@@ -734,6 +753,11 @@ void Player::OnCollisionEnter(Collider* _other)
 				mInfo.mCurHP = 0.f;
 		}
 		mHit = true;
+
+		if (nullptr != mPlayerHitSound)
+		{
+			mPlayerHitSound->Play(false);
+		}
 	}
 
 	if (OBJECT_TYPE::MISSILE_FROM_MONSTER == _other->GetOwner()->GetType())
@@ -756,6 +780,11 @@ void Player::OnCollisionEnter(Collider* _other)
 		}
 
 		mHit = true;
+
+		if (nullptr != mPlayerHitSound)
+		{
+			mPlayerHitSound->Play(false);
+		}
 	}
 
 	if (OBJECT_TYPE::MONSTER == _other->GetOwner()->GetType())
@@ -782,6 +811,11 @@ void Player::OnCollisionEnter(Collider* _other)
 					if (0.f > mInfo.mCurHP)
 						mInfo.mCurHP = 0.f;
 				}
+			}
+
+			if (nullptr != mPlayerHitSound)
+			{
+				mPlayerHitSound->Play(false);
 			}
 		}
 	}
@@ -824,6 +858,11 @@ void Player::OnCollisionEnter(Collider* _other)
 
 		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::ITEM_GET);
 		GET_ITEMGET_HUD->SetupItemInfo(item->GetEquipedTexture(), item->GetItemInfo());
+
+		if (nullptr != mPickUpSound)
+		{
+			mPickUpSound->Play(false);
+		}
 	}
 
 

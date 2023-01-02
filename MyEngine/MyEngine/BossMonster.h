@@ -1,5 +1,6 @@
 #pragma once
 #include "Monster.h"
+class Sound;
 class BossMonster :
     public Monster
 {
@@ -41,7 +42,8 @@ public:
 
 private:
     BOSS_SKILL mCurSkill;
-
+    Sound* mSound;
+    Sound* mHitSound;
     std::wstring mBossName;
     std::wstring mComment;
 

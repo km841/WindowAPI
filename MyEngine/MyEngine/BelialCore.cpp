@@ -9,6 +9,7 @@
 #include "CameraMgr.h"
 #include "BelialCoreBullet.h"
 #include "Animation.h"
+#include "Sound.h"
 
 BelialCore::BelialCore()
 	: mMaxDuration(0.2f)
@@ -18,12 +19,15 @@ BelialCore::BelialCore()
 	, mInitAngle(0.f)
 	, mShotMaxDuration(0.1f)
 	, mShotCurDuration(0.f)
+	, mSound(nullptr)
 {
+	mSound = LOAD_SOUND(L"BelialBulletShot", L"Sound\\BelialBulletShot.wav");
+
 	SetType(OBJECT_TYPE::DUMMY);
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Back_Tex", L"Texture\\Monster\\Belial\\Belial_Back_Anim.bmp");
+	Texture* tex = LOAD_TEXTURE(L"Belial_Back_Tex", L"Texture\\Monster\\Belial\\Belial_Back_Anim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"BelialBackAnim",
@@ -99,6 +103,8 @@ bool BelialCore::Attack()
 			mShotCurDuration = 0.f;
 			for (int i = 0; i < NUM_SHOTS; ++i)
 			{
+
+
 				BelialCoreBullet* bullet = new BelialCoreBullet;
 				Vec2 curPos =GetPos();
 				curPos.y -= 50.f;
@@ -114,6 +120,11 @@ bool BelialCore::Attack()
 
 			mInitAngle += 10.f;
 			++mCurFired;
+
+			if (nullptr != mSound)
+			{
+				mSound->Play(false);
+			}
 		}
 
 		else

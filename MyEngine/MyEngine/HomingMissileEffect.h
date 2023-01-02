@@ -44,6 +44,11 @@ private:
     Texture* mReloadTex;
     Texture* mReloadBaseTex;
 
+    Sound* mSound;
+    Sound* mSkillSound;
+    Sound* mReloadBeginSound;
+    Sound* mReloadEndSound;
+
     Vec2 mOffset;
     float mAcc;
 

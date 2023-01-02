@@ -3,6 +3,7 @@
 
 #define NUM_SHOTS 4
 
+class Sound;
 class BelialCoreParticle;
 class BelialCore :
     public MonsterEffect
@@ -34,5 +35,7 @@ private:
     float mShotCurDuration;
 
     float mInitAngle;
+
+    Sound* mSound;
 };
 

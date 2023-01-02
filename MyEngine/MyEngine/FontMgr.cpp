@@ -13,8 +13,26 @@ FontMgr::FontMgr()
    , mNPCLineIdx(0)
 {
     mTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex", L"Texture\\TextTex.bmp");
-    mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\TextTex_Gold.bmp");
+    mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\ObjectText_Gold.bmp");
     mBlackSmithLineTex = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
+    mObjectTex = ResourceMgr::GetInstance().Load<Texture>(L"ObjectTex", L"Texture\\ObjectText.bmp");
+
+    std::wstring objectText = L"0123456789G";
+    int objectTextOffset = 0;
+    int objectOffset[] = { 16, 8, 14, 14, 16, 14, 14, 14, 16, 14, 18};
+    
+    for (int i = 0; i < objectText.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(objectTextOffset, 0);
+        info.mSlice = Vec2(objectOffset[i], 22);
+
+        objectTextOffset += objectOffset[i];
+
+        mObjectTextMap.insert(std::make_pair(objectText[i], info));
+    }
+    
+    
 
     wchar_t buf[COMMENT_MAX_SIZE] = L"0123456789G/";
     size_t textSize = wcslen(buf);
@@ -254,7 +272,7 @@ Texture* FontMgr::GetTextTexture_Gold(const std::wstring& _key, const std::wstri
 
     for (int i = 0; i < goldText.size(); ++i)
     {
-        TextInfo info = GetTextInfo(goldText[i]);
+        TextInfo info = GetDamageTextInfo(goldText[i]);
         textureWidth += (int)info.mSlice.x;
         textureHeight = (int)info.mSlice.y;
     }
@@ -268,7 +286,7 @@ Texture* FontMgr::GetTextTexture_Gold(const std::wstring& _key, const std::wstri
     int x_pos = 0;
     for (int i = 0; i < goldText.size(); ++i)
     {
-        TextInfo info = GetTextInfo(goldText[i]);
+        TextInfo info = GetDamageTextInfo(goldText[i]);
         // 현재 텍스트 위치
         BitBlt(
             tex->GetDC(),
@@ -287,11 +305,65 @@ Texture* FontMgr::GetTextTexture_Gold(const std::wstring& _key, const std::wstri
     return tex;
 }
 
+Texture* FontMgr::GetTextTexture_Damage(const std::wstring& _key, const std::wstring& _text)
+{
+    int textureWidth = 0;
+    int textureHeight = 0;
+
+    for (int i = 0; i < _text.size(); ++i)
+    {
+        TextInfo info = GetDamageTextInfo(_text[i]);
+        textureWidth += (int)info.mSlice.x;
+        textureHeight = (int)info.mSlice.y;
+    }
+
+    Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));
+    if (nullptr != tex)
+        return tex;
+
+    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight));
+
+    int x_pos = 0;
+    for (int i = 0; i < _text.size(); ++i)
+    {
+        TextInfo info = GetDamageTextInfo(_text[i]);
+        // 현재 텍스트 위치
+        BitBlt(
+            tex->GetDC(),
+            (int)x_pos, 0,
+            (int)info.mSlice.x,
+            (int)info.mSlice.y,
+            mObjectTex->GetDC(),
+            (int)info.mLTPos.x,
+            (int)info.mLTPos.y,
+            SRCCOPY
+        );
+
+        x_pos += (int)info.mSlice.x;
+    }
+
+    return tex;
+}
+
 TextInfo FontMgr::GetTextInfo(wchar_t _text)
 {
     std::map<wchar_t, TextInfo>::iterator iter = mTextMap.find(_text);
 
     if (mTextMap.end() != iter)
+    {
+        return iter->second;
+    }
+
+    TextInfo info = {};
+    info.mSlice = Vec2(0, 0);
+
+    return info;
+}
+
+TextInfo FontMgr::GetDamageTextInfo(wchar_t _text)
+{
+    std::map<wchar_t, TextInfo>::iterator iter = mObjectTextMap.find(_text);
+    if (mObjectTextMap.end() != iter)
     {
         return iter->second;
     }
@@ -321,7 +393,7 @@ void FontMgr::OutputDamage(int _damage, Vec2 _pos)
 
     wchar_t buff[COMMENT_MAX_SIZE] = {};
     _itow_s(_damage, buff, 10);
-    Texture* fontTex = GetTextTexture(buff, buff);
+    Texture* fontTex = GetTextTexture_Damage(buff, buff);
 
     _pos.x += 10.f;
     // 오른쪽을 가리키는 벡터를 만든 후 
@@ -347,10 +419,10 @@ void FontMgr::OutputGold(int _gold, Vec2 _pos)
 {
     FontObject* fontObj = new FontObject;
 
-    wchar_t buff[COMMENT_MAX_SIZE] = {};
-    _itow_s(_gold, buff, 10);
-    Texture* fontTex = GetTextTexture_Gold(buff, buff);
-
+    std::wstring gold = std::to_wstring(_gold);
+    Texture* fontTex = GetTextTexture_Gold(gold, gold);
+   // fontTex->ChangeColor(RGB_WHITE, RGB(235, 191, 63));
+    //fontTex->SetAlphaValue(RGB(235, 191, 63), 255);
     _pos.x += 10.f;
     // 오른쪽을 가리키는 벡터를 만든 후 
     // 135도만큼 돌려서 거기에 10을 곱한다

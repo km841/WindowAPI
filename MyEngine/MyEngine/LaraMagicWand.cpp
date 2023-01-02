@@ -19,6 +19,7 @@ LaraMagicWand::LaraMagicWand()
 	, mEquipTex(nullptr)
 	, mSkillTex(nullptr)
 	, mCoolSkillTex(nullptr)
+	, mSound(nullptr)
 {
 	SetType(OBJECT_TYPE::DROP_ITEM);
 	SetOffset(Vec2(40.f, -2.f));
@@ -58,6 +59,8 @@ LaraMagicWand::LaraMagicWand()
 	SetEffect(effect);
 	
 	mSkillCoolDown = 3.f;
+
+
 }
 
 LaraMagicWand::~LaraMagicWand()

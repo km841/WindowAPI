@@ -59,7 +59,7 @@ void FontObject::Render()
 	// 데미지를 출력하려면 Texture가 있어야 함
 
 	Vec2 orgSize = mTex->GetSize();
-	Vec2 size = orgSize * 1.2f;
+	Vec2 size = orgSize * 1.5f;
 	if (mTrans)
 	{
 		AlphaBlend(

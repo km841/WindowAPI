@@ -1,5 +1,7 @@
 #pragma once
 #include "Sword.h"
+
+class Sound;
 class LaraMagicWand :
     public Sword
 {
@@ -30,5 +32,7 @@ private:
     float    mSkillCoolDown;
     float    mCurCoolDown;
     bool     mCoolDown;
+
+    Sound*   mSound;
 };
 

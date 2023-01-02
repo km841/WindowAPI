@@ -248,6 +248,8 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RotateMissileEffect.h" />
     <ClInclude Include="ShortSword.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
@@ -390,6 +392,8 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateMissileEffect.cpp" />
     <ClCompile Include="ShortSword.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />

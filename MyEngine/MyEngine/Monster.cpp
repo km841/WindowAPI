@@ -21,6 +21,7 @@
 #include "Gold.h"
 #include "Coin.h"
 #include "GoldBar.h"
+#include "Sound.h"
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
@@ -34,7 +35,11 @@ Monster::Monster()
 	, mAttFixFrame(0)
 	, mHitMaxTime(0.05f)
 	, mHitCurTime(0.f)
+	, mSound(nullptr)
+	, mDieSound(nullptr)
 {
+	mSound = LOAD_SOUND(L"MonsterHit", L"Sound\\MonsterHit.wav");
+	mDieSound = LOAD_SOUND(L"MonsterDie", L"Sound\\MonsterDie.wav");
 	SetType(OBJECT_TYPE::MONSTER);
 
 	CreateComponent(new Collider);
@@ -189,6 +194,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 {
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
+		}
+
 		SetHit();
 		// 무기에서 이펙트에 공격력을 전달?
 		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
@@ -224,6 +234,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 		{
 			if (IsAlive())
 			{
+				if (nullptr != mDieSound)
+				{
+					mDieSound->Play(false);
+				}
+
 				int billion = mMoney / 100;
 				int changes = mMoney % 100;
 				int coin = changes / 10;
@@ -253,6 +268,11 @@ void Monster::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::MISSILE_FROM_PLAYER == _other->GetOwner()->GetType())
 	{
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
+		}
+
 		SetHit();
 		Bullet* bullet = static_cast<Bullet*>(_other->GetOwner());
 		BulletInfo info = bullet->GetBulletInfo();
@@ -283,8 +303,13 @@ void Monster::OnCollisionEnter(Collider* _other)
 		}
 		else
 		{
-			if (!IsDead())
+			if (IsAlive())
 			{
+
+				if (nullptr != mDieSound)
+				{
+					mDieSound->Play(false);
+				}
 				int billion = mMoney / 100;
 				int changes = mMoney % 100;
 				int coin = changes / 10;

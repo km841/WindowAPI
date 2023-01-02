@@ -1,5 +1,6 @@
 #pragma once
 
+class Sound;
 class Stage;
 class GameObject;
 class Map
@@ -42,7 +43,7 @@ public:
 
 private:
 	MAP_TYPE mMapType;
-
+	Sound* mSound;
 	bool mPassages[(UINT)WARP_POINT::END];
 	Vec2 mEscapesPos[(UINT)WARP_POINT::END];
 	Map* mLinked[(UINT)WARP_POINT::END];

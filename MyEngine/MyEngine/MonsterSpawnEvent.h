@@ -6,6 +6,7 @@
 #include "Animator.h"
 #include "Animation.h"
 #include "Monster.h"
+#include "Sound.h"
 
 class Monster;
 
@@ -17,7 +18,9 @@ public:
     MonsterSpawnEvent()
         :mFlag(false)
         , mSpawnTiming(4)
+        , mSound(nullptr)
     {
+        mSound = LOAD_SOUND(L"MonsterSpawnSound", L"Sound\\MonsterSpawn.wav");
         CreateComponent(new Collider);
         GetCollider()->SetOwner(this);
 
@@ -67,6 +70,11 @@ public:
             {
                 Spawn();
                 EventRegisteror::GetInstance().DeleteObject(this);
+
+                if (nullptr != mSound)
+                {
+                    mSound->Play(false);
+                }
             }
         }
     }
@@ -108,6 +116,7 @@ protected:
     int  mSpawnTiming;
     Vec2 mSpawnPos;
     MONSTER_TYPE mMonsterType;
+    Sound* mSound;
 
 };
 

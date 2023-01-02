@@ -1,6 +1,7 @@
 #pragma once
 #include "BossMap.h"
 
+class Sound;
 class BoomEffect;
 class Belial;
 class BelialBossMap :
@@ -22,6 +23,8 @@ public:
 
 private:
 	Belial* mBelial;
+
+	Sound* mSound;
 	
 	std::vector<BoomEffect*> mEffects;
 	bool mBossAppearing;

@@ -34,5 +34,7 @@ public:
 public:
 	EQUIP_TYPE mEquipType;
 	Item* mItem;
+
+	static Sound* equipSound;
 };
 

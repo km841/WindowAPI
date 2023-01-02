@@ -29,7 +29,10 @@ public:
     Texture* GetTextTexture(const std::wstring& _key, const std::wstring& _text, HDC _dc = BACK_BUF_DC);
     Texture* GetTextTexture(const std::wstring& _key, wchar_t _text);
     Texture* GetTextTexture_Gold(const std::wstring& _key, const std::wstring& _text);
+    Texture* GetTextTexture_Damage(const std::wstring& _key, const std::wstring& _text);
+   
     TextInfo GetTextInfo(wchar_t _text);
+    TextInfo GetDamageTextInfo(wchar_t _text);
 
 public:
     // 위치정보를 적어서 mDamage에 푸시해줌
@@ -49,9 +52,11 @@ public:
 private:
     // 문자에 대한 좌표를 던져준다.
     std::map<wchar_t, TextInfo> mTextMap;
+    std::map<wchar_t, TextInfo> mObjectTextMap;
     Texture* mTex;
     Texture* mGoldTex;
     Texture* mBlackSmithLineTex;
+    Texture* mObjectTex;
 
     int mNPCLineIdx;
 

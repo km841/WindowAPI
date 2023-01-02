@@ -9,6 +9,8 @@
 #include "EventRegisteror.h"
 #include "Stage.h"
 #include "BossRoomGate.h"
+#include "Sound.h"
+#include "ResourceMgr.h"
 
 Map::Map(const std::wstring& _path)
 	: mInitDir(WARP_POINT::END)
@@ -17,11 +19,13 @@ Map::Map(const std::wstring& _path)
 	, mVisit(false)
 	, mPath(_path)
 	, mAllowable(70.f)
+	, mSound(nullptr)
 {
 	// 방향에 대한 정보
 	// 그래프를 이용하는 방법
 	// 4번째 방에 보스 방이 위치하도록 함
 	mMapType = MAP_TYPE::NORMAL;
+	mSound = LOAD_SOUND(L"LockDoorOpenSound", L"Sound\\LockDoorOpen.wav");
 
 	size_t index = mPath.rfind(L'.');
 
@@ -123,7 +127,8 @@ void Map::Update()
 	const std::vector<GameObject*>& evtObjVec =
 		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::EVENT_OBJECT);
 
-	if ((SceneMgr::GetInstance().GetCurScene()->AreAllObjectsDead(OBJECT_TYPE::MONSTER) &&
+	if (false == mClear && 
+		(SceneMgr::GetInstance().GetCurScene()->AreAllObjectsDead(OBJECT_TYPE::MONSTER) &&
 		evtObjVec.empty()))
 	{
 		for (int i = 0; i < dunObjVec.size(); ++i)
@@ -137,6 +142,11 @@ void Map::Update()
 				static_cast<LockedDoor*>(dunObjVec[i])->SetClearFlag(true);
 				break;
 			}
+		}
+
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
 		}
 
 		mClear = true;

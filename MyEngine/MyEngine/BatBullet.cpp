@@ -18,7 +18,7 @@ BatBullet::BatBullet()
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
-	Texture* batBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"BatBulletIdleAnim", L"Texture\\RangeBallBullet.bmp");
+	Texture* batBulletTex = LOAD_TEXTURE(L"BatBulletIdleAnim", L"Texture\\RangeBallBullet.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"BatBullet",

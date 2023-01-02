@@ -9,10 +9,14 @@
 #include "Item.h"
 #include "FontMgr.h"
 #include "Player.h"
+#include "Sound.h"
+#include "ResourceMgr.h"
 
+Sound* ItemUI::equipSound = nullptr;
 ItemUI::ItemUI()
 	:UI(false)
 {
+	equipSound = LOAD_SOUND(L"EquipSound", L"Sound\\EquipSound.wav");
 }
 
 ItemUI::~ItemUI()
@@ -52,6 +56,12 @@ void ItemUI::Update()
 					{
 						GET_INVENTORY_UI->UnMountItem(this);
 					}
+
+					if (nullptr != equipSound)
+					{
+						equipSound->Play(false);
+					}
+					
 				}
 
 			}

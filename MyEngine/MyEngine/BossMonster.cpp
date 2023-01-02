@@ -7,9 +7,14 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "CameraMgr.h"
+#include "Sound.h"
+#include "ResourceMgr.h"
 
 BossMonster::BossMonster()
+	:mSound(nullptr)
 {
+	mSound = LOAD_SOUND(L"BelialLastHit", L"Sound\\BelialLastHit.wav");
+	mHitSound = LOAD_SOUND(L"MonsterHit", L"Sound\\MonsterHit.wav");
 }
 
 BossMonster::~BossMonster()
@@ -50,6 +55,11 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::PLAYER_EFFECT == _other->GetOwner()->GetType())
 	{
+		if (nullptr != mHitSound)
+		{
+			mHitSound->Play(false);
+		}
+
 		SetHit();
 		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
 		Player* player = Player::GetPlayer();
@@ -74,6 +84,11 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 
 	if (OBJECT_TYPE::MISSILE_FROM_PLAYER == _other->GetOwner()->GetType())
 	{
+		if (nullptr != mHitSound)
+		{
+			mHitSound->Play(false);
+		}
+
 		SetHit();
 		Bullet* bullet = static_cast<Bullet*>(_other->GetOwner());
 		BulletInfo info = bullet->GetBulletInfo();
@@ -98,6 +113,11 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 	if (0.f > GetCurHP())
 	{
 		Killed();
+
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
+		}
 	}
 
 }

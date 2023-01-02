@@ -15,7 +15,7 @@ BansheeBullet::BansheeBullet()
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
-	Texture* bansheeBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"BansheeBullet", L"Texture\\BansheeBulletAnim.bmp");
+	Texture* bansheeBulletTex = LOAD_TEXTURE(L"BansheeBullet", L"Texture\\BansheeBulletAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"BansheeBullet",

@@ -2,6 +2,7 @@
 #include "BossMonster.h"
 #define SWORD_MAX_COUNT 5
 
+class Sound;
 class BelialHand;
 class BelialSword;
 class Belial :
@@ -42,6 +43,9 @@ private:
 
     int mSwordMaxCount;
     int mSwordCurCount;
+
+    Sound* mSound;
+    Sound* mHitSound;
 
     std::vector<BelialSword*> mSwords;
 };

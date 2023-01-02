@@ -14,6 +14,9 @@
 #include "BossAppearHUD.h"
 #include "CollisionMgr.h"
 #include "BoomEffect.h"
+#include "SoundMgr.h"
+#include "Sound.h"
+#include "ResourceMgr.h"
 
 BelialBossMap::BelialBossMap(const std::wstring& _path)
 	:BossMap(_path)
@@ -29,7 +32,9 @@ BelialBossMap::BelialBossMap(const std::wstring& _path)
 	, mBoomCurCount(0)
 	, mBoomMaxTime(0.1f)
 	, mBoomCurTime(0.f)
+	, mSound(nullptr)
 {
+	mSound = LOAD_SOUND(L"MonsterDie", L"Sound\\MonsterDie.wav");
 }
 
 BelialBossMap::~BelialBossMap()
@@ -109,6 +114,9 @@ void BelialBossMap::Update()
 					CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
 					CameraMgr::GetInstance().SetTrackingObject(mBossMonster);
 
+					if (nullptr != mSound)
+						mSound->Play(false);
+
 				}
 
 				else
@@ -169,6 +177,14 @@ void BelialBossMap::Update()
 
 					GET_BOSS_APPEAR_HUD->SetBossMonster(mBossMonster);
 					EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::BOSS_APPEAR);
+
+					Sound* belialLaugh = LOAD_SOUND(L"BelialLaugh", L"Sound\\BelialLaugh.wav");
+					if (nullptr != belialLaugh)
+					{
+						belialLaugh->Play(false);
+					}
+
+					SoundMgr::GetInstance().ChangeBGM(LOAD_SOUND(L"PrisonBossBGM", L"Sound\\BelialThema.wav"));
 				}
 			}
 		}
@@ -200,6 +216,9 @@ void BelialBossMap::Enter()
 {
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::MONSTER_EFFECT);
 	BossMap::Enter();
+
+	
+
 }
 
 void BelialBossMap::Exit()

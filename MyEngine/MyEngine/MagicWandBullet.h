@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayerBullet.h"
 
+class Sound;
 class AfterImage;
 class MagicWandBullet :
     public PlayerBullet
@@ -50,6 +51,7 @@ private:
     GameObject* mTarget;
     std::vector<AfterImage*> mAfterImages;
     // 해당 프레임의 애니메이션과 위치를 저장해두고 서서히 사라지는 오브젝트
+    Sound* mSound;
 
     Vec2 mInitDir;
     float mInitMaxDuration;

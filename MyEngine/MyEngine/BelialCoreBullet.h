@@ -1,5 +1,6 @@
 #pragma once
 #include "MonsterBullet.h"
+class Sound;
 class BelialCoreBullet :
     public MonsterBullet
 {
@@ -18,5 +19,8 @@ public:
     virtual void OnCollision(Collider* _other);
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
+
+private:
+    
 };
 

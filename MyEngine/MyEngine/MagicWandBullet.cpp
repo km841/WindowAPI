@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "EventRegisteror.h"
+#include "Sound.h"
 
 MagicWandBullet::MagicWandBullet()
 	:mTarget(nullptr)
@@ -23,6 +24,8 @@ MagicWandBullet::MagicWandBullet()
 	,mInitCurDuration(0.f)
 	,mAngleLimit(Math::DegreeToRadian(3.f))
 {
+	mSound = LOAD_SOUND(L"LaraHitSound", L"Sound\\LaraMagicWandHit.wav");
+
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
@@ -123,6 +126,9 @@ void MagicWandBullet::OnCollisionEnter(Collider* _other)
 		// 애니메이션 변경후 애니메이션이 끝나면 소멸
 		SetObjState(OBJECT_STATE::DEAD_ANIM);
 		GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
+
+		if (nullptr != mSound)
+			mSound->Play(false);
 	}
 }
 

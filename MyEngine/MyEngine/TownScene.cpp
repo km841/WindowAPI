@@ -30,6 +30,7 @@
 #include "BossHPHUD.h"
 #include "BossAppearHUD.h"
 #include "ToolWindows.h"
+#include "SoundMgr.h"
 
 
 TownScene::TownScene()
@@ -89,6 +90,8 @@ void TownScene::Destroy()
 
 void TownScene::Enter()
 {
+	SoundMgr::GetInstance().ChangeBGM(GetSceneType());
+
 	ShowCursor(false);
 	CameraMgr::GetInstance().RemoveEffect();
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);

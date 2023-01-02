@@ -15,7 +15,9 @@
 #include "CameraMgr.h"
 #include "UIMgr.h"
 #include "FontMgr.h"
+#include "SoundMgr.h"
 #include "ToolWindows.h"
+
 
 void Application::Initialize(const WindowData& _winData)
 {
@@ -23,6 +25,9 @@ void Application::Initialize(const WindowData& _winData)
 	//mFST.open(L"..\\Resource\\Log\\log.txt", std::ios::out | std::ios::app);
 
 	// Manager Initialize
+	if (FALSE == SoundMgr::GetInstance().Initialize())
+		assert(nullptr);
+
 	ToolWindows::GetInstance().Initialize();
 
 	KeyMgr::GetInstance().Initialize();

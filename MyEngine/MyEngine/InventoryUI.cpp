@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "ItemUI.h"
 #include "FontMgr.h"
+#include "Sound.h"
 
 InventoryUI::InventoryUI()
 	: UI(false)
@@ -19,7 +20,9 @@ InventoryUI::InventoryUI()
 	, mLeftBaseTex(nullptr)
 	, mRightBaseTex(nullptr)
 	, mNextInvenSlot(INVENTORY_SLOT_TYPE::INVEN_R1_C1)
+	, mSound(nullptr)
 {
+	
 
 	for (int i = 0; i < (UINT)EQUIP_TYPE::END; ++i)
 	{
@@ -62,8 +65,8 @@ InventoryUI::~InventoryUI()
 
 void InventoryUI::Initialize()
 {
-	mLeftBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"inven_left", L"Texture\\inventory_1_slot.bmp");
-	mRightBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"inven_right", L"Texture\\inventory_2_slot.bmp");
+	mLeftBaseTex = LOAD_TEXTURE(L"inven_left", L"Texture\\inventory_1_slot.bmp");
+	mRightBaseTex = LOAD_TEXTURE(L"inven_right", L"Texture\\inventory_2_slot.bmp");
 
 	if (nullptr == mLeftBaseTex || nullptr == mRightBaseTex)
 		assert(nullptr);

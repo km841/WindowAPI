@@ -13,12 +13,16 @@
 #include "EventRegisteror.h"
 #include "SwordHitEffect.h"
 #include "CollisionMgr.h"
+#include "Sound.h"
 
 ShortSword::ShortSword()
 	:mCurDuration(0.f)
 	,mAttFlag(false)
+	, mSound(nullptr)
 {
 	// ShortSword의 공격력은 Player의 공격력의 영향을 받는다.
+
+	mSound = LOAD_SOUND(L"ShortSwordSwing", L"Sound\\ShortSwordSwing.wav");
 
 	SetOffset(Vec2(40.f, -2.f));
 	SetItemType(ITEM_TYPE::WEAPON);
@@ -150,7 +154,9 @@ void ShortSword::Update()
 			// 좌/우에 따라 offset 값을 줌
 			// 충돌체가 원운동을 한다?
 
-
+			if (nullptr != mSound)
+				mSound->Play(false);
+			
 		}
 	}
 

@@ -30,6 +30,16 @@
 /*TransparentBlt 관련*/
 #pragma comment(lib, "Msimg32.lib")
 
+/*Rendering 관련*/
+#pragma comment(lib, "Msimg32.lib")
+
+#include <mmsystem.h>
+#include <dsound.h>
+#include <dinput.h>
+
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dsound.lib")
+
 /*MANAGER MACRO*/
 #define APP_INSTANCE Application::GetInstance()
 #define TOOL_INSTANCE ToolWindows::GetInstance()
@@ -40,6 +50,9 @@
 #define TOOL_MAIN_DC TOOL_INSTANCE.GetMainDC()
 #define TOOL_BACK_BUF_DC TOOL_INSTANCE.GetBackBufDC()
 
+
+#define LOAD_SOUND(KEY, PATH) ResourceMgr::GetInstance().Load<Sound>(KEY, PATH)
+#define LOAD_TEXTURE(KEY, PATH) ResourceMgr::GetInstance().Load<Texture>(KEY, PATH)
 #define DT TimeMgr::GetInstance().GetDT()
 #define RENDER_POS(POS) CameraMgr::GetInstance().GetRenderPos(POS)
 #define WORLD_POS(POS) CameraMgr::GetInstance().GetWorldPos(POS)

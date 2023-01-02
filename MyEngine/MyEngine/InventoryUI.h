@@ -57,5 +57,6 @@ private:
 
     bool mInvenFullFlag;
 
+    Sound* mSound;
 };
 

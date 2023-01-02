@@ -111,6 +111,9 @@ protected:
     MonsterInfo mInfo;
     DIR mDir;
     DIR mPrevDir;
+
+    Sound* mSound;
+    Sound* mDieSound;
     
     MonsterEffect* mEffect;
     MONSTER_TYPE mMonType;

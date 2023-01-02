@@ -1,5 +1,6 @@
 #pragma once
 #include "Bullet.h"
+class Sound;
 class MonsterBullet :
     public Bullet
 {
@@ -40,8 +41,11 @@ public:
     void ChildColliderOn();
     void SetAllDeadAnimChildBullet();
     
+    inline void SetHitSound(Sound* _sound) { mSound = _sound; };
+    inline Sound* GetHitSound() const { return mSound; };
 
 private:
+    Sound* mSound;
     MonsterBullet* mStandard;
     BULLET_WAY_TYPE mType;
 

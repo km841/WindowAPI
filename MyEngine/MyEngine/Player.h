@@ -14,7 +14,7 @@ class JumpState;
 class EatState;
 class InventoryUI;
 class Item;
-
+class Sound;
 struct PlayerState
 {
     static IdleState* Idle;
@@ -137,7 +137,9 @@ private:
     DashEffect*    mDashEffect[AFTER_IMAGE_TOTAL];
     Item*          mEquipItems[(UINT)EQUIP_TYPE::END];
     PlayerInfo     mInfo;
-
+    Sound*         mInventorySound;
+    Sound*         mPlayerHitSound;
+    Sound*         mPickUpSound;
     PLAYER_CHARACTER mCharacter;
 
     SCENE_TYPE mPrevScene;

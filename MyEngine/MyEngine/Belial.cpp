@@ -11,6 +11,7 @@
 #include "EventRegisteror.h"
 #include "TimeMgr.h"
 #include "CameraMgr.h"
+#include "Sound.h"
 
 Belial::Belial()
 	: mSwordSpawnMaxTime(0.3f)
@@ -18,12 +19,15 @@ Belial::Belial()
 	, mSwordMaxCount(SWORD_MAX_COUNT)
 	, mSwordCurCount(0)
 	, mHandType(BELIAL_HAND_TYPE::LEFT_HAND)
+	, mSound(nullptr)
 	
 {
+	mSound = LOAD_SOUND(L"MonsterHit", L"Sound\\MonsterHit.wav");
+
 	mMonType = MONSTER_TYPE::BOSS_BELIAL;
 	SetGravity(false);
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Body_Tex", L"Texture\\Monster\\Belial\\Belial_Body_Anim.bmp");
-	Texture* hitTex = ResourceMgr::GetInstance().Load<Texture>(L"Belial_Body_HitTex", L"Texture\\Monster\\Belial\\Belial_Body_HitAnim.bmp");
+	Texture* tex = LOAD_TEXTURE(L"Belial_Body_Tex", L"Texture\\Monster\\Belial\\Belial_Body_Anim.bmp");
+	Texture* hitTex = LOAD_TEXTURE(L"Belial_Body_HitTex", L"Texture\\Monster\\Belial\\Belial_Body_HitAnim.bmp");
 
 	SetBossName(L"벨리알");
 	SetBossComment(L"감옥의 수문장");
@@ -212,6 +216,7 @@ void Belial::OnCollision(Collider* _other)
 void Belial::OnCollisionEnter(Collider* _other)
 {
 	BossMonster::OnCollisionEnter(_other);
+
 }
 
 void Belial::OnCollisionExit(Collider* _other)

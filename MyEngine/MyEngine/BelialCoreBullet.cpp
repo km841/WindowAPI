@@ -5,6 +5,8 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "CollisionMgr.h"
+#include "Sound.h"
+
 
 BelialCoreBullet::BelialCoreBullet()
 {
@@ -16,7 +18,7 @@ BelialCoreBullet::BelialCoreBullet()
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -10.f));
 
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"BelialCoreBulletTex", L"Texture\\BelialBulletAnim.bmp");
+	Texture* tex = LOAD_TEXTURE(L"BelialCoreBulletTex", L"Texture\\BelialBulletAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"BelialCoreBulletAnim",
@@ -86,6 +88,10 @@ void BelialCoreBullet::OnCollisionEnter(Collider* _other)
 				CollisionMgr::GetInstance().CollisionForceQuit(GetCollider(), rel.mOther->GetCollider());
 		}
 
+		if (nullptr != GetHitSound())
+		{
+			GetHitSound()->Play(false);
+		}
 	}
 }
 

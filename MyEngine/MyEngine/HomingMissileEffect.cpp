@@ -17,6 +17,7 @@
 #include "ResourceMgr.h"
 #include "Texture.h"
 #include "LaraMagicWand.h"
+#include "Sound.h"
 
 HomingMissileEffect::HomingMissileEffect()
 	: mAngleLimit(Math::DegreeToRadian(3.f))
@@ -26,7 +27,16 @@ HomingMissileEffect::HomingMissileEffect()
 	, mAcc(0.f)
 	, mVelocity(0.f)
 	, mAnimStart(false)
+	, mSound(nullptr)
+	, mSkillSound(nullptr)
+	, mReloadBeginSound(nullptr)
+	, mReloadEndSound(nullptr)
 {
+	mSound = LOAD_SOUND(L"LaraShotSound", L"Sound\\LaraMagicWandShot.wav");
+	mSkillSound = LOAD_SOUND(L"LaraSkillSound", L"Sound\\LaraMagicWandSkill.wav");
+	mReloadBeginSound = LOAD_SOUND(L"ReloadBegin", L"Sound\\ReloadBegin.wav");
+	mReloadEndSound = LOAD_SOUND(L"ReloadEnd", L"Sound\\ReloadEnd.wav");
+
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
@@ -86,6 +96,9 @@ void HomingMissileEffect::Update()
 		mAcc = 0.f;
 		mAnimStart = false;
 		static_cast<Item*>(GetOwnerItem())->Reload();
+		
+		if (nullptr != mReloadEndSound)
+			mReloadEndSound->Play(false);
 	}
 
 	if (mReload)
@@ -115,11 +128,19 @@ void HomingMissileEffect::Update()
 		ShotBullet();
 		GetAnimator()->SelectAnimation(L"LaraBulletHit", false);
 		GetAnimator()->GetCurAnimation()->Reset();
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
+		}
 	}
 
 	if (IS_JUST_PRESSED(KEY::Q) && false == ownerItem->GetCoolDownFlag())
 	{
 		SkillActivation();
+		if (nullptr != mSkillSound)
+		{
+			mSkillSound->Play(false);
+		}
 	}
 	
 }
@@ -217,11 +238,16 @@ void HomingMissileEffect::ShotBullet()
 
 		bullet->SetInitDirVector(dirVec);
 		EventRegisteror::GetInstance().CreateObject(bullet, bullet->GetType());
+
+
 	}
 
 	else if (0.f == info.mAmmo)
 	{
 		mReload = true;
+		
+		if (nullptr != mReloadBeginSound)
+			mReloadBeginSound->Play(false);
 	}
 }
 

@@ -536,6 +536,12 @@
     <Filter Include="Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect">
       <UniqueIdentifier>{2be2bfca-bf05-43c6-8404-e13f2872f1e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\SoundMgr">
+      <UniqueIdentifier>{37a196d2-8c8b-443d-a3a7-3c41d22346c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Sound">
+      <UniqueIdentifier>{924d4054-dcaa-4938-81b9-131466c61e9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -960,6 +966,12 @@
     </ClInclude>
     <ClInclude Include="Prison.h">
       <Filter>Engine\Scene\DungeonScene\Stage\Prison</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>Engine\Manager\SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Resource\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1389,6 +1401,12 @@
     </ClCompile>
     <ClCompile Include="BoomEffect.cpp">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\BossMap\BelialBossMap\BoomEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>Engine\Manager\SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Engine\Resource\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

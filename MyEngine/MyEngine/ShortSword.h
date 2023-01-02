@@ -1,5 +1,6 @@
 #pragma once
 #include "Sword.h"
+class Sound;
 class ShortSword :
     public Sword
 {
@@ -19,6 +20,6 @@ private:
     bool  mAttFlag;
     float mCurAngle;
 
-
+    Sound* mSound;
 };
 

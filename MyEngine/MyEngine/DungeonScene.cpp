@@ -19,6 +19,8 @@
 #include "Stage.h"
 #include "Map.h"
 #include "Prison.h"
+#include "Sound.h"
+#include "SoundMgr.h"
 
 DungeonScene::DungeonScene()
 	: mClear(false)
@@ -90,6 +92,8 @@ void DungeonScene::Destroy()
 
 void DungeonScene::Enter()
 {
+	SoundMgr::GetInstance().ChangeBGM(GetSceneType());
+
 	mCurStage->Initialize();
 	mCurStage->Enter();
 
