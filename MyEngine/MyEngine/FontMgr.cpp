@@ -4,18 +4,21 @@
 #include "Texture.h"
 #include "FontObject.h"
 #include "TimeMgr.h"
-
+#include "Sound.h"
 
 FontMgr::FontMgr()
    : mTex(nullptr)
    , mGoldTex(nullptr)
    , mBlackSmithLineTex(nullptr)
    , mNPCLineIdx(0)
+   , mSound(nullptr)
 {
-    mTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex", L"Texture\\TextTex.bmp");
-    mGoldTex = ResourceMgr::GetInstance().Load<Texture>(L"TextTex_Gold", L"Texture\\ObjectText_Gold.bmp");
-    mBlackSmithLineTex = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
-    mObjectTex = ResourceMgr::GetInstance().Load<Texture>(L"ObjectTex", L"Texture\\ObjectText.bmp");
+    mTex = LOAD_TEXTURE(L"TextTex", L"Texture\\TextTex.bmp");
+    mGoldTex = LOAD_TEXTURE(L"TextTex_Gold", L"Texture\\ObjectText_Gold.bmp");
+    mBlackSmithLineTex = LOAD_TEXTURE(L"BlackSmith_Line", L"Texture\\BlackSmith_Line.bmp");
+    mObjectTex = LOAD_TEXTURE(L"ObjectTex", L"Texture\\ObjectText.bmp");
+
+    mSound = LOAD_SOUND(L"NPCLineSound", L"Sound\\NPCLineSound.wav");
 
     std::wstring objectText = L"0123456789G";
     int objectTextOffset = 0;
@@ -503,6 +506,11 @@ void FontMgr::OutputNPCLine(const std::wstring& _text, Vec2 _pos)
         TextInfo info = GetTextInfo(_text[i]);
         info.mDuration = 0.f;
 
+        if (L' ' == _text[i])
+            info.mBlank = true;
+        else
+            info.mBlank = false;
+
         FontObject* font = new FontObject;
 
         font->SetPos(_pos);
@@ -525,6 +533,15 @@ void FontMgr::NPCLineUpdate()
             TextInfo& info = mNPCLines[i]->GetTextInfo();
             if (0.1f < info.mDuration)
             {
+
+                if (false == info.mBlank)
+                {
+                    if (nullptr != mSound)
+                    {
+                        mSound->Play(false);
+                    }
+                }
+
                 ++mNPCLineIdx;
                 info.mDuration = 0.f;
                 break;

@@ -140,6 +140,8 @@ private:
     Sound*         mInventorySound;
     Sound*         mPlayerHitSound;
     Sound*         mPickUpSound;
+    Sound*         mPickUpMoneySound;
+    Sound*         mPlayerDash;
     PLAYER_CHARACTER mCharacter;
 
     SCENE_TYPE mPrevScene;

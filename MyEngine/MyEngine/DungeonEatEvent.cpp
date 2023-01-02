@@ -9,9 +9,11 @@
 #include "EatState.h"
 #include "CameraMgr.h"
 #include "EventRegisteror.h"
+#include "Sound.h"
 
 DungeonEatEvent::DungeonEatEvent()
 	:mFixPos{}
+	, mSound(nullptr)
 {
 
 	CreateComponent(new Collider);
@@ -23,8 +25,8 @@ DungeonEatEvent::DungeonEatEvent()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Texture* dungeonEatTex =
-		ResourceMgr::GetInstance().Load<Texture>(L"DUNGEON_EAT_ANIMATION", L"Texture\\dungeon_eat_animation.bmp");
+	Texture* dungeonEatTex = LOAD_TEXTURE(L"DUNGEON_EAT_ANIMATION", L"Texture\\dungeon_eat_animation.bmp");
+	mSound = LOAD_SOUND(L"DungeonEatSound", L"Sound\\DungeonEat.wav");
 
 	GetAnimator()->RegisterAnimation(
 		L"DUNGEON_EAT_ANIM",
@@ -103,6 +105,11 @@ void DungeonEatEvent::OnCollisionEnter(Collider* _other)
 	{
 		GetAnimator()->SelectAnimation(L"DUNGEON_EAT_ANIM", false);
 		SetFixPos(Player::GetPlayer()->GetPos());
+
+		if (nullptr != mSound)
+		{
+			mSound->Play(false);
+		}
 	}
 }
 

@@ -73,6 +73,8 @@ Player::Player()
 	, mMoveMapCurDuration(0.f)
 	, mPlayerHitSound(nullptr)
 	, mPickUpSound(nullptr)
+	, mPickUpMoneySound(nullptr)
+	, mPlayerDash(nullptr)
 {
 	SetType(OBJECT_TYPE::PLAYER);
 	SetSize(Vec2(96.f, 96.f));
@@ -86,6 +88,8 @@ Player::Player()
 	mInventorySound = LOAD_SOUND(L"InventoryOpenClose", L"Sound\\InventoryOpenClose.wav");
 	mPlayerHitSound = LOAD_SOUND(L"PlayerHit", L"Sound\\PlayerHit.wav");
 	mPickUpSound = LOAD_SOUND(L"ItemPickUp", L"Sound\\PickUpItem.wav");
+	mPickUpMoneySound = LOAD_SOUND(L"MoneyPickUp", L"Sound\\PickMoney.wav");
+	mPlayerDash = LOAD_SOUND(L"PlayerDash", L"Sound\\PlayerDash.wav");
 #pragma region PLAYER_STATE_INITIALIZE
 	mPlayer = this;
 	PlayerState::Idle = new IdleState(this);
@@ -286,6 +290,11 @@ void Player::MoveUpdate()
 
 	if (IS_JUST_RBUTTON_CLICKED && NotInDash() && mInfo.mDashCount > 0.f && mUIState == false)
 	{
+		if (nullptr != mPlayerDash)
+		{
+			mPlayerDash->Play(false);
+		}
+
 		mInfo.mDashCount--;
 
 		mFall = true;
@@ -846,6 +855,11 @@ void Player::OnCollisionEnter(Collider* _other)
 		EventRegisteror::GetInstance().DeleteObject(gold);
 
 		mMoney += money;
+
+		if (nullptr != mPickUpMoneySound)
+		{
+			mPickUpMoneySound->Play(false);
+		}
 	}
 
 	if (OBJECT_TYPE::DROP_ITEM == _other->GetOwner()->GetType())

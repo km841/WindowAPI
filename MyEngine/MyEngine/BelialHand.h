@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 #define LASER_MAX_COUNT 3
-
+class Sound;
 class Texture;
 class BelialLaser;
 class BelialHand :
@@ -38,6 +38,8 @@ public:
 
 private:
 	static int laserCount;
+
+	Sound* mSound;
 
 	BELIAL_HAND_TYPE mType;
 	Texture* mTex;

@@ -1,5 +1,7 @@
 #pragma once
 #include "EventObject.h"
+
+class Sound;
 class DungeonEatEvent :
     public EventObject
 {
@@ -24,5 +26,7 @@ public:
 
 private:
     Vec2 mFixPos;
+    Sound* mSound;
+
 };
 

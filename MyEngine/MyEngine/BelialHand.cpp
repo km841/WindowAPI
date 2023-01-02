@@ -9,7 +9,7 @@
 #include "TimeMgr.h"
 #include "Collider.h"
 #include "Player.h"
-
+#include "Sound.h"
 int BelialHand::laserCount = 0;
 BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 	: mType(_type)
@@ -20,10 +20,11 @@ BelialHand::BelialHand(BELIAL_HAND_TYPE _type)
 	, mLaserBodyCount(12)
 	, mDistance(0.f)
 	, mSpeed(0.f)
+	, mSound(nullptr)
 {
 	
-
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialHand_Tex", L"Texture\\Monster\\Belial\\Belial_Hand_Anim.bmp");
+	mSound = LOAD_SOUND(L"LaserShot", L"Sound\\BelialLaser.wav");
+	mTex = LOAD_TEXTURE(L"BelialHand_Tex", L"Texture\\Monster\\Belial\\Belial_Hand_Anim.bmp");
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
@@ -249,6 +250,11 @@ bool BelialHand::Skill()
 
 					mLasers.push_back(laserBody);
 					EventRegisteror::GetInstance().CreateObject(laserBody, laserBody->GetType());
+
+					if (nullptr != mSound)
+					{
+						mSound->Play(false);
+					}
 				}
 			}
 

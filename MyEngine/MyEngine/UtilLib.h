@@ -60,6 +60,14 @@ struct MonsterInfo
 	bool mAttFinFlag;
 };
 
+struct TextInfo
+{
+	Vec2  mLTPos;
+	Vec2  mSlice;
+	float mDuration;
+	bool  mBlank;
+};
+
 struct PlayerInfo
 {
 	PlayerInfo()

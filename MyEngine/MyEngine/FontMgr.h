@@ -3,13 +3,8 @@
 
 class Texture;
 class FontObject;
+class Sound;
 
-struct TextInfo
-{
-    Vec2  mLTPos;
-    Vec2  mSlice;
-    float mDuration;
-};
 
 class FontMgr :
     public Singleton< FontMgr >
@@ -57,6 +52,8 @@ private:
     Texture* mGoldTex;
     Texture* mBlackSmithLineTex;
     Texture* mObjectTex;
+
+    Sound* mSound;
 
     int mNPCLineIdx;
 
