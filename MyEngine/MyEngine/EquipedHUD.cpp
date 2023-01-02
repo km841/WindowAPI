@@ -9,6 +9,7 @@
 #include "TimeMgr.h"
 #include "InventoryUI.h"
 #include "FontMgr.h"
+#include "Sound.h"
 
 EquipedHUD::EquipedHUD()
 	: mChangingState(EQUIPED_CHANGING_STATE::NONE)
@@ -17,8 +18,10 @@ EquipedHUD::EquipedHUD()
 	, mCurDuration(0.f)
 	, mDistance(0.f)
 	, mVelocity(0.f)
+	, mSound(nullptr)
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"EquipedBaseTex", L"Texture\\EquippedWeaponBase.bmp");
+	mSound = LOAD_SOUND(L"WeaponChange", L"Sound\\WeaponChange.wav");
+	mTex = LOAD_TEXTURE(L"EquipedBaseTex", L"Texture\\EquippedWeaponBase.bmp");
 	Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - mTex->GetWidth(), WINDOW_HEIGHT_SIZE - mTex->GetHeight());
 	SetPos(pos);
 	// 두 슬롯이 각각 상대편 슬롯이 있던 자리를 향해 이동하고, 겹쳐지는 순간 바뀌고 그려지는 순서가 바뀜
@@ -89,6 +92,12 @@ void EquipedHUD::Update()
 			mFrontSlotCurPos = mFrontSlotPos;
 			mBackSlotCurPos = mBackSlotPos;
 			mDir = -mDir;
+
+			if (nullptr != mSound)
+			{
+				mSound->Play(false);
+			}
+
 		}
 
 		else

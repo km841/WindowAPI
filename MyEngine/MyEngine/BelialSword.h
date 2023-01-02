@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+
+class Sound;
 class MonsterEffect;
 class BelialSword :
     public GameObject
@@ -42,6 +44,8 @@ private:
 
 	int mChargeFrame;
 	float mChargeAccTime;
+
+	Sound* mSwordSpawnSound;
 
 	MonsterEffect* mEffect;
 

@@ -14,7 +14,7 @@
 #include "Sound.h"
 
 Belial::Belial()
-	: mSwordSpawnMaxTime(0.3f)
+	: mSwordSpawnMaxTime(0.1f)
 	, mSwordSpawnCurTime(0.f)
 	, mSwordMaxCount(SWORD_MAX_COUNT)
 	, mSwordCurCount(0)
@@ -23,6 +23,7 @@ Belial::Belial()
 	
 {
 	mSound = LOAD_SOUND(L"MonsterHit", L"Sound\\MonsterHit.wav");
+	
 
 	mMonType = MONSTER_TYPE::BOSS_BELIAL;
 	SetGravity(false);

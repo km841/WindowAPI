@@ -9,6 +9,7 @@
 #include "TimeMgr.h"
 #include "CameraMgr.h"
 #include "Player.h"
+#include "Sound.h"
 
 BelialSword::BelialSword()
 	: mCreateFlag(false)
@@ -22,7 +23,10 @@ BelialSword::BelialSword()
 	, mChargeAccTime(0.f)
 	, mSpeed(1200.f)
 	, mDeadMaxTime(2.0f)
+	, mSwordSpawnSound(nullptr)
 {
+	mSwordSpawnSound = LOAD_SOUND(L"BelialSwordSpawn", L"Sound\\BelialSwordSpawn.wav");
+
 	SetType(OBJECT_TYPE::MONSTER_EFFECT);
 	CreateComponent(new Collider);
 	GetCollider()->SetOwner(this);
@@ -33,10 +37,10 @@ BelialSword::BelialSword()
 	GetCollider()->SetSize(Vec2(30, 30));
 	GetCollider()->SetOffset(Vec2(0, -15));
 
-	Texture* swordTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialSwordTex", L"Texture\\Monster\\Belial\\Belial_Sword.bmp");
-	Texture* swordFXTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialSwordFXTex", L"Texture\\Monster\\Belial\\Belial_Sword_FX.bmp");
-	Texture* swordCreateDeadTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialCreateDeadTex", L"Texture\\Monster\\Belial\\Belial_Sword_Create_Dead.bmp");
-	Texture* swordChargeTex = ResourceMgr::GetInstance().Load<Texture>(L"BelialSwordChargeTex", L"Texture\\Monster\\Belial\\Belial_SwordAnim.bmp");
+	Texture* swordTex = LOAD_TEXTURE(L"BelialSwordTex", L"Texture\\Monster\\Belial\\Belial_Sword.bmp");
+	Texture* swordFXTex = LOAD_TEXTURE(L"BelialSwordFXTex", L"Texture\\Monster\\Belial\\Belial_Sword_FX.bmp");
+	Texture* swordCreateDeadTex = LOAD_TEXTURE(L"BelialCreateDeadTex", L"Texture\\Monster\\Belial\\Belial_Sword_Create_Dead.bmp");
+	Texture* swordChargeTex = LOAD_TEXTURE(L"BelialSwordChargeTex", L"Texture\\Monster\\Belial\\Belial_SwordAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"SwordAnim",
@@ -96,6 +100,11 @@ BelialSword::BelialSword()
 
 	GetAnimator()->FindAnimation(L"SwordCreateDeadAnim")->SetOffset(Vec2(0, 60));
 	GetAnimator()->SelectAnimation(L"SwordCreateDeadAnim", false);
+
+	if (nullptr != mSwordSpawnSound)
+	{
+		mSwordSpawnSound->Play(false);
+	}
 }
 
 BelialSword::~BelialSword()

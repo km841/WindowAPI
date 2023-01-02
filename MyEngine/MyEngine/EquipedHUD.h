@@ -1,6 +1,7 @@
 #pragma once
 #include "HUD.h"
 
+class Sound;
 class Texture;
 class EquipedHUD :
     public HUD
@@ -23,6 +24,7 @@ public:
 
 private:
     Texture* mTex;
+    Sound* mSound;
 
     Vec2 mBackSlotPos;
     Vec2 mBackSlotCurPos;

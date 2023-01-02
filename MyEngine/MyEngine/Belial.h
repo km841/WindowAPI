@@ -46,6 +46,7 @@ private:
 
     Sound* mSound;
     Sound* mHitSound;
+    
 
     std::vector<BelialSword*> mSwords;
 };
