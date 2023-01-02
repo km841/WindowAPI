@@ -12,7 +12,7 @@ BoomEffect::BoomEffect()
     CreateComponent(new Animator);
     GetAnimator()->SetOwner(this);
 
-    Texture* monsterDeadTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterDeadTex", L"Texture\\MonsterDeadTex.bmp");
+    Texture* monsterDeadTex = LOAD_TEXTURE(L"MonsterDeadTex", L"Texture\\MonsterDeadTex.bmp");
 
     Animation* deadAnim = GetAnimator()->CreateAnimation(
         L"MonsterDeadAnim",

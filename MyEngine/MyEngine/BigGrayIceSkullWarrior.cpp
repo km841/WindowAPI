@@ -46,8 +46,8 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 	SetPatrolStateAnimName(moveAnimName);
 	SetAttStateAnimName(attAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"BigGraySkullAnimTex", L"Texture\\Monster\\BigGraySkullAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"BigGraySkullHitAnimTex", L"Texture\\Monster\\BigGraySkullHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"BigGraySkullAnimTex", L"Texture\\Monster\\BigGraySkullAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"BigGraySkullHitAnimTex", L"Texture\\Monster\\BigGraySkullHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",

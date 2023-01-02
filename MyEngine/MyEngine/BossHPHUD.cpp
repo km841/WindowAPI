@@ -6,8 +6,8 @@
 
 BossHPHUD::BossHPHUD()
 {
-	mBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"BossHPBaseTex", L"Texture\\BossHPBase.bmp");
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BossHPTex", L"Texture\\BossHP.bmp");
+	mBaseTex = LOAD_TEXTURE(L"BossHPBaseTex", L"Texture\\BossHPBase.bmp");
+	mTex = LOAD_TEXTURE(L"BossHPTex", L"Texture\\BossHP.bmp");
 
 	SetPos(Vec2(WINDOW_WIDTH_SIZE / 2, WINDOW_HEIGHT_SIZE - 50));
 }

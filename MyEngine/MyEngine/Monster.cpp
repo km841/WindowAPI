@@ -51,7 +51,7 @@ Monster::Monster()
 	CreateComponent(new RigidBody);
 	GetRigidBody()->SetOwner(this);
 
-	Texture* monsterDeadTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterDeadTex", L"Texture\\MonsterDeadTex.bmp");
+	Texture* monsterDeadTex = LOAD_TEXTURE(L"MonsterDeadTex", L"Texture\\MonsterDeadTex.bmp");
 
 	Animation* deadAnim = GetAnimator()->CreateAnimation(
 		L"MonsterDeadAnim",
@@ -72,12 +72,12 @@ Monster::Monster()
 
 	if (nullptr == mHPBaseTex)
 	{
-		mHPBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterHPBaseTex", L"Texture\\MONSTER_HP_BASE.bmp");
+		mHPBaseTex = LOAD_TEXTURE(L"MonsterHPBaseTex", L"Texture\\MONSTER_HP_BASE.bmp");
 	}
 
 	if (nullptr == mHPTex)
 	{
-		mHPTex = ResourceMgr::GetInstance().Load<Texture>(L"MonsterHPTex", L"Texture\\MONSTER_HP.bmp");
+		mHPTex = LOAD_TEXTURE(L"MonsterHPTex", L"Texture\\MONSTER_HP.bmp");
 	}
 
 	

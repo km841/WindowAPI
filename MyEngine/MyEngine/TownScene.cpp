@@ -31,6 +31,7 @@
 #include "BossAppearHUD.h"
 #include "ToolWindows.h"
 #include "SoundMgr.h"
+#include "DungeonMapUI.h"
 
 
 TownScene::TownScene()
@@ -66,7 +67,7 @@ void TownScene::Render()
 	Scene::Render();
 
 	static Texture* aim 
-		= ResourceMgr::GetInstance().Load<Texture>(L"Aim", L"Texture\\Aim.bmp");
+		= LOAD_TEXTURE(L"Aim", L"Texture\\Aim.bmp");
 	Vec2 mousePos = MOUSE_POS;
 	Vec2 aimSize = aim->GetSize();
 
@@ -98,15 +99,15 @@ void TownScene::Enter()
 	CameraMgr::GetInstance().SetCameraLimitRect({ 0, 0, WINDOW_WIDTH_SIZE + TILE_SIZE * 100, BOTTOM_LIMIT + TILE_SIZE * 3 });
 
 	Load(L"..\\Resource\\Map\\TownMap.map");
-	Texture* townSky = ResourceMgr::GetInstance().Load<Texture>(L"TownSky", L"Texture\\TownSky.bmp");
-	Texture* townBG = ResourceMgr::GetInstance().Load<Texture>(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
-	Texture* treeBG = ResourceMgr::GetInstance().Load<Texture>(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
-	Texture* blackSmith = ResourceMgr::GetInstance().Load<Texture>(L"BlackSmith", L"Texture\\BlackSmith.bmp");
-	Texture* tree01 = ResourceMgr::GetInstance().Load<Texture>(L"Tree01", L"Texture\\Tree01.bmp");
-	Texture* tree02 = ResourceMgr::GetInstance().Load<Texture>(L"Tree02", L"Texture\\Tree02.bmp");
-	Texture* grass01 = ResourceMgr::GetInstance().Load<Texture>(L"Grass01", L"Texture\\Grass01.bmp");
-	Texture* grass02 = ResourceMgr::GetInstance().Load<Texture>(L"Grass02", L"Texture\\Grass02.bmp");
-	Texture* grass03 = ResourceMgr::GetInstance().Load<Texture>(L"Grass03", L"Texture\\Grass03.bmp");
+	Texture* townSky = LOAD_TEXTURE(L"TownSky", L"Texture\\TownSky.bmp");
+	Texture* townBG = LOAD_TEXTURE(L"TownBG_Long", L"Texture\\TownBG_Long.bmp");
+	Texture* treeBG = LOAD_TEXTURE(L"TreeBG_Long", L"Texture\\TreeBG_Long.bmp");
+	Texture* blackSmith = LOAD_TEXTURE(L"BlackSmith", L"Texture\\BlackSmith.bmp");
+	Texture* tree01 = LOAD_TEXTURE(L"Tree01", L"Texture\\Tree01.bmp");
+	Texture* tree02 = LOAD_TEXTURE(L"Tree02", L"Texture\\Tree02.bmp");
+	Texture* grass01 = LOAD_TEXTURE(L"Grass01", L"Texture\\Grass01.bmp");
+	Texture* grass02 = LOAD_TEXTURE(L"Grass02", L"Texture\\Grass02.bmp");
+	Texture* grass03 = LOAD_TEXTURE(L"Grass03", L"Texture\\Grass03.bmp");
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
@@ -188,6 +189,7 @@ void TownScene::Enter()
 	eatEvent->SetPos(Vec2(TILE_SIZE * 70, GROUND_STANDARD));
 
 	InventoryUI* inven = GET_INVENTORY_UI;
+	DungeonMapUI* dungeonMap = GET_DUNGEON_MAP_UI;
 	HPHUD* hpHUD = GET_HP_HUD;
 	DashCountHUD* dashHUD = GET_DASH_HUD;
 	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
@@ -215,6 +217,7 @@ void TownScene::Enter()
 	AddGameObject(player, player->GetType());
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
+	AddGameObject(dungeonMap, dungeonMap->GetType());
 	AddGameObject(hpHUD, hpHUD->GetType());
 	AddGameObject(dashHUD, dashHUD->GetType());
 	AddGameObject(equipedHUD, equipedHUD->GetType());
@@ -248,6 +251,7 @@ void TownScene::Exit()
 	SetCollisionFlag();
 
 	SceneMgr::GetInstance().TransfortObjects<GameObject*>(SCENE_TYPE::DUNGEON, 
+															GET_DUNGEON_MAP_UI,
 															GET_INVENTORY_UI, 
 															GET_HP_HUD, 
 															GET_DASH_HUD,

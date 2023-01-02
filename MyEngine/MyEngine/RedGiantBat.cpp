@@ -40,8 +40,8 @@ RedGiantBat::RedGiantBat()
 	SetPatrolStateAnimName(moveAnimName);
 	SetAttStateAnimName(attAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"RedGiantBatAnimTex", L"Texture\\Monster\\RedGiantBatAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"RedGiantBatHitAnimTex", L"Texture\\Monster\\RedGiantBatHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"RedGiantBatAnimTex", L"Texture\\Monster\\RedGiantBatAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"RedGiantBatHitAnimTex", L"Texture\\Monster\\RedGiantBatHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		moveAnimName + L"Left",

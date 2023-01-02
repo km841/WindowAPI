@@ -7,7 +7,7 @@
 ItemInfoHUD::ItemInfoHUD()
 {
 	mBaseTex = ResourceMgr::GetInstance().CreateTexture(L"ItemInfoHUDTex", Vec2(300, 300));
-	mInfoBase = ResourceMgr::GetInstance().Load<Texture>(L"InfoBase", L"Texture\\InfoBase.bmp");
+	mInfoBase = LOAD_TEXTURE(L"InfoBase", L"Texture\\InfoBase.bmp");
 
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;

@@ -49,7 +49,7 @@ void Tile::Update()
 void Tile::Render()
 {
 	static Texture* mTex = 
-		ResourceMgr::GetInstance().Load<Texture>(L"TileMap", L"Texture\\Map.bmp");
+		LOAD_TEXTURE(L"TileMap", L"Texture\\Map.bmp");
 
 	Vec2 pos = GetPos();
 	// 내 위치가 카메라에서 안보이면 렌더X

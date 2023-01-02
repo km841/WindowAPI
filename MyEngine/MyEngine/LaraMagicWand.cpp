@@ -40,17 +40,17 @@ LaraMagicWand::LaraMagicWand()
 	info.mWeaponType = WEAPON_TYPE::ONE_HAND;
 	SetItemInfo(info);
 
-	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
+	Texture* texture = LOAD_TEXTURE(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
 	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"LaraMagicWandTrans", texture->GetSize());
-	mEquipTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraMagicWandEquipTex", L"Texture\\LalaMagicWandEquip.bmp");
+	mEquipTex = LOAD_TEXTURE(L"LaraMagicWandEquipTex", L"Texture\\LalaMagicWandEquip.bmp");
 
 
 	SetTexture(texture);
 	SetTransTexture(transTexture);
 	SetEquipedTexture(mEquipTex);
 
-	mSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraSkillTex", L"Texture\\LaraSkill.bmp");
-	mCoolSkillTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraCoolSkillTex", L"Texture\\LaraSkillDisable.bmp");
+	mSkillTex = LOAD_TEXTURE(L"LaraSkillTex", L"Texture\\LaraSkill.bmp");
+	mCoolSkillTex = LOAD_TEXTURE(L"LaraCoolSkillTex", L"Texture\\LaraSkillDisable.bmp");
 
 	HomingMissileEffect* effect = new HomingMissileEffect;
 	effect->SetOwner(Player::GetPlayer());

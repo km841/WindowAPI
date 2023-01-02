@@ -542,6 +542,9 @@
     <Filter Include="Engine\Resource\Sound">
       <UniqueIdentifier>{924d4054-dcaa-4938-81b9-131466c61e9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UI\DungeonMapUI">
+      <UniqueIdentifier>{67baa8f2-4141-4d27-9f59-58cca28f5b95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -972,6 +975,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Engine\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonMapUI.h">
+      <Filter>Engine\GameObject\UI\DungeonMapUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1407,6 +1413,9 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Engine\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonMapUI.cpp">
+      <Filter>Engine\GameObject\UI\DungeonMapUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -43,8 +43,8 @@ Minotaur::Minotaur()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(moveAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurAnimTex", L"Texture\\Monster\\MinotaurAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"MinotaurHitAnimTex", L"Texture\\Monster\\MinotaurHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"MinotaurAnimTex", L"Texture\\Monster\\MinotaurAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"MinotaurHitAnimTex", L"Texture\\Monster\\MinotaurHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",

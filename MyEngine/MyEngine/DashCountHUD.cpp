@@ -6,8 +6,8 @@
 
 DashCountHUD::DashCountHUD()
 {
-	mBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"DashCountBaseTex", L"Texture\\DashCountBase.bmp");
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"DashCountTex", L"Texture\\DashCount.bmp");
+	mBaseTex = LOAD_TEXTURE(L"DashCountBaseTex", L"Texture\\DashCountBase.bmp");
+	mTex = LOAD_TEXTURE(L"DashCountTex", L"Texture\\DashCount.bmp");
 
 	SetPos(Vec2(10, 65));
 }

@@ -100,13 +100,13 @@ Player::Player()
 #pragma endregion
 
 #pragma region PLAYER_TEXTURE_INITIALIZE
-	mDefaultTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
-	mDashTexture = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
+	mDefaultTexture = LOAD_TEXTURE(L"PLAYER_ANIMATION", L"Texture\\player_animation.bmp");
+	mDashTexture = LOAD_TEXTURE(L"PLAYER_DASH_EFFECT", L"Texture\\player_dash_effect.bmp");
 
-	Texture* lasleyTexture = ResourceMgr::GetInstance().Load<Texture>(L"LASELY_ANIMATION", L"Texture\\lasley_animation.bmp");
-	Texture* dust = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
-	Texture* noneAnim = ResourceMgr::GetInstance().Load<Texture>(L"PLAYER_NONE_ANIM", L"Texture\\NoneAnim.bmp");
-	Texture* lasleyNoneAnim = ResourceMgr::GetInstance().Load<Texture>(L"LASLEY_NONE_ANIM", L"Texture\\lasleyNoneAnim.bmp");
+	Texture* lasleyTexture = LOAD_TEXTURE(L"LASELY_ANIMATION", L"Texture\\lasley_animation.bmp");
+	Texture* dust = LOAD_TEXTURE(L"PLAYER_DUST", L"Texture\\player_dust.bmp");
+	Texture* noneAnim = LOAD_TEXTURE(L"PLAYER_NONE_ANIM", L"Texture\\NoneAnim.bmp");
+	Texture* lasleyNoneAnim = LOAD_TEXTURE(L"LASLEY_NONE_ANIM", L"Texture\\lasleyNoneAnim.bmp");
 #pragma endregion
 
 #pragma region PLAYER_COMPONENT_INITIALIZE

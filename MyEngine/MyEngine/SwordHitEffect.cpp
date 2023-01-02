@@ -12,7 +12,7 @@ SwordHitEffect::SwordHitEffect()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"SwordHitTex", L"Texture\\sword_hit.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"SwordHitTex", L"Texture\\sword_hit.bmp");
 
 	for (int i = 0; i < HIT_MAX; ++i)
 	{

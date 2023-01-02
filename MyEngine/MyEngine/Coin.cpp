@@ -11,7 +11,7 @@ Coin::Coin()
 {
 	GetRigidBody()->SetMass(1.f);
 	
-	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"CoinTex", L"Texture\\CoinAnim.bmp");
+	mTexture = LOAD_TEXTURE(L"CoinTex", L"Texture\\CoinAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"CoinAnim",
 		mTexture,

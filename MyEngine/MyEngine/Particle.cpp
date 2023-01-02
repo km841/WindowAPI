@@ -18,10 +18,10 @@ Particle::Particle()
 	mBlendFunc.BlendOp = AC_SRC_OVER;
 	mBlendFunc.SourceConstantAlpha = 127;
 
-	Texture* size_1_particle = ResourceMgr::GetInstance().Load<Texture>(L"size_1_particle", L"Texture\\size_1_particle.bmp");
-	Texture* size_3_particle = ResourceMgr::GetInstance().Load<Texture>(L"size_3_particle", L"Texture\\size_3_particle.bmp");
-	Texture* size_5_particle = ResourceMgr::GetInstance().Load<Texture>(L"size_5_particle", L"Texture\\size_5_particle.bmp");
-	Texture* size_7_particle = ResourceMgr::GetInstance().Load<Texture>(L"size_7_particle", L"Texture\\size_7_particle.bmp");
+	Texture* size_1_particle = LOAD_TEXTURE(L"size_1_particle", L"Texture\\size_1_particle.bmp");
+	Texture* size_3_particle = LOAD_TEXTURE(L"size_3_particle", L"Texture\\size_3_particle.bmp");
+	Texture* size_5_particle = LOAD_TEXTURE(L"size_5_particle", L"Texture\\size_5_particle.bmp");
+	Texture* size_7_particle = LOAD_TEXTURE(L"size_7_particle", L"Texture\\size_7_particle.bmp");
 
 	mParticles.push_back(size_1_particle);
 	mParticles.push_back(size_3_particle);

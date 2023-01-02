@@ -166,7 +166,7 @@ GameObject* Scene::GetNearestObject(GameObject* _src, OBJECT_TYPE _findType)
 
 void Scene::FrameCorrection()
 {
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"Collection", L"Texture\\CorrectionBmp.bmp");
+	Texture* tex = LOAD_TEXTURE(L"Collection", L"Texture\\CorrectionBmp.bmp");
 	Vec2 size = tex->GetSize();
 	TransparentBlt(
 		BACK_BUF_DC,

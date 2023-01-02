@@ -5,7 +5,7 @@
 
 NPCLineHUD::NPCLineHUD()
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"NPCLineBaseTex", L"Texture\\NPCLineBase.bmp");
+	mTex = LOAD_TEXTURE(L"NPCLineBaseTex", L"Texture\\NPCLineBase.bmp");
 	SetPos(Vec2(0, WINDOW_HEIGHT_SIZE - mTex->GetHeight()));
 }
 

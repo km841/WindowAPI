@@ -17,8 +17,8 @@ IceBullet::IceBullet()
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -10.f));
 
-	Texture* iceBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletTex", L"Texture\\IceBullet.bmp");
-	Texture* iceBulletHitTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
+	Texture* iceBulletTex = LOAD_TEXTURE(L"IceBulletTex", L"Texture\\IceBullet.bmp");
+	Texture* iceBulletHitTex = LOAD_TEXTURE(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		L"IceBulletAnim",

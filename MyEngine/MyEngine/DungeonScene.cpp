@@ -21,6 +21,8 @@
 #include "Prison.h"
 #include "Sound.h"
 #include "SoundMgr.h"
+#include "DungeonMapUI.h"
+#include "KeyMgr.h"
 
 DungeonScene::DungeonScene()
 	: mClear(false)
@@ -48,6 +50,12 @@ void DungeonScene::Update()
 	{
 		mCurStage->Update();
 	}
+
+
+	if (IS_PRESSED(KEY::TAB))
+	{
+		EventRegisteror::GetInstance().EnableUI(UI_TYPE::DUNGEON_MAP);
+	}
 	
 }
 
@@ -57,7 +65,7 @@ void DungeonScene::Render()
 	Scene::Render();
 
 	static Texture* aim
-		= ResourceMgr::GetInstance().Load<Texture>(L"Aim", L"Texture\\Aim.bmp");
+		= LOAD_TEXTURE(L"Aim", L"Texture\\Aim.bmp");
 	Vec2 mousePos = MOUSE_POS;
 	Vec2 aimSize = aim->GetSize();
 

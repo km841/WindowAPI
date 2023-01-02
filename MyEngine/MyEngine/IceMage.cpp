@@ -37,8 +37,8 @@ IceMage::IceMage()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(attAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"IceMageAnimTex", L"Texture\\Monster\\IceMageAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"IceMageHitAnimTex", L"Texture\\Monster\\IceMageHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"IceMageAnimTex", L"Texture\\Monster\\IceMageAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"IceMageHitAnimTex", L"Texture\\Monster\\IceMageHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",

@@ -17,7 +17,7 @@ BossAppearHUD::BossAppearHUD()
 	, mBossNameTex(nullptr)
 	, mBossCommentTex(nullptr)
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"BossAppearCutton", L"Texture\\BossAppearCutton.bmp");
+	mTex = LOAD_TEXTURE(L"BossAppearCutton", L"Texture\\BossAppearCutton.bmp");
 
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;

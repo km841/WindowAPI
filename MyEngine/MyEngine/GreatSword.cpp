@@ -18,7 +18,7 @@ GreatSword::~GreatSword()
 
 void GreatSword::Initialize()
 {
-	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"GreatSword", L"Texture\\GreatSword3.bmp");
+	Texture* texture = LOAD_TEXTURE(L"GreatSword", L"Texture\\GreatSword3.bmp");
 	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"GreatSwordTrans", texture->GetSize());
 
 

@@ -27,7 +27,7 @@ void CameraMgr::Initialize()
 	mWhiteCutton = ResourceMgr::GetInstance().CreateTexture(L"WhiteCutton", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
 	mWhiteCutton->ChangeColor(RGB_BLACK, RGB_WHITE);
 
-	mHitCutton = ResourceMgr::GetInstance().Load<Texture>(L"HitCutton", L"Texture\\RedWarningOnHit2.bmp");
+	mHitCutton = LOAD_TEXTURE(L"HitCutton", L"Texture\\RedWarningOnHit2.bmp");
 	
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;

@@ -13,7 +13,7 @@ AfterImage::AfterImage()
 	, mCurDuration(0.f)
 	, mDead(false)
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
+	mTex = LOAD_TEXTURE(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
 	mBlendFunc = {};
 	mBlendFunc.BlendFlags = 0;
 	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;

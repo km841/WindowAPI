@@ -5,6 +5,7 @@
 #include "UI.h"
 #include "EventRegisteror.h"
 #include "InventoryUI.h"
+#include "DungeonMapUI.h"
 #include "HUD.h"
 #include "HPHUD.h"
 #include "DashCountHUD.h"
@@ -28,6 +29,7 @@ UIMgr::~UIMgr()
 void UIMgr::Initialize()
 {
 	DisableUI(UI_TYPE::INVENTORY);
+	DisableUI(UI_TYPE::DUNGEON_MAP);
 	EnableHUD(HUD_TYPE::HP);
 	EnableHUD(HUD_TYPE::DASH_GAUGE);
 	EnableHUD(HUD_TYPE::EQUIPED);
@@ -135,6 +137,13 @@ UI* UIMgr::ActiveUI(UI_TYPE _type)
 			ui->Initialize();
 			ui->SetState(true);
 			break;
+
+		case UI_TYPE::DUNGEON_MAP:
+			ui = new DungeonMapUI;
+			ui->Initialize();
+			ui->SetState(true);
+			break;
+
 
 		case UI_TYPE::TOOL:
 			break;

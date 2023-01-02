@@ -7,8 +7,8 @@
 
 HPHUD::HPHUD()
 {
-	mBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"PlayerHPBaseTex", L"Texture\\PlayerHPBase.bmp");
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"PlayerHPTex", L"Texture\\PlayerHP.bmp");
+	mBaseTex = LOAD_TEXTURE(L"PlayerHPBaseTex", L"Texture\\PlayerHPBase.bmp");
+	mTex = LOAD_TEXTURE(L"PlayerHPTex", L"Texture\\PlayerHP.bmp");
 
 	SetPos(Vec2(10, 10));
 }

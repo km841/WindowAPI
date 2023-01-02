@@ -18,7 +18,7 @@ IceCubesMissileEffect::IceCubesMissileEffect()
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);
 
-	Texture* iceBulletHitTex = ResourceMgr::GetInstance().Load<Texture>(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
+	Texture* iceBulletHitTex = LOAD_TEXTURE(L"IceBulletHitTex", L"Texture\\IceBulletHit.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"IceBulletHitAnim",
 		iceBulletHitTex,

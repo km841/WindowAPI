@@ -44,7 +44,7 @@ void TitleScene::Render()
 	Scene::Render();
 
 	static Texture* cursor
-		= ResourceMgr::GetInstance().Load<Texture>(L"Cursor", L"Texture\\Cursor.bmp");
+		= LOAD_TEXTURE(L"Cursor", L"Texture\\Cursor.bmp");
 	Vec2 mousePos = MOUSE_POS;
 	Vec2 cursorSize = cursor->GetSize();
 
@@ -73,12 +73,12 @@ void TitleScene::Enter()
 	CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::FADE_IN, 1.0f);
 
 	// Resource Load
-	Texture* frontCloud = ResourceMgr::GetInstance().Load<Texture>(L"frontCloud", L"Texture\\FrontCloud.bmp");
-	Texture* backCloud = ResourceMgr::GetInstance().Load<Texture>(L"backCloud", L"Texture\\BackCloud.bmp");
-	Texture* mainLogo = ResourceMgr::GetInstance().Load<Texture>(L"mainLogo", L"Texture\\Logo.bmp");
-	Texture* startButton = ResourceMgr::GetInstance().Load<Texture>(L"enterButton", L"Texture\\Enter.bmp");
-	Texture* toolButton = ResourceMgr::GetInstance().Load<Texture>(L"toolButton", L"Texture\\ToolMake.bmp");
-	Texture* exitButton = ResourceMgr::GetInstance().Load<Texture>(L"exitButton", L"Texture\\Exit.bmp");
+	Texture* frontCloud = LOAD_TEXTURE(L"frontCloud", L"Texture\\FrontCloud.bmp");
+	Texture* backCloud = LOAD_TEXTURE(L"backCloud", L"Texture\\BackCloud.bmp");
+	Texture* mainLogo = LOAD_TEXTURE(L"mainLogo", L"Texture\\Logo.bmp");
+	Texture* startButton = LOAD_TEXTURE(L"enterButton", L"Texture\\Enter.bmp");
+	Texture* toolButton = LOAD_TEXTURE(L"toolButton", L"Texture\\ToolMake.bmp");
+	Texture* exitButton = LOAD_TEXTURE(L"exitButton", L"Texture\\Exit.bmp");
 
 	// Button Function
 	std::function<void()> startBtnCallback = []() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TOWN); };

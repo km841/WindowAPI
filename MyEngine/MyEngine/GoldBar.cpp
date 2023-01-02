@@ -11,7 +11,7 @@ GoldBar::GoldBar()
 {
 	GetRigidBody()->SetMass(5.f);
 
-	mTexture = ResourceMgr::GetInstance().Load<Texture>(L"GoldBarTex", L"Texture\\GoldBarAnim.bmp");
+	mTexture = LOAD_TEXTURE(L"GoldBarTex", L"Texture\\GoldBarAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"GoldBarAnim",
 		mTexture,

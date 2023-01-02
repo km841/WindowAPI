@@ -42,10 +42,10 @@ HomingMissileEffect::HomingMissileEffect()
 
 	//SetOffset(Vec2(15.f, -25.f));
 
-	mReloadBaseTex = ResourceMgr::GetInstance().Load<Texture>(L"ReloadBaseTex", L"Texture\\ReloadBase.bmp");
-	mReloadTex = ResourceMgr::GetInstance().Load<Texture>(L"ReloadBarTex", L"Texture\\ReloadBar.bmp");
+	mReloadBaseTex = LOAD_TEXTURE(L"ReloadBaseTex", L"Texture\\ReloadBase.bmp");
+	mReloadTex = LOAD_TEXTURE(L"ReloadBarTex", L"Texture\\ReloadBar.bmp");
 
-	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
+	Texture* laraBulletTex = LOAD_TEXTURE(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"LaraBulletHit",
 		laraBulletTex,
@@ -60,7 +60,7 @@ HomingMissileEffect::HomingMissileEffect()
 	GetAnimator()->FindAnimation(L"LaraBulletHit")->SetOffset(Vec2(15.f, -25.f));
 
 
-	Texture* reloadAnim = ResourceMgr::GetInstance().Load<Texture>(L"ReloadTex", L"Texture\\ReloadAnim.bmp");
+	Texture* reloadAnim = LOAD_TEXTURE(L"ReloadTex", L"Texture\\ReloadAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"ReloadAnim",
 		reloadAnim,

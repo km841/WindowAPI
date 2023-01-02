@@ -22,10 +22,10 @@ BlackSmithNPC::BlackSmithNPC()
 	GetAnimator()->SetOwner(this);
 
 	mDefaultTexture = 
-		ResourceMgr::GetInstance().Load<Texture>(L"BLACKSMITH_ANIMATION", L"Texture\\blacksmith_animation.bmp");
+		LOAD_TEXTURE(L"BLACKSMITH_ANIMATION", L"Texture\\blacksmith_animation.bmp");
 	
 	Texture* keyTexture = 
-		ResourceMgr::GetInstance().Load<Texture>(L"F_KEY", L"Texture\\F.bmp");
+		LOAD_TEXTURE(L"F_KEY", L"Texture\\F.bmp");
 	SetKeyTexture(keyTexture);
 
 	SetSize(Vec2( 72, 78));

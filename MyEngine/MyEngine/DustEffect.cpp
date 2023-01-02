@@ -10,7 +10,7 @@
 DustEffect::DustEffect()
 	:mTex(nullptr)
 {
-	mTex = ResourceMgr::GetInstance().Load<Texture>(L"MinoDust", L"Texture\\MinoDashEffect.bmp");
+	mTex = LOAD_TEXTURE(L"MinoDust", L"Texture\\MinoDashEffect.bmp");
 
 	CreateComponent(new Animator);
 	GetAnimator()->SetOwner(this);

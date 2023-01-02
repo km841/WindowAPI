@@ -28,7 +28,7 @@ BossRoomGate::BossRoomGate()
 	GetCollider()->SetSize(Vec2(30, 30));
 	GetCollider()->SetOffset(Vec2(0, -15));
 
-	mKeyTex = ResourceMgr::GetInstance().Load<Texture>(L"F_KEY", L"Texture\\F.bmp");
+	mKeyTex = LOAD_TEXTURE(L"F_KEY", L"Texture\\F.bmp");
 }
 
 BossRoomGate::~BossRoomGate()

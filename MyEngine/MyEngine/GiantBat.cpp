@@ -39,8 +39,8 @@ GiantBat::GiantBat()
 	SetPatrolStateAnimName(moveAnimName);
 	SetAttStateAnimName(attAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantBatAnimTex", L"Texture\\Monster\\GiantBatAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"GiantBatHitAnimTex", L"Texture\\Monster\\GiantBatHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"GiantBatAnimTex", L"Texture\\Monster\\GiantBatAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"GiantBatHitAnimTex", L"Texture\\Monster\\GiantBatHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		moveAnimName + L"Left",

@@ -10,7 +10,7 @@
 BelialRoomGate::BelialRoomGate()
 {
 	mToolID = TOOL_ID::BTN_BELIAL_DOOR;
-	Texture* tex = ResourceMgr::GetInstance().Load<Texture>(L"BelialDoorTex", L"Texture\\DungeonObject\\BelialDoorAnim.bmp");
+	Texture* tex = LOAD_TEXTURE(L"BelialDoorTex", L"Texture\\DungeonObject\\BelialDoorAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"BelialDoorOpenAnim",
 		tex,

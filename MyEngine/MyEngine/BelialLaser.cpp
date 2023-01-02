@@ -10,8 +10,8 @@ BelialLaser::BelialLaser(BELIAL_LASER_TYPE _laserType, BELIAL_HAND_TYPE _handTyp
 	: mLaserType(_laserType)
 	, mHandType(_handType)
 {
-	Texture* laserHeadTex = ResourceMgr::GetInstance().Load<Texture>(L"LaserHeadTex", L"Texture\\Monster\\Belial\\Belial_Laser_Head.bmp");
-	Texture* laserBodyTex = ResourceMgr::GetInstance().Load<Texture>(L"LaserBodyTex", L"Texture\\Monster\\Belial\\Belial_Laser_Body.bmp");
+	Texture* laserHeadTex = LOAD_TEXTURE(L"LaserHeadTex", L"Texture\\Monster\\Belial\\Belial_Laser_Head.bmp");
+	Texture* laserBodyTex = LOAD_TEXTURE(L"LaserBodyTex", L"Texture\\Monster\\Belial\\Belial_Laser_Body.bmp");
 
 	
 

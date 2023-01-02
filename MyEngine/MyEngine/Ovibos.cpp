@@ -40,8 +40,8 @@ Ovibos::Ovibos()
 	SetPatrolStateAnimName(idleAnimName);
 	SetAttStateAnimName(moveAnimName);
 
-	Texture* animTex = ResourceMgr::GetInstance().Load<Texture>(L"OvibosAnimTex", L"Texture\\Monster\\OvibosAnim.bmp");
-	Texture* hitAnimTex = ResourceMgr::GetInstance().Load<Texture>(L"OvibosHitAnimTex", L"Texture\\Monster\\OvibosHitAnim.bmp");
+	Texture* animTex = LOAD_TEXTURE(L"OvibosAnimTex", L"Texture\\Monster\\OvibosAnim.bmp");
+	Texture* hitAnimTex = LOAD_TEXTURE(L"OvibosHitAnimTex", L"Texture\\Monster\\OvibosHitAnim.bmp");
 
 	GetAnimator()->RegisterAnimation(
 		idleAnimName + L"Left",

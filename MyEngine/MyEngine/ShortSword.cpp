@@ -55,9 +55,9 @@ ShortSword::ShortSword()
 	effect->SetAtt(info.mAtt);
 	
 
-	Texture* swordTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSword", L"Texture\\ShortSword3.bmp");
-	Texture* swordEffectTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEff", L"Texture\\ShortSword_Effect.bmp");
-	Texture* swordEquipTex = ResourceMgr::GetInstance().Load<Texture>(L"ShortSwordEquip", L"Texture\\ShortSwordEquip.bmp");
+	Texture* swordTex = LOAD_TEXTURE(L"ShortSword", L"Texture\\ShortSword3.bmp");
+	Texture* swordEffectTex = LOAD_TEXTURE(L"ShortSwordEff", L"Texture\\ShortSword_Effect.bmp");
+	Texture* swordEquipTex = LOAD_TEXTURE(L"ShortSwordEquip", L"Texture\\ShortSwordEquip.bmp");
 	
 
 	Animation* swordEffect = 
@@ -68,7 +68,7 @@ ShortSword::ShortSword()
 	effect->GetAnimator()->AddAnimation(L"ShortSwordEffect", swordEffect);
 	SetEffect(effect);
 
-	Texture* texture = ResourceMgr::GetInstance().Load<Texture>(L"ShortSword", L"Texture\\ShortSword3.bmp");
+	Texture* texture = LOAD_TEXTURE(L"ShortSword", L"Texture\\ShortSword3.bmp");
 	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"ShortSwordTrans", texture->GetSize());
 	SetTexture(texture);
 	SetTransTexture(transTexture);

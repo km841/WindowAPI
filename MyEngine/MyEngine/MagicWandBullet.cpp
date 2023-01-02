@@ -32,7 +32,7 @@ MagicWandBullet::MagicWandBullet()
 	mInfo.mAtt = 10.f;
 	mInfo.mSpeed = 750.f;
 
-	Texture* laraBulletTex = ResourceMgr::GetInstance().Load<Texture>(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
+	Texture* laraBulletTex = LOAD_TEXTURE(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");
 	GetAnimator()->RegisterAnimation(
 		L"LaraBullet",
 		laraBulletTex,

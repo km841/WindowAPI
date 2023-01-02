@@ -31,7 +31,7 @@ public:
         GetAnimator()->SetOwner(this);
 
         Texture* spawnAnimTex =
-            ResourceMgr::GetInstance().Load<Texture>(L"MONSTER_SPAWN_TEX", L"Texture\\monster_spawn_animation.bmp");
+            LOAD_TEXTURE(L"MONSTER_SPAWN_TEX", L"Texture\\monster_spawn_animation.bmp");
 
         GetAnimator()->RegisterAnimation(
             L"MONSTER_SPAWN_ANIM",
