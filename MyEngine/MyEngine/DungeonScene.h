@@ -29,6 +29,8 @@ protected:
 	Stage* mStages[(UINT)STAGE_TYPE::END];
 	Stage* mCurStage;
 
+	
+
 	bool mClear;
 };
 

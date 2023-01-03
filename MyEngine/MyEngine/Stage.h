@@ -34,6 +34,11 @@ public:
 	void SetBossMap(BossMap* _bossMap);
 	void SetBossNextMap(Map* _nextMap);
 
+	inline const std::vector<Map*>& GetMaps() const { return mMaps; }
+
+
+	inline Map* GetCurMap() const { return mCurMap; }
+
 	inline void SetClear(bool _flag) { mClear = _flag; }
 	inline bool IsClear() const { return mClear; }
 
