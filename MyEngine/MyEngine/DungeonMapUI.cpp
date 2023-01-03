@@ -163,6 +163,7 @@ void DungeonMapUI::Render()
 					for (int i = 0; i < (UINT)WARP_POINT::END; ++i)
 					{
 						Map* nextMap = curMap->GetMapLink((WARP_POINT)i);
+						bool isPassage = curMap->IsPassage((WARP_POINT)i);
 						Vec2 centerPos = mCenterPos;
 
 						if (nullptr != nextMap)
@@ -186,13 +187,79 @@ void DungeonMapUI::Render()
 								break;
 							}
 
-
 							DrawUnitMap(nextMap, centerPos);
 						}
+
+						if (true == isPassage)
+						{
+							switch ((WARP_POINT)i)
+							{
+							case WARP_POINT::LEFT:
+							{
+								Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+								Rectangle(
+									BACK_BUF_DC,
+									(int)(mCenterPos.x - unitMapSize.x / 2.f - 10.f),
+									(int)(mCenterPos.y - 2.f),
+									(int)(mCenterPos.x - unitMapSize.x / 2.f + 10.f),
+									(int)(mCenterPos.y + 2.f)
+								);
+							}
+							break;
+
+							case WARP_POINT::RIGHT:
+							{
+
+								Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+								Rectangle(
+									BACK_BUF_DC,
+									(int)(mCenterPos.x + unitMapSize.x / 2.f - 10.f),
+									(int)(mCenterPos.y - 2.f),
+									(int)(mCenterPos.x + unitMapSize.x / 2.f + 10.f),
+									(int)(mCenterPos.y + 2.f)
+								);
+
+							}
+							break;
+
+							case WARP_POINT::TOP:
+							{
+								Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+								Rectangle(
+									BACK_BUF_DC,
+									(int)(mCenterPos.x - 2.f),
+									(int)(mCenterPos.y - unitMapSize.y / 2.f - 10.f),
+									(int)(mCenterPos.x + 2.f),
+									(int)(mCenterPos.y - unitMapSize.y / 2.f + 10.f)
+								);
+
+							}
+							break;
+
+							case WARP_POINT::BOTTOM:
+							{
+								Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+								Rectangle(
+									BACK_BUF_DC,
+									(int)(mCenterPos.x - 2.f),
+									(int)(mCenterPos.y + unitMapSize.y / 2.f - 10.f),
+									(int)(mCenterPos.x + 2.f),
+									(int)(mCenterPos.y + unitMapSize.y / 2.f + 10.f)
+								);
+
+							}
+							break;
+							}
+
+						}
+						
+	
 					}
 
 					mVisited.clear();
 				}
+
+
 			}
 		}
 	}
@@ -201,7 +268,7 @@ void DungeonMapUI::Render()
 
 	UI::Render();
 
-	SetState(false);
+	//SetState(false);
 }
 
 void DungeonMapUI::DrawUnitMap(Map* _curMap, Vec2 _drawPos)
@@ -238,6 +305,8 @@ void DungeonMapUI::DrawUnitMap(Map* _curMap, Vec2 _drawPos)
 	for (int i = 0; i < (UINT)WARP_POINT::END; ++i)
 	{
 		Map* nextMap = _curMap->GetMapLink((WARP_POINT)i);
+		bool isPassage = _curMap->IsPassage((WARP_POINT)i);
+
 		if (nullptr != nextMap)
 		{
 			switch ((WARP_POINT)i)
@@ -270,9 +339,72 @@ void DungeonMapUI::DrawUnitMap(Map* _curMap, Vec2 _drawPos)
 			}
 				break;
 			}
+		}
 
+
+		if (true == isPassage)
+		{
+			switch ((WARP_POINT)i)
+			{
+			case WARP_POINT::LEFT:
+			{
+				Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+				Rectangle(
+					BACK_BUF_DC,
+					(int)(_drawPos.x - unitMapSize.x / 2.f - 10.f),
+					(int)(_drawPos.y - 2.f),
+					(int)(_drawPos.x - unitMapSize.x / 2.f + 10.f),
+					(int)(_drawPos.y + 2.f)
+				);
+			}
+			break;
+
+			case WARP_POINT::RIGHT:
+			{
+
+				Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+				Rectangle(
+					BACK_BUF_DC,
+					(int)(_drawPos.x + unitMapSize.x / 2.f - 10.f),
+					(int)(_drawPos.y - 2.f),
+					(int)(_drawPos.x + unitMapSize.x / 2.f + 10.f),
+					(int)(_drawPos.y + 2.f)
+				);
+
+			}
+			break;
+
+			case WARP_POINT::TOP:
+			{
+				Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+				Rectangle(
+					BACK_BUF_DC,
+					(int)(_drawPos.x - 2.f),
+					(int)(_drawPos.y - unitMapSize.y / 2.f - 10.f),
+					(int)(_drawPos.x + 2.f),
+					(int)(_drawPos.y - unitMapSize.y / 2.f + 10.f)
+				);
+
+			}
+			break;
+
+			case WARP_POINT::BOTTOM:
+			{
+				Pen pen(BACK_BUF_DC, PEN_TYPE::WHITE);
+				Rectangle(
+					BACK_BUF_DC,
+					(int)(_drawPos.x - 2.f),
+					(int)(_drawPos.y + unitMapSize.y / 2.f - 10.f),
+					(int)(_drawPos.x + 2.f),
+					(int)(_drawPos.y + unitMapSize.y / 2.f + 10.f)
+				);
+
+			}
+			break;
+			}
 
 		}
+
 	}
 
 

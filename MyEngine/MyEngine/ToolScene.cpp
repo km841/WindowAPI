@@ -176,8 +176,8 @@ void ToolScene::Update()
 void ToolScene::Render()
 {	
 	AuxLineRender();
-	Scene::Render();
 	GuideCircle();
+	Scene::Render();
 	GuideText();
 
 
@@ -395,7 +395,6 @@ void ToolScene::RemoveTile(Vec2 _pos)
 				EventRegisteror::GetInstance().DeleteObjectFromScene(colCom);
 			}
 			EventRegisteror::GetInstance().DeleteObject(tile);
-			break;
 		}
 	}
 }

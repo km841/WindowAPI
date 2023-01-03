@@ -109,14 +109,8 @@ bool IceMageMissileEffect::Attack()
 				break;
 
 				}
-
-
-
 			}
-
-
 		}
-
 	}
 
 	return true;

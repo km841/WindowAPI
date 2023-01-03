@@ -14,6 +14,9 @@
 #include "TimeMgr.h"
 
 GiantSkullWarrior::GiantSkullWarrior()
+	:mJumpMaxTime(1.5f)
+	,mJumpCurTime(0.f)
+	,mJump(false)
 {
 	mToolID = TOOL_ID::BTN_GIANT_SKULL;
 	mMonType = MONSTER_TYPE::GROUND_MELEE;
@@ -145,6 +148,20 @@ void GiantSkullWarrior::Update()
 	GroundStateUpdate();
 	Monster::Update();
 
+	if (true == mJump)
+	{
+		if (mJumpMaxTime < mJumpCurTime)
+		{
+			mJump = false;
+			mJumpCurTime = 0.f;
+		}
+
+		else
+		{
+			mJumpCurTime += DT;
+		}
+	}
+
 }
 
 void GiantSkullWarrior::Render()
@@ -212,6 +229,8 @@ void GiantSkullWarrior::OnCollisionEnter(Collider* _other)
 	// if (isDead() && GetCurAnim()->isFinished())
 	//   -> 소멸
 	Monster::OnCollisionEnter(_other);
+
+	
 
 }
 
@@ -290,21 +309,45 @@ void GiantSkullWarrior::Trace()
 		// 방향 전환은? 플레이어 위치 - 내 위치 의 부호에 따라 변환
 
 		Vec2 dirVec = monsterPos - playerPos;
-		dirVec.Norm();
-		
+
 		if (0 > dirVec.x)
 		{
-			monsterPos.x += mInfo.mSpeed * DT;
+
+			if (dirVec.x > -10.f)
+				monsterPos.x -= mInfo.mSpeed * DT;
+			else
+				monsterPos.x += mInfo.mSpeed * DT;
+			
+			
 			mDir = DIR::RIGHT;
 		}
 
 		else
 		{
-			monsterPos.x -= mInfo.mSpeed * DT;
+			if (dirVec.x < 10.f)
+				monsterPos.x += mInfo.mSpeed * DT;
+			else
+				monsterPos.x -= mInfo.mSpeed * DT;
+
 			mDir = DIR::LEFT;
 		}
 
 		SetPos(monsterPos);
+
+
+
+		if (false == mJump)
+		{
+			if (dirVec.Len() < 400.f &&
+				playerPos.y < monsterPos.y - 150.f && 
+				player->GetGround())
+			{
+				GetRigidBody()->SetVelocity_Y(-1000.f);
+				mJump = true;
+			}
+		}
+
+
 
 		if (mPrevDir != mDir)
 		{

@@ -545,9 +545,6 @@
     <Filter Include="Engine\GameObject\UI\DungeonMapUI">
       <UniqueIdentifier>{67baa8f2-4141-4d27-9f59-58cca28f5b95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\UI\DungeonMapUI\UnitMapUI">
-      <UniqueIdentifier>{8f22f012-0d7e-45c5-9ed5-a46bc6047de4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

@@ -37,7 +37,9 @@ public:
     virtual void Dead();
 
 private:
-
+    bool mJump;
+    float mJumpMaxTime;
+    float mJumpCurTime;
 
 
 };
