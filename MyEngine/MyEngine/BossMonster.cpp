@@ -63,7 +63,9 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 		SetHit();
 		PlayerEffect* playerEffect = static_cast<PlayerEffect*>(_other->GetOwner());
 		Player* player = Player::GetPlayer();
-		float att = playerEffect->GetAtt();
+		float minAtt = playerEffect->GetMinAtt();
+		float maxAtt = playerEffect->GetMaxAtt();
+
 		float playerAtt = player->GetPlayerInfo().mAtt;
 
 		Vec2 pos = GetPos();
@@ -72,9 +74,25 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 
 		float curHP = GetCurHP();
 
+		int att = minAtt + (rand() % (int)(maxAtt - minAtt));
+
 		float damage = (att + playerAtt);
 		curHP -= damage;
 		pos.y -= 80;
+
+		int rand_x = rand() % 10;
+		int rand_y = rand() % 10;
+		int sign = rand() % 2;
+
+		if (false == sign)
+		{
+			rand_x *= -1;
+			rand_y *= -1;
+		}
+
+		pos.x += rand_x;
+		pos.y += rand_y;
+
 		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);
 
@@ -97,11 +115,28 @@ void BossMonster::OnCollisionEnter(Collider* _other)
 		float playerAtt = player->GetPlayerInfo().mAtt;
 
 		float curHP = GetCurHP();
-		float damage = (info.mAtt + playerAtt);
+
+		float minAtt = info.mMinAtt;
+		float maxAtt = info.mMaxAtt;
+
+		float damage = minAtt + rand() % (int)(maxAtt - minAtt);
 		curHP -= damage;
 
 		Vec2 pos = GetPos();
 		pos.y -= 80;
+
+		int rand_x = rand() % 10;
+		int rand_y = rand() % 10;
+		int sign = rand() % 2;
+
+		if (false == sign)
+		{
+			rand_x *= -1;
+			rand_y *= -1;
+		}
+
+		pos.x += rand_x;
+		pos.y += rand_y;
 
 		FontMgr::GetInstance().OutputDamage((int)damage, pos);
 		SetCurHP(curHP);

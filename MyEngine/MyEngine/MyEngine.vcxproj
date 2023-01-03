@@ -170,6 +170,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinGatlingGun.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashCountHUD.h" />
     <ClInclude Include="DungeonMapUI.h" />
@@ -316,6 +317,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinGatlingGun.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashCountHUD.cpp" />
     <ClCompile Include="DungeonMapUI.cpp" />

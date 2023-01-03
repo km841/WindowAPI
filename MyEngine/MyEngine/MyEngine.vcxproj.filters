@@ -545,6 +545,9 @@
     <Filter Include="Engine\GameObject\UI\DungeonMapUI">
       <UniqueIdentifier>{67baa8f2-4141-4d27-9f59-58cca28f5b95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Item\CoinGatlingGun">
+      <UniqueIdentifier>{708cc1e1-79e8-40dc-b79d-a8c53cc5c6bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -978,6 +981,9 @@
     </ClInclude>
     <ClInclude Include="DungeonMapUI.h">
       <Filter>Engine\GameObject\UI\DungeonMapUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinGatlingGun.h">
+      <Filter>Engine\GameObject\Item\CoinGatlingGun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1416,6 +1422,9 @@
     </ClCompile>
     <ClCompile Include="DungeonMapUI.cpp">
       <Filter>Engine\GameObject\UI\DungeonMapUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinGatlingGun.cpp">
+      <Filter>Engine\GameObject\Item\CoinGatlingGun</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

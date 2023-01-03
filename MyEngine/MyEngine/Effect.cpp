@@ -2,7 +2,8 @@
 #include "Effect.h"
 
 Effect::Effect()
-	: mAtt(0.f)
+	: mMinAtt(0.f)
+	, mMaxAtt(0.f)
 	, mOwner(nullptr)
 	, mTexture(nullptr)
 {

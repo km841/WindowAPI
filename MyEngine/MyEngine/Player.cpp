@@ -775,7 +775,9 @@ void Player::OnCollisionEnter(Collider* _other)
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, .1f);
 		CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::HIT, .3f);
 
-		float damage = static_cast<MonsterBullet*>(_other->GetOwner())->GetBulletInfo().mAtt;
+		const BulletInfo& info = static_cast<MonsterBullet*>(_other->GetOwner())->GetBulletInfo();
+
+		float damage = info.mMinAtt + rand() % (int)(info.mMaxAtt - info.mMinAtt);
 
 		if (damage >= mInfo.mCurHP)
 		{

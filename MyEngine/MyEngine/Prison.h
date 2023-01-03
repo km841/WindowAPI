@@ -1,6 +1,7 @@
 #pragma once
 #include "Stage.h"
 
+class Texture;
 class Map;
 class Prison
 	: public Stage
@@ -20,7 +21,7 @@ public:
 	virtual void Exit();
 
 private:
-	
+	Texture* mSubBGTex;
 	
 };
 

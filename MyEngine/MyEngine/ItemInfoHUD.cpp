@@ -110,7 +110,9 @@ void ItemInfoHUD::SetupItemInfo(Texture* _itemTex, const ItemInfo& _info)
 	mItemNameTex = FontMgr::GetInstance().GetTextTexture(_info.mItemName, _info.mItemName);
 	mItemCommentTex = FontMgr::GetInstance().GetTextTexture(_info.mItemComment, _info.mItemComment);
 
-	std::wstring attLine = L"공격력 : " + std::to_wstring((int)(_info.mAtt));
+
+
+	std::wstring attLine = L"공격력 : " + std::to_wstring((int)(_info.mMinAtt)) + L"~" + std::to_wstring((int)(_info.mMaxAtt));
 	mItemAttTex = FontMgr::GetInstance().GetTextTexture(attLine, attLine);
 	mItemAttTex->ChangeColor(RGB_WHITE, RGB_YELLOW, mItemAttTex->GetWidth() - 25);
 

@@ -11,7 +11,8 @@
 IceBullet::IceBullet()
 	:mInitFlag(true)
 {
-	mInfo.mAtt = 5.f;
+	mInfo.mMinAtt = 5.f;
+	mInfo.mMaxAtt = 7.f;
 	mInfo.mSpeed = 300.f;
 
 	GetCollider()->SetSize(Vec2(20.f, 20.f));

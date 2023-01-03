@@ -4,14 +4,16 @@
 struct ItemInfo
 {
 	ItemInfo()
-		: mAtt(0.f)
+		: mMinAtt(0.f)
+		, mMaxAtt(0.f)
 		, mAttSpeed(0.f)
 		, mAmmo(0.f)
 		, mMaxAmmo(0.f)
 	{}
 	std::wstring mItemName;
 	std::wstring mItemComment;
-	float mAtt;
+	float mMinAtt;
+	float mMaxAtt;
 	float mAttSpeed;
 	float mAmmo;
 	float mMaxAmmo;
@@ -25,15 +27,18 @@ struct BulletInfo
 {
 	BulletInfo()
 		: mSpeed(0.f)
-		, mAtt(0.f)
+		, mMinAtt(0.f)
+		, mMaxAtt(0.f)
 	{}
 
 	BulletInfo(float _att, float _speed)
 		: mSpeed(_speed)
-		, mAtt(_att)
+		, mMinAtt(0.f)
+		, mMaxAtt(0.f)
 	{}
 	float mSpeed;
-	float mAtt;
+	float mMinAtt;
+	float mMaxAtt;
 };
 
 struct MonsterInfo

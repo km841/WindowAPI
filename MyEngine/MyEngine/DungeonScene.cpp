@@ -80,12 +80,19 @@ void DungeonScene::Update()
 void DungeonScene::Render()
 {
 	Background_Black();
-	Scene::Render();
+	
 
 	static Texture* aim
 		= LOAD_TEXTURE(L"Aim", L"Texture\\Aim.bmp");
 	Vec2 mousePos = MOUSE_POS;
 	Vec2 aimSize = aim->GetSize();
+
+	if (nullptr != mCurStage)
+	{
+		mCurStage->Render();
+	}
+
+	Scene::Render();
 
 	TransparentBlt(
 		BACK_BUF_DC,
@@ -98,6 +105,8 @@ void DungeonScene::Render()
 		(int)aimSize.x,
 		(int)aimSize.y,
 		RGB(255, 0, 255));
+
+	
 }
 
 void DungeonScene::Destroy()

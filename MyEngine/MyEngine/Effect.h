@@ -28,8 +28,9 @@ public:
 	inline void     SetTexture(Texture* _tex) { mTexture = _tex; }
 
 public:
-	inline void  SetAtt(float _att) { mAtt = _att; }
-	inline float GetAtt() const { return mAtt; }
+	inline void  SetAtt(float _minAtt, float _maxAtt) { mMinAtt = _minAtt;  mMaxAtt = _maxAtt; }
+	inline float GetMinAtt() const { return mMinAtt; }
+	inline float GetMaxAtt() const { return mMaxAtt; }
 
 
 private:
@@ -39,7 +40,8 @@ private:
 	Texture*    mTexture;
 
 private:
-	float       mAtt;
+	float       mMinAtt;
+	float		mMaxAtt;
 	
 };
 

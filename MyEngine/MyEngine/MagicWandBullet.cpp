@@ -29,7 +29,8 @@ MagicWandBullet::MagicWandBullet()
 	GetCollider()->SetSize(Vec2(20.f, 20.f));
 	GetCollider()->SetOffset(Vec2(0.f, -15.f));
 
-	mInfo.mAtt = 10.f;
+	mInfo.mMinAtt = 10.f;
+	mInfo.mMaxAtt = 15.f;
 	mInfo.mSpeed = 750.f;
 
 	Texture* laraBulletTex = LOAD_TEXTURE(L"LaraBulletAnim", L"Texture\\LaraBulletAnim.bmp");

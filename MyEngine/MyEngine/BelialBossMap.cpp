@@ -33,8 +33,23 @@ BelialBossMap::BelialBossMap(const std::wstring& _path)
 	, mBoomMaxTime(0.1f)
 	, mBoomCurTime(0.f)
 	, mSound(nullptr)
+	, mAllDirBoomFlag(false)
+	, mAllDirBoomMaxTime(0.15f)
+	, mAllDirBoomCurTime(0.f)
+	, mDistance(0.f)
+	, mAllDirBoomMaxCount(12)
+	, mAllDirBoomCurCount(0)
 {
 	mSound = LOAD_SOUND(L"MonsterDie", L"Sound\\MonsterDie.wav");
+
+	mDirs.push_back(Vec2(-1, -1));
+	mDirs.push_back(Vec2(0, -1));
+	mDirs.push_back(Vec2(1, -1));
+	mDirs.push_back(Vec2(1, 0));
+	mDirs.push_back(Vec2(1, 1));
+	mDirs.push_back(Vec2(0, 1));
+	mDirs.push_back(Vec2(-1, 1));
+	mDirs.push_back(Vec2(-1, 0));
 }
 
 BelialBossMap::~BelialBossMap()
@@ -66,7 +81,6 @@ void BelialBossMap::Update()
 				mDeadStayFlag = true;
 				CameraMgr::GetInstance().SetTrackingObject(nullptr);
 				CameraMgr::GetInstance().SetLookPos(mBossMonster->GetPos());
-				
 			}
 
 			else
@@ -79,52 +93,92 @@ void BelialBossMap::Update()
 		if (false == mBossMonster->IsDead() &&
 			true == mDeadStayFlag)
 		{
-			if (mBoomMaxCount < mBoomCurCount)
+			if (false == mAllDirBoomFlag)
 			{
-				// 雌切 持失
-				//CameraMgr::GetInstance().SetLookPos(Player::GetPlayer()->GetPos());
-				CameraMgr::GetInstance().SetTrackingObject(Player::GetPlayer());
-				mBossMonster->SetObjState(OBJECT_STATE::DEAD);
-				mBossMonster->GetEffect()->SetObjState(OBJECT_STATE::DEAD);
-				EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::BOSS_HP);
-			}
-
-			else
-			{
-				if (mBoomMaxTime < mBoomCurTime)
+				if (mBoomMaxCount < mBoomCurCount)
 				{
-					++mBoomCurCount;
-					mBoomCurTime = 0.f;
-					Vec2 bossPos = mBossMonster->GetPos();
-					Vec2 ltPoint = bossPos - 200.f;
-					ltPoint.y -= 80.f;
-
-					float rand_x = (float)(rand() % 400);
-					float rand_y = (float)(rand() % 400);
-
-					ltPoint.x += rand_x;
-					ltPoint.y += rand_y;
-
-					BoomEffect* effect = new BoomEffect;
-					effect->SetPos(ltPoint);
-
-
-					mEffects.push_back(effect);
-					EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
-					CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
+					mAllDirBoomFlag = true;
+					// 雌切 持失
 					CameraMgr::GetInstance().SetTrackingObject(mBossMonster);
-
-					if (nullptr != mSound)
-						mSound->Play(false);
-
 				}
 
 				else
 				{
-					mBoomCurTime += DT;
+					if (mBoomMaxTime < mBoomCurTime)
+					{
+						++mBoomCurCount;
+						mBoomCurTime = 0.f;
+						Vec2 bossPos = mBossMonster->GetPos();
+						Vec2 ltPoint = bossPos - 200.f;
+						ltPoint.y -= 80.f;
+
+						float rand_x = (float)(rand() % 400);
+						float rand_y = (float)(rand() % 400);
+
+						ltPoint.x += rand_x;
+						ltPoint.y += rand_y;
+
+						BoomEffect* effect = new BoomEffect;
+						effect->SetPos(ltPoint);
+
+						EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
+						mEffects.push_back(effect);
+
+
+						if (nullptr != mSound)
+							mSound->Play(false);
+
+					}
+
+					else
+					{
+						mBoomCurTime += DT;
+					}
 				}
 			}
 
+			else
+			{
+
+				if (mAllDirBoomMaxCount < mAllDirBoomCurCount)
+				{
+					//CameraMgr::GetInstance().SetLookPos(Player::GetPlayer()->GetPos());
+					CameraMgr::GetInstance().SetTrackingObject(Player::GetPlayer());
+					mBossMonster->SetObjState(OBJECT_STATE::DEAD);
+					mBossMonster->GetEffect()->SetObjState(OBJECT_STATE::DEAD);
+					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::BOSS_HP);
+				}
+
+				else
+				{
+					if (mAllDirBoomMaxTime < mAllDirBoomCurTime)
+					{
+						mAllDirBoomCurTime = 0.f;
+						mAllDirBoomCurCount++;
+						Vec2 bossPos = mBossMonster->GetPos();
+						mDistance += 20.f;
+						for (int i = 0; i < mDirs.size(); ++i)
+						{
+							BoomEffect* effect = new BoomEffect;
+							Vec2 curPos = bossPos + mDirs[i] * mDistance;
+							curPos += Vec2(30, -80);
+							effect->SetPos(curPos);
+							mEffects.push_back(effect);
+							EventRegisteror::GetInstance().CreateObject(effect, effect->GetType());
+
+							CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::BOSS_SHAKE, 0.1f);
+							
+
+							if (nullptr != mSound)
+								mSound->Play(false);
+						}
+					}
+					else
+					{
+						mAllDirBoomCurTime += DT;
+					}
+				}
+			}
 		}
 	}
 

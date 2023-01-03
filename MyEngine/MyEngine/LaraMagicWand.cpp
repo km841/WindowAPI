@@ -30,7 +30,8 @@ LaraMagicWand::LaraMagicWand()
 	SetDuration(0.225f);
 
 	ItemInfo info = {};
-	info.mAtt = 10.f;
+	info.mMinAtt = 10.f;
+	info.mMaxAtt = 15.f;
 	info.mAttSpeed = 4.f;
 	info.mMaxAmmo = 12.f;
 	info.mAmmo = info.mMaxAmmo;
@@ -54,7 +55,7 @@ LaraMagicWand::LaraMagicWand()
 
 	HomingMissileEffect* effect = new HomingMissileEffect;
 	effect->SetOwner(Player::GetPlayer());
-	effect->SetAtt(info.mAtt);
+	effect->SetAtt(info.mMinAtt, info.mMaxAtt);
 	effect->SetOwnerItem(this);
 	SetEffect(effect);
 	

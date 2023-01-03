@@ -32,7 +32,8 @@ ShortSword::ShortSword()
 	SetDuration(0.225f);
 
 	ItemInfo info = {};
-	info.mAtt = 10.f;
+	info.mMinAtt = 10.f;
+	info.mMaxAtt = 15.f;
 	info.mAttSpeed = 2.f;
 	info.mItemName = L"¼ô ¼Òµå";
 	info.mItemComment = L"'°¡º±°í ÈÖµÎ¸£±â ÆíÇÑ °Ë'";
@@ -52,7 +53,7 @@ ShortSword::ShortSword()
 	effect->GetCollider()->SetSize(Vec2(50, 75));
 	effect->GetCollider()->SetOffset(Vec2(0, -70));
 	effect->GetCollider()->SetEnable(false);
-	effect->SetAtt(info.mAtt);
+	effect->SetAtt(info.mMinAtt, info.mMaxAtt);
 	
 
 	Texture* swordTex = LOAD_TEXTURE(L"ShortSword", L"Texture\\ShortSword3.bmp");

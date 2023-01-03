@@ -280,11 +280,11 @@ Texture* FontMgr::GetTextTexture_Gold(const std::wstring& _key, const std::wstri
         textureHeight = (int)info.mSlice.y;
     }
 
-    Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(_key));
+    Texture* tex = static_cast<Texture*>(ResourceMgr::GetInstance().FindTexture(goldText));
     if (nullptr != tex)
         return tex;
 
-    tex = ResourceMgr::GetInstance().CreateTexture(_key, Vec2(textureWidth, textureHeight));
+    tex = ResourceMgr::GetInstance().CreateTexture(goldText, Vec2(textureWidth, textureHeight));
 
     int x_pos = 0;
     for (int i = 0; i < goldText.size(); ++i)

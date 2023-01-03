@@ -45,5 +45,16 @@ private:
 
 	float mBoomMaxTime;
 	float mBoomCurTime;
+
+	bool mAllDirBoomFlag;
+	std::vector<Vec2> mDirs;
+
+	float mAllDirBoomMaxTime;
+	float mAllDirBoomCurTime;
+
+	float mDistance;
+
+	int mAllDirBoomMaxCount;
+	int mAllDirBoomCurCount;
 };
 
