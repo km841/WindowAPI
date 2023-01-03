@@ -29,6 +29,9 @@ void HPHUD::Update()
 
 void HPHUD::Render()
 {
+	if (false == GetState())
+		return;
+
 	if (nullptr != mBaseTex && nullptr != mTex)
 	{
 		Player* player = Player::GetPlayer();

@@ -28,6 +28,9 @@ void DashCountHUD::Update()
 
 void DashCountHUD::Render()
 {
+	if (false == GetState())
+		return;
+
 	if (nullptr != mBaseTex && nullptr != mTex)
 	{
 		Player* player = Player::GetPlayer();

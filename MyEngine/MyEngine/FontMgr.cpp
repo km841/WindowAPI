@@ -431,8 +431,8 @@ void FontMgr::OutputGold(int _gold, Vec2 _pos)
     // 135도만큼 돌려서 거기에 10을 곱한다
 
     Vec2 dir = Vec2(1, 0);
-    float angle = 225.f;
-    float radius = 10.f;
+    float angle = 180.f;
+    float radius = 30.f;
     dir = Math::RotateVector(dir, angle);
     dir *= radius;
 
@@ -460,8 +460,8 @@ void FontMgr::FontUpdate()
             Vec2 center = iter.operator*()->GetCenter();
             float radius = iter.operator*()->GetRadius();
 
-            float omega_x = 180.f * (DT);
-            float omega_y = 90.f * (DT);
+            float omega_x = 270.f * (DT);
+            float omega_y = 180.f * (DT);
             angle += omega_x;
             
             float angle_x = Math::DegreeToRadian(angle + omega_x);

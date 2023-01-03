@@ -17,6 +17,7 @@ public:
 private:
     Texture* mBaseTex;
     Texture* mTex;
+    Texture* mInfoTex;
     BLENDFUNCTION mBlendFunc;
 };
 

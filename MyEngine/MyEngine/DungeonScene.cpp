@@ -55,6 +55,18 @@ void DungeonScene::Update()
 	if (IS_PRESSED(KEY::TAB))
 	{
 		EventRegisteror::GetInstance().EnableUI(UI_TYPE::DUNGEON_MAP);
+		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::HP);
+		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::DASH_GAUGE);
+		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);
+		EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
+		
+	}
+	else
+	{
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::HP);
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::DASH_GAUGE);
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::EQUIPED);
+		EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
 	}
 	
 }

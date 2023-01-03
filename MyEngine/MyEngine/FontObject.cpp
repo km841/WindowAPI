@@ -40,7 +40,7 @@ void FontObject::Update()
 		}
 		else
 		{
-			mAlpha -= DT;
+			mAlpha -= DT * 2.5f;
 			if (0.f >= mAlpha)
 			{
 				mAlpha = 0.f;
