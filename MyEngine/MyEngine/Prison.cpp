@@ -16,7 +16,7 @@ Prison::~Prison()
 void Prison::Initialize()
 {
 	//AddMap(L"..\\Resource\\Map\\dungeon4.map");
-	AddMap(L"..\\Resource\\Map\\Prison_StartMap_TR.map");
+	AddMap(L"..\\Resource\\Map\\Prison_StartMap_LRT.map");
 	AddMap(L"..\\Resource\\Map\\Prison_Dungeon1_LR.map");
 	AddMap(L"..\\Resource\\Map\\Prison_Dungeon2_RTB.map");
 	AddMap(L"..\\Resource\\Map\\Prison_Dungeon3_L.map");

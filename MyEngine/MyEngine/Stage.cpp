@@ -95,6 +95,8 @@ void Stage::ChainMaps(Map* _map)
 
 	_map->SetVisit();
 
+
+
 	if (true == _map->IsPassage(WARP_POINT::LEFT) && 
 		nullptr == _map->GetMapLink(WARP_POINT::LEFT))
 	{
@@ -105,10 +107,16 @@ void Stage::ChainMaps(Map* _map)
 
 			if (true == mMaps[i]->IsPassage(WARP_POINT::RIGHT) &&
 				false == mMaps[i]->IsRegister() && 
-				nullptr == mMaps[i]->GetMapLink(WARP_POINT::RIGHT))
+				nullptr == mMaps[i]->GetMapLink(WARP_POINT::RIGHT) && 
+				false == _map->IsDuplicationLink(mMaps[i]) && 
+				false == mMaps[i]->GetChecked())
 			{
+				
+
 				mMaps[i]->SetMapLink(WARP_POINT::RIGHT, _map);
 				_map->SetMapLink(WARP_POINT::LEFT, mMaps[i]);
+				mMaps[i]->SetChecked();
+				
 				break;
 			}
 		}
@@ -124,10 +132,13 @@ void Stage::ChainMaps(Map* _map)
 
 			if (true == mMaps[i]->IsPassage(WARP_POINT::LEFT) &&
 				false == mMaps[i]->IsRegister() &&
-				nullptr == mMaps[i]->GetMapLink(WARP_POINT::LEFT))
+				nullptr == mMaps[i]->GetMapLink(WARP_POINT::LEFT) &&
+				false == _map->IsDuplicationLink(mMaps[i]) &&
+				false == mMaps[i]->GetChecked())
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::LEFT, _map);
 				_map->SetMapLink(WARP_POINT::RIGHT, mMaps[i]);
+				mMaps[i]->SetChecked();
 				break;
 			}
 		}
@@ -143,10 +154,13 @@ void Stage::ChainMaps(Map* _map)
 
 			if (true == mMaps[i]->IsPassage(WARP_POINT::BOTTOM) &&
 				false == mMaps[i]->IsRegister() &&
-				nullptr == mMaps[i]->GetMapLink(WARP_POINT::BOTTOM))
+				nullptr == mMaps[i]->GetMapLink(WARP_POINT::BOTTOM) &&
+				false == _map->IsDuplicationLink(mMaps[i]) && 
+				false == mMaps[i]->GetChecked())
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::BOTTOM, _map);
 				_map->SetMapLink(WARP_POINT::TOP, mMaps[i]);
+				mMaps[i]->SetChecked();
 				break;
 			}
 		}
@@ -162,10 +176,13 @@ void Stage::ChainMaps(Map* _map)
 
 			if (true == mMaps[i]->IsPassage(WARP_POINT::TOP) &&
 				false == mMaps[i]->IsRegister() &&
-				nullptr == mMaps[i]->GetMapLink(WARP_POINT::TOP))
+				nullptr == mMaps[i]->GetMapLink(WARP_POINT::TOP) &&
+				false == _map->IsDuplicationLink(mMaps[i]) && 
+				false == mMaps[i]->GetChecked())
 			{
 				mMaps[i]->SetMapLink(WARP_POINT::TOP, _map);
 				_map->SetMapLink(WARP_POINT::BOTTOM, mMaps[i]);
+				mMaps[i]->SetChecked();
 				break;
 			}
 		}

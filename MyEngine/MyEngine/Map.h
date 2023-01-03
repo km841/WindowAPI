@@ -41,6 +41,11 @@ public:
 	inline void SetMapType(MAP_TYPE _type) { mMapType = _type; }
 	inline MAP_TYPE GetMapType() const { return mMapType; }
 
+	inline void SetChecked() { mChecked = true; }
+	inline bool GetChecked() const { return mChecked; }
+
+	bool IsDuplicationLink(Map* _map);
+
 private:
 	MAP_TYPE mMapType;
 	Sound* mSound;
@@ -51,6 +56,7 @@ private:
 	bool mClear;
 	bool mRegister;
 	bool mVisit;
+	bool mChecked;
 	std::wstring mPath;
 
 	float mAllowable;

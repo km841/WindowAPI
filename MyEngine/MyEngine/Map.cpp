@@ -17,6 +17,7 @@ Map::Map(const std::wstring& _path)
 	, mRegister(false)
 	, mClear(false)
 	, mVisit(false)
+	, mChecked(false)
 	, mPath(_path)
 	, mAllowable(70.f)
 	, mSound(nullptr)
@@ -402,5 +403,17 @@ void Map::GiveBackGameObject(OBJECT_TYPE _eType)
 	}
 
 	mMapObjects[(UINT)_eType].clear();
+}
+
+bool Map::IsDuplicationLink(Map* _map)
+{
+	for (int i = 0; i < (UINT)WARP_POINT::END; ++i)
+	{
+		if (GetMapLink((WARP_POINT)i) == _map)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 

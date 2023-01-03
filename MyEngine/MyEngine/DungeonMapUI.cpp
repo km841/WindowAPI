@@ -141,8 +141,6 @@ void DungeonMapUI::Render()
 					Map* curMap = curStage->GetCurMap();
 					mVisited.push_back(curMap);
 
-					
-
 					if (nullptr != curMap)
 					{
 						TransparentBlt(

@@ -15,7 +15,7 @@ DashEffect::DashEffect()
 	mBlendFunc.BlendFlags = 0;
 	mBlendFunc.AlphaFormat = AC_SRC_ALPHA;
 	mBlendFunc.BlendOp = AC_SRC_OVER;
-	mBlendFunc.SourceConstantAlpha = 100;
+	mBlendFunc.SourceConstantAlpha = 255;
 }
 
 DashEffect::~DashEffect()
@@ -30,7 +30,7 @@ void DashEffect::Update()
 	{
 		mCurStayTime += DT;
 		float ratio = mCurStayTime / mStayTime;
-		mAlpha = 100.f * (1.f - ratio);
+		mAlpha = 150.f * (1.f - ratio);
 		mBlendFunc.SourceConstantAlpha = (BYTE)mAlpha;
 	}
 }
