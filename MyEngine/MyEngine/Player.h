@@ -102,6 +102,7 @@ public:
 
     inline int GetMoney() const { return mMoney; }
     inline void SetMoney(int _money) { mMoney = _money; }
+    void DecreaseMoney();
 
     inline void SetPrevScene(SCENE_TYPE _type) { mPrevScene = _type; }
     inline SCENE_TYPE GetPrevScene() const { return mPrevScene; }

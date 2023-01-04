@@ -709,8 +709,13 @@ void ToolScene::Load()
 			assert(nullptr);
 		}
 
-		DeleteObjGroup(OBJECT_TYPE::TILE);
+
+
 		CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
+		CleanObjectGroup(OBJECT_TYPE::WALL);
+		CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+		DeleteObjGroup(OBJECT_TYPE::TILE_BG);
+		DeleteObjGroup(OBJECT_TYPE::TILE);
 		DeleteObjGroup(OBJECT_TYPE::MONSTER);
 		DeleteObjGroup(OBJECT_TYPE::DUNGEON_OBJECT);
 

@@ -1059,6 +1059,12 @@ inline void Player::SetStop(bool _flag)
 	GetRigidBody()->SetVelocity(ZERO_VECTOR);
 }
 
+void Player::DecreaseMoney()
+{
+	if (mMoney > 0.f)
+		--mMoney;
+}
+
 void Player::SetEquipItem(Item* _item)
 {
 	ITEM_TYPE itemType = _item->GetItemType();

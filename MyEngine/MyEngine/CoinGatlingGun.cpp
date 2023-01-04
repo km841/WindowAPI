@@ -151,7 +151,7 @@ void CoinGatlingGun::Update()
 					{
 						mShotSound->Play(false);
 					}
-
+					Player::GetPlayer()->DecreaseMoney();
 					CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, 0.01f);
 				}
 
