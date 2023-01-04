@@ -42,8 +42,8 @@ LaraMagicWand::LaraMagicWand()
 	SetItemInfo(info);
 
 	Texture* texture = LOAD_TEXTURE(L"LaraMagicWandTex", L"Texture\\LalaMagicWand.bmp");
-	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"LaraMagicWandTrans", texture->GetSize());
 	mEquipTex = LOAD_TEXTURE(L"LaraMagicWandEquipTex", L"Texture\\LalaMagicWandEquip.bmp");
+	Texture* transTexture = ResourceMgr::GetInstance().CreateTexture(L"LaraMagicWandTrans", texture->GetSize());
 
 
 	SetTexture(texture);
@@ -60,20 +60,18 @@ LaraMagicWand::LaraMagicWand()
 	SetEffect(effect);
 	
 	mSkillCoolDown = 3.f;
-
-
 }
 
 LaraMagicWand::~LaraMagicWand()
 {
-	Sword::Destroy();
+	Weapon::Destroy();
 }
 
 void LaraMagicWand::Initialize()
 {
 	// ¸ÔÀº ´ÙÀ½¿¡ Initialize
 
-	Sword::Initialize();
+	Weapon::Initialize();
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
@@ -146,7 +144,7 @@ void LaraMagicWand::Update()
 			mEffect->Update();
 		}
 
-		Sword::Update();
+		Weapon::Update();
 	}
 
 }
@@ -176,7 +174,7 @@ void LaraMagicWand::Render()
 
 	else
 	{
-		Sword::Render();
+		Weapon::Render();
 
 		Vec2 pos = Vec2(WINDOW_WIDTH_SIZE - 200, WINDOW_HEIGHT_SIZE - 50);
 		Vec2 size = mSkillTex->GetSize();

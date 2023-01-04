@@ -37,6 +37,7 @@
 #include "CollisionMgr.h"
 #include "LockedDoor.h"
 #include "Sound.h"
+#include "CoinGatlingGun.h"
 
 Player* Player::mPlayer = nullptr;
 IdleState* PlayerState::Idle = nullptr;
@@ -69,7 +70,7 @@ Player::Player()
 	, mUIState(false)
 	, mMoney(0)
 	, mMoveMapCoolDown(false)
-	, mMoveMapMaxDuration(0.1f)
+	, mMoveMapMaxDuration(0.3f)
 	, mMoveMapCurDuration(0.f)
 	, mPlayerHitSound(nullptr)
 	, mPickUpSound(nullptr)
@@ -177,6 +178,7 @@ Player::Player()
 		mEquipItems[i] = nullptr;
 	}
 	ShortSword* shortSword = new ShortSword;
+	//CoinGatlingGun* gatlingGun = new CoinGatlingGun;
 	SetEquipItem(shortSword);
 
 #pragma endregion
@@ -869,6 +871,7 @@ void Player::OnCollisionEnter(Collider* _other)
 		Item* item = static_cast<Item*>(_other->GetOwner());
 		EventRegisteror::GetInstance().DeleteObjectFromScene(item);
 		item->SetFallen(false);
+
 		SetEquipItem(item);
 		item->Initialize();
 
@@ -1072,10 +1075,15 @@ void Player::SetEquipItem(Item* _item)
 			
 		}
 		
-		else
+		else if (nullptr == mEquipItems[(UINT)EQUIP_TYPE::WEAPON_RIGHT])
 		{
 			mEquipItems[(UINT)EQUIP_TYPE::WEAPON_RIGHT] = _item;
 			inven->SetEquipMap(EQUIP_TYPE::WEAPON_RIGHT, _item);
+		}
+
+		else
+		{
+			GET_INVENTORY_UI->AddItem(_item);
 		}
 	}
 

@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "BossMap.h"
+#include "ChestMap.h"
 
 Stage::Stage(STAGE_TYPE _type)
 	: mBossSideMap(nullptr)
@@ -84,6 +85,13 @@ void Stage::TransitionToMap(Map* _map)
 void Stage::AddMap(const std::wstring& _path)
 {
 	Map* map = new Map(_path);
+	map->SetOwnerStage(this);
+	mMaps.push_back(map);
+}
+
+void Stage::AddChestMap(const std::wstring& _path)
+{
+	ChestMap* map = new ChestMap(_path);
 	map->SetOwnerStage(this);
 	mMaps.push_back(map);
 }

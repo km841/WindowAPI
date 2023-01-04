@@ -433,6 +433,13 @@ enum class DOOR_STATE
 	END,
 };
 
+enum class CHEST_STATE
+{
+	OPEN,
+	CLOSE,
+	END,
+};
+
 enum class BOSS_SKILL
 {
 	SKILL_1,

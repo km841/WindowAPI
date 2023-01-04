@@ -19,7 +19,7 @@ Map::Map(const std::wstring& _path)
 	, mVisit(false)
 	, mChecked(false)
 	, mPath(_path)
-	, mAllowable(70.f)
+	, mAllowable(90.f)
 	, mSound(nullptr)
 {
 	// 방향에 대한 정보

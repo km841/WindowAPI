@@ -1,9 +1,9 @@
 #pragma once
-#include "Sword.h"
+#include "Weapon.h"
 
 class Sound;
 class LaraMagicWand :
-    public Sword
+    public Weapon
 {
 public:
     LaraMagicWand();

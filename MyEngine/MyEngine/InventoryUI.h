@@ -27,6 +27,7 @@ public:
     void PlayerMoneyRender();
     void UnMountItem(ItemUI* _item);
     void MountItem(ItemUI* _item);
+    void AddItem(Item* _item);
 
 
 public:

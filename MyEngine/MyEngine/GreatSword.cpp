@@ -25,7 +25,7 @@ void GreatSword::Initialize()
 	SetTexture(texture);
 	SetTransTexture(transTexture);
 
-	Sword::Initialize();
+	Weapon::Initialize();
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
@@ -39,10 +39,10 @@ void GreatSword::Initialize()
 
 void GreatSword::Update()
 {
-	Sword::Update();
+	Weapon::Update();
 }
 
 void GreatSword::Render()
 {
-	Sword::Render();
+	Weapon::Render();
 }

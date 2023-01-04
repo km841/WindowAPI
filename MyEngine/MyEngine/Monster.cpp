@@ -212,7 +212,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 		Vec2 dir = pos - playerPos;
 
 		float curHP = GetCurHP();
-		int att = minAtt + (rand() % (int)(maxAtt - minAtt));
+		int att = (int)(minAtt + (rand() % (int)(maxAtt - minAtt)));
 		float damage = (att + playerAtt);
 		curHP -= damage;
 		pos.y -= 80;

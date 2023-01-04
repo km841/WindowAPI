@@ -146,6 +146,23 @@ FontMgr::FontMgr()
 
         mTextMap.insert(std::make_pair(bossTextLine[i], info));
     }
+
+    TextInfo info = {};
+    info.mLTPos = Vec2(0, 211);
+    info.mSlice = Vec2(17, 22);
+
+
+    std::wstring weaponName = L"양코인건돈많을수록강해진다";
+    for (int i = 0; i < weaponName.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 233);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(weaponName[i], info));
+    }
+
+    mTextMap.insert(std::make_pair(L'~', info));
 }
 
 FontMgr::~FontMgr()

@@ -42,6 +42,10 @@ enum class KEY
     NUMPAD2,
     NUMPAD3,
 
+    ONE,
+    TWO,
+    THREE,
+
     END
 };
 
@@ -73,6 +77,12 @@ static UINT KEY_CODE[(UINT)KEY::END]
     VK_NUMPAD1,
     VK_NUMPAD2,
     VK_NUMPAD3,
+
+    0x31,
+    0x32,
+    0x33,
+
+    
 };
 
 

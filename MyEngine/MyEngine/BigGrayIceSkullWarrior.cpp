@@ -180,11 +180,7 @@ BigGrayIceSkullWarrior::BigGrayIceSkullWarrior()
 
 BigGrayIceSkullWarrior::~BigGrayIceSkullWarrior()
 {
-	if (nullptr != mSkillEffect)
-	{
-		delete mSkillEffect;
-		mSkillEffect = nullptr;
-	}
+
 }
 
 void BigGrayIceSkullWarrior::Initialize()
@@ -211,6 +207,10 @@ void BigGrayIceSkullWarrior::Render()
 void BigGrayIceSkullWarrior::Destroy()
 {
 	Monster::Destroy();
+
+	if (nullptr != mSkillEffect)
+		EventRegisteror::GetInstance().DeleteObject(mSkillEffect);
+
 }
 
 void BigGrayIceSkullWarrior::GroundStateUpdate()

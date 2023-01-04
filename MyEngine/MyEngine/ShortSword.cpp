@@ -33,7 +33,7 @@ ShortSword::ShortSword()
 
 	ItemInfo info = {};
 	info.mMinAtt = 10.f;
-	info.mMaxAtt = 15.f;
+	info.mMaxAtt = 12.f;
 	info.mAttSpeed = 2.f;
 	info.mItemName = L"ºÙ º“µÂ";
 	info.mItemComment = L"'∞°∫±∞Ì »÷µŒ∏£±‚ ∆Ì«— ∞À'";
@@ -88,7 +88,7 @@ ShortSword::~ShortSword()
 
 void ShortSword::Initialize()
 {
-	Sword::Initialize();
+	Weapon::Initialize();
 
 	Player* player = Player::GetPlayer();
 	if (nullptr != player)
@@ -224,14 +224,14 @@ void ShortSword::Update()
 	//if (nullptr != effect)
 	//	effect->Update();
 
-	Sword::Update();
+	Weapon::Update();
 }
 
 void ShortSword::Render()
 {
 
 	// æ÷¥œ∏ﬁ¿Ãº« ∑ª¥ı
-	Sword::Render();
+	Weapon::Render();
 
 	//Effect* effect = GetEffect();
 	//if (nullptr != effect)

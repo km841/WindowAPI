@@ -220,6 +220,11 @@ void InventoryUI::MountItem(ItemUI* _itemUI)
 	}
 }
 
+void InventoryUI::AddItem(Item* _item)
+{
+	mInventoryMap[mNextInvenSlot]->SetItem(_item);
+}
+
 
 
 inline void InventoryUI::SetEquipMap(EQUIP_TYPE _type, Item* _item)

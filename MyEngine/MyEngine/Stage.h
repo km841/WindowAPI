@@ -22,6 +22,7 @@ public:
 	inline Vec2 GetInitPlayerPos() { return mInitPlayerPos; }
 	void TransitionToMap(Map* _map);
 	void AddMap(const std::wstring& _path);
+	void AddChestMap(const std::wstring& _path);
 
 	inline Map* GetStartMap() const { return mMaps[0]; }
 

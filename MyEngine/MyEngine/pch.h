@@ -92,6 +92,7 @@
 /*MOUSE CHECK MACRO*/
 #define IS_JUST_LBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::JUST_LBTN_CLICKED
 #define IS_LBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::LBTN_CLICKED
+#define IS_JUST_LBUTTON_RELEASED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::JUST_LBTN_RELEASED
 #define IS_JUST_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::JUST_RBTN_CLICKED
 #define IS_RBUTTON_CLICKED MouseMgr::GetInstance().GetMouseState() == MOUSE_STATE::RBTN_CLICKED
 

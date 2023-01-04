@@ -147,7 +147,7 @@ void ItemGetHUD::SetupItemInfo(Texture* _itemTex, const ItemInfo& _info)
 		case RARITY::NORMAL:
 			break;
 		case RARITY::RARE:
-			color = RGB_BLUE;
+			color = RGB_YELLOW;
 			break;
 		case RARITY::UNIQUE:
 			color = RGB_PHONE_MAGENTA;

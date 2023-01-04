@@ -169,7 +169,10 @@
     <ClInclude Include="BossSkillState.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CheckButtonUI.h" />
+    <ClInclude Include="Chest.h" />
+    <ClInclude Include="ChestMap.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinBullet.h" />
     <ClInclude Include="CoinGatlingGun.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashCountHUD.h" />
@@ -187,7 +190,6 @@
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="Gold.h" />
     <ClInclude Include="GoldBar.h" />
-    <ClInclude Include="GreatSword.h" />
     <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="HPHUD.h" />
     <ClInclude Include="HUD.h" />
@@ -255,7 +257,7 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
-    <ClInclude Include="Sword.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="SwordHitEffect.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -316,7 +318,10 @@
     <ClCompile Include="BossSkillState.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CheckButtonUI.cpp" />
+    <ClCompile Include="Chest.cpp" />
+    <ClCompile Include="ChestMap.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinBullet.cpp" />
     <ClCompile Include="CoinGatlingGun.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashCountHUD.cpp" />
@@ -334,7 +339,6 @@
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="Gold.cpp" />
     <ClCompile Include="GoldBar.cpp" />
-    <ClCompile Include="GreatSword.cpp" />
     <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="HPHUD.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -401,7 +405,7 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
-    <ClCompile Include="Sword.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="SwordHitEffect.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="KeyMgr.cpp" />

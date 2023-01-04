@@ -31,7 +31,7 @@ public:
 
 			info.mAtt = 5;
 			info.mMaxHP = 100;
-			info.mSpeed = 150.f;
+			info.mSpeed = 100.f;
 			info.mRecog = 300.f;
 			info.mAttRange = 150.f;
 			info.mAttDelay = 2.f;

@@ -114,11 +114,11 @@ void ItemInfoHUD::SetupItemInfo(Texture* _itemTex, const ItemInfo& _info)
 
 	std::wstring attLine = L"공격력 : " + std::to_wstring((int)(_info.mMinAtt)) + L"~" + std::to_wstring((int)(_info.mMaxAtt));
 	mItemAttTex = FontMgr::GetInstance().GetTextTexture(attLine, attLine);
-	mItemAttTex->ChangeColor(RGB_WHITE, RGB_YELLOW, mItemAttTex->GetWidth() - 25);
+	mItemAttTex->ChangeColor(RGB_WHITE, RGB_YELLOW, mItemAttTex->GetWidth() - 75);
 
 	std::wstring attSpeedLine = L"초당 공격 속도 : " + std::to_wstring((int)(_info.mAttSpeed));
 	mItemAttSpeedTex = FontMgr::GetInstance().GetTextTexture(attSpeedLine, attSpeedLine);
-	mItemAttSpeedTex->ChangeColor(RGB_WHITE, RGB_YELLOW, mItemAttSpeedTex->GetWidth() - 20);
+	mItemAttSpeedTex->ChangeColor(RGB_WHITE, RGB_YELLOW, mItemAttSpeedTex->GetWidth() - 25);
 
 
 
@@ -145,7 +145,7 @@ void ItemInfoHUD::SetupItemInfo(Texture* _itemTex, const ItemInfo& _info)
 		case RARITY::NORMAL:
 			break;
 		case RARITY::RARE:
-			color = RGB_BLUE;
+			color = RGB_YELLOW;
 			break;
 		case RARITY::UNIQUE:
 			color = RGB_PHONE_MAGENTA;
