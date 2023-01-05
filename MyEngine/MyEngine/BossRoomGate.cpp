@@ -12,6 +12,7 @@
 #include "DungeonScene.h"
 #include "EventRegisteror.h"
 #include "Map.h"
+#include "Player.h"
 
 BossRoomGate::BossRoomGate()
 	:mState(DOOR_STATE::OPEN)
@@ -78,12 +79,14 @@ void BossRoomGate::Update()
 				else
 				{
 					// GameClear
-					//Map* nextMap = curStage->GetBossNextMap();
+					// UI ¶ç¿ì°í ¿£µù¾ÀÀ¸·Î
+					EventRegisteror::GetInstance().EnableUI(UI_TYPE::DUNGEON_CLEAR);
+					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::HP);
+					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);
+					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::DASH_GAUGE);
+					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
+					Player::GetPlayer()->SetStop(true);
 
-					//if (nullptr != curStage && nullptr != nextMap)
-					//{
-					//	EventRegisteror::GetInstance().TransitionToMap(curStage, nextMap);
-					//}
 				}
 
 			}

@@ -28,7 +28,6 @@ DungeonMapUI::DungeonMapUI()
 	mFloorInfoTex = LOAD_TEXTURE(L"FloorInfo", L"Texture\\FloorInfo.bmp");
 	mBaseTex = ResourceMgr::GetInstance().CreateTexture(L"DungeonMapBase", Vec2(WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE));
 
-
 	mBlendFunc = {};			
 	mBlendFunc.BlendFlags = 0;
 	mBlendFunc.AlphaFormat = 0;

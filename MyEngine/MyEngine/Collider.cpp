@@ -41,28 +41,23 @@ void Collider::Render()
 
 	OBJECT_TYPE objectType = GetOwner()->GetType();
 
-	if (mColCnt > 0)
-		pen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 
-	else
+	switch (objectType)
 	{
-		switch (objectType)
-		{
-		case OBJECT_TYPE::WALL:
-			pen = CreatePen(PS_SOLID, 2, RGB(128, 128, 255));
-			break;
+	case OBJECT_TYPE::WALL:
+		pen = CreatePen(PS_SOLID, 2, RGB(128, 128, 255));
+		break;
 
-		case OBJECT_TYPE::FOOTHOLD:
-			pen = CreatePen(PS_SOLID, 2, RGB(128, 0, 64));
-			break;
+	case OBJECT_TYPE::FOOTHOLD:
+		pen = CreatePen(PS_SOLID, 2, RGB(128, 0, 64));
+		break;
 
-		default:
-			pen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
-			break;
-		}
-
-		
+	default:
+		pen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+		break;
 	}
+
+
 
 	HPEN oldPen = (HPEN)SelectObject(BACK_BUF_DC, pen);
 

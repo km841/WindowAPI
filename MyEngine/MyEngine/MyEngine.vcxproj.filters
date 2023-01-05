@@ -554,6 +554,9 @@
     <Filter Include="Engine\Scene\DungeonScene\Stage\Map\ChestMap">
       <UniqueIdentifier>{66c7b0ef-9d73-40a5-9fea-631308d298a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\UI\DungeonClearUI">
+      <UniqueIdentifier>{becec909-29f1-4758-831e-79cae8136c7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -996,6 +999,9 @@
     </ClInclude>
     <ClInclude Include="ChestMap.h">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\ChestMap</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonClearUI.h">
+      <Filter>Engine\GameObject\UI\DungeonClearUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1443,6 +1449,9 @@
     </ClCompile>
     <ClCompile Include="ChestMap.cpp">
       <Filter>Engine\Scene\DungeonScene\Stage\Map\ChestMap</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonClearUI.cpp">
+      <Filter>Engine\GameObject\UI\DungeonClearUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

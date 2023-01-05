@@ -36,13 +36,13 @@ InventoryUI::InventoryUI()
 	SetType(OBJECT_TYPE::UNIQUE_UI);
 	SetUIType(UI_TYPE::INVENTORY);
 
-	mEquipMap[EQUIP_TYPE::WEAPON_LEFT]->SetPos(Vec2(104, 165));
-	mEquipMap[EQUIP_TYPE::WEAPON_RIGHT]->SetPos(Vec2(324, 165));
+	mEquipMap[EQUIP_TYPE::WEAPON_LEFT]->SetPos(Vec2(109, 172));
+	mEquipMap[EQUIP_TYPE::WEAPON_RIGHT]->SetPos(Vec2(339, 172));
 
-	Vec2 invenFirstPos = Vec2(79, 401);
+	Vec2 invenFirstPos = Vec2(82, 420);
 	int rowSize = 3;
 	int colSize = 5;
-	float invenOffset = 89.5;
+	float invenOffset = 94;
 
 	for (int y = 0; y < rowSize; ++y)
 	{
@@ -131,7 +131,7 @@ void InventoryUI::PlayerMoneyRender()
 {
 	Vec2 pos = GetPos();
 	Player* player = Player::GetPlayer();
-	Vec2 moneyPos = pos + Vec2(428, WINDOW_HEIGHT_SIZE - 78);
+	Vec2 moneyPos = pos + Vec2(440, WINDOW_HEIGHT_SIZE - 46);
 
 	int money = player->GetMoney();
 	std::wstring moneyText = std::to_wstring(money);
@@ -160,9 +160,12 @@ void InventoryUI::UnMountItem(ItemUI* _itemUI)
 	{
 		if (INVENTORY_SLOT_TYPE::END != mNextInvenSlot)
 		{
+			if (nullptr != mInventoryMap[mNextInvenSlot]->GetItem())
+			{
+				mNextInvenSlot = (INVENTORY_SLOT_TYPE)((UINT)mNextInvenSlot + 1);
+			}
 			_itemUI->DeliverItem(mInventoryMap[mNextInvenSlot]);
 			Player::GetPlayer()->ClearEquipItem(_itemUI->GetEquipType());
-
 			mNextInvenSlot = (INVENTORY_SLOT_TYPE)((UINT)mNextInvenSlot + 1);
 		}
 

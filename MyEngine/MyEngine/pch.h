@@ -59,6 +59,7 @@
 #define MOUSE_POS MouseMgr::GetInstance().GetMousePos()
 #define GET_INVENTORY_UI static_cast<InventoryUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::INVENTORY))
 #define GET_DUNGEON_MAP_UI static_cast<DungeonMapUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::DUNGEON_MAP))
+#define GET_DUNGEON_CLEAR_UI static_cast<DungeonClearUI*>(UIMgr::GetInstance().GetUI(UI_TYPE::DUNGEON_CLEAR))
 #define GET_HP_HUD static_cast<HPHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::HP))
 #define GET_DASH_HUD static_cast<DashCountHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::DASH_GAUGE))
 #define GET_NPCLINE_HUD static_cast<NPCLineHUD*>(UIMgr::GetInstance().GetHUD(HUD_TYPE::NPC_LINE))

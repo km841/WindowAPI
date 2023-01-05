@@ -32,6 +32,7 @@
 #include "ToolWindows.h"
 #include "SoundMgr.h"
 #include "DungeonMapUI.h"
+#include "DungeonClearUI.h"
 
 
 TownScene::TownScene()
@@ -190,6 +191,7 @@ void TownScene::Enter()
 
 	InventoryUI* inven = GET_INVENTORY_UI;
 	DungeonMapUI* dungeonMap = GET_DUNGEON_MAP_UI;
+	DungeonClearUI* dungeonClear = GET_DUNGEON_CLEAR_UI;
 	HPHUD* hpHUD = GET_HP_HUD;
 	DashCountHUD* dashHUD = GET_DASH_HUD;
 	NPCLineHUD* npcLineHUD = GET_NPCLINE_HUD;
@@ -218,6 +220,7 @@ void TownScene::Enter()
 	AddGameObject(blackSmithNPC, blackSmithNPC->GetType());
 	AddGameObject(inven, inven->GetType());
 	AddGameObject(dungeonMap, dungeonMap->GetType());
+	AddGameObject(dungeonClear, dungeonClear->GetType());
 	AddGameObject(hpHUD, hpHUD->GetType());
 	AddGameObject(dashHUD, dashHUD->GetType());
 	AddGameObject(equipedHUD, equipedHUD->GetType());
@@ -262,6 +265,7 @@ void TownScene::Exit()
 															GET_MINIMAP_HUD,
 															GET_BOSSHP_HUD,
 															GET_BOSS_APPEAR_HUD,
+															GET_DUNGEON_CLEAR_UI,
 															Player::GetPlayer());
 
 	Player::GetPlayer()->SetPrevScene(GetSceneType());

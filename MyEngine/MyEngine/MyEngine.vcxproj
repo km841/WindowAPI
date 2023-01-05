@@ -176,6 +176,7 @@
     <ClInclude Include="CoinGatlingGun.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="DashCountHUD.h" />
+    <ClInclude Include="DungeonClearUI.h" />
     <ClInclude Include="DungeonMapUI.h" />
     <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="DustEffect.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="CoinGatlingGun.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DashCountHUD.cpp" />
+    <ClCompile Include="DungeonClearUI.cpp" />
     <ClCompile Include="DungeonMapUI.cpp" />
     <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="DustEffect.cpp" />

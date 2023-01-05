@@ -23,7 +23,6 @@ CoinGatlingGun::CoinGatlingGun()
 	, mShotSound(nullptr)
 {
 	mReadySound = LOAD_SOUND(L"GatlingReady", L"Sound\\GatlingReady.wav");
-	//mReadySound->SetVolume(200);
 	mShotSound = LOAD_SOUND(L"GatlingShot", L"Sound\\GatlingShot.wav");
 
 	SetType(OBJECT_TYPE::DROP_ITEM);
@@ -151,6 +150,7 @@ void CoinGatlingGun::Update()
 					{
 						mShotSound->Play(false);
 					}
+
 					Player::GetPlayer()->DecreaseMoney();
 					CameraMgr::GetInstance().SetEffect(CAMERA_EFFECT::SHAKE, 0.01f);
 				}

@@ -16,6 +16,7 @@
 #include "MinimapHUD.h"
 #include "BossHPHUD.h"
 #include "BossAppearHUD.h"
+#include "DungeonClearUI.h"
 
 UIMgr::UIMgr()
 {
@@ -30,6 +31,7 @@ void UIMgr::Initialize()
 {
 	DisableUI(UI_TYPE::INVENTORY);
 	DisableUI(UI_TYPE::DUNGEON_MAP);
+	DisableUI(UI_TYPE::DUNGEON_CLEAR);
 	EnableHUD(HUD_TYPE::HP);
 	EnableHUD(HUD_TYPE::DASH_GAUGE);
 	EnableHUD(HUD_TYPE::EQUIPED);
@@ -140,6 +142,12 @@ UI* UIMgr::ActiveUI(UI_TYPE _type)
 
 		case UI_TYPE::DUNGEON_MAP:
 			ui = new DungeonMapUI;
+			ui->Initialize();
+			ui->SetState(true);
+			break;
+
+		case UI_TYPE::DUNGEON_CLEAR:
+			ui = new DungeonClearUI;
 			ui->Initialize();
 			ui->SetState(true);
 			break;

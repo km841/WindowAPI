@@ -66,32 +66,22 @@ void LineCollider::Render()
 	Vec2 leftPos = RENDER_POS(mLeftPos);
 	Vec2 rightPos = RENDER_POS(mRightPos);
 
-
 	HPEN pen = 0;
 
-	
-	if (mColCnt > 0)
+	switch (mLineType)
 	{
-		pen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-	}
+	case LINE_TYPE::FLAT:
+	case LINE_TYPE::DEGREE_135:
+	case LINE_TYPE::DEGREE_45:
+		pen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
+		break;
 
-	else
-	{
-		switch (mLineType)
-		{
-		case LINE_TYPE::FLAT:
-		case LINE_TYPE::DEGREE_135:
-		case LINE_TYPE::DEGREE_45:
-			pen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-			break;
+	case LINE_TYPE::FLAT_WALL:
+	case LINE_TYPE::DEGREE_135_WALL:
+	case LINE_TYPE::DEGREE_45_WALL:
+		pen = CreatePen(PS_SOLID, 2, RGB(128, 128, 255));
+		break;
 
-		case LINE_TYPE::FLAT_WALL:
-		case LINE_TYPE::DEGREE_135_WALL:
-		case LINE_TYPE::DEGREE_45_WALL:
-			pen = CreatePen(PS_SOLID, 2, RGB(128, 128, 255));
-			break;
-
-		}
 	}
 
 	HPEN oldPen = (HPEN)SelectObject(BACK_BUF_DC, pen);
