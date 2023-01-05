@@ -18,6 +18,8 @@ TimeMgr::TimeMgr()
 	, mCallCount(0)
 	, mFPS(0)
 	, mDTChange(false)
+	, mAccSec(0)
+	, mCountTime(false)
 {
 }
 
@@ -67,9 +69,12 @@ void TimeMgr::Render()
 	if (mAcc >= 1.)
 	{
 		mFPS = mCallCount;
-
+		
 		mAcc = 0.;
 		mCallCount = 0;
+
+		if (mCountTime)
+			++mAccSec;
 
 		wchar_t szBuffer[256] = {};
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", mFPS, mDT);

@@ -25,6 +25,7 @@
 
 Texture* Monster::mHPBaseTex = nullptr;
 Texture* Monster::mHPTex     = nullptr;
+UINT Monster::mKillCount = 0;
 
 Monster::Monster()
 	: mAI(nullptr)
@@ -277,6 +278,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+				++mKillCount;
 			}
 		}
 	}
@@ -366,6 +368,7 @@ void Monster::OnCollisionEnter(Collider* _other)
 				}
 				SetObjState(OBJECT_STATE::DEAD_ANIM);
 				EventRegisteror::GetInstance().ChangeMonsterState(mAI, MONSTER_STATE::DEAD);
+				++mKillCount;
 			}
 
 		}

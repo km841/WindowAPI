@@ -163,6 +163,39 @@ FontMgr::FontMgr()
     }
 
     mTextMap.insert(std::make_pair(L'~', info));
+
+    
+
+    std::wstring clearInfo = L"층관문처치";
+    for (int i = 0; i < clearInfo.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 260);
+        info.mSlice = otherSlice;
+
+        mTextMap.insert(std::make_pair(clearInfo[i], info));
+    }
+
+    clearInfo = L"hms";
+    for (int i = 0; i < clearInfo.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(14 * i, 287);
+        info.mSlice = Vec2(14, 22);
+
+        mTextMap.insert(std::make_pair(clearInfo[i], info));
+    }
+
+    clearInfo = L"몬스터-";
+    for (int i = 0; i < clearInfo.size(); ++i)
+    {
+        TextInfo info = {};
+        info.mLTPos = Vec2(21 * i, 309);
+        info.mSlice = Vec2(21, 27);
+
+        mTextMap.insert(std::make_pair(clearInfo[i], info));
+    }
+
 }
 
 FontMgr::~FontMgr()

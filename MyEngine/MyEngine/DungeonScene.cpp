@@ -24,6 +24,7 @@
 #include "DungeonMapUI.h"
 #include "KeyMgr.h"
 #include "UIMgr.h"
+#include "TimeMgr.h"
 
 DungeonScene::DungeonScene()
 	: mClear(false)
@@ -128,7 +129,7 @@ void DungeonScene::Destroy()
 void DungeonScene::Enter()
 {
 	SoundMgr::GetInstance().ChangeBGM(GetSceneType());
-
+	TimeMgr::GetInstance().CountTimeBegin();
 	mCurStage->Initialize();
 	mCurStage->Enter();
 

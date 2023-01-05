@@ -48,6 +48,9 @@ void UIMgr::Update()
 	const std::vector<GameObject*>& uiGroup =
 		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::UI);
 
+	const std::vector<GameObject*>& uniqueUIGroup =
+		SceneMgr::GetInstance().GetCurScene()->GetObjectGroup(OBJECT_TYPE::UNIQUE_UI);
+
 	for (int i = 0; i < uiGroup.size(); ++i)
 	{
 		UI* ui = static_cast<UI*>(uiGroup[i]);
@@ -61,6 +64,22 @@ void UIMgr::Update()
 		if (ui->OnClicked()) 
 			ui->mOnClicked = true;
 		else				 
+			ui->mOnClicked = false;
+	}
+
+	for (int i = 0; i < uniqueUIGroup.size(); ++i)
+	{
+		UI* ui = static_cast<UI*>(uniqueUIGroup[i]);
+
+		if (ui->OnMouse())
+			ui->mOnMouse = true;
+		else
+			ui->mOnMouse = false;
+
+
+		if (ui->OnClicked())
+			ui->mOnClicked = true;
+		else
 			ui->mOnClicked = false;
 	}
 

@@ -98,13 +98,16 @@ public:
     virtual void RecogLineRender(PEN_TYPE _penType) {};
     virtual void AttRangeLineRender(PEN_TYPE _penType) {};
 
-
+    
     
 
 public:
     virtual void OnCollision(Collider* _other);
     virtual void OnCollisionEnter(Collider* _other);
     virtual void OnCollisionExit(Collider* _other);
+
+public:
+    static UINT GetKillCount() { return mKillCount; }
 
 protected:
     AI* mAI;
@@ -131,6 +134,8 @@ protected:
 
     Vec2 mHPBarOffset;
     bool mAttFlag;
+
+    static UINT mKillCount;
 private:
     std::wstring mIdleAnimName;
     std::wstring mMoveAnimName;

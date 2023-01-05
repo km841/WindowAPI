@@ -15,6 +15,8 @@ public:
 	void ChangeBGM(SCENE_TYPE _type);
 	void ChangeBGM(Sound* _sound);
 
+	void StopBGM();
+
 private:
 	LPDIRECTSOUND8 mSoundDevice;
 	Sound* mBGMSound;

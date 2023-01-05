@@ -13,6 +13,10 @@
 #include "EventRegisteror.h"
 #include "Map.h"
 #include "Player.h"
+#include "TimeMgr.h"
+#include "Monster.h"
+#include "UIMgr.h"
+#include "DungeonClearUI.h"
 
 BossRoomGate::BossRoomGate()
 	:mState(DOOR_STATE::OPEN)
@@ -80,6 +84,12 @@ void BossRoomGate::Update()
 				{
 					// GameClear
 					// UI ¶ç¿ì°í ¿£µù¾ÀÀ¸·Î
+					UINT countTime = TimeMgr::GetInstance().GetCountTime();
+					UINT killCount = Monster::GetKillCount();
+					int money = Player::GetPlayer()->GetMoney();
+
+					GET_DUNGEON_CLEAR_UI->SetupTexture(countTime, killCount, money);
+
 					EventRegisteror::GetInstance().EnableUI(UI_TYPE::DUNGEON_CLEAR);
 					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::HP);
 					EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::EQUIPED);

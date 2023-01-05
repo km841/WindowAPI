@@ -62,3 +62,8 @@ void SoundMgr::ChangeBGM(Sound* _sound)
 	mBGMSound = _sound;
 	mBGMSound->Play(true);
 }
+
+void SoundMgr::StopBGM()
+{
+	mBGMSound->Stop(true);
+}

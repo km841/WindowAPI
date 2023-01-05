@@ -18,6 +18,9 @@ public:
     void SetDeltaTime(float _magn, float _maxTime);
     inline bool IsDTChange() const { return mDTChange; }
 
+    void CountTimeBegin() { mCountTime = true; }
+    UINT GetCountTime() { return mAccSec; }
+
 private:
     LARGE_INTEGER mPrevCount;
     LARGE_INTEGER mCurCount;
@@ -33,6 +36,9 @@ private:
     double mAcc;
     UINT mCallCount;
     UINT mFPS;
+
+    bool mCountTime;
+    UINT mAccSec;
 
 
 };
