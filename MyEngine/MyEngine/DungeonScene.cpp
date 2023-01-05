@@ -183,6 +183,8 @@ void DungeonScene::SetCollisionFlag()
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::PLAYER, OBJECT_TYPE::DROP_ITEM);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::WALL, OBJECT_TYPE::DROP_ITEM);
 	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::FOOTHOLD, OBJECT_TYPE::DROP_ITEM);
+
+	
 }
 
 void DungeonScene::ChangeStage(STAGE_TYPE _type)

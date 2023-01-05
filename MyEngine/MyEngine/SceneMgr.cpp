@@ -33,7 +33,6 @@ void SceneMgr::Initialize()
 {
 	mScenes[(UINT)SCENE_TYPE::TITLE] = new TitleScene;
 	mScenes[(UINT)SCENE_TYPE::TOOL] = new ToolScene;
-	mScenes[(UINT)SCENE_TYPE::PLAY] = new PlayScene;
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
 	mScenes[(UINT)SCENE_TYPE::DUNGEON] = new DungeonScene;
 

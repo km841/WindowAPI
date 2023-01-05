@@ -20,7 +20,7 @@ public:
 	virtual void OnCollisionEnter(Collider* _other);
 	virtual void OnCollisionExit(Collider* _other);
 
-private:
+protected:
 	bool mCollision;
 	Texture* mKeyTex;
 
@@ -28,6 +28,8 @@ private:
 	Texture* mOpenedTex;
 
 	CHEST_STATE mState;
+
+	int mMoney;
 
 };
 

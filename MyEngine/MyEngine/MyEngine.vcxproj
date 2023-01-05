@@ -161,6 +161,7 @@
     <ClInclude Include="BlackSmithNPC.h" />
     <ClInclude Include="BoomEffect.h" />
     <ClInclude Include="BossAppearHUD.h" />
+    <ClInclude Include="BossChest.h" />
     <ClInclude Include="BossHPHUD.h" />
     <ClInclude Include="BossIdleState.h" />
     <ClInclude Include="BossMap.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="DungeonMapUI.h" />
     <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="DustEffect.h" />
+    <ClInclude Include="Fairy.h" />
     <ClInclude Include="FontObject.h" />
     <ClInclude Include="DashEffect.h" />
     <ClInclude Include="DungeonEatEvent.h" />
@@ -266,7 +268,6 @@
     <ClInclude Include="MyEngine.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Res.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMgr.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="BlackSmithNPC.cpp" />
     <ClCompile Include="BoomEffect.cpp" />
     <ClCompile Include="BossAppearHUD.cpp" />
+    <ClCompile Include="BossChest.cpp" />
     <ClCompile Include="BossHPHUD.cpp" />
     <ClCompile Include="BossIdleState.cpp" />
     <ClCompile Include="BossMap.cpp" />
@@ -330,6 +332,7 @@
     <ClCompile Include="DungeonMapUI.cpp" />
     <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="DustEffect.cpp" />
+    <ClCompile Include="Fairy.cpp" />
     <ClCompile Include="FontObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
     <ClCompile Include="DungeonEatEvent.cpp" />
@@ -423,7 +426,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Res.cpp" />
     <ClCompile Include="ResourceMgr.cpp" />
     <ClCompile Include="Scene.cpp" />

@@ -7,6 +7,9 @@
 #include "CameraMgr.h"
 #include "KeyMgr.h"
 #include "CoinGatlingGun.h"
+#include "Gold.h"
+#include "GoldBar.h"
+#include "Coin.h"
 
 Chest::Chest()
 	: mCollision(false)
@@ -14,11 +17,13 @@ Chest::Chest()
 	, mOpenedTex(nullptr)
 	, mClosedTex(nullptr)
 	, mState(CHEST_STATE::CLOSE)
+	, mMoney(0)
 {
+	mMoney = 190;
 	SetType(OBJECT_TYPE::DUNGEON_OBJECT);
 
-	mOpenedTex = LOAD_TEXTURE(L"ChestOpenedTex", L"Texture\\ChestOpened.bmp");
-	mClosedTex = LOAD_TEXTURE(L"ChestClosedTex", L"Texture\\ChestClosed.bmp");
+	mOpenedTex = LOAD_TEXTURE(L"ChestOpenedTex", L"Texture\\YellowTresureOpened.bmp");
+	mClosedTex = LOAD_TEXTURE(L"ChestClosedTex", L"Texture\\YellowTresureClosed.bmp");
 	mKeyTex = LOAD_TEXTURE(L"F_KEY", L"Texture\\F.bmp");
 
 	CreateComponent(new Collider);
@@ -49,6 +54,22 @@ void Chest::Update()
 		Vec2 pos = GetPos();
 		pos.y -= 30.f;
 		coinGun->Drop(pos);
+
+		int billion = mMoney / 100;
+		int changes = mMoney % 100;
+		int coin = changes / 10;
+
+		for (int i = 0; i < billion; ++i)
+		{
+			int randomAngle = 250 + (rand() % 40);
+			Gold::Drop(new GoldBar, pos, 100, (float)randomAngle);
+		}
+
+		for (int i = 0; i < coin; ++i)
+		{
+			int randomAngle = 250 + (rand() % 40);
+			Gold::Drop(new Coin, pos, 10, (float)randomAngle);
+		}
 	}
 
 }

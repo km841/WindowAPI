@@ -15,6 +15,7 @@ public:
     virtual void Enter();
     virtual void Exit();
 
-
+private:
+    BOSS_CONTROL_STATE mState;
 };
 

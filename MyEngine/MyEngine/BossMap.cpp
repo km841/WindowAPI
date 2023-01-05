@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "SceneMgr.h"
 #include "Stage.h"
+#include "CollisionMgr.h"
 
 BossMap::BossMap(const std::wstring& _path)
 	:Map(_path)
@@ -53,12 +54,16 @@ void BossMap::Enter()
 {
 	Map::Enter();
 	EventRegisteror::GetInstance().DisableHUD(HUD_TYPE::MINIMAP);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DUNGEON_OBJECT, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DUNGEON_OBJECT, OBJECT_TYPE::FOOTHOLD);
 }
 
 void BossMap::Exit()
 {
 	Map::Exit();
 	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::MINIMAP);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DUNGEON_OBJECT, OBJECT_TYPE::WALL);
+	CollisionMgr::GetInstance().SetCollision(OBJECT_TYPE::DUNGEON_OBJECT, OBJECT_TYPE::FOOTHOLD);
 	
 	GetOwnerStage()->SetClear(true);
 	//SceneMgr::GetInstance().GetCurScene()->DeleteObjGroup(OBJECT_TYPE::MONSTER_EFFECT);

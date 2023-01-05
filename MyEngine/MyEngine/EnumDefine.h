@@ -40,7 +40,6 @@ enum class SCENE_TYPE
 {
 	TITLE,
 	TOOL,
-	PLAY,
 	TOWN,
 	DUNGEON,
 	END,
@@ -467,5 +466,12 @@ enum class BELIAL_LASER_TYPE
 {
 	HEAD,
 	BODY,
+	END,
+};
+
+enum class BOSS_CONTROL_STATE
+{
+	AUTO,
+	MANUAL,
 	END,
 };

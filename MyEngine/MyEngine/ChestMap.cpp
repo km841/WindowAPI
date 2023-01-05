@@ -36,7 +36,7 @@ void ChestMap::Enter()
 	Map::Enter();
 
 	Chest* chest = new Chest;
-	chest->SetPos(Vec2(350, 1155));
+	chest->SetPos(Vec2(350, 1153));
 
 	EventRegisteror::GetInstance().CreateObject(chest, chest->GetType());
 }

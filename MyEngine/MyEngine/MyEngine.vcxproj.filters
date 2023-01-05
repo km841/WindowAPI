@@ -91,9 +91,6 @@
     <Filter Include="Engine\Scene\ToolScene">
       <UniqueIdentifier>{129b519f-5785-4b32-acd3-b0f7dd63a68a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\PlayScene">
-      <UniqueIdentifier>{e528c7ea-5de1-4f1f-811f-954cca3fa2dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene\TitleScene">
       <UniqueIdentifier>{2c2b3fea-15ea-4da7-8a99-b59cc4dbdca0}</UniqueIdentifier>
     </Filter>
@@ -557,6 +554,12 @@
     <Filter Include="Engine\GameObject\UI\DungeonClearUI">
       <UniqueIdentifier>{becec909-29f1-4758-831e-79cae8136c7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Fairy">
+      <UniqueIdentifier>{4d02a517-1eae-4ce7-ae19-7c0725651e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\MapComponent\Chest\BossChest">
+      <UniqueIdentifier>{2f48c269-30ad-4f0c-963d-9cb860a57888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -639,9 +642,6 @@
     </ClInclude>
     <ClInclude Include="ToolScene.h">
       <Filter>Engine\Scene\ToolScene</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Engine\Scene\PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Engine\Scene\TitleScene</Filter>
@@ -1003,6 +1003,12 @@
     <ClInclude Include="DungeonClearUI.h">
       <Filter>Engine\GameObject\UI\DungeonClearUI</Filter>
     </ClInclude>
+    <ClInclude Include="Fairy.h">
+      <Filter>Engine\GameObject\MapComponent\Fairy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossChest.h">
+      <Filter>Engine\GameObject\MapComponent\Chest\BossChest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyEngine.rc">
@@ -1089,9 +1095,6 @@
     </ClCompile>
     <ClCompile Include="ToolScene.cpp">
       <Filter>Engine\Scene\ToolScene</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Engine\Scene\PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Engine\Scene\TitleScene</Filter>
@@ -1452,6 +1455,12 @@
     </ClCompile>
     <ClCompile Include="DungeonClearUI.cpp">
       <Filter>Engine\GameObject\UI\DungeonClearUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Fairy.cpp">
+      <Filter>Engine\GameObject\MapComponent\Fairy</Filter>
+    </ClCompile>
+    <ClCompile Include="BossChest.cpp">
+      <Filter>Engine\GameObject\MapComponent\Chest\BossChest</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

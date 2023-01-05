@@ -23,7 +23,6 @@ Belial::Belial()
 	
 {
 	mSound = LOAD_SOUND(L"MonsterHit", L"Sound\\MonsterHit.wav");
-	
 
 	mMonType = MONSTER_TYPE::BOSS_BELIAL;
 	SetGravity(false);
@@ -266,6 +265,7 @@ bool Belial::BelialSwordSkill()
 	{
 		if (mSwordSpawnMaxTime < mSwordSpawnCurTime)
 		{
+			// 불러오는걸로 하자
 			mSwordSpawnCurTime = 0.f;
 
 			initPos.x += mSwordCurCount * 150;

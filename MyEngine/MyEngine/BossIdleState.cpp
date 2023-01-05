@@ -11,6 +11,7 @@
 
 BossIdleState::BossIdleState()
 	: MonsterState(MONSTER_STATE::BOSS_IDLE)
+	, mState(BOSS_CONTROL_STATE::MANUAL)
 {
 
 }
@@ -31,23 +32,51 @@ void BossIdleState::Update()
 			// 1번 누르면 몬스터에게 enum값으로 해당 스킬이 정해짐
 			// 스킬로 넘어가면 해당 스킬이 사용됨
 
-			if (IS_JUST_PRESSED(KEY::ONE))
+			if (BOSS_CONTROL_STATE::MANUAL == mState)
 			{
-				static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_1);
-				EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+				if (IS_JUST_PRESSED(KEY::ONE))
+				{
+					static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_1);
+					EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+				}
+
+				if (IS_JUST_PRESSED(KEY::TWO))
+				{
+					static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_2);
+					EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+				}
+
+				if (IS_JUST_PRESSED(KEY::THREE))
+				{
+					static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_3);
+					EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+				}
+
+				if (IS_JUST_PRESSED(KEY::P))
+				{
+					mState = BOSS_CONTROL_STATE::AUTO;
+				}
 			}
 
-			if (IS_JUST_PRESSED(KEY::TWO))
+			else if (BOSS_CONTROL_STATE::AUTO == mState)
 			{
-				static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_2);
-				EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+				int randValue = rand() % 2;
+
+				switch (randValue)
+				{
+				case 0:
+					static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_1);
+					EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+					break;
+
+				case 1:
+					static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_3);
+					EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
+					break;
+				}
 			}
 
-			if (IS_JUST_PRESSED(KEY::THREE))
-			{
-				static_cast<BossMonster*>(bossMonster)->SetCurSkill(BOSS_SKILL::SKILL_3);
-				EventRegisteror::GetInstance().ChangeMonsterState(ai, MONSTER_STATE::BOSS_SKILL);
-			}
+
 		}
 	}
 
