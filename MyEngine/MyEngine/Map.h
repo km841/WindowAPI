@@ -45,6 +45,9 @@ public:
 	inline bool GetChecked() const { return mChecked; }
 
 	bool IsDuplicationLink(Map* _map);
+	//bool IsBossPassage();
+
+	inline bool IsClear() const { return mClear; }
 
 private:
 	MAP_TYPE mMapType;

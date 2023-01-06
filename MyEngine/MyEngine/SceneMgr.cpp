@@ -4,11 +4,11 @@
 #include "ToolScene.h"
 #include "PlayScene.h"
 #include "TownScene.h"
-#include "Dungeon1Scene.h"
-#include "Dungeon2Scene.h"
 #include "GameObject.h"
+#include "DungeonScene.h"
 #include "Scene.h"
 #include "Collider.h"
+#include "EndingScene.h"
 
 SceneMgr::SceneMgr()
 	: mScenes{}
@@ -34,6 +34,7 @@ void SceneMgr::Initialize()
 	mScenes[(UINT)SCENE_TYPE::TITLE] = new TitleScene;
 	mScenes[(UINT)SCENE_TYPE::TOOL] = new ToolScene;
 	mScenes[(UINT)SCENE_TYPE::TOWN] = new TownScene;
+	mScenes[(UINT)SCENE_TYPE::ENDING] = new EndingScene;
 	mScenes[(UINT)SCENE_TYPE::DUNGEON] = new DungeonScene;
 
 	mCurScene = mScenes[(UINT)SCENE_TYPE::TITLE];

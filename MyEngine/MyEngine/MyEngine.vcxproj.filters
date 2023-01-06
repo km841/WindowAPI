@@ -560,6 +560,15 @@
     <Filter Include="Engine\GameObject\MapComponent\Chest\BossChest">
       <UniqueIdentifier>{2f48c269-30ad-4f0c-963d-9cb860a57888}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\EndingScene">
+      <UniqueIdentifier>{9de6660b-aba8-49ce-a637-99ba84e095d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\EndingObject">
+      <UniqueIdentifier>{aca36164-c00d-4e81-908c-dcc2cbfa8579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\HUD\GuideHUD">
+      <UniqueIdentifier>{48d853c5-248a-47e4-8584-0e55ed5c786e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -1008,6 +1017,15 @@
     </ClInclude>
     <ClInclude Include="BossChest.h">
       <Filter>Engine\GameObject\MapComponent\Chest\BossChest</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingScene.h">
+      <Filter>Engine\Scene\EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingLogo.h">
+      <Filter>Engine\GameObject\EndingObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GuideHUD.h">
+      <Filter>Engine\GameObject\HUD\GuideHUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1461,6 +1479,15 @@
     </ClCompile>
     <ClCompile Include="BossChest.cpp">
       <Filter>Engine\GameObject\MapComponent\Chest\BossChest</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Engine\Scene\EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingLogo.cpp">
+      <Filter>Engine\GameObject\EndingObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GuideHUD.cpp">
+      <Filter>Engine\GameObject\HUD\GuideHUD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

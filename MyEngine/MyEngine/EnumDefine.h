@@ -42,6 +42,7 @@ enum class SCENE_TYPE
 	TOOL,
 	TOWN,
 	DUNGEON,
+	ENDING,
 	END,
 };
 
@@ -203,6 +204,7 @@ enum class HUD_TYPE
 	ITEM_INFO,
 	BOSS_HP,
 	BOSS_APPEAR,
+	GUIDE,
 	END,
 };
 
@@ -380,6 +382,7 @@ enum class WARP_POINT
 enum class MAP_TYPE
 {
 	NORMAL,
+	START,
 	BOSS_SIDE,
 	BOSS,
 	BOSS_NEXT,

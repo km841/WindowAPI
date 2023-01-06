@@ -86,18 +86,32 @@ void TitleScene::Enter()
 	std::function<void()> exitBtnCallback = []() {PostMessage(APP_INSTANCE.GetHwnd(), WM_QUIT, 0, 0); };
 
 	// FrondCloud Setting
-	InfRepeatBg* fUI = new InfRepeatBg;
-	fUI->SetTexture(frontCloud);
-	fUI->SetSpeed(70.f);
-	fUI->SetSize(frontCloud->GetSize());
-	fUI->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
+	InfRepeatBg* fUIFront = new InfRepeatBg;
+	fUIFront->SetTexture(frontCloud);
+	fUIFront->SetSpeed(70.f);
+	fUIFront->SetSize(frontCloud->GetSize());
+	fUIFront->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
+
+	InfRepeatBg* fUIBack = new InfRepeatBg;
+	fUIBack->SetTexture(frontCloud);
+	fUIBack->SetSpeed(70.f);
+	fUIBack->SetSize(frontCloud->GetSize());
+	fUIBack->SetType(OBJECT_TYPE::BACKGROUND_MIDDLE);
+	fUIBack->SetPos(Vec2(-frontCloud->GetWidth(), 0));
 
 	// BackCloud Setting
-	InfRepeatBg* bUI = new InfRepeatBg;
-	bUI->SetTexture(backCloud);
-	bUI->SetSpeed(15.f);
-	bUI->SetSize(backCloud->GetSize());
-	bUI->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
+	InfRepeatBg* bUIFront = new InfRepeatBg;
+	bUIFront->SetTexture(backCloud);
+	bUIFront->SetSpeed(15.f);
+	bUIFront->SetSize(backCloud->GetSize());
+	bUIFront->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
+
+	InfRepeatBg* bUIBack = new InfRepeatBg;
+	bUIBack->SetTexture(backCloud);
+	bUIBack->SetSpeed(15.f);
+	bUIBack->SetSize(backCloud->GetSize());
+	bUIBack->SetType(OBJECT_TYPE::BACKGROUND_FIRST);
+	bUIBack->SetPos(Vec2(-frontCloud->GetWidth(), 0));
 
 	// Logo Setting
 	InfRepeatBg* logoUI = new InfRepeatBg;
@@ -145,8 +159,10 @@ void TitleScene::Enter()
 		Vec2(exitButton->GetWidth() / 2.f, (float)exitButton->GetHeight()));
 
 	// UI Register
-	EventRegisteror::GetInstance().CreateObject(fUI, fUI->GetType());
-	EventRegisteror::GetInstance().CreateObject(bUI, bUI->GetType());
+	EventRegisteror::GetInstance().CreateObject(fUIFront, fUIFront->GetType());
+	EventRegisteror::GetInstance().CreateObject(fUIBack, fUIFront->GetType());
+	EventRegisteror::GetInstance().CreateObject(bUIFront, bUIFront->GetType());
+	EventRegisteror::GetInstance().CreateObject(bUIBack, bUIFront->GetType());
 	EventRegisteror::GetInstance().CreateObject(logoUI, logoUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(startBtnUI, startBtnUI->GetType());
 	EventRegisteror::GetInstance().CreateObject(toolBtnUI, toolBtnUI->GetType());

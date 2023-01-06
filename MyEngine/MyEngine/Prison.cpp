@@ -8,7 +8,7 @@
 Prison::Prison()
 	:Stage(STAGE_TYPE::PRISON)
 {
-	mInitPlayerPos = Vec2(TILE_SIZE * 5, GROUND_STANDARD);
+	mInitPlayerPos = Vec2(TILE_SIZE * 9, GROUND_STANDARD);
 	mSubBGTex = LOAD_TEXTURE(L"PrisonSubBG", L"Texture\\PrisonSubBG.bmp");
 }
 
@@ -31,6 +31,7 @@ void Prison::Initialize()
 	AddChestMap(L"..\\Resource\\Map\\Prison_ChestMap_RTB.map");
 
 	mCurMap = GetStartMap();
+	mCurMap->SetMapType(MAP_TYPE::START);
 	// 재귀적으로 nullptr을 찾아서 조립
 
 	SetBossSideMap(new Map(L"..\\Resource\\Map\\Prison_BossSide_R.map"));

@@ -70,8 +70,6 @@ void Foothold::OnCollision(Collider* _other)
 		case LINE_TYPE::FLAT_WALL:
 		case LINE_TYPE::FLAT:
 		{
-			//if (false == _other->GetOwner()->GetGround())
-			//	static_cast<Player*>(_other->GetOwner())->InGround();
 
 			if (mPlayerAbobeMe)
 			{
@@ -89,9 +87,7 @@ void Foothold::OnCollision(Collider* _other)
 					_other->GetOwner()->SetPos(objectPos);
 				}
 			}
-
 		}
-
 			break;
 
 		case LINE_TYPE::DEGREE_45_WALL:
@@ -154,8 +150,10 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos +=  1.f;
-				objectPos +=  1.f ;
+				otherPos.x +=  1.f;
+				otherPos.y -= 1.f;
+				objectPos.x +=  1.f ;
+				objectPos.y -=  1.f ;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}
@@ -176,8 +174,10 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos.y -= 1;
-				objectPos.y -= 1;
+				otherPos.x += 1.f;
+				otherPos.y -= 1.f;
+				objectPos.x += 1.f;
+				objectPos.y -= 1.f;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}
@@ -280,8 +280,10 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos.y -= 1;
-				objectPos.y -= 1;
+				otherPos.x += 1.f;
+				otherPos.y -= 1.f;
+				objectPos.x += 1.f;
+				objectPos.y -= 1.f;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}
@@ -302,8 +304,10 @@ void Foothold::OnCollision(Collider* _other)
 			Vec2 objectPos = _other->GetOwner()->GetPos();
 			if (distance > 5.f)
 			{
-				otherPos.y -= 1;
-				objectPos.y -= 1;
+				otherPos.x += 1.f;
+				otherPos.y -= 1.f;
+				objectPos.x += 1.f;
+				objectPos.y -= 1.f;
 				_other->SetPos(otherPos);
 				_other->GetOwner()->SetPos(objectPos);
 			}

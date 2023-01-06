@@ -7,6 +7,7 @@
 #include "SoundMgr.h"
 #include "FontMgr.h"
 #include "ButtonUI.h"
+#include "EventRegisteror.h"
 
 
 DungeonClearUI::DungeonClearUI()
@@ -78,7 +79,7 @@ DungeonClearUI::DungeonClearUI()
 		, Vec2(exitButtonTex->GetWidth() / 2, exitButtonTex->GetHeight()));
 
 	// Ending Scene
-	//exitButton->SetEvent();
+	exitButton->SetEvent([]() {EventRegisteror::GetInstance().ChangeScene(SCENE_TYPE::TITLE); });
 
 	AddChild(exitButton);
 }

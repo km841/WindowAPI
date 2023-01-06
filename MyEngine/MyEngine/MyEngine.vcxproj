@@ -181,6 +181,8 @@
     <ClInclude Include="DungeonMapUI.h" />
     <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="DustEffect.h" />
+    <ClInclude Include="EndingLogo.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="Fairy.h" />
     <ClInclude Include="FontObject.h" />
     <ClInclude Include="DashEffect.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="GiantSkullWarrior.h" />
     <ClInclude Include="Gold.h" />
     <ClInclude Include="GoldBar.h" />
+    <ClInclude Include="GuideHUD.h" />
     <ClInclude Include="HomingMissileEffect.h" />
     <ClInclude Include="HPHUD.h" />
     <ClInclude Include="HUD.h" />
@@ -332,6 +335,8 @@
     <ClCompile Include="DungeonMapUI.cpp" />
     <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="DustEffect.cpp" />
+    <ClCompile Include="EndingLogo.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="Fairy.cpp" />
     <ClCompile Include="FontObject.cpp" />
     <ClCompile Include="DashEffect.cpp" />
@@ -344,6 +349,7 @@
     <ClCompile Include="GiantSkullWarrior.cpp" />
     <ClCompile Include="Gold.cpp" />
     <ClCompile Include="GoldBar.cpp" />
+    <ClCompile Include="GuideHUD.cpp" />
     <ClCompile Include="HomingMissileEffect.cpp" />
     <ClCompile Include="HPHUD.cpp" />
     <ClCompile Include="HUD.cpp" />

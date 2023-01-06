@@ -25,6 +25,7 @@
 #include "KeyMgr.h"
 #include "UIMgr.h"
 #include "TimeMgr.h"
+#include "GuideHUD.h"
 
 DungeonScene::DungeonScene()
 	: mClear(false)
@@ -134,10 +135,15 @@ void DungeonScene::Enter()
 	mCurStage->Enter();
 
 	SetCollisionFlag();
+
+	GET_GUIDE_HUD->SetupType(mSceneType);
+	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::GUIDE);
 }
 
 void DungeonScene::Exit()
 {
+	CameraMgr::GetInstance().SetTrackingObject(nullptr);
+
 	CleanObjectGroup(OBJECT_TYPE::PLAYER_EFFECT);
 	CleanObjectGroup(OBJECT_TYPE::MONSTER_EFFECT);
 	DeleteObjGroup(OBJECT_TYPE::EVENT_OBJECT);
@@ -147,6 +153,7 @@ void DungeonScene::Exit()
 	DeleteObjGroup(OBJECT_TYPE::PARTICLE);
 	CleanObjectGroup(OBJECT_TYPE::WALL);
 	CleanObjectGroup(OBJECT_TYPE::FOOTHOLD);
+	CleanObjectGroup(OBJECT_TYPE::DUMMY);
 	SetCollisionFlag();
 	// 스테이지 정리
 

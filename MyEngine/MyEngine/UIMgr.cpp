@@ -17,6 +17,7 @@
 #include "BossHPHUD.h"
 #include "BossAppearHUD.h"
 #include "DungeonClearUI.h"
+#include "GuideHUD.h"
 
 UIMgr::UIMgr()
 {
@@ -41,6 +42,7 @@ void UIMgr::Initialize()
 	DisableHUD(HUD_TYPE::ITEM_INFO);
 	DisableHUD(HUD_TYPE::BOSS_HP);
 	DisableHUD(HUD_TYPE::BOSS_APPEAR);
+	DisableHUD(HUD_TYPE::GUIDE);
 }
 
 void UIMgr::Update()
@@ -289,6 +291,12 @@ HUD* UIMgr::ActiveHUD(HUD_TYPE _type)
 
 		case HUD_TYPE::BOSS_APPEAR:
 			hud = new BossAppearHUD;
+			hud->Initialize();
+			hud->SetState(true);
+			break;
+
+		case HUD_TYPE::GUIDE:
+			hud = new GuideHUD;
 			hud->Initialize();
 			hud->SetState(true);
 			break;

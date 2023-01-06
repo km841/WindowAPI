@@ -110,7 +110,8 @@ void Map::Initialize()
 		case TOOL_ID::BTN_BELIAL_DOOR:
 		case TOOL_ID::BTN_NIFLHEIM_DOOR:
 		{
-			if (MAP_TYPE::BOSS_SIDE == mMapType)
+			if (MAP_TYPE::BOSS_SIDE == mMapType ||
+				MAP_TYPE::START == mMapType)
 			{
 				static_cast<BossRoomGate*>(dunObjVec[i])->SetDoorState(DOOR_STATE::CLOSE);
 			}
@@ -270,6 +271,7 @@ void Map::Enter()
 		{
 			switch (mMapType)
 			{
+			case MAP_TYPE::START:
 			case MAP_TYPE::NORMAL:
 			{
 

@@ -142,6 +142,7 @@ void DungeonMapUI::Render()
 
 					if (nullptr != curMap)
 					{
+						
 						TransparentBlt(
 							BACK_BUF_DC,
 							(int)(mCenterPos.x - unitMapSize.x / 2.f),
@@ -154,6 +155,8 @@ void DungeonMapUI::Render()
 							(int)unitMapSize.y,
 							RGB_MAGENTA
 						);
+						
+
 					}
 
 
@@ -273,6 +276,9 @@ void DungeonMapUI::DrawUnitMap(Map* _curMap, Vec2 _drawPos)
 	if (nullptr == _curMap)
 		return;
 
+	if (false == _curMap->IsClear())
+		return;
+
 	if (mVisited.end() != std::find(mVisited.begin(), mVisited.end(), _curMap))
 		return;
 
@@ -297,6 +303,7 @@ void DungeonMapUI::DrawUnitMap(Map* _curMap, Vec2 _drawPos)
 			(int)unitMapSize.y,
 			RGB_MAGENTA
 		);
+		
 	}		
 
 	for (int i = 0; i < (UINT)WARP_POINT::END; ++i)

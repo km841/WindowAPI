@@ -33,6 +33,7 @@
 #include "SoundMgr.h"
 #include "DungeonMapUI.h"
 #include "DungeonClearUI.h"
+#include "GuideHUD.h"
 
 
 TownScene::TownScene()
@@ -112,7 +113,10 @@ void TownScene::Enter()
 
 	Player* player = new Player;
 	player->SetPos(Vec2(TILE_SIZE * 35, GROUND_STANDARD));
-	//CameraMgr::GetInstance().SetLookPos(player->GetPos());
+
+	Vec2 lookPos = player->GetPos();
+	lookPos.y -= TILE_SIZE + 15;
+	CameraMgr::GetInstance().SetLookPos(lookPos);
 	CameraMgr::GetInstance().SetTrackingObject(player);
 
 
@@ -199,6 +203,7 @@ void TownScene::Enter()
 	ItemGetHUD* itemGetHUD = GET_ITEMGET_HUD;
 	ItemInfoHUD* itemInfoHUD = GET_ITEMINFO_HUD;
 	MinimapHUD* minimapHUD = GET_MINIMAP_HUD;
+	GuideHUD* guideHUD = GET_GUIDE_HUD;
 	
 
 	AddGameObject(townSkyBg, townSkyBg->GetType());
@@ -228,10 +233,14 @@ void TownScene::Enter()
 	AddGameObject(npcLineHUD, npcLineHUD->GetType());
 	AddGameObject(itemInfoHUD, itemInfoHUD->GetType());
 	AddGameObject(minimapHUD, minimapHUD->GetType());
+	AddGameObject(guideHUD, guideHUD->GetType());
 	AddGameObject(eatEvent, eatEvent->GetType());
 
 	Initialize();
 	SetCollisionFlag();
+
+	GET_GUIDE_HUD->SetupType(mSceneType);
+	EventRegisteror::GetInstance().EnableHUD(HUD_TYPE::GUIDE);
 }
 
 void TownScene::Exit()
@@ -266,6 +275,7 @@ void TownScene::Exit()
 															GET_BOSSHP_HUD,
 															GET_BOSS_APPEAR_HUD,
 															GET_DUNGEON_CLEAR_UI,
+															GET_GUIDE_HUD,
 															Player::GetPlayer());
 
 	Player::GetPlayer()->SetPrevScene(GetSceneType());

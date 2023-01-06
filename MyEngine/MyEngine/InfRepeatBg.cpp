@@ -32,21 +32,18 @@ void InfRepeatBg::Update()
 		return;
 
 	Vec2 pos = GetPos();
-	pos.x -= mSpeed * DT;
+	Vec2 size = GetSize();
 
-	if (!mChild && pos.x <= -WINDOW_WIDTH_SIZE)
+	if (pos.x <= -size.x)
 	{
-		mChild = Clone();
-		mChild->SetPos(Vec2(WINDOW_WIDTH_SIZE - (mSpeed * DT), 0.f));
-		EventRegisteror::GetInstance().CreateObject(mChild, mChild->GetType());
+		SetPos(Vec2(size.x, 0.f));
 	}
-
-	if (pos.x <= -(WINDOW_WIDTH_SIZE * 2))
+	else
 	{
-		EventRegisteror::GetInstance().DeleteObject(this);
+		pos.x -= mSpeed * DT;
+		SetPos(pos);
 	}
-
-	SetPos(pos);
+	
 }
 
 void InfRepeatBg::Render()
