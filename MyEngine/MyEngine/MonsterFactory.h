@@ -197,8 +197,8 @@ public:
 			monster->SetPos(_pos);
 
 			info.mAtt = 1;
-			info.mMaxHP = 500;
-			info.mCurHP = 500;
+			info.mMaxHP = 1500;
+			info.mCurHP = 1500;
 
 			monster->SetMonsterInfo(info);
 
